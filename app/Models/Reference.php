@@ -17,6 +17,7 @@ class Reference extends Model
         'authors',
         'type',
         'year',
+        'year_suffix',
         'doi',
         'isbn',
         'url',

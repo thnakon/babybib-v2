@@ -51,6 +51,7 @@ interface Reference {
     authors: string[] | null;
     type: string;
     year: string | null;
+    year_suffix: string | null;
     doi: string | null;
     isbn: string | null;
     url: string | null;
@@ -114,6 +115,8 @@ const translations = {
             report: "Report",
             other: "Other"
         },
+        bibliography: "Bibliography",
+        inText: "In-text Citation",
         viewCitation: "View Citation",
         copyCitation: "Copy Citation",
         quickCite: "Quick Cite",
@@ -208,6 +211,8 @@ const translations = {
             report: "รายงาน",
             other: "อื่นๆ"
         },
+        bibliography: "บรรณานุกรม",
+        inText: "การอ้างอิงในเนื้อหา",
         viewCitation: "ดูการอ้างอิง",
         copyCitation: "คัดลอกการอ้างอิง",
         quickCite: "อ้างอิงด่วน",
@@ -628,7 +633,10 @@ function SortableReferenceItem({
     const getMetadata = () => {
         const title = reference.title;
         const authors = reference.authors ? (Array.isArray(reference.authors) ? reference.authors.join(', ') : reference.authors) : 'Unknown Author';
-        const year = reference.year || 'n.d.';
+        let year = reference.year || 'n.d.';
+        if (reference.year && reference.year_suffix) {
+            year += reference.year_suffix;
+        }
         const source = reference.journal_name || reference.publisher || reference.url || '';
         return { title, authors, year, source };
     };
@@ -1009,6 +1017,7 @@ export default function ReferencesIndex({ references, projects, selectedProjectI
         type: 'book',
         title: '',
         year: '',
+        year_suffix: '',
         isOnline: false,
         lang: 'en', // Bibliography language
         authors: [{ firstName: '', middleName: '', lastName: '', role: 'author' }],
@@ -1796,6 +1805,7 @@ export default function ReferencesIndex({ references, projects, selectedProjectI
                                                                 type: ref.type || 'book',
                                                                 title: ref.title || '',
                                                                 year: ref.year || '',
+                                                                year_suffix: ref.year_suffix || '',
                                                                 isOnline: !!ref.url,
                                                                 lang: 'en',
                                                                 authors: authors,
@@ -1887,12 +1897,46 @@ export default function ReferencesIndex({ references, projects, selectedProjectI
                         <DialogHeader className="p-8 pb-4">
                             <DialogTitle className="text-xl font-black text-scribehub-blue dark:text-white uppercase tracking-widest leading-none">{t.viewCitation || 'Citation'}</DialogTitle>
                         </DialogHeader>
-                        <div className="px-8 py-2">
-                            <div className="rounded-2xl bg-gray-50 dark:bg-gray-800/50 p-6 border border-gray-100 dark:border-gray-700">
-                                <div 
-                                    className="text-sm leading-relaxed text-gray-700 dark:text-gray-300"
-                                    dangerouslySetInnerHTML={{ __html: viewingCitation?.citation || viewingCitation?.title || '' }}
-                                />
+                        <div className="px-8 py-2 space-y-6">
+                            <div className="space-y-2">
+                                <Label className="text-[10px] font-black uppercase tracking-widest text-gray-400">{t.bibliography}</Label>
+                                <div className="rounded-2xl bg-gray-50 dark:bg-gray-800/50 p-6 border border-gray-100 dark:border-gray-700 relative group">
+                                    <div 
+                                        className="text-sm leading-relaxed text-gray-700 dark:text-gray-300 pr-8"
+                                        dangerouslySetInnerHTML={{ __html: viewingCitation?.citation || viewingCitation?.title || '' }}
+                                    />
+                                    <button 
+                                        onClick={() => {
+                                            if (viewingCitation) {
+                                                navigator.clipboard.writeText(viewingCitation.citation.replace(/<[^>]*>/g, ''));
+                                                toast.success(t.toasts.citationCopied);
+                                            }
+                                        }}
+                                        className="absolute top-4 right-4 p-2 rounded-lg bg-white dark:bg-gray-800 shadow-sm opacity-0 group-hover:opacity-100 transition-opacity hover:text-scribehub-blue"
+                                    >
+                                        <Copy className="h-3.5 w-3.5" />
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div className="space-y-2">
+                                <Label className="text-[10px] font-black uppercase tracking-widest text-gray-400">{t.inText}</Label>
+                                <div className="rounded-2xl bg-gray-50 dark:bg-gray-800/50 p-4 border border-gray-100 dark:border-gray-700 relative group">
+                                    <div className="text-sm font-bold text-gray-700 dark:text-gray-300">
+                                        {(viewingCitation as any)?.citation_in_text}
+                                    </div>
+                                    <button 
+                                        onClick={() => {
+                                            if (viewingCitation) {
+                                                navigator.clipboard.writeText((viewingCitation as any).citation_in_text);
+                                                toast.success(t.toasts.citationCopied);
+                                            }
+                                        }}
+                                        className="absolute top-3 right-4 p-2 rounded-lg bg-white dark:bg-gray-800 shadow-sm opacity-0 group-hover:opacity-100 transition-opacity hover:text-scribehub-blue"
+                                    >
+                                        <Copy className="h-3.5 w-3.5" />
+                                    </button>
+                                </div>
                             </div>
                         </div>
                         <div className="flex items-center justify-end gap-3 bg-gray-50/50 dark:bg-gray-800/50 px-8 py-4">
@@ -1922,6 +1966,7 @@ export default function ReferencesIndex({ references, projects, selectedProjectI
                                             type: viewingCitation.type || 'book',
                                             title: viewingCitation.title || '',
                                             year: viewingCitation.year || '',
+                                            year_suffix: (viewingCitation as any).year_suffix || '',
                                             isOnline: !!viewingCitation.url,
                                             lang: 'en',
                                             authors: authors,
@@ -2534,18 +2579,32 @@ export default function ReferencesIndex({ references, projects, selectedProjectI
 
                                     {/* Optional Dynamic Fields */}
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
-                                        <div className="space-y-2">
-                                            <div className="flex items-center gap-2 mb-1">
-                                                <div className="h-1.5 w-1.5 rounded-full bg-scribehub-blue"></div>
-                                                <Label className="text-[10px] font-black uppercase tracking-widest text-scribehub-blue">{t.when}</Label>
+                                        <div className="space-y-4">
+                                            <div className="space-y-2">
+                                                <div className="flex items-center gap-2 mb-1">
+                                                    <div className="h-1.5 w-1.5 rounded-full bg-scribehub-blue"></div>
+                                                    <Label className="text-[10px] font-black uppercase tracking-widest text-scribehub-blue">{t.when}</Label>
+                                                </div>
+                                                <Label className="text-[10px] font-black uppercase tracking-widest text-gray-400">{t.yearPublished}</Label>
+                                                <Input 
+                                                    value={sourceData.year}
+                                                    onChange={e => setSourceData(prev => ({ ...prev, year: e.target.value }))}
+                                                    className="h-12 rounded-xl bg-gray-50 dark:bg-gray-800 border-none px-4 font-bold"
+                                                    placeholder="..."
+                                                />
                                             </div>
-                                            <Label className="text-[10px] font-black uppercase tracking-widest text-gray-400">{t.yearPublished}</Label>
-                                            <Input 
-                                                value={sourceData.year}
-                                                onChange={e => setSourceData(prev => ({ ...prev, year: e.target.value }))}
-                                                className="h-12 rounded-xl bg-gray-50 dark:bg-gray-800 border-none px-4 font-bold"
-                                                placeholder="..."
-                                            />
+
+                                            <div className="space-y-2">
+                                                <Label className="text-[10px] font-black uppercase tracking-widest text-gray-400">
+                                                    {sourceData.lang === 'th' ? "อักษรลำดับหลังปี (ก, ข, ...)" : "Year Suffix (a, b, ...)"}
+                                                </Label>
+                                                <Input 
+                                                    value={sourceData.year_suffix}
+                                                    onChange={e => setSourceData(prev => ({ ...prev, year_suffix: e.target.value }))}
+                                                    className="h-12 rounded-xl bg-gray-50 dark:bg-gray-800 border-none px-4 font-bold"
+                                                    placeholder={sourceData.lang === 'th' ? "ก" : "a"}
+                                                />
+                                            </div>
                                         </div>
 
                                         {activeFields.map(fieldId => {

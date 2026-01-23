@@ -47,12 +47,15 @@ class ReferenceController extends Controller
         // Log::info($query->getBindings());
 
         $references = $query->orderBy('sort_order', 'asc')
+            ->orderBy('year', 'asc')
+            ->orderBy('year_suffix', 'asc')
             ->orderBy('created_at', 'desc')
             ->get();
 
         // Add formatted citations
         $references->transform(function ($reference) use ($style) {
             $reference->citation = $this->formatter->format($reference, $style);
+            $reference->citation_in_text = $this->formatter->formatInText($reference, $style);
             return $reference;
         });
 
@@ -92,6 +95,7 @@ class ReferenceController extends Controller
             'authors.*' => 'string|max:255',
             'type' => 'required|in:book,journal,website,conference,thesis,report,other',
             'year' => 'nullable|string|max:10',
+            'year_suffix' => 'nullable|string|max:10',
             'doi' => 'nullable|string|max:255',
             'isbn' => 'nullable|string|max:30',
             'url' => 'nullable|url|max:500',
@@ -151,6 +155,7 @@ class ReferenceController extends Controller
             'authors.*' => 'string|max:255',
             'type' => 'required|in:book,journal,website,conference,thesis,report,other',
             'year' => 'nullable|string|max:10',
+            'year_suffix' => 'nullable|string|max:10',
             'doi' => 'nullable|string|max:255',
             'isbn' => 'nullable|string|max:30',
             'url' => 'nullable|url|max:500',

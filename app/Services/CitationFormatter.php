@@ -20,9 +20,6 @@ class CitationFormatter
         'thai-mu' => 'Mahidol University',
     ];
 
-    /**
-     * Format a reference in the specified citation style.
-     */
     public function format(Reference $reference, string $style = 'apa7'): string
     {
         return match ($style) {
@@ -33,6 +30,21 @@ class CitationFormatter
             'harvard' => $this->formatHarvard($reference),
             'thai-cu', 'thai-tu', 'thai-mu' => $this->formatThaiUniversity($reference, $style),
             default => $this->formatApa7($reference),
+        };
+    }
+
+    /**
+     * Format a reference for in-text citation.
+     */
+    public function formatInText(Reference $reference, string $style = 'apa7'): string
+    {
+        return match ($style) {
+            'apa7', 'harvard' => $this->formatInTextApa($reference),
+            'mla9' => $this->formatInTextMla($reference),
+            'chicago' => $this->formatInTextChicago($reference),
+            'ieee' => $this->formatInTextIeee($reference),
+            'thai-cu', 'thai-tu', 'thai-mu' => $this->formatInTextThai($reference),
+            default => $this->formatInTextApa($reference),
         };
     }
 
@@ -60,7 +72,11 @@ class CitationFormatter
         }
 
         // Year
-        $year = $reference->year ? "({$reference->year})" : '(n.d.)';
+        $yearStr = $reference->year ?? 'n.d.';
+        if ($reference->year && $reference->year_suffix) {
+            $yearStr .= $reference->year_suffix;
+        }
+        $year = "({$yearStr})";
         $parts[] = $year;
 
         // Title (italicized for standalone works)
@@ -144,7 +160,11 @@ class CitationFormatter
 
         // Year
         if ($reference->year) {
-            $parts[] = $reference->year . ',';
+            $yearStr = $reference->year;
+            if ($reference->year_suffix) {
+                $yearStr .= $reference->year_suffix;
+            }
+            $parts[] = $yearStr . ',';
         }
 
         // Pages
@@ -188,7 +208,11 @@ class CitationFormatter
                 }
             }
             if ($reference->year) {
-                $journal .= " ({$reference->year})";
+                $yearStr = $reference->year;
+                if ($reference->year_suffix) {
+                    $yearStr .= $reference->year_suffix;
+                }
+                $journal .= " ({$yearStr})";
             }
             if ($reference->pages) {
                 $journal .= ": {$reference->pages}";
@@ -201,7 +225,11 @@ class CitationFormatter
                 $pubInfo[] = $reference->publisher;
             }
             if ($reference->year) {
-                $pubInfo[] = $reference->year;
+                $yearStr = $reference->year;
+                if ($reference->year_suffix) {
+                    $yearStr .= $reference->year_suffix;
+                }
+                $pubInfo[] = $yearStr;
             }
             if (!empty($pubInfo)) {
                 $parts[] = implode(', ', $pubInfo) . '.';
@@ -250,7 +278,11 @@ class CitationFormatter
 
         // Year
         if ($reference->year) {
-            $parts[] = $reference->year . '.';
+            $yearStr = $reference->year;
+            if ($reference->year_suffix) {
+                $yearStr .= $reference->year_suffix;
+            }
+            $parts[] = $yearStr . '.';
         }
 
         return implode(' ', $parts);
@@ -281,6 +313,9 @@ class CitationFormatter
         // Year (with พ.ศ. conversion if applicable)
         if ($reference->year) {
             $thaiYear = $this->convertToThaiYear($reference->year);
+            if ($reference->year_suffix) {
+                $thaiYear .= $reference->year_suffix;
+            }
             $parts[] = "({$thaiYear}).";
         }
 
@@ -493,6 +528,139 @@ class CitationFormatter
     private function isThai(string $text): bool
     {
         return preg_match('/[\x{0E00}-\x{0E7F}]/u', $text);
+    }
+
+    /**
+     * Format in-text citation for APA style.
+     * (Last, Year)
+     */
+    private function formatInTextApa(Reference $reference): string
+    {
+        $authors = $reference->authors ?? [];
+        $yearStr = $reference->year ?? 'n.d.';
+        if ($reference->year && $reference->year_suffix) {
+            $yearStr .= $reference->year_suffix;
+        }
+
+        if (empty($authors)) {
+            $title = strlen($reference->title) > 30 ? substr($reference->title, 0, 30) . '...' : $reference->title;
+            return "({$title}, {$yearStr})";
+        }
+
+        $formattedAuthor = '';
+        $count = count($authors);
+
+        if ($count === 1) {
+            $formattedAuthor = $this->getInTextName($authors[0]);
+        } elseif ($count === 2) {
+            $formattedAuthor = $this->getInTextName($authors[0]) . ' & ' . $this->getInTextName($authors[1]);
+        } else {
+            $formattedAuthor = $this->getInTextName($authors[0]) . ' et al.';
+        }
+
+        return "({$formattedAuthor}, {$yearStr})";
+    }
+
+    /**
+     * Format in-text citation for MLA style.
+     * (Last)
+     */
+    private function formatInTextMla(Reference $reference): string
+    {
+        $authors = $reference->authors ?? [];
+        if (empty($authors)) {
+            $title = strlen($reference->title) > 30 ? substr($reference->title, 0, 30) . '...' : $reference->title;
+            return "({$title})";
+        }
+
+        $count = count($authors);
+        if ($count === 1) {
+            $name = $this->getInTextName($authors[0]);
+        } elseif ($count === 2) {
+            $name = $this->getInTextName($authors[0]) . ' and ' . $this->getInTextName($authors[1]);
+        } else {
+            $name = $this->getInTextName($authors[0]) . ' et al.';
+        }
+
+        return "({$name})";
+    }
+
+    /**
+     * Format in-text citation for Chicago style.
+     * (Last Year)
+     */
+    private function formatInTextChicago(Reference $reference): string
+    {
+        $authors = $reference->authors ?? [];
+        $yearStr = $reference->year ?? 'n.d.';
+        if ($reference->year && $reference->year_suffix) {
+            $yearStr .= $reference->year_suffix;
+        }
+
+        if (empty($authors)) {
+            return "({$reference->title} {$yearStr})";
+        }
+
+        $count = count($authors);
+        if ($count === 1) {
+            $name = $this->getInTextName($authors[0]);
+        } elseif ($count === 2) {
+            $name = $this->getInTextName($authors[0]) . ' and ' . $this->getInTextName($authors[1]);
+        } else {
+            $name = $this->getInTextName($authors[0]) . ' et al.';
+        }
+
+        return "({$name} {$yearStr})";
+    }
+
+    /**
+     * Format in-text citation for IEEE style.
+     * [Number] - Use id as a placeholder for number if not in a sequence
+     */
+    private function formatInTextIeee(Reference $reference): string
+    {
+        return "[{$reference->id}]";
+    }
+
+    /**
+     * Format in-text citation for Thai University style.
+     * (Name Surname, Year)
+     */
+    private function formatInTextThai(Reference $reference): string
+    {
+        $authors = $reference->authors ?? [];
+        $yearStr = $reference->year ? $this->convertToThaiYear($reference->year) : 'ม.ป.ป.';
+        if ($reference->year && $reference->year_suffix) {
+            $yearStr .= $reference->year_suffix;
+        }
+
+        if (empty($authors)) {
+            return "({$reference->title}, {$yearStr})";
+        }
+
+        $count = count($authors);
+        if ($count === 1) {
+            $name = $authors[0];
+        } elseif ($count === 2) {
+            $name = $authors[0] . ' และ ' . $authors[1];
+        } else {
+            $name = $authors[0] . ' และคณะ';
+        }
+
+        return "({$name}, {$yearStr})";
+    }
+
+    /**
+     * Get the name for in-text citation (Surname for Western, Full Name for Thai).
+     */
+    private function getInTextName(string $author): string
+    {
+        if ($this->isThai($author)) {
+            return $author;
+        }
+
+        $parts = preg_split('/\s+/', trim($author));
+        return array_pop($parts);
     }
 
     /**

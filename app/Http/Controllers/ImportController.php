@@ -86,6 +86,7 @@ class ImportController extends Controller
             'authors' => 'nullable|array',
             'type' => 'required|in:book,journal,website,conference,thesis,report,other',
             'year' => 'nullable|string|max:10',
+            'year_suffix' => 'nullable|string|max:10',
             'doi' => 'nullable|string|max:255',
             'isbn' => 'nullable|string|max:30',
             'url' => 'nullable|url|max:500',
@@ -147,6 +148,7 @@ class ImportController extends Controller
         $request->validate([
             'entries' => 'required|array',
             'entries.*.title' => 'required|string',
+            'entries.*.year_suffix' => 'nullable|string|max:10',
             'project_id' => 'nullable|exists:projects,id',
         ]);
 
