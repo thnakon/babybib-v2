@@ -2,8 +2,8 @@ import { Breadcrumbs } from '@/components/breadcrumbs';
 import { SidebarTrigger } from '@/components/ui/sidebar';
 import type { BreadcrumbItem as BreadcrumbItemType } from '@/types';
 import { Search, Languages, Sun, Moon, Monitor, Check } from 'lucide-react';
-import { useState } from 'react';
 import { useAppearance } from '@/hooks/use-appearance';
+import { useLanguage } from '@/contexts/language-context';
 import { cn } from '@/lib/utils';
 
 export function AppSidebarHeader({
@@ -12,7 +12,7 @@ export function AppSidebarHeader({
     breadcrumbs?: BreadcrumbItemType[];
 }) {
     const { appearance, updateAppearance } = useAppearance();
-    const [lang, setLang] = useState<'en' | 'th'>('en');
+    const { language, setLanguage } = useLanguage();
 
     return (
         <header className="flex h-16 shrink-0 items-center justify-between gap-2 border-b border-sidebar-border/50 px-6 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 md:px-4">
@@ -27,7 +27,7 @@ export function AppSidebarHeader({
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
                     <input 
                         type="text" 
-                        placeholder="Search research, papers..." 
+                        placeholder={language === 'th' ? 'ค้นหางานวิจัย...' : 'Search research, papers...'} 
                         className="h-9 w-full rounded-xl border border-gray-100 bg-gray-50/50 pl-10 pr-4 text-xs font-medium focus:border-scribehub-blue/50 focus:bg-white focus:outline-none focus:ring-4 focus:ring-scribehub-blue/5 dark:border-gray-800 dark:bg-gray-900/50 dark:focus:border-scribehub-blue/50"
                     />
                 </div>
@@ -41,8 +41,8 @@ export function AppSidebarHeader({
                         </button>
                         <div className="absolute right-0 top-full hidden group-hover:block z-[60] pt-2">
                             <div className="w-32 origin-top-right rounded-xl border border-gray-100 bg-white py-2 shadow-xl ring-1 ring-black ring-opacity-5 dark:border-gray-800 dark:bg-gray-900">
-                                <button onClick={() => setLang('en')} className={cn("flex w-full items-center justify-between px-4 py-2 text-[10px] font-bold", lang === 'en' ? "bg-gray-50 text-scribehub-blue dark:bg-gray-800" : "text-gray-700 dark:text-gray-300")}>ENGLISH {lang === 'en' && <Check className="h-3 w-3" />}</button>
-                                <button onClick={() => setLang('th')} className={cn("flex w-full items-center justify-between px-4 py-2 text-[10px] font-bold", lang === 'th' ? "bg-gray-50 text-scribehub-blue dark:bg-gray-800" : "text-gray-700 dark:text-gray-300")}>ภาษาไทย {lang === 'th' && <Check className="h-3 w-3" />}</button>
+                                <button onClick={() => setLanguage('en')} className={cn("flex w-full items-center justify-between px-4 py-2 text-[10px] font-bold", language === 'en' ? "bg-gray-50 text-scribehub-blue dark:bg-gray-800" : "text-gray-700 dark:text-gray-300")}>ENGLISH {language === 'en' && <Check className="h-3 w-3" />}</button>
+                                <button onClick={() => setLanguage('th')} className={cn("flex w-full items-center justify-between px-4 py-2 text-[10px] font-bold", language === 'th' ? "bg-gray-50 text-scribehub-blue dark:bg-gray-800" : "text-gray-700 dark:text-gray-300")}>ภาษาไทย {language === 'th' && <Check className="h-3 w-3" />}</button>
                             </div>
                         </div>
                     </div>
@@ -65,3 +65,4 @@ export function AppSidebarHeader({
         </header>
     );
 }
+

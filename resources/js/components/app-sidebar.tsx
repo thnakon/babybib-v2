@@ -13,7 +13,7 @@ import {
 import { dashboard } from '@/routes';
 import type { NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { BookOpen, Folder, LayoutGrid, Library, Brain } from 'lucide-react';
+import { BookOpen, Folder, LayoutGrid, Library, Brain, Upload, FileText } from 'lucide-react';
 import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
@@ -22,16 +22,34 @@ const mainNavItems: NavItem[] = [
         href: dashboard(),
         icon: LayoutGrid,
     },
+];
+
+// Research Tools section
+const researchNavItems: NavItem[] = [
     {
-        title: 'My Projects',
-        href: '#',
-        icon: Folder,
-    },
-    {
-        title: 'Research Library',
-        href: '#',
+        title: 'My References',
+        href: '/references',
         icon: Library,
     },
+    {
+        title: 'Quick Import',
+        href: '/import',
+        icon: Upload,
+    },
+    {
+        title: 'Citations',
+        href: '/citations',
+        icon: FileText,
+    },
+    {
+        title: 'My Projects',
+        href: '/projects',
+        icon: Folder,
+    },
+];
+
+// AI & Tools section
+const toolsNavItems: NavItem[] = [
     {
         title: 'AI Workspace',
         href: '#',
@@ -68,7 +86,9 @@ export function AppSidebar() {
             </SidebarHeader>
 
             <SidebarContent>
-                <NavMain items={mainNavItems} />
+                <NavMain items={mainNavItems} label="Overview" />
+                <NavMain items={researchNavItems} label="Research Tools" />
+                <NavMain items={toolsNavItems} label="AI & Tools" />
             </SidebarContent>
 
             <SidebarFooter>

@@ -1,5 +1,10 @@
 <?php
 
+use App\Http\Controllers\CitationController;
+use App\Http\Controllers\ExportController;
+use App\Http\Controllers\ImportController;
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\ReferenceController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
@@ -22,6 +27,36 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
         return Inertia::render('dashboard');
     })->name('dashboard');
+
+    // Reference Management
+    Route::resource('references', ReferenceController::class);
+
+    // Project Management
+    Route::resource('projects', ProjectController::class);
+    Route::post('projects/{project}/add-reference', [ProjectController::class, 'addReference'])->name('projects.add-reference');
+    Route::post('projects/{project}/remove-reference', [ProjectController::class, 'removeReference'])->name('projects.remove-reference');
+
+    // Import Features
+    Route::get('import', [ImportController::class, 'index'])->name('import.index');
+    Route::post('import/lookup', [ImportController::class, 'lookup'])->name('import.lookup');
+    Route::post('import/from-lookup', [ImportController::class, 'importFromLookup'])->name('import.from-lookup');
+    Route::post('import/parse-bibtex', [ImportController::class, 'parseBibtex'])->name('import.parse-bibtex');
+    Route::post('import/bibtex', [ImportController::class, 'importBibtex'])->name('import.bibtex');
+
+    // Citation Formatting
+    Route::get('citations', [CitationController::class, 'index'])->name('citations.index');
+    Route::post('citations/format', [CitationController::class, 'format'])->name('citations.format');
+    Route::post('citations/bibliography', [CitationController::class, 'bibliography'])->name('citations.bibliography');
+    Route::get('citations/styles', [CitationController::class, 'styles'])->name('citations.styles');
+    Route::post('citations/preview', [CitationController::class, 'preview'])->name('citations.preview');
+
+    // Export Features
+    Route::post('export/bibtex', [ExportController::class, 'bibtex'])->name('export.bibtex');
+    Route::post('export/ris', [ExportController::class, 'ris'])->name('export.ris');
+    Route::get('export/all/bibtex', [ExportController::class, 'allBibtex'])->name('export.all.bibtex');
+    Route::get('export/all/ris', [ExportController::class, 'allRis'])->name('export.all.ris');
+    Route::post('export/preview/bibtex', [ExportController::class, 'previewBibtex'])->name('export.preview.bibtex');
+    Route::post('export/preview/ris', [ExportController::class, 'previewRis'])->name('export.preview.ris');
 });
 
 require __DIR__ . '/settings.php';
