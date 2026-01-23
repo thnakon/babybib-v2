@@ -29,6 +29,7 @@ class Reference extends Model
         'abstract',
         'notes',
         'tags',
+        'sort_order',
     ];
 
     protected $casts = [
@@ -70,5 +71,13 @@ class Reference extends Model
         }
 
         return $this->authors[0] . ' et al.';
+    }
+
+    /**
+     * Get the folders that contain this reference.
+     */
+    public function folders(): BelongsToMany
+    {
+        return $this->belongsToMany(Folder::class, 'folder_reference')->withTimestamps();
     }
 }

@@ -67,11 +67,94 @@ class MetadataFetcher
     }
 
     /**
+     * Fetch metadata from a URL.
+     */
+    public function fetchFromUrl(string $url): ?array
+    {
+        try {
+            $response = Http::timeout(10)
+                ->withHeaders([
+                    'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+                ])
+                ->get($url);
+
+            if (!$response->successful()) {
+                return null;
+            }
+
+            $html = $response->body();
+
+            // Extract title with multiple fallbacks
+            $title = 'Untitled Website';
+            if (preg_match('/<title>(.*?)<\/title>/is', $html, $matches)) {
+                $title = trim($matches[1]);
+            }
+            if (preg_match('/<meta property="og:title" content="(.*?)"/is', $html, $matches)) {
+                $title = trim($matches[1]);
+            }
+            if (preg_match('/<meta name="twitter:title" content="(.*?)"/is', $html, $matches)) {
+                $title = trim($matches[1]);
+            }
+
+            // Extract site name / publisher
+            $host = parse_url($url, PHP_URL_HOST);
+            $siteName = $host;
+            if (preg_match('/<meta property="og:site_name" content="(.*?)"/is', $html, $matches)) {
+                $siteName = trim($matches[1]);
+            }
+            if (preg_match('/<meta name="twitter:site" content="(.*?)"/is', $html, $matches)) {
+                $siteName = trim($matches[1]);
+            }
+
+            // Extract authors
+            $authors = [];
+            if (preg_match('/<meta name="author" content="(.*?)"/is', $html, $matches)) {
+                $authors[] = trim($matches[1]);
+            }
+            if (empty($authors) && preg_match('/<meta property="article:author" content="(.*?)"/is', $html, $matches)) {
+                if (is_string($matches[1])) {
+                    $authors[] = trim($matches[1]);
+                }
+            }
+
+            // Extract year
+            $year = date('Y');
+            if (
+                preg_match('/<meta property="article:published_time" content="(.*?)"/is', $html, $matches) ||
+                preg_match('/<meta name="pubdate" content="(.*?)"/is', $html, $matches)
+            ) {
+                $dateStr = trim($matches[1]);
+                $timestamp = strtotime($dateStr);
+                if ($timestamp) {
+                    $year = date('Y', $timestamp);
+                }
+            }
+
+            return [
+                'title' => html_entity_decode(strip_tags($title)),
+                'authors' => $authors,
+                'type' => 'website',
+                'year' => $year,
+                'url' => $url,
+                'publisher' => html_entity_decode(strip_tags($siteName)),
+            ];
+        } catch (\Exception $e) {
+            Log::error("URL fetch error: " . $e->getMessage());
+            return null;
+        }
+    }
+
+    /**
      * Auto-detect identifier type and fetch metadata.
      */
     public function fetch(string $identifier): ?array
     {
         $identifier = trim($identifier);
+
+        // Check if it's a URL
+        if (filter_var($identifier, FILTER_VALIDATE_URL)) {
+            return $this->fetchFromUrl($identifier);
+        }
 
         // Check if it's a DOI
         if ($this->isDoi($identifier)) {

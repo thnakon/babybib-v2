@@ -22,16 +22,6 @@ export function AppSidebarHeader({
             </div>
 
             <div className="flex flex-1 items-center justify-end gap-3">
-                {/* Search Bar */}
-                <div className="relative hidden max-w-sm flex-1 md:block">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-                    <input 
-                        type="text" 
-                        placeholder={language === 'th' ? 'ค้นหางานวิจัย...' : 'Search research, papers...'} 
-                        className="h-9 w-full rounded-xl border border-gray-100 bg-gray-50/50 pl-10 pr-4 text-xs font-medium focus:border-scribehub-blue/50 focus:bg-white focus:outline-none focus:ring-4 focus:ring-scribehub-blue/5 dark:border-gray-800 dark:bg-gray-900/50 dark:focus:border-scribehub-blue/50"
-                    />
-                </div>
-
                 {/* Toggles */}
                 <div className="flex items-center gap-1">
                     {/* Language Switcher */}

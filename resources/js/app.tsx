@@ -6,6 +6,8 @@ import '../css/app.css';
 import { initializeTheme } from './hooks/use-appearance';
 import { LanguageProvider } from './contexts/language-context';
 
+import { Toaster } from 'sonner';
+
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
 createInertiaApp({
@@ -22,6 +24,7 @@ createInertiaApp({
             <StrictMode>
                 <LanguageProvider>
                     <App {...props} />
+                    <Toaster position="top-right" richColors />
                 </LanguageProvider>
             </StrictMode>,
         );

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CitationController;
 use App\Http\Controllers\ExportController;
+use App\Http\Controllers\FolderController;
 use App\Http\Controllers\ImportController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ReferenceController;
@@ -30,15 +31,20 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Reference Management
     Route::resource('references', ReferenceController::class);
+    Route::post('references/reorder', [ReferenceController::class, 'reorder'])->name('references.reorder');
 
     // Project Management
     Route::resource('projects', ProjectController::class);
+    Route::post('projects/reorder', [ProjectController::class, 'reorder'])->name('projects.reorder');
     Route::post('projects/{project}/add-reference', [ProjectController::class, 'addReference'])->name('projects.add-reference');
     Route::post('projects/{project}/remove-reference', [ProjectController::class, 'removeReference'])->name('projects.remove-reference');
+    // Folder Management
+    Route::resource('folders', FolderController::class);
 
     // Import Features
     Route::get('import', [ImportController::class, 'index'])->name('import.index');
     Route::post('import/lookup', [ImportController::class, 'lookup'])->name('import.lookup');
+    Route::post('import/quick-store', [ImportController::class, 'quickStore'])->name('import.quick-store');
     Route::post('import/from-lookup', [ImportController::class, 'importFromLookup'])->name('import.from-lookup');
     Route::post('import/parse-bibtex', [ImportController::class, 'parseBibtex'])->name('import.parse-bibtex');
     Route::post('import/bibtex', [ImportController::class, 'importBibtex'])->name('import.bibtex');

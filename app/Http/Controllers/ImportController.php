@@ -42,13 +42,38 @@ class ImportController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Could not find metadata for the given identifier.',
-            ], 404);
+            ]);
         }
 
         return response()->json([
             'success' => true,
             'data' => $metadata,
         ]);
+    }
+
+    /**
+     * Look up and immediately store a reference (Quick Cite).
+     */
+    public function quickStore(Request $request)
+    {
+        $request->validate([
+            'identifier' => 'required|string|max:255',
+        ]);
+
+        $identifier = $request->input('identifier');
+        $metadata = $this->metadataFetcher->fetch($identifier);
+
+        if (!$metadata) {
+            return back()->withErrors(['error' => 'Could not find metadata for this source.']);
+        }
+
+        // Prepare data for creation
+        $data = $metadata;
+        $data['user_id'] = Auth::id();
+
+        Reference::create($data);
+
+        return back()->with('success', 'Reference added successfully!');
     }
 
     /**
@@ -70,17 +95,29 @@ class ImportController extends Controller
             'issue' => 'nullable|string|max:50',
             'pages' => 'nullable|string|max:50',
             'abstract' => 'nullable|string|max:5000',
+            'project_id' => 'nullable|exists:projects,id',
+            'folder_id' => 'nullable|exists:folders,id',
         ]);
 
         $validated['user_id'] = Auth::id();
+        $projectId = $validated['project_id'] ?? null;
+        $folderId = $validated['folder_id'] ?? null;
 
-        $reference = Reference::create($validated);
+        // Strip project_id and folder_id from the data used to create the reference
+        $referenceData = $validated;
+        unset($referenceData['project_id'], $referenceData['folder_id']);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Reference imported successfully.',
-            'reference' => $reference,
-        ]);
+        $reference = Reference::create($referenceData);
+
+        if ($projectId) {
+            $reference->projects()->attach($projectId);
+        }
+
+        if ($folderId) {
+            $reference->folders()->attach($folderId);
+        }
+
+        return back()->with('success', 'Reference added successfully!');
     }
 
     /**
@@ -110,15 +147,22 @@ class ImportController extends Controller
         $request->validate([
             'entries' => 'required|array',
             'entries.*.title' => 'required|string',
+            'project_id' => 'nullable|exists:projects,id',
         ]);
 
         $entries = $request->input('entries');
+        $projectId = $request->input('project_id');
         $imported = 0;
 
         foreach ($entries as $entry) {
             $entry['user_id'] = Auth::id();
             $entry['type'] = $entry['type'] ?? 'other';
-            Reference::create($entry);
+            $reference = Reference::create($entry);
+
+            if ($projectId) {
+                $reference->projects()->attach($projectId);
+            }
+
             $imported++;
         }
 

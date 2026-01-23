@@ -17,6 +17,8 @@ class Project extends Model
         'description',
         'citation_style',
         'color',
+        'icon',
+        'sort_order',
     ];
 
     /**
@@ -36,10 +38,18 @@ class Project extends Model
     }
 
     /**
+     * Get the folders in this project.
+     */
+    public function folders()
+    {
+        return $this->hasMany(Folder::class);
+    }
+
+    /**
      * Get the count of references in this project.
      */
     public function getReferenceCountAttribute(): int
     {
-        return $this->references()->count();
+        return $this->references()->whereDoesntHave('folders')->count();
     }
 }

@@ -63,9 +63,9 @@ class CitationFormatter
         $year = $reference->year ? "({$reference->year})" : '(n.d.)';
         $parts[] = $year;
 
-        // Title (italicized for books, regular for articles)
+        // Title (italicized for standalone works)
         $title = $reference->title;
-        if (in_array($reference->type, ['book', 'thesis', 'report'])) {
+        if (in_array($reference->type, ['book', 'thesis', 'report', 'website', 'other'])) {
             $title = "<em>{$title}</em>";
         }
         $parts[] = $title . '.';
@@ -284,13 +284,14 @@ class CitationFormatter
             $parts[] = "({$thaiYear}).";
         }
 
-        // Title (bold for thesis)
+        // Title (italicized for standalone works)
         $title = $reference->title;
-        if ($reference->type === 'thesis') {
-            $parts[] = "<strong>{$title}</strong>.";
+        if (in_array($reference->type, ['book', 'thesis', 'report', 'website', 'other'])) {
+            $title = "<em>{$title}</em>";
         } else {
-            $parts[] = "{$title}.";
+            $title = "{$title}";
         }
+        $parts[] = $title . '.';
 
         // Journal or Publisher
         if ($reference->journal_name) {

@@ -8,19 +8,68 @@ use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Inertia\Response;
 
+use App\Models\Project;
+use App\Services\CitationFormatter;
+
 class ReferenceController extends Controller
 {
+    protected CitationFormatter $formatter;
+
+    public function __construct(CitationFormatter $formatter)
+    {
+        $this->formatter = $formatter;
+    }
+
     /**
      * Display a listing of the user's references.
      */
-    public function index(): Response
+    public function index(Request $request): Response
     {
-        $references = Reference::where('user_id', Auth::id())
+        $projectId = $request->query('project_id');
+        $folderId = $request->query('folder_id');
+        $style = $request->query('style', 'apa7');
+
+        $query = Reference::where('user_id', Auth::id());
+
+        if ($request->filled('folder_id')) {
+            $folderId = $request->input('folder_id');
+            $query->whereHas('folders', function ($q) use ($folderId) {
+                $q->where('folders.id', $folderId);
+            });
+        } elseif ($request->filled('project_id')) {
+            $projectId = $request->input('project_id');
+            $query->whereHas('projects', function ($q) use ($projectId) {
+                $q->where('projects.id', $projectId);
+            })->whereDoesntHave('folders');
+        }
+
+        // Log::info($query->toSql()); 
+        // Log::info($query->getBindings());
+
+        $references = $query->orderBy('sort_order', 'asc')
             ->orderBy('created_at', 'desc')
-            ->paginate(20);
+            ->get();
+
+        // Add formatted citations
+        $references->transform(function ($reference) use ($style) {
+            $reference->citation = $this->formatter->format($reference, $style);
+            return $reference;
+        });
+
+        $projects = Project::where('user_id', Auth::id())
+            ->with(['folders' => function ($q) {
+                $q->withCount('references');
+            }])
+            ->withCount(['references' => function ($q) {
+                $q->whereDoesntHave('folders');
+            }])
+            ->orderBy('sort_order', 'asc')
+            ->get();
 
         return Inertia::render('references/index', [
             'references' => $references,
+            'projects' => $projects,
+            'selectedProjectId' => $projectId ? (int)$projectId : null,
         ]);
     }
 
@@ -131,7 +180,25 @@ class ReferenceController extends Controller
 
         $reference->delete();
 
-        return redirect()->route('references.index')
-            ->with('success', 'Reference deleted successfully.');
+        return back()->with('success', 'Reference deleted successfully.');
+    }
+
+    /**
+     * Reorder references.
+     */
+    public function reorder(Request $request)
+    {
+        $validated = $request->validate([
+            'ids' => 'required|array',
+            'ids.*' => 'required|integer|exists:references,id',
+        ]);
+
+        foreach ($validated['ids'] as $index => $id) {
+            Reference::where('id', $id)
+                ->where('user_id', Auth::id())
+                ->update(['sort_order' => $index]);
+        }
+
+        return back()->with('success', 'References reordered.');
     }
 }

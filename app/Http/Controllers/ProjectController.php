@@ -17,8 +17,10 @@ class ProjectController extends Controller
     public function index(): Response
     {
         $projects = Project::where('user_id', Auth::id())
-            ->withCount('references')
-            ->orderBy('created_at', 'desc')
+            ->withCount(['references' => function ($q) {
+                $q->whereDoesntHave('folders');
+            }])
+            ->orderBy('sort_order', 'asc')
             ->get();
 
         return Inertia::render('projects/index', [
@@ -44,13 +46,14 @@ class ProjectController extends Controller
             'description' => 'nullable|string|max:1000',
             'citation_style' => 'nullable|string|max:50',
             'color' => 'nullable|string|max:20',
+            'icon' => 'nullable|string|max:50',
         ]);
 
         $validated['user_id'] = Auth::id();
 
         $project = Project::create($validated);
 
-        return redirect()->route('projects.show', $project)
+        return back()
             ->with('success', 'Project created successfully.');
     }
 
@@ -97,12 +100,12 @@ class ProjectController extends Controller
             'description' => 'nullable|string|max:1000',
             'citation_style' => 'nullable|string|max:50',
             'color' => 'nullable|string|max:20',
+            'icon' => 'nullable|string|max:50',
         ]);
 
         $project->update($validated);
 
-        return redirect()->route('projects.show', $project)
-            ->with('success', 'Project updated successfully.');
+        return back()->with('success', 'Project updated successfully.');
     }
 
     /**
@@ -115,7 +118,7 @@ class ProjectController extends Controller
         $project->references()->detach();
         $project->delete();
 
-        return redirect()->route('projects.index')
+        return redirect()->route('references.index')
             ->with('success', 'Project deleted successfully.');
     }
 
@@ -155,5 +158,24 @@ class ProjectController extends Controller
         $project->references()->detach($validated['reference_id']);
 
         return back()->with('success', 'Reference removed from project.');
+    }
+
+    /**
+     * Reorder projects.
+     */
+    public function reorder(Request $request)
+    {
+        $validated = $request->validate([
+            'ids' => 'required|array',
+            'ids.*' => 'required|integer|exists:projects,id',
+        ]);
+
+        foreach ($validated['ids'] as $index => $id) {
+            Project::where('id', $id)
+                ->where('user_id', Auth::id())
+                ->update(['sort_order' => $index]);
+        }
+
+        return back()->with('success', 'Projects reordered.');
     }
 }
