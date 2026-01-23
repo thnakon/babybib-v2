@@ -38,7 +38,7 @@ class ImportController extends Controller
         $identifier = $request->input('identifier');
         $metadata = $this->metadataFetcher->fetch($identifier);
 
-        if (!$metadata) {
+        if (empty($metadata)) {
             return response()->json([
                 'success' => false,
                 'message' => 'Could not find metadata for the given identifier.',

@@ -147,26 +147,134 @@ class MetadataFetcher
     /**
      * Auto-detect identifier type and fetch metadata.
      */
-    public function fetch(string $identifier): ?array
+    public function fetch(string $identifier): array
     {
         $identifier = trim($identifier);
 
         // Check if it's a URL
         if (filter_var($identifier, FILTER_VALIDATE_URL)) {
-            return $this->fetchFromUrl($identifier);
+            $data = $this->fetchFromUrl($identifier);
+            return $data ? [$data] : [];
         }
 
         // Check if it's a DOI
         if ($this->isDoi($identifier)) {
-            return $this->fetchFromDoi($identifier);
+            $data = $this->fetchFromDoi($identifier);
+            return $data ? [$data] : [];
+        }
+
+        // Check if it's a PMID (PubMed ID)
+        if ($this->isPmid($identifier)) {
+            $data = $this->fetchFromPmid($identifier);
+            if ($data) return [$data];
         }
 
         // Check if it's an ISBN
         if ($this->isIsbn($identifier)) {
-            return $this->fetchFromIsbn($identifier);
+            $data = $this->fetchFromIsbn($identifier);
+            if ($data) return [$data];
         }
 
-        return null;
+        // Try searching for articles first if it looks like a paper title
+        $articles = $this->searchArticles($identifier);
+        if (!empty($articles)) {
+            return $articles;
+        }
+
+        // Fallback to searching for books
+        return $this->searchBook($identifier);
+    }
+
+    /**
+     * Search for articles using CrossRef API.
+     */
+    public function searchArticles(string $query): array
+    {
+        try {
+            $response = Http::timeout(10)
+                ->get("https://api.crossref.org/works", [
+                    'query' => $query,
+                    'filter' => 'type:journal-article',
+                    'rows' => 5,
+                ]);
+
+            if (!$response->successful()) {
+                return [];
+            }
+
+            $data = $response->json('message');
+            if (!isset($data['items']) || empty($data['items'])) {
+                return [];
+            }
+
+            return array_map(fn($item) => $this->formatCrossRefData($item), $data['items']);
+        } catch (\Exception $e) {
+            Log::error("Article search error: " . $e->getMessage());
+            return [];
+        }
+    }
+
+    /**
+     * Fetch metadata from PMID (PubMed) using NCBI API.
+     */
+    public function fetchFromPmid(string $pmid): ?array
+    {
+        try {
+            $response = Http::timeout(10)
+                ->get("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi", [
+                    'db' => 'pubmed',
+                    'id' => $pmid,
+                    'retmode' => 'json',
+                ]);
+
+            if (!$response->successful()) {
+                return null;
+            }
+
+            $data = $response->json('result');
+            if (!isset($data[$pmid])) {
+                return null;
+            }
+
+            return $this->formatPubMedData($data[$pmid]);
+        } catch (\Exception $e) {
+            Log::error("PMID fetch error: " . $e->getMessage());
+            return null;
+        }
+    }
+
+    /**
+     * Search for books using Google Books API.
+     */
+    public function searchBook(string $query): array
+    {
+        try {
+            $params = [
+                'q' => $query,
+                'maxResults' => 5, // Return more results for broad search
+            ];
+
+            if (preg_match('/[\x{0E00}-\x{0E7F}]/u', $query)) {
+                $params['langRestrict'] = 'th';
+            }
+
+            $response = Http::timeout(10)
+                ->get("https://www.googleapis.com/books/v1/volumes", $params);
+
+            if (!$response->successful()) {
+                return [];
+            }
+
+            $data = $response->json();
+            if (!isset($data['items']) || empty($data['items'])) {
+                return [];
+            }
+
+            return array_map(fn($item) => $this->formatGoogleBooksData($item), $data['items']);
+        } catch (\Exception $e) {
+            Log::error("Book search error: " . $e->getMessage());
+            return [];
+        }
     }
 
     /**
@@ -176,6 +284,14 @@ class MetadataFetcher
     {
         return (bool) preg_match('/^10\.\d{4,}\//', $identifier) ||
             str_contains($identifier, 'doi.org/');
+    }
+
+    /**
+     * Check if the identifier is a PMID.
+     */
+    private function isPmid(string $identifier): bool
+    {
+        return (bool) preg_match('/^\d{5,10}$/', $identifier);
     }
 
     /**
@@ -248,6 +364,45 @@ class MetadataFetcher
     }
 
     /**
+     * Format Google Books API response to Reference format.
+     */
+    private function formatGoogleBooksData(array $item): array
+    {
+        $info = $item['volumeInfo'];
+
+        $authors = $info['authors'] ?? [];
+        $year = null;
+        if (isset($info['publishedDate'])) {
+            preg_match('/\d{4}/', $info['publishedDate'], $matches);
+            $year = $matches[0] ?? null;
+        }
+
+        $isbn = null;
+        if (isset($info['industryIdentifiers'])) {
+            foreach ($info['industryIdentifiers'] as $id) {
+                if ($id['type'] === 'ISBN_13') {
+                    $isbn = $id['identifier'];
+                    break;
+                } elseif ($id['type'] === 'ISBN_10') {
+                    $isbn = $id['identifier'];
+                }
+            }
+        }
+
+        return [
+            'title' => $info['title'] ?? 'Untitled',
+            'authors' => $authors,
+            'type' => 'book',
+            'year' => $year,
+            'isbn' => $isbn,
+            'url' => $info['infoLink'] ?? null,
+            'publisher' => $info['publisher'] ?? null,
+            'pages' => isset($info['pageCount']) ? (string) $info['pageCount'] : null,
+            'abstract' => isset($info['description']) ? strip_tags($info['description']) : null,
+        ];
+    }
+
+    /**
      * Format OpenLibrary API response to Reference format.
      */
     private function formatOpenLibraryData(array $data, string $isbn): array
@@ -276,6 +431,40 @@ class MetadataFetcher
             'url' => $data['url'] ?? null,
             'publisher' => $data['publishers'][0]['name'] ?? null,
             'pages' => isset($data['number_of_pages']) ? (string) $data['number_of_pages'] : null,
+        ];
+    }
+
+    /**
+     * Format PubMed API response to Reference format.
+     */
+    private function formatPubMedData(array $data): array
+    {
+        $authors = [];
+        if (isset($data['authors'])) {
+            foreach ($data['authors'] as $author) {
+                if (isset($author['name'])) {
+                    $authors[] = $author['name'];
+                }
+            }
+        }
+
+        $year = null;
+        if (isset($data['pubdate'])) {
+            preg_match('/\d{4}/', $data['pubdate'], $matches);
+            $year = $matches[0] ?? null;
+        }
+
+        return [
+            'title' => $data['title'] ?? 'Untitled',
+            'authors' => $authors,
+            'type' => 'journal',
+            'year' => $year,
+            'url' => "https://pubmed.ncbi.nlm.nih.gov/{$data['uid']}/",
+            'publisher' => $data['source'] ?? null,
+            'journal_name' => $data['fulljournalname'] ?? $data['source'] ?? null,
+            'volume' => $data['volume'] ?? null,
+            'issue' => $data['issue'] ?? null,
+            'pages' => $data['pages'] ?? null,
         ];
     }
 

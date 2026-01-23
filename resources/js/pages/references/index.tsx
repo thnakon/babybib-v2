@@ -160,7 +160,25 @@ const translations = {
         preview: "Live Preview",
         addToProject: "Add to Project",
         searchFields: "Search fields...",
-        workspace: "Workspace"
+        workspace: "Workspace",
+        toasts: {
+            importSuccess: "Imported {count} references successfully",
+            importNoValid: "No valid references found in file",
+            importFailed: "Failed to import file. Please check the format.",
+            orderSaved: "Order saved",
+            projectUpdated: "Project updated successfully",
+            projectDeleted: "Project deleted successfully",
+            folderCreated: "Folder created successfully",
+            copiedToClipboard: "References copied to clipboard",
+            exporting: "Exporting as {format}...",
+            folderUpdated: "Folder updated successfully",
+            folderDeleted: "Folder deleted successfully",
+            addedToProject: "Successfully added to project",
+            sourceAdded: "Source added successfully",
+            sourceFailed: "Failed to add source",
+            citationCopied: "Citation copied",
+            referenceDeleted: "Reference deleted"
+        }
     },
     th: {
         title: "รายการอ้างอิงของฉัน",
@@ -236,7 +254,25 @@ const translations = {
         preview: "ตัวอย่างบรรณานุกรม",
         addToProject: "บันทึกลงในโปรเจกต์",
         searchFields: "ค้นหาฟิลด์...",
-        workspace: "พื้นที่ทำงาน"
+        workspace: "พื้นที่ทำงาน",
+        toasts: {
+            importSuccess: "นำเข้า {count} รายการอ้างอิงสำเร็จแล้ว",
+            importNoValid: "ไม่พบรายการอ้างอิงที่ถูกต้องในไฟล์",
+            importFailed: "นำเข้าไฟล์ล้มเหลว กรุณาตรวจสอบรูปแบบไฟล์",
+            orderSaved: "บันทึกการจัดเรียงแล้ว",
+            projectUpdated: "อัปเดตโปรเจกต์สำเร็จแล้ว",
+            projectDeleted: "ลบโปรเจกต์สำเร็จแล้ว",
+            folderCreated: "สร้างโฟลเดอร์สำเร็จแล้ว",
+            copiedToClipboard: "คัดลอกรายการอ้างอิงไปยังคลิปบอร์ดแล้ว",
+            exporting: "กำลังส่งออกเป็น {format}...",
+            folderUpdated: "อัปเดตโฟลเดอร์สำเร็จแล้ว",
+            folderDeleted: "ลบโฟลเดอร์สำเร็จแล้ว",
+            addedToProject: "เพิ่มลงในโปรเจกต์สำเร็จแล้ว",
+            sourceAdded: "เพิ่มแหล่งข้อมูลสำเร็จแล้ว",
+            sourceFailed: "เพิ่มแหล่งข้อมูลล้มเหลว",
+            citationCopied: "คัดลอกบรรณานุกรมแล้ว",
+            referenceDeleted: "ลบรายการอ้างอิงแล้ว"
+        }
     }
 };
 
@@ -816,15 +852,15 @@ export default function ReferencesIndex({ references, projects, selectedProjectI
                     const importData = await importResponse.json();
                     
                     if (importData.success) {
-                        toast.success(`Imported ${importData.count} references successfully`);
+                        toast.success(t.toasts.importSuccess.replace('{count}', importData.count.toString()));
                         router.reload();
                     }
                 } else {
-                    toast.error('No valid references found in file');
+                    toast.error(t.toasts.importNoValid);
                 }
             } catch (error) {
                 console.error(error);
-                toast.error('Failed to import file. Please check the format.');
+                toast.error(t.toasts.importFailed);
             }
             
             // Reset input
@@ -841,7 +877,11 @@ export default function ReferencesIndex({ references, projects, selectedProjectI
                     setShowLookupDropdown(false);
                 } else if (e.key === 'Enter') {
                     e.preventDefault();
-                    handleAddLookup(lookupResults);
+                    if (Array.isArray(lookupResults) && lookupResults.length > 0) {
+                        handleAddLookup(lookupResults[0]);
+                    } else if (lookupResults && !Array.isArray(lookupResults)) {
+                        handleAddLookup(lookupResults);
+                    }
                 }
             }
         };
@@ -860,8 +900,8 @@ export default function ReferencesIndex({ references, projects, selectedProjectI
             return;
         }
 
-        // Only auto-search if it looks like a URL, DOI, or ISBN (min length 4)
-        const isPotentialSource = citeInput.includes('.') || citeInput.includes('/') || citeInput.length >= 10;
+        // Auto-search if it's a URL, DOI, ISBN, or a title (min length 10 or 5 for Thai/Short English)
+        const isPotentialSource = citeInput.includes('.') || citeInput.includes('/') || citeInput.length >= 5;
         if (!isPotentialSource) return;
 
         const timer = setTimeout(() => {
@@ -916,7 +956,7 @@ export default function ReferencesIndex({ references, projects, selectedProjectI
                 ids: newItems.map(i => i.id)
             }, {
                 preserveScroll: true,
-                onSuccess: () => toast.success('Order saved'),
+                onSuccess: () => toast.success(t.toasts.orderSaved),
                 onError: () => setLocalProjects(projects) // Revert if failed
             });
         }
@@ -958,7 +998,7 @@ export default function ReferencesIndex({ references, projects, selectedProjectI
                 ids: newItems.map(i => i.id)
             }, {
                 preserveScroll: true,
-                onSuccess: () => toast.success('Order saved'),
+                onSuccess: () => toast.success(t.toasts.orderSaved),
                 onError: () => setLocalReferences(references)
             });
         }
@@ -1063,7 +1103,7 @@ export default function ReferencesIndex({ references, projects, selectedProjectI
             onSuccess: () => {
                 setIsEditProjectOpen(false);
                 setEditingProject(null);
-                toast.success('Project updated successfully');
+                toast.success(t.toasts.projectUpdated);
             },
         });
     };
@@ -1076,7 +1116,7 @@ export default function ReferencesIndex({ references, projects, selectedProjectI
             onSuccess: () => {
                 setIsDeleteProjectOpen(false);
                 setEditingProject(null);
-                toast.success('Project deleted successfully');
+                toast.success(t.toasts.projectDeleted);
             },
         });
     };
@@ -1090,7 +1130,7 @@ export default function ReferencesIndex({ references, projects, selectedProjectI
                 setIsAddFolderOpen(false);
                 folderForm.reset();
                 setTargetProject(null);
-                toast.success('Folder created successfully');
+                toast.success(t.toasts.folderCreated);
             },
         });
     };
@@ -1106,13 +1146,13 @@ export default function ReferencesIndex({ references, projects, selectedProjectI
     const handleCopyAll = () => {
         // Mock copy functionality
         setCopySuccess(true);
-        toast.success('References copied to clipboard');
+        toast.success(t.toasts.copiedToClipboard);
         setTimeout(() => setCopySuccess(false), 2000);
     };
 
     const handleExport = (format: string) => {
         setIsExportMenuOpen(false);
-        toast.success(`Exporting as ${format.toUpperCase()}...`);
+        toast.success(t.toasts.exporting.replace('{format}', format.toUpperCase()));
         // Actual export logic would go here
     };
 
@@ -1126,7 +1166,7 @@ export default function ReferencesIndex({ references, projects, selectedProjectI
                 setIsEditFolderOpen(false);
                 editFolderForm.reset();
                 setEditingFolder(null);
-                toast.success('Folder updated successfully');
+                toast.success(t.toasts.folderUpdated);
             },
         });
     };
@@ -1139,7 +1179,7 @@ export default function ReferencesIndex({ references, projects, selectedProjectI
             onSuccess: () => {
                 setIsDeleteFolderConfirmOpen(false);
                 setEditingFolder(null);
-                toast.success('Folder deleted successfully');
+                toast.success(t.toasts.folderDeleted);
             },
         });
     };
@@ -1173,7 +1213,7 @@ export default function ReferencesIndex({ references, projects, selectedProjectI
 
     const handleNewSourceSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        toast.success('Successfully added to project');
+        toast.success(t.toasts.addedToProject);
         setIsNewSourceOpen(false);
         // Add logic to save reference
     };
@@ -1198,11 +1238,11 @@ export default function ReferencesIndex({ references, projects, selectedProjectI
                 setShowLookupDropdown(false);
                 setLookupResults(null);
                 setCiteInput('');
-                toast.success('Source added successfully');
+                toast.success(t.toasts.sourceAdded);
             },
             onError: (errors: any) => {
                 const message = Object.values(errors)[0] as string;
-                toast.error(message || 'Failed to add source');
+                toast.error(message || t.toasts.sourceFailed);
             },
             preserveScroll: true
         });
@@ -1316,32 +1356,48 @@ export default function ReferencesIndex({ references, projects, selectedProjectI
                             </form>
 
                             {/* Lookup Dropdown */}
-                            {showLookupDropdown && lookupResults && (
+                            {showLookupDropdown && lookupResults && Array.isArray(lookupResults) && lookupResults.length > 0 && (
                                 <>
                                     <div className="absolute top-full left-0 right-0 mt-3 z-[45] bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-[0_20px_50px_rgba(0,0,0,0.15)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.3)] overflow-hidden animate-in fade-in slide-in-from-top-2 duration-300">
-                                        <div className="p-4 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors group/item relative z-10">
-                                        <div className="flex-1 min-w-0 pr-4">
-                                            <h3 className="text-[15px] font-black text-scribehub-blue dark:text-white truncate">
-                                                {lookupResults.title}
-                                            </h3>
-                                            <div className="flex items-center gap-2 mt-1">
-                                                <span className="text-[12px] font-bold text-emerald-600 dark:text-emerald-400 italic">
-                                                    {lookupResults.publisher || lookupResults.journal_name || 'Web Resource'}
-                                                </span>
-                                                <span className="text-gray-300 dark:text-gray-700">•</span>
-                                                <span className="text-[12px] font-medium text-gray-400 capitalize">
-                                                    {lookupResults.type}
-                                                </span>
-                                            </div>
+                                        <div className="max-h-[400px] overflow-y-auto divide-y divide-gray-50 dark:divide-gray-800">
+                                            {lookupResults.map((result, idx) => (
+                                                <div key={idx} className="p-4 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors group/item relative z-10">
+                                                    <div className="flex-1 min-w-0 pr-4">
+                                                        <h3 className="text-[14px] font-black text-scribehub-blue dark:text-white truncate">
+                                                            {result.title}
+                                                        </h3>
+                                                        <div className="flex flex-wrap items-center gap-2 mt-1">
+                                                            {result.authors && result.authors.length > 0 && (
+                                                                <span className="text-[11px] font-bold text-gray-500 dark:text-gray-400">
+                                                                    {result.authors.join(', ')}
+                                                                </span>
+                                                            )}
+                                                            <span className="text-gray-300 dark:text-gray-700 text-[10px]">•</span>
+                                                            <span className="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 italic">
+                                                                {result.publisher || result.journal_name || 'Web Resource'}
+                                                            </span>
+                                                            <span className="text-gray-300 dark:text-gray-700 text-[10px]">•</span>
+                                                            <span className="text-[11px] font-medium text-gray-400 capitalize">
+                                                                {result.type}
+                                                            </span>
+                                                            {result.year && (
+                                                                <>
+                                                                    <span className="text-gray-300 dark:text-gray-700 text-[10px]">•</span>
+                                                                    <span className="text-[11px] font-medium text-gray-400">{result.year}</span>
+                                                                </>
+                                                            )}
+                                                        </div>
+                                                    </div>
+                                                    <button 
+                                                        onClick={() => handleAddLookup(result)}
+                                                        className="inline-flex h-8 items-center gap-2 rounded-lg bg-gray-100 px-4 text-[10px] font-black text-gray-900 transition-all hover:bg-scribehub-blue hover:text-white hover:scale-[1.05] dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-white dark:hover:text-black shrink-0"
+                                                    >
+                                                        <Plus className="h-3.5 w-3.5" />
+                                                        Add
+                                                    </button>
+                                                </div>
+                                            ))}
                                         </div>
-                                        <button 
-                                            onClick={() => handleAddLookup(lookupResults)}
-                                            className="inline-flex h-9 items-center gap-2 rounded-xl bg-gray-100 px-5 text-[11px] font-black text-gray-900 transition-all hover:bg-scribehub-blue hover:text-white hover:scale-[1.05] dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-white dark:hover:text-black"
-                                        >
-                                            <Plus className="h-4 w-4" />
-                                            Add
-                                        </button>
-                                    </div>
 
                                     {/* Keyboard Navigation Hints */}
                                     <div className="bg-gray-50/80 px-4 py-2 flex items-center justify-end gap-6 dark:bg-gray-800/30 border-t border-gray-100 dark:border-gray-800">
@@ -1749,7 +1805,7 @@ export default function ReferencesIndex({ references, projects, selectedProjectI
                                                         }}
                                                         handleCopyClick={(ref: any) => {
                                                             navigator.clipboard.writeText(ref.citation.replace(/<[^>]*>/g, ''));
-                                                            toast.success('Citation copied');
+                                                            toast.success(t.toasts.citationCopied);
                                                         }}
                                                         handleViewCitation={(ref: any) => {
                                                             setViewingCitation(ref);
@@ -1812,7 +1868,7 @@ export default function ReferencesIndex({ references, projects, selectedProjectI
                                             onSuccess: () => {
                                                 setIsDeleteReferenceOpen(false);
                                                 setEditingReference(null);
-                                                toast.success('Reference deleted');
+                                                toast.success(t.toasts.referenceDeleted);
                                             }
                                         });
                                     }
@@ -1884,7 +1940,7 @@ export default function ReferencesIndex({ references, projects, selectedProjectI
                                     if (viewingCitation) {
                                         navigator.clipboard.writeText(viewingCitation.citation.replace(/<[^>]*>/g, ''));
                                         setCopySuccess(true);
-                                        toast.success('Citation copied');
+                                        toast.success(t.toasts.citationCopied);
                                         setTimeout(() => setCopySuccess(false), 2000);
                                     }
                                 }}

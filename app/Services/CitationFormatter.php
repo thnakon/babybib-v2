@@ -349,6 +349,10 @@ class CitationFormatter
      */
     private function formatSingleAuthorApa(string $author): string
     {
+        if ($this->isThai($author)) {
+            return $author;
+        }
+
         $parts = preg_split('/\s+/', trim($author));
         if (count($parts) === 1) {
             return $parts[0];
@@ -384,6 +388,10 @@ class CitationFormatter
      */
     private function formatSingleAuthorMla(string $author, bool $invertFirst): string
     {
+        if ($this->isThai($author)) {
+            return $author;
+        }
+
         $parts = preg_split('/\s+/', trim($author));
         if (count($parts) === 1) {
             return $parts[0];
@@ -417,6 +425,11 @@ class CitationFormatter
 
         $formatted = [];
         foreach ($authors as $author) {
+            if ($this->isThai($author)) {
+                $formatted[] = $author;
+                continue;
+            }
+
             $parts = preg_split('/\s+/', trim($author));
             if (count($parts) === 1) {
                 $formatted[] = $parts[0];
@@ -472,6 +485,14 @@ class CitationFormatter
             }
         }
         return $year;
+    }
+
+    /**
+     * Check if a string contains Thai characters.
+     */
+    private function isThai(string $text): bool
+    {
+        return preg_match('/[\x{0E00}-\x{0E7F}]/u', $text);
     }
 
     /**
