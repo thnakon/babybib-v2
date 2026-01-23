@@ -73,6 +73,9 @@ class CitationFormatter
 
         // Year
         $yearStr = $reference->year ?? 'n.d.';
+        if ($this->shouldUseThaiYear($reference)) {
+            $yearStr = $this->convertToThaiYear($yearStr);
+        }
         if ($reference->year && $reference->year_suffix) {
             $yearStr .= $reference->year_suffix;
         }
@@ -209,6 +212,9 @@ class CitationFormatter
             }
             if ($reference->year) {
                 $yearStr = $reference->year;
+                if ($this->shouldUseThaiYear($reference)) {
+                    $yearStr = $this->convertToThaiYear($yearStr);
+                }
                 if ($reference->year_suffix) {
                     $yearStr .= $reference->year_suffix;
                 }
@@ -661,6 +667,28 @@ class CitationFormatter
 
         $parts = preg_split('/\s+/', trim($author));
         return array_pop($parts);
+    }
+
+    /**
+     * Check if a reference should use Thai year (พ.ศ.).
+     */
+    private function shouldUseThaiYear(Reference $reference): bool
+    {
+        // Check if any field contains Thai characters
+        $fields = [
+            $reference->title,
+            $reference->publisher,
+            $reference->journal_name,
+            ...(is_array($reference->authors) ? $reference->authors : [])
+        ];
+
+        foreach ($fields as $field) {
+            if ($field && preg_match('/[\x{0E00}-\x{0E7F}]/u', $field)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**

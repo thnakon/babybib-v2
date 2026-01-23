@@ -52,6 +52,37 @@ class ReferenceController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
 
+        // Group references by author and year to auto-generate suffixes if missing
+        $authorYearGroups = [];
+        $references->each(function ($ref) use (&$authorYearGroups) {
+            $authorKey = is_array($ref->authors) ? implode('|', $ref->authors) : ($ref->authors ?? '');
+            $yearKey = $ref->year ?? 'n.d.';
+            $groupKey = $authorKey . '_' . $yearKey;
+
+            if (!isset($authorYearGroups[$groupKey])) {
+                $authorYearGroups[$groupKey] = [];
+            }
+            $authorYearGroups[$groupKey][] = $ref;
+        });
+
+        // Apply automatic suffixes if multiple references in same group
+        $thaiSuffixes = ['ก', 'ข', 'ค', 'ง', 'จ', 'ฉ', 'ช', 'ซ', 'ฌ', 'ญ', 'ฎ', 'ฏ', 'ฐ', 'ฑ', 'ฒ', 'ณ', 'ด', 'ต', 'ถ', 'ท', 'ธ', 'น', 'บ', 'ป', 'ผ', 'ฝ', 'พ', 'ฟ', 'ภ', 'ม', 'ย', 'ร', 'ล', 'ว', 'ศ', 'ษ', 'ส', 'ห', 'ฬ', 'อ', 'ฮ'];
+        $engSuffixes = range('a', 'z');
+
+        foreach ($authorYearGroups as $groupKey => $group) {
+            if (count($group) > 1) {
+                foreach ($group as $index => $ref) {
+                    // Only auto-suffix if not manually set
+                    if (empty($ref->year_suffix)) {
+                        $isThaiRef = $this->isThaiReference($ref);
+                        $ref->year_suffix = $isThaiRef
+                            ? ($thaiSuffixes[$index] ?? '')
+                            : ($engSuffixes[$index] ?? '');
+                    }
+                }
+            }
+        }
+
         // Add formatted citations
         $references->transform(function ($reference) use ($style) {
             $reference->citation = $this->formatter->format($reference, $style);
@@ -205,5 +236,34 @@ class ReferenceController extends Controller
         }
 
         return back()->with('success', 'References reordered.');
+    }
+    /**
+     * Check if a reference should be treated as Thai.
+     */
+    private function isThaiReference(Reference $reference): bool
+    {
+        // 1. Check if title has Thai characters
+        if (preg_match('/[\x{0E00}-\x{0E7F}]/u', $reference->title)) {
+            return true;
+        }
+
+        // 2. Check if authors have Thai characters
+        if ($reference->authors) {
+            foreach ($reference->authors as $author) {
+                if (preg_match('/[\x{0E00}-\x{0E7F}]/u', $author)) {
+                    return true;
+                }
+            }
+        }
+
+        // 3. Check if publisher or journal name has Thai characters
+        if (
+            preg_match('/[\x{0E00}-\x{0E7F}]/u', $reference->publisher ?? '') ||
+            preg_match('/[\x{0E00}-\x{0E7F}]/u', $reference->journal_name ?? '')
+        ) {
+            return true;
+        }
+
+        return false;
     }
 }
