@@ -1,11 +1,13 @@
 import { Link } from '@inertiajs/react';
 import AppLogoIcon from './app-logo-icon';
+import { cn } from '@/lib/utils';
 
 interface AppLogoProps {
     renderLink?: boolean;
+    className?: string;
 }
 
-export default function AppLogo({ renderLink = true }: AppLogoProps) {
+export default function AppLogo({ renderLink = true, className }: AppLogoProps) {
     const content = (
         <>
             <div className="flex aspect-square size-9 items-center justify-center rounded-xl bg-scribehub-blue/5 p-1.5 transition-colors group-hover:bg-scribehub-blue/10 dark:bg-white/10">
@@ -20,11 +22,11 @@ export default function AppLogo({ renderLink = true }: AppLogoProps) {
     );
 
     if (!renderLink) {
-        return <div className="flex items-center gap-2">{content}</div>;
+        return <div className={cn("flex items-center gap-2", className)}>{content}</div>;
     }
 
     return (
-        <Link href="/" className="flex items-center gap-2">
+        <Link href="/" className={cn("flex items-center gap-2", className)}>
             {content}
         </Link>
     );

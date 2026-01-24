@@ -42,7 +42,7 @@ const researchNavItems: NavItem[] = [
 const toolsNavItems: NavItem[] = [
     {
         title: 'AI Workspace',
-        href: '#',
+        href: '/workspace',
         icon: Brain,
     },
 ];

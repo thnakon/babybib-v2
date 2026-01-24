@@ -6,6 +6,7 @@ use App\Http\Controllers\FolderController;
 use App\Http\Controllers\ImportController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ReferenceController;
+use App\Http\Controllers\WorkspaceController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
@@ -65,6 +66,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('export/preview/bibtex', [ExportController::class, 'previewBibtex'])->name('export.preview.bibtex');
     Route::post('export/preview/ris', [ExportController::class, 'previewRis'])->name('export.preview.ris');
     Route::get('export/pdf', [ExportController::class, 'pdf'])->name('export.pdf');
+
+    // Integrated Workspace
+    Route::get('workspace', [WorkspaceController::class, 'index'])->name('workspace.index');
 });
 
 require __DIR__ . '/settings.php';
