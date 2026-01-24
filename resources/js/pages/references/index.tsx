@@ -757,7 +757,7 @@ function SortableReferenceItem({
                  {/* Compact View Actions (Inline) */}
                  {viewMode === 'compact' && (
                     <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-all shrink-0">
-                        <button onClick={() => handleCopyClick(reference)} className="p-1.5 text-gray-400 hover:text-emerald-600 rounded-lg"><Copy className="h-3.5 w-3.5" /></button>
+                        <button onClick={() => onCopy(reference)} className="p-1.5 text-gray-400 hover:text-emerald-600 rounded-lg"><Copy className="h-3.5 w-3.5" /></button>
                          <button onClick={() => handleEditClick(reference)} className="p-1.5 text-gray-400 hover:text-blue-600 rounded-lg"><Edit className="h-3.5 w-3.5" /></button>
                          <button onClick={() => handleDeleteClick(reference)} className="p-1.5 text-gray-400 hover:text-red-600 rounded-lg"><Trash2 className="h-3.5 w-3.5" /></button>
                     </div>
@@ -1874,7 +1874,7 @@ export default function ReferencesIndex({ references, projects, selectedProjectI
                                                             });
                                                             setIsNewSourceOpen(true);
                                                         }}
-                                                        handleCopyClick={(ref: any) => {
+                                                        onCopy={(ref: any) => {
                                                             navigator.clipboard.writeText(ref.citation.replace(/<[^>]*>/g, ''));
                                                             toast.success(t.toasts.citationCopied);
                                                         }}

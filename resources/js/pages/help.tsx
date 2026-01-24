@@ -27,7 +27,7 @@ const translations = {
             { id: 'editor', title: "Editor & Split-View", icon: Layout, desc: "Master the all-in-one research writing workspace" },
             { id: 'ai', title: "AI Assistant", icon: Sparkles, desc: "Leverage AI to summarize and refine your core writing" },
             { id: 'collab', title: "Collaboration", icon: Users, desc: "Work with your team in real-time on shared projects" },
-            { id: 'billing', title: "Billing & Plans", icon: CreditCard, desc: "Manage subscriptions and student discounts" },
+            { id: 'references', title: "Reference Management", icon: BookOpen, desc: "Manual entry, folders, projects, and exporting" },
             { id: 'trouble', title: "Troubleshooting", icon: Wrench, desc: "Common solutions for common technical issues" }
         ],
         sections: [
@@ -146,8 +146,41 @@ const translations = {
                 ]
             },
             {
+                id: 'references',
+                title: "6. Reference Management",
+                icon: BookOpen,
+                articles: [
+                    {
+                        title: "Manual Entry Guide",
+                        content: [
+                            "Click the '+ New' button and select 'New Source'.",
+                            "Choose the resource type (Book, Website, Journal, etc.).",
+                            "Fill in the metadata: Title, Authors, Year, and Publisher.",
+                            "Toggle 'Online Source' to add URL and Access Date for digital references."
+                        ]
+                    },
+                    {
+                        title: "Organizing with Projects & Folders",
+                        content: [
+                            "Projects: High-level containers for different research papers. Create via the '+ New' menu.",
+                            "Folders: Sub-categorization within a project. Right-click a project or use '+ New Folder' to group references by theme or chapter.",
+                            "Drag and Drop: You can reorder projects and folders by dragging the handle icon on the left."
+                        ]
+                    },
+                    {
+                        title: "Exporting Your Bibliography",
+                        content: [
+                            "Full List Export: Click the 'Export' icon in your Workspace toolbar.",
+                            "Word (.docx): Download a perfectly formatted Word document including all citations.",
+                            "PDF (.pdf): Export a clean PDF bibliography ready for printing or submission.",
+                            "BibTeX/RIS: Export for use with other managers like Zotero, Mendeley, or LaTeX editors."
+                        ]
+                    }
+                ]
+            },
+            {
                 id: 'trouble',
-                title: "6. Troubleshooting",
+                title: "7. Troubleshooting",
                 icon: Wrench,
                 articles: [
                     {
@@ -191,7 +224,7 @@ const translations = {
             { id: 'editor', title: "Editor & Split-View", icon: Layout, desc: "เชี่ยวชาญเครื่องมือการเขียนงานวิจัยครบวงจร" },
             { id: 'ai', title: "AI Assistant", icon: Sparkles, desc: "ใช้ AI ช่วยสรุปและปรับแต่งงานเขียนของคุณ" },
             { id: 'collab', title: "การทำงานร่วมกัน", icon: Users, desc: "ทำงานกับทีมแบบเรียลไทม์บนโปรเจกต์เดียวกัน" },
-            { id: 'billing', title: "แผนการใช้งาน", icon: CreditCard, desc: "จัดการการสมัครสมาชิกและสิทธิ์นักศึกษา" },
+            { id: 'references', title: "การจัดการบรรณานุกรม", icon: BookOpen, desc: "การกรอกข้อมูลเอง, โฟลเดอร์, โปรเจกต์ และการส่งออก" },
             { id: 'trouble', title: "การแก้ปัญหา", icon: Wrench, desc: "วิธีแก้ปัญหาทางเทคนิคเบื้องต้นที่พบบ่อย" }
         ],
         sections: [
@@ -310,8 +343,41 @@ const translations = {
                 ]
             },
             {
+                id: 'references',
+                title: "6. การจัดการบรรณานุกรม (Reference Management)",
+                icon: BookOpen,
+                articles: [
+                    {
+                        title: "การกรอกข้อมูลด้วยตนเอง (Manual Entry)",
+                        content: [
+                            "คลิกปุ่ม '+ New' แล้วเลือก 'New Source'",
+                            "เลือกประเภททรัพยากรที่ต้องการ (หนังสือ, เว็บไซต์, วารสาร ฯลฯ)",
+                            "กรอกข้อมูลพื้นฐาน เช่น ชื่อเรื่อง, ชื่อผู้แต่ง, ปีที่พิมพ์ และสำนักพิมพ์",
+                            "เลือก 'เป็นแหล่งข้อมูลออนไลน์' เพื่อเพิ่ม URL และวันที่เข้าถึงสำหรับข้อมูลดิจิทัล"
+                        ]
+                    },
+                    {
+                        title: "การจัดการด้วยโปรเจกต์และโฟลเดอร์",
+                        content: [
+                            "โปรเจกต์: ตู้คอนเทนเนอร์หลักสำหรับงานวิจัยแต่ละเรื่อง สร้างได้ผ่านเมนู '+ New Project'",
+                            "โฟลเดอร์: การแบ่งหัวข้อย่อยภายในโปรเจกต์ ใช้เพื่อแยกบรรณานุกรมตามบทหรือตามเนื้อหา (สร้างได้จากปุ่ม '+ New Folder' หรือเมนูที่โปรเจกต์)",
+                            "การจัดเรียง: คุณสามารถลากวาง (Drag & Drop) เพื่อจัดลำดับโปรเจกต์ตามความสำคัญได้"
+                        ]
+                    },
+                    {
+                        title: "รูปแบบการส่งออก (Exporting Options)",
+                        content: [
+                            "ส่งออกทั้งรายการ: คลิกไอคอน 'Export' ในแถบเครื่องมือของพื้นที่ทำงาน",
+                            "Microsoft Word (.docx): ดาวน์โหลดไฟล์ Word ที่จัดรูปแบบการอ้างอิงให้เสร็จสรรพ พร้อมใช้งานทันที",
+                            "PDF Document (.pdf): ส่งออกไฟล์ PDF สำหรับพิมพ์หรือแนบท้ายเล่มวิจัย",
+                            "BibTeX/RIS: สำหรับนำไปใช้ต่อในโปรแกรมจัดการบรรณานุกรมอื่นๆ เช่น Zotero, Mendeley หรือ LaTeX"
+                        ]
+                    }
+                ]
+            },
+            {
                 id: 'trouble',
-                title: "6. การแก้ปัญหาเบื้องต้น (Troubleshooting)",
+                title: "7. การแก้ปัญหาเบื้องต้น (Troubleshooting)",
                 icon: Wrench,
                 articles: [
                     {
