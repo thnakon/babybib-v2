@@ -136,7 +136,7 @@ class ReferenceController extends Controller
 
         // 0.54MB per ref, 0.5MB per project/folder
         $storageUsed = ($referencesCount * 0.54) + ($projectsCount * 0.5) + ($foldersCount * 0.5);
-        $storageLimit = 500;
+        $storageLimit = 200;
 
         return Inertia::render('references/index', [
             'references' => $references,
