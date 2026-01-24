@@ -164,6 +164,7 @@ const translations = {
         addToProject: "Add to Project",
         searchFields: "Search fields...",
         workspace: "Workspace",
+        noResults: "No results found for your search",
         toasts: {
             importSuccess: "Imported {count} references successfully",
             importNoValid: "No valid references found in file",
@@ -260,6 +261,7 @@ const translations = {
         addToProject: "บันทึกลงในโปรเจกต์",
         searchFields: "ค้นหาฟิลด์...",
         workspace: "พื้นที่ทำงาน",
+        noResults: "ไม่พบข้อมูลที่ค้นหา",
         toasts: {
             importSuccess: "นำเข้า {count} รายการอ้างอิงสำเร็จแล้ว",
             importNoValid: "ไม่พบรายการอ้างอิงที่ถูกต้องในไฟล์",
@@ -607,9 +609,10 @@ function SortableReferenceItem({
     reference, 
     handleDeleteClick, 
     handleEditClick, 
-    handleCopyClick, 
+    onCopy, 
     handleViewCitation,
     viewMode = 'citation',
+    isNew = false,
     t 
 }: any) {
     const {
@@ -648,9 +651,10 @@ function SortableReferenceItem({
             ref={setNodeRef} 
             style={style} 
             className={cn(
-                "group relative transition-all rounded-lg hover:bg-gray-100/50 dark:hover:bg-gray-800/50",
+                "group relative transition-all rounded-xl",
                 viewMode === 'compact' ? "py-2 px-2 -mx-2" : "pl-8 pr-4 py-3 -mx-4",
-                isDragging ? "opacity-50 grayscale bg-gray-50" : ""
+                isDragging ? "opacity-50 grayscale bg-gray-50 dark:bg-gray-800" : "hover:bg-gray-100/50 dark:hover:bg-gray-800/50",
+                isNew && "bg-scribehub-blue/5 border-2 border-scribehub-blue/20 ring-4 ring-scribehub-blue/5 animate-in fade-in zoom-in-95 duration-700"
             )}
         >
             <div className={cn("flex gap-4", viewMode === 'compact' ? "items-center" : "items-start")}>
@@ -715,7 +719,7 @@ function SortableReferenceItem({
                         <div className="h-3 w-px bg-gray-200 dark:bg-gray-700 mx-1"></div>
                         <button 
                             onClick={() => {
-                                handleCopyClick(reference);
+                                onCopy(reference);
                                 setCopied(true);
                                 setTimeout(() => setCopied(false), 2000);
                             }}
@@ -886,9 +890,9 @@ export default function ReferencesIndex({ references, projects, selectedProjectI
                 } else if (e.key === 'Enter') {
                     e.preventDefault();
                     if (Array.isArray(lookupResults) && lookupResults.length > 0) {
-                        handleAddLookup(lookupResults[0]);
+                        handleAddLookup(lookupResults[0], 0);
                     } else if (lookupResults && !Array.isArray(lookupResults)) {
-                        handleAddLookup(lookupResults);
+                        handleAddLookup(lookupResults, 0);
                     }
                 }
             }
@@ -985,6 +989,8 @@ export default function ReferencesIndex({ references, projects, selectedProjectI
     const [localReferences, setLocalReferences] = useState<Reference[]>(references || []);
     const [isDeleteReferenceOpen, setIsDeleteReferenceOpen] = useState(false);
     const [editingReference, setEditingReference] = useState<Reference | null>(null);
+    const [newReferenceId, setNewReferenceId] = useState<number | null>(null);
+    const [isAddingLookupId, setIsAddingLookupId] = useState<number | null>(null);
 
     // Sync local references when prop changes
     useEffect(() => {
@@ -1161,8 +1167,26 @@ export default function ReferencesIndex({ references, projects, selectedProjectI
 
     const handleExport = (format: string) => {
         setIsExportMenuOpen(false);
-        toast.success(t.toasts.exporting.replace('{format}', format.toUpperCase()));
-        // Actual export logic would go here
+        
+        const params = new URLSearchParams();
+        if (selectedProjectId) params.set('project_id', selectedProjectId.toString());
+        if (selectedFolderId) params.set('folder_id', selectedFolderId.toString());
+        params.set('style', selectedStyle.id);
+        params.set('lang', language);
+        
+        if (format === 'pdf') {
+            window.location.href = `/export/pdf?${params.toString()}`;
+            toast.success(t.toasts.exporting.replace('{format}', 'PDF'));
+        } else if (format === 'word') {
+            window.location.href = `/export/word?${params.toString()}`;
+            toast.success(t.toasts.exporting.replace('{format}', 'Word'));
+        } else if (format === 'bibtex') {
+            window.location.href = `/export/bibtex?${params.toString()}`;
+            toast.success(t.toasts.exporting.replace('{format}', 'BibTeX'));
+        } else if (format === 'ris') {
+            window.location.href = `/export/ris?${params.toString()}`;
+            toast.success(t.toasts.exporting.replace('{format}', 'RIS'));
+        }
     };
 
 
@@ -1233,23 +1257,34 @@ export default function ReferencesIndex({ references, projects, selectedProjectI
         performLookup(citeInput);
     };
 
-    const handleAddLookup = (data: any) => {
+    const handleAddLookup = (data: any, index: number) => {
         const params = new URLSearchParams(window.location.search);
         const projectId = params.get('project_id');
         const folderId = params.get('folder_id');
+
+        setIsAddingLookupId(index);
 
         router.post('/import/from-lookup', { 
             ...data,
             project_id: projectId,
             folder_id: folderId
         }, {
-            onSuccess: () => {
+            onSuccess: (page: any) => {
                 setShowLookupDropdown(false);
                 setLookupResults(null);
                 setCiteInput('');
+                setIsAddingLookupId(null);
                 toast.success(t.toasts.sourceAdded);
+
+                // Highlight the new reference
+                const newRef = page.props.references?.[0];
+                if (newRef) {
+                    setNewReferenceId(newRef.id);
+                    setTimeout(() => setNewReferenceId(null), 3000);
+                }
             },
             onError: (errors: any) => {
+                setIsAddingLookupId(null);
                 const message = Object.values(errors)[0] as string;
                 toast.error(message || t.toasts.sourceFailed);
             },
@@ -1369,43 +1404,62 @@ export default function ReferencesIndex({ references, projects, selectedProjectI
                                 <>
                                     <div className="absolute top-full left-0 right-0 mt-3 z-[45] bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-[0_20px_50px_rgba(0,0,0,0.15)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.3)] overflow-hidden animate-in fade-in slide-in-from-top-2 duration-300">
                                         <div className="max-h-[400px] overflow-y-auto divide-y divide-gray-50 dark:divide-gray-800">
-                                            {lookupResults.map((result, idx) => (
-                                                <div key={idx} className="p-4 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors group/item relative z-10">
-                                                    <div className="flex-1 min-w-0 pr-4">
-                                                        <h3 className="text-[14px] font-black text-scribehub-blue dark:text-white truncate">
-                                                            {result.title}
-                                                        </h3>
-                                                        <div className="flex flex-wrap items-center gap-2 mt-1">
-                                                            {result.authors && result.authors.length > 0 && (
-                                                                <span className="text-[11px] font-bold text-gray-500 dark:text-gray-400">
-                                                                    {result.authors.join(', ')}
+                                            {Array.isArray(lookupResults) && lookupResults.length > 0 ? (
+                                                lookupResults.map((result, idx) => (
+                                                    <div key={idx} className="p-4 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors group/item relative z-10">
+                                                        <div className="flex-1 min-w-0 pr-4">
+                                                            <h3 className="text-[14px] font-black text-scribehub-blue dark:text-white truncate">
+                                                                {result.title}
+                                                            </h3>
+                                                            <div className="flex flex-wrap items-center gap-2 mt-1">
+                                                                {result.authors && result.authors.length > 0 && (
+                                                                    <span className="text-[11px] font-bold text-gray-500 dark:text-gray-400">
+                                                                        {result.authors.join(', ')}
+                                                                    </span>
+                                                                )}
+                                                                <span className="text-gray-300 dark:text-gray-700 text-[10px]">•</span>
+                                                                <span className="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 italic">
+                                                                    {result.publisher || result.journal_name || 'Web Resource'}
                                                                 </span>
-                                                            )}
-                                                            <span className="text-gray-300 dark:text-gray-700 text-[10px]">•</span>
-                                                            <span className="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 italic">
-                                                                {result.publisher || result.journal_name || 'Web Resource'}
-                                                            </span>
-                                                            <span className="text-gray-300 dark:text-gray-700 text-[10px]">•</span>
-                                                            <span className="text-[11px] font-medium text-gray-400 capitalize">
-                                                                {result.type}
-                                                            </span>
-                                                            {result.year && (
+                                                                <span className="text-gray-300 dark:text-gray-700 text-[10px]">•</span>
+                                                                <span className="text-[11px] font-medium text-gray-400 capitalize">
+                                                                    {result.type}
+                                                                </span>
+                                                                {result.year && (
+                                                                    <>
+                                                                        <span className="text-gray-300 dark:text-gray-700 text-[10px]">•</span>
+                                                                        <span className="text-[11px] font-medium text-gray-400">{result.year}</span>
+                                                                    </>
+                                                                )}
+                                                            </div>
+                                                        </div>
+                                                        <button 
+                                                            onClick={() => handleAddLookup(result, idx)}
+                                                            disabled={isAddingLookupId === idx}
+                                                            className="inline-flex h-8 items-center gap-2 rounded-lg bg-gray-100 px-4 text-[10px] font-black text-gray-900 transition-all hover:bg-scribehub-blue hover:text-white hover:scale-[1.05] dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-white dark:hover:text-black shrink-0 disabled:opacity-50 disabled:scale-100"
+                                                        >
+                                                            {isAddingLookupId === idx ? (
                                                                 <>
-                                                                    <span className="text-gray-300 dark:text-gray-700 text-[10px]">•</span>
-                                                                    <span className="text-[11px] font-medium text-gray-400">{result.year}</span>
+                                                                    <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                                                                    {language === 'th' ? 'กำลังเพิ่ม...' : 'Adding...'}
+                                                                </>
+                                                            ) : (
+                                                                <>
+                                                                    <Plus className="h-3.5 w-3.5" />
+                                                                    Add
                                                                 </>
                                                             )}
-                                                        </div>
+                                                        </button>
                                                     </div>
-                                                    <button 
-                                                        onClick={() => handleAddLookup(result)}
-                                                        className="inline-flex h-8 items-center gap-2 rounded-lg bg-gray-100 px-4 text-[10px] font-black text-gray-900 transition-all hover:bg-scribehub-blue hover:text-white hover:scale-[1.05] dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-white dark:hover:text-black shrink-0"
-                                                    >
-                                                        <Plus className="h-3.5 w-3.5" />
-                                                        Add
-                                                    </button>
+                                                ))
+                                            ) : (
+                                                <div className="p-8 text-center">
+                                                    <div className="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-gray-50 dark:bg-gray-800">
+                                                        <Search className="h-5 w-5 text-gray-300" />
+                                                    </div>
+                                                    <p className="text-xs font-bold text-gray-400">{t.noResults}</p>
                                                 </div>
-                                            ))}
+                                            )}
                                         </div>
 
                                     {/* Keyboard Navigation Hints */}
@@ -1736,6 +1790,13 @@ export default function ReferencesIndex({ references, projects, selectedProjectI
                                                     Microsoft Word (.docx)
                                                 </button>
                                                 <button 
+                                                    onClick={() => handleExport('pdf')}
+                                                    className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-[11px] font-bold text-gray-600 hover:bg-gray-50 dark:text-gray-400 dark:hover:bg-gray-800 transition-all"
+                                                >
+                                                    <FileText className="h-3.5 w-3.5 text-red-500" />
+                                                    PDF Document (.pdf)
+                                                </button>
+                                                <button 
                                                     onClick={() => handleExport('bibtex')}
                                                     className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-[11px] font-bold text-gray-600 hover:bg-gray-50 dark:text-gray-400 dark:hover:bg-gray-800 transition-all"
                                                 >
@@ -1820,6 +1881,7 @@ export default function ReferencesIndex({ references, projects, selectedProjectI
                                                         handleViewCitation={(ref: any) => {
                                                             setViewingCitation(ref);
                                                         }}
+                                                        isNew={reference.id === newReferenceId}
                                                     />
                                                 ))}
                                                 </div>

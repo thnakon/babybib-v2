@@ -57,12 +57,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('citations/preview', [CitationController::class, 'preview'])->name('citations.preview');
 
     // Export Features
-    Route::post('export/bibtex', [ExportController::class, 'bibtex'])->name('export.bibtex');
-    Route::post('export/ris', [ExportController::class, 'ris'])->name('export.ris');
+    Route::match(['get', 'post'], 'export/bibtex', [ExportController::class, 'bibtex'])->name('export.bibtex');
+    Route::match(['get', 'post'], 'export/ris', [ExportController::class, 'ris'])->name('export.ris');
+    Route::get('export/word', [ExportController::class, 'word'])->name('export.word');
     Route::get('export/all/bibtex', [ExportController::class, 'allBibtex'])->name('export.all.bibtex');
     Route::get('export/all/ris', [ExportController::class, 'allRis'])->name('export.all.ris');
     Route::post('export/preview/bibtex', [ExportController::class, 'previewBibtex'])->name('export.preview.bibtex');
     Route::post('export/preview/ris', [ExportController::class, 'previewRis'])->name('export.preview.ris');
+    Route::get('export/pdf', [ExportController::class, 'pdf'])->name('export.pdf');
 });
 
 require __DIR__ . '/settings.php';

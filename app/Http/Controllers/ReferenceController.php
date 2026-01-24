@@ -46,11 +46,41 @@ class ReferenceController extends Controller
         // Log::info($query->toSql()); 
         // Log::info($query->getBindings());
 
-        $references = $query->orderBy('sort_order', 'asc')
-            ->orderBy('year', 'asc')
-            ->orderBy('year_suffix', 'asc')
-            ->orderBy('created_at', 'desc')
-            ->get();
+        $references = $query->get();
+
+        // 1. Split into Thai and English groups
+        $thaiRefs = [];
+        $engRefs = [];
+
+        foreach ($references as $ref) {
+            if ($this->isThaiReference($ref)) {
+                $thaiRefs[] = $ref;
+            } else {
+                $engRefs[] = $ref;
+            }
+        }
+
+        // 2. Sort each group alphabetically
+        $sortFn = function ($a, $b) {
+            $authorA = is_array($a->authors) && count($a->authors) > 0 ? $a->authors[0] : '';
+            $authorB = is_array($b->authors) && count($b->authors) > 0 ? $b->authors[0] : '';
+
+            $cmp = strcmp($authorA, $authorB);
+            if ($cmp !== 0) return $cmp;
+
+            $yearA = $a->year ?? '';
+            $yearB = $b->year ?? '';
+            $cmp = strcmp($yearA, $yearB);
+            if ($cmp !== 0) return $cmp;
+
+            return strcmp($a->title, $b->title);
+        };
+
+        usort($thaiRefs, $sortFn);
+        usort($engRefs, $sortFn);
+
+        // 3. Re-combine
+        $references = collect(array_merge($thaiRefs, $engRefs));
 
         // Group references by author and year to auto-generate suffixes if missing
         $authorYearGroups = [];
