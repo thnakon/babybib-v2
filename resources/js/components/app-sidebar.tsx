@@ -32,19 +32,9 @@ const researchNavItems: NavItem[] = [
         icon: Library,
     },
     {
-        title: 'Quick Import',
-        href: '/import',
-        icon: Upload,
-    },
-    {
         title: 'Citations',
         href: '/citations',
         icon: FileText,
-    },
-    {
-        title: 'My Projects',
-        href: '/projects',
-        icon: Folder,
     },
 ];
 

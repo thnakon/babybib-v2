@@ -83,6 +83,11 @@ interface Props {
     references: Reference[];
     projects: Project[];
     selectedProjectId: number | null;
+    storageUsage: {
+        used: number;
+        limit: number;
+        percentage: number;
+    };
 }
 
 // Translations
@@ -165,6 +170,8 @@ const translations = {
         searchFields: "Search fields...",
         workspace: "Workspace",
         noResults: "No results found for your search",
+        storageUsage: "Storage Usage",
+        upgradeToPro: "Upgrade to Pro for more storage and features",
         toasts: {
             importSuccess: "Imported {count} references successfully",
             importNoValid: "No valid references found in file",
@@ -262,6 +269,8 @@ const translations = {
         searchFields: "ค้นหาฟิลด์...",
         workspace: "พื้นที่ทำงาน",
         noResults: "ไม่พบข้อมูลที่ค้นหา",
+        storageUsage: "การใช้งานพื้นที่",
+        upgradeToPro: "อัปเกรดเป็น Pro เพื่อเพิ่มพื้นที่และฟีเจอร์",
         toasts: {
             importSuccess: "นำเข้า {count} รายการอ้างอิงสำเร็จแล้ว",
             importNoValid: "ไม่พบรายการอ้างอิงที่ถูกต้องในไฟล์",
@@ -767,7 +776,7 @@ function SortableReferenceItem({
     );
 }
 
-export default function ReferencesIndex({ references, projects, selectedProjectId }: Props) {
+export default function ReferencesIndex({ references, projects, selectedProjectId, storageUsage }: Props) {
     const { url } = usePage();
     const searchParams = new URL(url, window.location.origin).searchParams;
     const selectedFolderId = searchParams.get('folder_id') ? Number(searchParams.get('folder_id')) : null;
@@ -1612,51 +1621,27 @@ export default function ReferencesIndex({ references, projects, selectedProjectI
                                 {t.newProject}
                             </button>
 
-                            {/* Plan Card */}
-                            <div className="mt-6 rounded-2xl bg-gradient-to-br from-gray-50 to-white p-4 border border-gray-100 dark:from-gray-900 dark:to-gray-900 dark:border-gray-800 shadow-sm transition-all hover:shadow-md animate-in fade-in slide-in-from-bottom-2 duration-700">
+                            {/* Storage Usage Card */}
+                            <div className="mt-8 p-4 rounded-2xl bg-gray-50 dark:bg-gray-900/50 border border-gray-100 dark:border-gray-800">
                                 <div className="flex items-center justify-between mb-3">
                                     <div className="flex items-center gap-2">
-                                        <div className="flex h-6 w-6 items-center justify-center rounded-lg bg-scribehub-blue/10 text-scribehub-blue">
-                                            <Zap className="h-3.5 w-3.5" />
-                                        </div>
-                                        <span className="text-[11px] font-black uppercase tracking-wider text-scribehub-blue">Starter (Free)</span>
+                                        <div className="h-1.5 w-1.5 rounded-full bg-scribehub-blue animate-pulse"></div>
+                                        <span className="text-[10px] font-black uppercase tracking-widest text-gray-400">{t.storageUsage}</span>
                                     </div>
-                                    <span className="text-[10px] font-black text-gray-400">0 THB</span>
+                                    <span className="text-[10px] font-black text-scribehub-blue">{storageUsage.used} MB / {storageUsage.limit} MB</span>
                                 </div>
-
-                                <div className="space-y-2 mb-4">
-                                     <div className="flex items-center gap-2">
-                                        <Check className="h-3 w-3 text-emerald-500" />
-                                        <span className="text-[10px] font-bold text-gray-600 dark:text-gray-400">Manual / Auto Citation: <span className="text-emerald-600">Unlimited</span></span>
-                                    </div>
-                                    <div className="flex items-center gap-2">
-                                        <Check className="h-3 w-3 text-emerald-500" />
-                                        <span className="text-[10px] font-bold text-gray-600 dark:text-gray-400">Style Library: <span className="text-gray-400">(APA, MLA, IEEE, ...)</span></span>
-                                    </div>
-                                    <div className="flex items-center gap-2">
-                                        <Check className="h-3 w-3 text-emerald-500" />
-                                        <span className="text-[10px] font-bold text-gray-600 dark:text-gray-400">Reference Import: <span className="text-gray-400">DOI/ISBN</span></span>
-                                    </div>
-                                    <div className="flex items-center gap-2">
-                                        <div className="h-3 w-3 flex items-center justify-center">
-                                            <div className="h-1 w-1 rounded-full bg-gray-300" />
-                                        </div>
-                                        <span className="text-[10px] font-bold text-gray-400">Storage: 500 MB PDF files</span>
-                                    </div>
+                                <div className="h-1.5 w-full bg-gray-200 dark:bg-gray-800 rounded-full overflow-hidden mb-3">
+                                    <div className="h-full bg-scribehub-blue rounded-full transition-all duration-1000" style={{ width: `${storageUsage.percentage}%` }}></div>
                                 </div>
-
-                                <div className="space-y-1.5 p-2 rounded-xl bg-scribehub-blue/5 border border-scribehub-blue/10 mb-4">
-                                    <p className="text-[9px] font-bold text-scribehub-blue leading-tight">
-                                        Ideal for students who need simple and reliable bibliography tools.
-                                    </p>
-                                </div>
-
+                                <p className="text-[9px] font-bold text-gray-400 mb-3 leading-relaxed">
+                                    {t.upgradeToPro}
+                                </p>
                                 <Link 
                                     href="/billing"
-                                    className="flex w-full items-center justify-center gap-2 rounded-xl bg-scribehub-blue py-2.5 text-[10px] font-black uppercase tracking-widest text-white shadow-lg shadow-blue-500/20 hover:opacity-90 active:scale-95 transition-all"
+                                    className="flex items-center justify-center gap-2 w-full py-2 rounded-lg bg-scribehub-blue text-[10px] font-black text-white hover:opacity-90 transition-all shadow-md shadow-blue-500/10"
                                 >
-                                    <Sparkles className="h-3 w-3" />
-                                    Upgrade to Pro
+                                    <Zap className="h-3 w-3 fill-white" />
+                                    GO PRO
                                 </Link>
                             </div>
                         </div>

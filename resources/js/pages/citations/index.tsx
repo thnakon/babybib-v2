@@ -1,7 +1,7 @@
 import AppLayout from '@/layouts/app-layout';
 import type { BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/react';
-import { Copy, Check, FileText, BookOpen, Loader2 } from 'lucide-react';
+import { Copy, Check, FileText, BookOpen, Loader2, Quote } from 'lucide-react';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { useLanguage } from '@/contexts/language-context';
@@ -34,6 +34,7 @@ const translations = {
         noReferences: "No references selected",
         noReferencesDesc: "Select one or more references from your library to generate citations.",
         bibliography: "Bibliography",
+        inTextCitation: "In-text Citation",
         preview: "Preview",
         selected: "selected",
         styleGroups: {
@@ -53,6 +54,7 @@ const translations = {
         noReferences: "ยังไม่ได้เลือกรายการอ้างอิง",
         noReferencesDesc: "เลือกรายการอ้างอิงหนึ่งรายการขึ้นไปจากคลังของคุณเพื่อสร้างการอ้างอิง",
         bibliography: "บรรณานุกรม",
+        inTextCitation: "การอ้างอิงในเนื้อหา",
         preview: "ตัวอย่าง",
         selected: "รายการที่เลือก",
         styleGroups: {
@@ -71,8 +73,9 @@ export default function CitationsIndex({ references, styles }: Props) {
 
     const [selectedRefs, setSelectedRefs] = useState<number[]>([]);
     const [selectedStyle, setSelectedStyle] = useState('apa7');
-    const [citations, setCitations] = useState<{ id: number; title: string; citation: string }[]>([]);
+    const [citations, setCitations] = useState<{ id: number; title: string; citation: string; in_text_citation: string }[]>([]);
     const [loading, setLoading] = useState(false);
+    const [activeTab, setActiveTab] = useState<'bibliography' | 'inText'>('bibliography');
     const [copiedId, setCopiedId] = useState<number | null>(null);
     const [copiedAll, setCopiedAll] = useState(false);
 
@@ -121,7 +124,8 @@ export default function CitationsIndex({ references, styles }: Props) {
     };
 
     const copyAllCitations = () => {
-        const allText = citations.map(c => c.citation.replace(/<[^>]*>/g, '')).join('\n\n');
+        const key = activeTab === 'bibliography' ? 'citation' : 'in_text_citation';
+        const allText = citations.map(c => (c as any)[key].replace(/<[^>]*>/g, '')).join('\n\n');
         navigator.clipboard.writeText(allText);
         setCopiedAll(true);
         setTimeout(() => setCopiedAll(false), 2000);
@@ -251,23 +255,42 @@ export default function CitationsIndex({ references, styles }: Props) {
 
                     {/* Right: Output Panel */}
                     <div className="rounded-3xl border border-white bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-900/50">
-                        <div className="mb-4 flex items-center justify-between">
-                            <div className="flex items-center gap-3">
-                                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-100 text-emerald-600 dark:bg-emerald-900/30">
-                                    <BookOpen className="h-5 w-5" />
-                                </div>
-                                <h2 className="text-lg font-extrabold text-scribehub-blue dark:text-white">
+                        <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                            <div className="flex rounded-xl bg-gray-100 p-1 dark:bg-gray-800">
+                                <button
+                                    onClick={() => setActiveTab('bibliography')}
+                                    className={cn(
+                                        "flex items-center gap-2 rounded-lg px-4 py-2 text-xs font-bold transition-all",
+                                        activeTab === 'bibliography'
+                                            ? "bg-white text-scribehub-blue shadow-sm dark:bg-gray-700 dark:text-white"
+                                            : "text-gray-500 hover:text-gray-700 dark:text-gray-400"
+                                    )}
+                                >
+                                    <BookOpen className="h-4 w-4" />
                                     {t.bibliography}
-                                </h2>
+                                </button>
+                                <button
+                                    onClick={() => setActiveTab('inText')}
+                                    className={cn(
+                                        "flex items-center gap-2 rounded-lg px-4 py-2 text-xs font-bold transition-all",
+                                        activeTab === 'inText'
+                                            ? "bg-white text-scribehub-blue shadow-sm dark:bg-gray-700 dark:text-white"
+                                            : "text-gray-500 hover:text-gray-700 dark:text-gray-400"
+                                    )}
+                                >
+                                    <Quote className="h-4 w-4" />
+                                    {t.inTextCitation}
+                                </button>
                             </div>
+                            
                             {citations.length > 0 && (
                                 <button
                                     onClick={copyAllCitations}
                                     className={cn(
-                                        "flex items-center gap-2 rounded-lg px-3 py-2 text-xs font-bold transition-colors",
+                                        "flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-xs font-bold transition-colors",
                                         copiedAll
                                             ? "bg-green-100 text-green-600"
-                                            : "bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-400"
+                                            : "bg-scribehub-blue text-white hover:opacity-90"
                                     )}
                                 >
                                     {copiedAll ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
@@ -293,10 +316,10 @@ export default function CitationsIndex({ references, styles }: Props) {
                                     >
                                         <div
                                             className="text-sm leading-relaxed text-gray-700 dark:text-gray-300"
-                                            dangerouslySetInnerHTML={{ __html: item.citation }}
+                                            dangerouslySetInnerHTML={{ __html: activeTab === 'bibliography' ? item.citation : item.in_text_citation }}
                                         />
                                         <button
-                                            onClick={() => copyCitation(item.id, item.citation)}
+                                            onClick={() => copyCitation(item.id, activeTab === 'bibliography' ? item.citation : item.in_text_citation)}
                                             className={cn(
                                                 "absolute right-2 top-2 rounded-lg p-2 transition-colors",
                                                 copiedId === item.id

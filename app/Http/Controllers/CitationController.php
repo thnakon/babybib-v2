@@ -76,6 +76,7 @@ class CitationController extends Controller
                 'id' => $reference->id,
                 'title' => $reference->title,
                 'citation' => $this->formatter->format($reference, $request->style),
+                'in_text_citation' => $this->formatter->formatInText($reference, $request->style),
             ];
         }
 

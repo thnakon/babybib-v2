@@ -130,10 +130,23 @@ class ReferenceController extends Controller
             ->orderBy('sort_order', 'asc')
             ->get();
 
+        $referencesCount = Reference::where('user_id', Auth::id())->count();
+        $projectsCount = $projects->count();
+        $foldersCount = $projects->sum(fn($p) => $p->folders->count());
+
+        // 0.54MB per ref, 0.5MB per project/folder
+        $storageUsed = ($referencesCount * 0.54) + ($projectsCount * 0.5) + ($foldersCount * 0.5);
+        $storageLimit = 500;
+
         return Inertia::render('references/index', [
             'references' => $references,
             'projects' => $projects,
             'selectedProjectId' => $projectId ? (int)$projectId : null,
+            'storageUsage' => [
+                'used' => round($storageUsed, 1),
+                'limit' => $storageLimit,
+                'percentage' => round(($storageUsed / $storageLimit) * 100, 2)
+            ]
         ]);
     }
 

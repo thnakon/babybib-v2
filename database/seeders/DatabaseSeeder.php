@@ -166,5 +166,19 @@ class DatabaseSeeder extends Seeder
             'publisher' => 'Laravel',
             'sort_order' => 0
         ]);
+
+        // Bulk seed for testing storage limits (~450 more)
+        for ($i = 1; $i <= 450; $i++) {
+            $ref = Reference::create([
+                'user_id' => $user->id,
+                'type' => rand(0, 1) ? 'book' : 'journal',
+                'title' => 'Advanced Research Study Vol. ' . $i,
+                'authors' => ['Researcher ' . $i, 'Collaborator ' . $i],
+                'year' => rand(2010, 2024),
+                'publisher' => 'Academic Publishing House',
+                'sort_order' => $i + 10
+            ]);
+            $thesisProject->references()->attach($ref->id);
+        }
     }
 }
