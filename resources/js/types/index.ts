@@ -10,3 +10,14 @@ export type SharedData = {
     sidebarOpen: boolean;
     [key: string]: unknown;
 };
+
+export interface Reference {
+    id: number;
+    title: string;
+    authors: string[];
+    year?: string;
+    type: string;
+    journal_name?: string;
+    doi?: string;
+    formatted_citation?: string;
+}

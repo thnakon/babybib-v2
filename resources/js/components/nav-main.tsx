@@ -8,6 +8,8 @@ import {
 import { useCurrentUrl } from '@/hooks/use-current-url';
 import type { NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
+import { cn } from '@/lib/utils';
+import { Lock } from 'lucide-react';
 
 export function NavMain({ items = [], label = 'Platform' }: { items: NavItem[]; label?: string }) {
     const { isCurrentUrl } = useCurrentUrl();
@@ -16,20 +18,39 @@ export function NavMain({ items = [], label = 'Platform' }: { items: NavItem[]; 
         <SidebarGroup className="px-2 py-0">
             <SidebarGroupLabel>{label}</SidebarGroupLabel>
             <SidebarMenu>
-                {items.map((item) => (
-                    <SidebarMenuItem key={item.title}>
-                        <SidebarMenuButton
-                            asChild
-                            isActive={isCurrentUrl(item.href)}
-                            tooltip={{ children: item.title }}
-                        >
-                            <Link href={item.href} prefetch>
-                                {item.icon && <item.icon />}
-                                <span>{item.title}</span>
-                            </Link>
-                        </SidebarMenuButton>
-                    </SidebarMenuItem>
-                ))}
+                {items.map((item) => {
+                    const active = isCurrentUrl(item.href);
+                    const locked = item.locked;
+                    
+                    return (
+                        <SidebarMenuItem key={item.title}>
+                            <SidebarMenuButton
+                                asChild={!locked}
+                                isActive={active}
+                                disabled={locked}
+                                tooltip={{ children: locked ? `${item.title} (Coming Soon)` : item.title }}
+                                className={cn(
+                                    "transition-all duration-200",
+                                    active && "bg-sidebar-accent/80 text-sidebar-accent-foreground font-bold shadow-sm ring-1 ring-black/5 dark:ring-white/10",
+                                    locked && "opacity-50 cursor-not-allowed hover:bg-transparent"
+                                )}
+                            >
+                                {locked ? (
+                                    <div className="flex w-full items-center gap-2 px-2 py-1.5 grayscale">
+                                        {item.icon && <item.icon className="h-4 w-4" />}
+                                        <span className="flex-1 truncate">{item.title}</span>
+                                        <Lock className="h-3 w-3 opacity-70" />
+                                    </div>
+                                ) : (
+                                    <Link href={item.href} prefetch>
+                                        {item.icon && <item.icon />}
+                                        <span>{item.title}</span>
+                                    </Link>
+                                )}
+                            </SidebarMenuButton>
+                        </SidebarMenuItem>
+                    );
+                })}
             </SidebarMenu>
         </SidebarGroup>
     );

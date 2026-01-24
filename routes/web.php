@@ -69,6 +69,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Integrated Workspace
     Route::get('workspace', [WorkspaceController::class, 'index'])->name('workspace.index');
+    Route::post('workspace', [WorkspaceController::class, 'store'])->name('workspace.store');
+    Route::patch('workspace/{manuscript}', [WorkspaceController::class, 'update'])->name('workspace.update');
+    Route::delete('workspace/{manuscript}', [WorkspaceController::class, 'destroy'])->name('workspace.destroy');
+    Route::get('workspace/{manuscript}/export/pdf', [WorkspaceController::class, 'exportPdf'])->name('workspace.export.pdf');
+    Route::get('workspace/{manuscript}/export/word', [WorkspaceController::class, 'exportWord'])->name('workspace.export.word');
+
+    // AI Research Tools
+    Route::get('paraphraser', [App\Http\Controllers\AiToolController::class, 'paraphraser'])->name('ai.paraphraser');
+    Route::post('paraphraser/action', [App\Http\Controllers\AiToolController::class, 'paraphraseAction'])->name('ai.paraphrase-action');
+    Route::get('literature-map', [App\Http\Controllers\AiToolController::class, 'literatureMap'])->name('ai.literature-map');
+    Route::get('research-templates', [App\Http\Controllers\AiToolController::class, 'templates'])->name('ai.templates');
 });
 
 require __DIR__ . '/settings.php';
