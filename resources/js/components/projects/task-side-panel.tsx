@@ -182,7 +182,10 @@ export function TaskSidePanel({ open, onOpenChange, taskId, onTaskUpdate }: Prop
                                         {task.assignee ? (
                                             <>
                                                 <Avatar className="h-6 w-6 border border-white shadow-sm dark:border-gray-800">
-                                                    <AvatarFallback className="text-[9px] bg-blue-50 text-blue-600">{task.assignee.name[0]}</AvatarFallback>
+                                                    <AvatarImage src={task.assignee.avatar} alt={task.assignee.name} />
+                                                    <AvatarFallback className="text-[9px] bg-blue-50 text-blue-600">
+                                                        {task.assignee.name.charAt(0)}
+                                                    </AvatarFallback>
                                                 </Avatar>
                                                 <span className="text-xs font-bold text-gray-700 dark:text-gray-200 truncate max-w-[100px]">{task.assignee.name}</span>
                                             </>
@@ -320,7 +323,10 @@ export function TaskSidePanel({ open, onOpenChange, taskId, onTaskUpdate }: Prop
                                                 {task.comments?.map(comment => (
                                                     <div key={comment.id} className="flex gap-3">
                                                         <Avatar className="h-8 w-8 mt-1">
-                                                            <AvatarFallback className="text-[10px] bg-gray-100">{comment.user.name[0]}</AvatarFallback>
+                                                            <AvatarImage src={comment.user.avatar} alt={comment.user.name} />
+                                                            <AvatarFallback className="text-[10px] bg-gray-100">
+                                                                {comment.user.name.charAt(0)}
+                                                            </AvatarFallback>
                                                         </Avatar>
                                                         <div className="flex-1 space-y-1">
                                                             <div className="flex items-center justify-between">

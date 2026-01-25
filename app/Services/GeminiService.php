@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Log;
 class GeminiService
 {
     protected string $apiKey;
-    protected string $baseUrl = 'https://generativelanguage.googleapis.com/v1/models';
+    protected string $baseUrl = 'https://generativelanguage.googleapis.com/v1beta/models';
 
     public function __construct()
     {
@@ -20,9 +20,10 @@ class GeminiService
      */
     public function generate(string $prompt, string $systemInstruction = '')
     {
-        $url = "{$this->baseUrl}/gemini-1.5-flash:generateContent?key={$this->apiKey}";
+        // Use gemini-flash-latest as it is confirmed available in v1beta
+        $url = "{$this->baseUrl}/gemini-flash-latest:generateContent?key={$this->apiKey}";
 
-        // Merge instruction into prompt for maximum compatibility across v1 and v1beta
+        // Merge instruction into prompt for maximum compatibility
         $text = $systemInstruction
             ? "INSTRUCTIONS:\n{$systemInstruction}\n\nTASK:\n{$prompt}"
             : $prompt;
@@ -50,6 +51,12 @@ class GeminiService
             if ($response->successful()) {
                 $data = $response->json();
                 return $data['candidates'][0]['content']['parts'][0]['text'] ?? 'No response generated.';
+            }
+
+            // Handle quota/rate limit error explicitly to notify user
+            if ($response->status() === 429) {
+                Log::warning('Gemini Quota Exceeded: ' . $response->body());
+                return 'AI Assistant is currently busy (Quota Exceeded). Please try again in a few minutes.';
             }
 
             Log::error('Gemini API Error: ' . $response->body());

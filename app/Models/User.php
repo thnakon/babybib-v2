@@ -22,6 +22,22 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'avatar_path',
+        'institution',
+        'academic_title',
+        'default_citation_style',
+        'ai_language',
+        'default_ai_tone',
+        'theme_preference',
+    ];
+
+    /**
+     * The attributes that should be appends to the model's array form.
+     *
+     * @var list<string>
+     */
+    protected $appends = [
+        'avatar',
     ];
 
     /**
@@ -76,5 +92,15 @@ class User extends Authenticatable
     public function feedbacks()
     {
         return $this->hasMany(Feedback::class);
+    }
+
+    /**
+     * Get the user's avatar URL.
+     *
+     * @return string
+     */
+    public function getAvatarAttribute(): string
+    {
+        return $this->avatar_path ?: 'https://ui-avatars.com/api/?name=' . urlencode($this->name) . '&color=7F9CF5&background=EBF4FF';
     }
 }

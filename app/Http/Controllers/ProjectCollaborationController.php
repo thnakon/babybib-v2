@@ -127,7 +127,7 @@ class ProjectCollaborationController extends Controller
         }
 
         if ($project) {
-            $this->notifyMembers($project, Auth::user(), Auth::user()->name . " added a comment: " . substr($validated['content'], 0, 50) . "...", 'comment');
+            $this->notifyMembers($project, Auth::user(), Auth::user()->name . " added a comment: " . mb_substr($validated['content'], 0, 50) . "...", 'comment');
         }
 
         return back()->with('success', 'Comment added.');

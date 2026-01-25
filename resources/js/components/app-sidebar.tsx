@@ -71,9 +71,8 @@ export function AppSidebar() {
         },
         {
             title: txt('aiAgent'),
-            href: '#',
+            href: '/ai/chat',
             icon: Sparkles,
-            locked: true,
         },
     ];
 

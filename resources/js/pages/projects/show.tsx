@@ -1231,11 +1231,13 @@ function TeamView({ project, members, t, onInviteClick }: { project: Project, me
                     {members.map(member => (
                         <div key={member.id} className="flex items-center gap-3 rounded-2xl bg-gray-50/50 p-4 dark:bg-gray-900 border border-gray-50 dark:border-gray-800">
                             <div className="relative">
-                                <div className="h-10 w-10 rounded-xl bg-scribehub-blue flex items-center justify-center text-white text-xs font-black overflow-hidden">
+                                <div className="h-10 w-10 rounded-xl bg-scribehub-blue flex items-center justify-center text-white text-xs font-black overflow-hidden border border-white/20">
                                     {member.user.avatar ? (
                                         <img src={member.user.avatar} alt={member.user.name} className="h-full w-full object-cover" />
+                                    ) : member.user.avatar_path ? (
+                                        <img src={member.user.avatar_path} alt={member.user.name} className="h-full w-full object-cover" />
                                     ) : (
-                                        member.user.name[0]
+                                        <img src={`https://ui-avatars.com/api/?name=${encodeURIComponent(member.user.name)}&color=7F9CF5&background=EBF4FF`} alt={member.user.name} className="h-full w-full object-cover" />
                                     )}
                                 </div>
                                 {member.status === 'pending' && (
@@ -1457,8 +1459,14 @@ function ActivityView({ comments, project, t, language }: { comments: Comment[],
                     const isOwn = comment.user.id === auth.user.id;
                     return (
                         <div key={comment.id} className={cn("flex gap-3 max-w-[85%]", isOwn ? "ml-auto flex-row-reverse" : "")}>
-                            <div className="mt-1 shrink-0 h-8 w-8 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center font-black text-[10px] text-gray-500">
-                                {comment.user.name[0]}
+                            <div className="mt-1 shrink-0 h-8 w-8 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center overflow-hidden border border-black/5 dark:border-white/5">
+                                {comment.user.avatar ? (
+                                    <img src={comment.user.avatar} alt={comment.user.name} className="h-full w-full object-cover" />
+                                ) : comment.user.avatar_path ? (
+                                    <img src={comment.user.avatar_path} alt={comment.user.name} className="h-full w-full object-cover" />
+                                ) : (
+                                    <img src={`https://ui-avatars.com/api/?name=${encodeURIComponent(comment.user.name)}&color=7F9CF5&background=EBF4FF`} alt={comment.user.name} className="h-full w-full object-cover" />
+                                )}
                             </div>
                             <div className={cn("flex flex-col gap-1.5", isOwn ? "items-end" : "items-start")}>
                                 <div className="flex items-baseline gap-2">

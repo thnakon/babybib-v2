@@ -5,6 +5,13 @@ export type User = {
     avatar?: string;
     email_verified_at: string | null;
     two_factor_enabled?: boolean;
+    avatar_path?: string;
+    institution?: string;
+    academic_title?: string;
+    default_citation_style?: string;
+    ai_language?: 'th' | 'en';
+    default_ai_tone?: 'academic' | 'simple' | 'professional';
+    theme_preference?: 'light' | 'dark' | 'system';
     created_at: string;
     updated_at: string;
     [key: string]: unknown;

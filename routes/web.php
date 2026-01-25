@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CitationController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\FolderController;
 use App\Http\Controllers\ImportController;
@@ -27,9 +28,7 @@ Route::get('/features', function () {
 })->name('features');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('dashboard', function () {
-        return Inertia::render('dashboard');
-    })->name('dashboard');
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // Reference Management
     Route::resource('references', ReferenceController::class);
@@ -79,8 +78,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // AI Research Tools
     Route::get('paraphraser', [App\Http\Controllers\AiToolController::class, 'paraphraser'])->name('ai.paraphraser');
     Route::post('paraphraser/action', [App\Http\Controllers\AiToolController::class, 'paraphraseAction'])->name('ai.paraphrase-action');
+    Route::post('ai/paraphrase', [App\Http\Controllers\AiToolController::class, 'paraphraseAction']); // For Workspace Editor
     Route::get('literature-map', [App\Http\Controllers\AiToolController::class, 'literatureMap'])->name('ai.literature-map');
     Route::get('research-templates', [App\Http\Controllers\AiToolController::class, 'templates'])->name('ai.templates');
+    Route::get('ai/chat', [App\Http\Controllers\AiToolController::class, 'chat'])->name('ai.chat');
+    Route::post('ai/chat', [App\Http\Controllers\AiToolController::class, 'chatAction'])->name('ai.chat-action');
 
     // Project Management (ClickUp style)
     // Project Management (ClickUp style)

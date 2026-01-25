@@ -3,6 +3,7 @@ export interface User {
     name: string;
     email: string;
     avatar?: string;
+    avatar_path?: string;
 }
 
 export interface Reference {
