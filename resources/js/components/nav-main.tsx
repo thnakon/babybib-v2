@@ -42,9 +42,14 @@ export function NavMain({ items = [], label = 'Platform' }: { items: NavItem[]; 
                                         <Lock className="h-3 w-3 opacity-70" />
                                     </div>
                                 ) : (
-                                    <Link href={item.href} prefetch>
+                                    <Link href={item.href} prefetch className="flex flex-1 items-center gap-2">
                                         {item.icon && <item.icon />}
-                                        <span>{item.title}</span>
+                                        <span className="flex-1">{item.title}</span>
+                                        {item.badge && (
+                                            <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-red-500 px-1.5 text-[10px] font-bold text-white shadow-sm ring-1 ring-white dark:ring-gray-900">
+                                                {item.badge}
+                                            </span>
+                                        )}
                                     </Link>
                                 )}
                             </SidebarMenuButton>

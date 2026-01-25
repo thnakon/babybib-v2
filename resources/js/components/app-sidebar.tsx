@@ -19,44 +19,48 @@ import { Link } from '@inertiajs/react';
 import { 
     BookOpen, Folder, LayoutGrid, Library, Brain, 
     Sparkles, Share2, MessageSquare, Search, FileCode,
-    Archive, Star, PlusCircle, Monitor
+    Archive, Star, PlusCircle, Monitor, Wand2,
+    Users, Clock
 } from 'lucide-react';
 import AppLogo from './app-logo';
 import { useLanguage } from '@/contexts/language-context';
-
 const translations = {
     en: {
         overview: "Overview",
-        workDesk: "Work Desk",
+        workDesk: "Dashboard",
         aiAgent: "AI Agent",
         projects: "Projects",
         myProjects: "My Projects",
         intelligence: "Knowledge Intelligence",
         literatureMap: "Literature Map",
         templates: "Research Templates",
+        paraphraser: "Academic Paraphraser",
         resources: "Library Resources",
         references: "My References",
         citations: "Citations",
+        searchDiscovery: "Search & Discovery",
         workingSpace: "Working Space"
     },
     th: {
         overview: "ภาพรวม",
-        workDesk: "โต๊ะทำงาน",
+        workDesk: "แดชบอร์ด",
         aiAgent: "ผู้ช่วย AI",
         projects: "โปรเจกต์",
         myProjects: "โปรเจกต์ของฉัน",
         intelligence: "ระบบวิเคราะห์ข้อมูล",
         literatureMap: "แผนผังงานวิจัย",
         templates: "แบบร่างงานวิจัย",
+        paraphraser: "ขัดเกลาสำนวนภาษา",
         resources: "คลังข้อมูล",
         references: "รายการอ้างอิง",
         citations: "การอ้างอิงในเนื้อหา",
+        searchDiscovery: "ค้นหาแหล่งข้อมูล",
         workingSpace: "พื้นที่ทำงาน"
     }
 };
 
 export function AppSidebar() {
-    const { t } = useLanguage();
+    const { t, language } = useLanguage();
     const txt = (key: string) => t(key, translations) as string;
 
     const mainNavItems: NavItem[] = [
@@ -76,8 +80,13 @@ export function AppSidebar() {
     const projectNavItems: NavItem[] = [
         {
             title: txt('myProjects'),
-            href: '#',
+            href: '/projects',
             icon: Folder,
+        },
+        {
+            title: language === 'en' ? 'Team Spaces' : 'พื้นที่ทำงานร่วม',
+            href: '/team-spaces',
+            icon: Users,
         }
     ];
 
@@ -88,6 +97,11 @@ export function AppSidebar() {
             icon: Monitor,
         },
         {
+            title: txt('paraphraser'),
+            href: '/paraphraser',
+            icon: Wand2,
+        },
+        {
             title: txt('templates'),
             href: '/research-templates',
             icon: FileCode,
@@ -95,6 +109,11 @@ export function AppSidebar() {
     ];
 
     const libraryNavItems: NavItem[] = [
+        {
+            title: txt('searchDiscovery'),
+            href: '/import',
+            icon: Search,
+        },
         {
             title: txt('references'),
             href: references.index.url(),
@@ -115,13 +134,13 @@ export function AppSidebar() {
     const footerNavItems: NavItem[] = [
         {
             title: 'Repository',
-            href: 'https://github.com/laravel/react-starter-kit',
+            href: 'https://github.com/thnakon/babybib-v2',
             icon: Folder,
         },
         {
-            title: 'Documentation',
-            href: 'https://laravel.com/docs/starter-kits#react',
-            icon: BookOpen,
+            title: 'Feedback',
+            href: '/feedback',
+            icon: MessageSquare,
         },
     ];
 

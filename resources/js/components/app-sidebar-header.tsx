@@ -5,6 +5,7 @@ import { Search, Languages, Sun, Moon, Monitor, Check } from 'lucide-react';
 import { useAppearance } from '@/hooks/use-appearance';
 import { useLanguage } from '@/contexts/language-context';
 import { cn } from '@/lib/utils';
+import { NotificationInbox } from '@/components/notification-inbox';
 
 export function AppSidebarHeader({
     breadcrumbs = [],
@@ -50,6 +51,8 @@ export function AppSidebarHeader({
                             </div>
                         </div>
                     </div>
+
+                    <NotificationInbox />
                 </div>
             </div>
         </header>

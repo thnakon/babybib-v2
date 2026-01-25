@@ -19,6 +19,13 @@ class Project extends Model
         'color',
         'icon',
         'sort_order',
+        'status',
+        'priority',
+        'due_date',
+        'progress',
+        'visibility',
+        'invite_token',
+        'invite_role',
     ];
 
     /**
@@ -46,10 +53,54 @@ class Project extends Model
     }
 
     /**
+     * Get the tasks in this project.
+     */
+    public function tasks()
+    {
+        return $this->hasMany(Task::class)->orderBy('position');
+    }
+
+    /**
+     * Get the members of this project.
+     */
+    public function members()
+    {
+        return $this->hasMany(ProjectMember::class);
+    }
+
+    /**
+     * Get the files in this project.
+     */
+    public function files()
+    {
+        return $this->hasMany(ProjectFile::class);
+    }
+
+    /**
+     * Get the comments for this project.
+     */
+    public function comments()
+    {
+        return $this->morphMany(ProjectComment::class, 'commentable');
+    }
+
+    /**
      * Get the count of references in this project.
      */
     public function getReferenceCountAttribute(): int
     {
-        return $this->references()->whereDoesntHave('folders')->count();
+        return $this->references()->count();
+    }
+
+    /**
+     * Calculate project progress based on tasks.
+     */
+    public function calculateProgress(): int
+    {
+        $totalTasks = $this->tasks()->count();
+        if ($totalTasks === 0) return 0;
+
+        $completedTasks = $this->tasks()->where('status', 'done')->count();
+        return (int) (($completedTasks / $totalTasks) * 100);
     }
 }
