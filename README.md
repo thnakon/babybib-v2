@@ -1,88 +1,78 @@
-# 🖋️ ScribeHub: The Research Operating System
+# 🖋️ ScribeHub: The Ultimate AI-Powered Research Ecosystem
 
-**ScribeHub** is a comprehensive, AI-powered research operating system (Research OS) designed to transform how academics, researchers, and students manage their literature and draft their masterpieces. It goes beyond simple citation management, providing an "Intelligent Desk" that integrates reading, writing, and organizing in a single, high-fidelity workspace.
+ScribeHub is a premium, all-in-one platform designed for modern researchers, academics, and students. It seamlessly integrates reference management, collaborative project tools, and advanced AI intelligence to streamline the entire research lifecycle—from discovery to manuscript.
 
----
+![ScribeHub Banner](https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&q=80&w=1200)
 
-## ✨ Key Features
+## 🚀 Core Features
 
-### 🏢 Core Workspace
-*   **Integrated Split-View Editor**: Read your source PDFs on the left while drafting your paper on the right. No more switching tabs.
-*   **Magic Highlight**: Transform highlights directly into notes with full citation metadata.
-*   **Focus Mode**: A distraction-free environment optimized for academic deep work.
+### 🧠 1. AI Research Agent
+*   **Context-Aware Chat**: Talk to your research library. Ask questions like *"What are the common themes in my latest papers?"* or *"Summarize my references on AI ethics."*
+*   **Academic Paraphraser**: Refine your writing into peer-review quality prose with various specialized tones.
+*   **Intelligent Insights**: Extract insights and synthesize information across multiple references instantly.
 
-### 📚 Reference Management
-*   **Instant DOI/ISBN Import**: Fetch perfectly formatted metadata automatically from links or IDs.
-*   **Global & Local Standards**: Full support for 10,000+ global styles (APA 7, MLA 9, IEEE) and verified **Thai University** citation formats.
-*   **Seamless Migration**: One-click import for RIS and BibTeX files from Zotero or Mendeley.
+### 📚 2. Advanced Reference Library
+*   **Smart Discovery**: Add references instantly using DOI, ISBN, or BibTeX files.
+*   **Project-Based Organization**: Group your sources by research project or specific folders.
+*   **Metadata Management**: Complete control over citation details, abstracts, and personal notes.
 
-### 🤖 Intelligence & AI
-*   **AI PDF Summarizer**: Get the core hypothesis, methodology, and results of any paper instantly.
-*   **Academic Tone Refiner**: Polish your English to international journal standards using our AI style engine.
-*   **Knowledge Graph**: Visualize connections between your authors, citations, and themes.
+### 🤝 3. Collaboration Workspace (ClickUp Style)
+*   **Team Projects**: Creating shared workspaces for labs and study groups.
+*   **Task Management**: Assign tasks, set due dates, and track research progress with a sleek, interactive UI.
+*   **File Sharing & Discussion**: Centralized hub for project files and academic discussions.
 
-### 👥 Collaboration & Sync
-*   **Real-time Co-authoring**: Work together on documents and bibliographies with your research team.
-*   **Cloud Library Sync**: Start on your desktop and continue seamlessly on your iPad or tablet.
+### ✍️ 4. Integrated Research Editor
+*   **Bi-Directional View**: Write your manuscript while viewing your source PDFs in a single split-screen view.
+*   **AI-Assisted Writing**: Use the built-in AI tools to rephrase or generate drafts directly within the editor.
+*   **Auto-Save & Versioning**: Never lose a word with real-time manuscript syncing.
 
----
+## 🎨 Design Philosophy
+ScribeHub is built with a **Premium & Rich Aesthetic**:
+*   **Glassmorphic Interface**: High-end visual depth using modern blur and transparency effects.
+*   **Dynamic Dark Mode**: A sleek, focused environment tailored for long research hours.
+*   **Bilingual Support**: Full professional localization for English and Thai.
 
-## 🚀 Tech Stack
+## 🛠️ Technology Stack
+*   **Frontend**: React + Inertia.js + TailwindCSS + Tiptap Editor
+*   **Backend**: Laravel 11 (PHP)
+*   **AI Engine**: Google Gemini 1.5/2.0 Integration
+*   **Database**: PostgreSQL / MySQL
+*   **Storage**: AWS S3 / Local Disk
 
-ScribeHub is built with a modern, high-performance stack:
+## 📦 Installation & Setup
 
-- **Backend**: [Laravel 12](https://laravel.com)
-- **Frontend**: [React 19](https://react.dev) with [TypeScript](https://www.typescriptlang.org/)
-- **Styling**: [Tailwind CSS 4](https://tailwindcss.com) (Modern, custom theme)
-- **UI Architecture**: [Inertia.js](https://inertiajs.com) for a seamless SPA experience
-- **Components**: [shadcn/ui](https://ui.shadcn.com) & [Lucide Icons](https://lucide.dev)
-- **Database**: MySQL (optimized for research metadata)
+1.  **Clone the Repository**
+    ```bash
+    git clone https://github.com/thnakon/scribehub.git
+    cd scribehub
+    ```
 
----
+2.  **Environment Setup**
+    ```bash
+    cp .env.example .env
+    # Configure your database and GEMINI_API_KEY
+    ```
 
-## 🛠️ Installation & Setup
+3.  **Backend Setup**
+    ```bash
+    composer install
+    php artisan key:generate
+    php artisan migrate
+    ```
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/thnakon/babybib-v2.git
-   cd babybib-v2
-   ```
+4.  **Frontend Setup**
+    ```bash
+    npm install
+    npm run dev
+    ```
 
-2. **Install dependencies**
-   ```bash
-   composer install
-   npm install
-   ```
+5.  **Go Live**
+    ```bash
+    php artisan serve
+    ```
 
-3. **Configure Environment**
-   ```bash
-   cp .env.example .env
-   php artisan key:generate
-   ```
-   *Edit `.env` to configure your database settings.*
-
-4. **Run Migrations**
-   ```bash
-   php artisan migrate
-   ```
-
-5. **Start Development Server**
-   ```bash
-   php artisan serve
-   npm run dev
-   ```
-
----
-
-## 🌍 Language Support
-ScribeHub is fully localized for:
-- 🇺🇸 **English** (Academic Professional)
-- 🇹🇭 **ภาษาไทย** (รองรับรูปแบบการอ้างอิงมหาวิทยาลัยชั้นนำในไทย)
+## 📄 License
+Licensed under the [MIT License](LICENSE).
 
 ---
-
-## 🛡️ License
-ScribeHub is open-sourced software licensed under the **MIT license**.
-
----
-*Developed for researchers who want to know exactly what they are reading for.*
+*Built with ❤️ for the global research community by [thnakon](https://github.com/thnakon).*
