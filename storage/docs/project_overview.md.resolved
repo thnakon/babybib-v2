@@ -1,0 +1,87 @@
+# 📚 Project Babybib: System Context & Feature Glossary
+
+**Babybib** is a professional, automated bibliography generation system specifically optimized for the **Thai academic context**, adhering strictly to the **APA 7th Edition** standard.
+
+---
+
+## 🎯 Core Purpose
+To simplify and standardize the citation process for Thai researchers, students, and faculty by providing an automated "Citation Machine" that handles the nuances of Thai-English bilingual references.
+
+---
+
+## 🛠 Features (Complete List)
+
+### 1. Citation Generation Engine
+- **APA 7th Standard**: Support for all major resource types:
+  - Books (Printed/Electronic)
+  - Journal Articles (DOI supported)
+  - Websites / Webpages
+  - Reports & Grey Literature
+  - Theses & Dissertations
+  - Conference Proceedings
+  - Audiovisual Media (YouTube, etc.)
+- **Bilingual Logic**: Handles Thai and English author naming conventions differently (e.g., First Name vs. Surname ordering) as per Thai academic standards.
+
+### 2. Smart Search v2 (Metadata Meta-Search)
+Automated data filling by searching through major academic and catalog APIs:
+- **ISBN/Title**: Open Library & Google Books.
+- **DOI**: CrossRef & OpenAlex.
+- **URLs**: Live scraping of webpage meta tags.
+- **Intelligent Detection**: Automatically identifies if a source is likely a Book or a Journal based on the identifier provided.
+
+### 3. Bibliography Management
+- **Project/Folder System**: Users can group citations into specific "Projects" for different papers.
+- **Live Preview**: Real-time rendering of the citation in the browser.
+- **Copy-to-Clipboard**: Instant copying of formatted citations with "Hanging Indent" CSS styling preserved.
+
+### 4. User System
+- **Secure Authentication**: Register, Login, Logout.
+- **Email Verification**: Ensuring valid academic users.
+- **Profile Management**: Saved project history and settings.
+
+### 5. Administrative Features
+- **Announcement System**: Push notifications (Toasts/Popups) for system updates.
+- **User Dashboard**: Manage users, roles, and activity.
+- **Audit Logs**: Track generation errors or smart search failures for debugging.
+- **Backup System**: Automated database snapshots.
+
+---
+
+## 🎨 Design System & Aesthetics (Color Palette)
+
+The system follows a **"Friendly Academic SaaS"** aesthetic: clean, premium, and highly legible.
+
+| Token | Value | Hex/Preview |
+| :--- | :--- | :--- |
+| **Primary** | Violet / Purple | `#8B5CF6` |
+| **Primary Dark** | Deep Violet | `#7C3AED` |
+| **Primary Light** | Soft Lavender | `#EDE9FE` |
+| **Brand Gradient** | Indigo to Pink | `linear-gradient(135deg, #6366F1, #8B5CF6, #D946EF)` |
+| **Success** | Emerald Green | `#10B981` |
+| **Danger** | Red | `#EF4444` |
+| **Background** | Off-White / Gray | `#F9FAFB` |
+
+### Typography
+- **Thai Font**: `Tahoma` (Primary for maximum compatibility and clarity in academic text).
+- **English Font**: `Comfortaa`, `-apple-system`, `SF Pro Display`.
+
+### UI Style
+- **Corners**: Large border-radius (`1rem` / `16px`) for a friendly, modern feel.
+- **Elevations**: Subtle multi-layered shadows for depth.
+- **Dark Mode**: Fully supported, switching to deep charcoal/black backgrounds with high-contrast text.
+
+---
+
+## 🚀 Future Roadmap (Laravel Migration)
+- **Livewire Integration**: Zero-refresh citation editing.
+- **Advanced Export**: Direct `.docx` (Word) and `.pdf` generation.
+- **Collaboration**: Sharing project folders between researchers.
+- **AI Citation Helper**: Using LLMs to clean up "dirty" metadata from old sources.
+
+---
+
+## 🧩 Agent Guidance
+When working on this project:
+1. **Prioritize APA 7th Accuracy**: Changes to formatting logic MUST match the official APA 7 manual.
+2. **Handle Thai Names Carefully**: Thai citations often use the full name without reversing (unlike English).
+3. **Maintain the Premium Aesthetic**: Avoid generic Bootstrap/Tailwind looks; stick to the custom violet-gradient design language.
