@@ -22,7 +22,7 @@
                 <span class="text-xl font-bold tracking-tight">flux</span>
             </a>
 
-            <flux:navbar class="hidden md:flex gap-3 text-sm font-medium text-zinc-500">
+            <flux:navbar class="hidden md:flex gap-2 text-sm font-medium text-zinc-500">
                 <flux:navbar.item href="#">Docs</flux:navbar.item>
                 <flux:navbar.item href="#">Demos</flux:navbar.item>
                 <flux:navbar.item href="#">Blog</flux:navbar.item>
@@ -44,7 +44,10 @@
                 @auth
                     <flux:button href="{{ url('/dashboard') }}" variant="ghost">Dashboard</flux:button>
                 @else
-                    <flux:button href="{{ route('login') }}" variant="primary" size="sm" class="px-5 font-bold shadow-sm transition-all hover:scale-105 active:scale-95">Log in</flux:button>
+                    <flux:button href="{{ route('login') }}" variant="primary" size="sm" class="group/signin px-5 font-bold shadow-sm transition-all hover:scale-[1.02] active:scale-95">
+                        <span>Sign in</span>
+                        <flux:icon name="arrow-right" class="w-4 h-4 ml-1.5 transition-transform group-hover/signin:translate-x-1" />
+                    </flux:button>
                 @endauth
             @endif
         </div>
