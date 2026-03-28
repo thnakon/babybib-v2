@@ -14,3 +14,14 @@
 
 @vite(['resources/css/app.css', 'resources/js/app.js'])
 @fluxAppearance
+
+<script>
+    window.toggleDarkMode = () => {
+        document.documentElement.classList.toggle('dark');
+        const isDark = document.documentElement.classList.contains('dark');
+        localStorage.setItem('appearance', isDark ? 'dark' : 'light');
+        if (window.Flux) {
+            window.Flux.applyAppearance(isDark ? 'dark' : 'light');
+        }
+    }
+</script>

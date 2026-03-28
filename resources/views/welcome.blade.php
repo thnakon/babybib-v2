@@ -3,7 +3,7 @@
 <head>
     @include('partials.head', ['title' => 'Welcome'])
 </head>
-<body class="min-h-screen font-sans antialiased bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 overflow-x-hidden">
+<body class="min-h-screen font-sans antialiased bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 overflow-x-hidden">
     <!-- Background Decorations -->
     <div class="fixed inset-0 pointer-events-none -z-10">
         <div class="absolute -top-[10%] -left-[10%] w-[40%] h-[40%] bg-zinc-100 dark:bg-zinc-900/50 rounded-full blur-[100px] opacity-60"></div>
@@ -22,7 +22,7 @@
                 <span class="text-xl font-bold tracking-tight">flux</span>
             </a>
 
-            <flux:navbar class="hidden md:flex gap-6 text-sm font-medium text-zinc-500">
+            <flux:navbar class="hidden md:flex gap-3 text-sm font-medium text-zinc-500">
                 <flux:navbar.item href="#">Docs</flux:navbar.item>
                 <flux:navbar.item href="#">Demos</flux:navbar.item>
                 <flux:navbar.item href="#">Blog</flux:navbar.item>
@@ -31,21 +31,20 @@
                 <flux:navbar.item href="#">Pricing</flux:navbar.item>
             </flux:navbar>
         </div>
-
-        <div class="flex items-center gap-3">
-            <flux:button variant="ghost" icon="moon" x-on:click="window.toggleDarkMode()" />
+        
+        <div class="flex items-center gap-1">
+            <button type="button" onclick="window.toggleDarkMode()" class="p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors focus:outline-none">
+                <flux:icon name="moon" class="w-5 h-5 dark:hidden" />
+                <flux:icon name="sun" class="w-5 h-5 hidden dark:block" />
+            </button>
             
-            <div class="hidden sm:flex items-center bg-zinc-100 dark:bg-zinc-900 px-3 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-800 text-zinc-400 text-sm gap-2 w-48 transition-all hover:border-zinc-300 dark:hover:border-zinc-700 cursor-text">
-                <flux:icon.magnifying-glass class="w-4 h-4" />
-                <span>Search</span>
-                <span class="ml-auto text-[10px] font-mono border border-zinc-300 dark:border-zinc-700 px-1 rounded-sm">⌘K</span>
-            </div>
+            <span class="mx-2 text-zinc-200 dark:text-zinc-800 font-light select-none">|</span>
 
             @if (Route::has('login'))
                 @auth
                     <flux:button href="{{ url('/dashboard') }}" variant="ghost">Dashboard</flux:button>
                 @else
-                    <flux:button href="{{ route('login') }}" variant="ghost">Log in</flux:button>
+                    <flux:button href="{{ route('login') }}" variant="primary" size="sm" class="px-5 font-bold shadow-sm transition-all hover:scale-105 active:scale-95">Log in</flux:button>
                 @endauth
             @endif
         </div>
@@ -62,22 +61,13 @@
                 <span class="opacity-70 group-hover:opacity-100 transition-opacity">Read the upgrade guide &rsaquo;</span>
             </a>
 
-            <div class="flex items-center gap-4 text-xs font-semibold text-zinc-400 uppercase tracking-widest mt-2">
-                <div class="flex items-center gap-2">
-                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 0L1.5 6v12L12 24l10.5-6V6L12 0zm0 3.5l7 4v9l-7 4-7-4v-9l7-4z"/></svg>
-                    Livewire
-                </div>
-                <div class="flex items-center gap-2">
-                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12.001,4.8c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624C13.666,10.618,15.027,12,18.001,12c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624C16.337,6.182,14.976,4.8,12.001,4.8z M6.001,12c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624c1.177,1.194,2.538,2.576,5.512,2.576c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624C10.337,13.382,8.976,12,6.001,12z"/></svg>
-                    Tailwind CSS
-                </div>
-            </div>
-
-            <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight text-zinc-900 dark:text-white leading-[1.1]">
-                The official Livewire <br> component library
-            </h1>
             
-            <p class="max-w-2xl text-lg md:text-xl text-zinc-500 dark:text-zinc-400">
+
+            <h1 class="text-5xl md:text-7xl font-semibold tracking-tight text-zinc-900 dark:text-white leading-[1.1]">
+    The official Livewire <br> component library
+</h1>
+            
+            <p class="max-w-2xl text-lg md:text-xl text-zinc-400 dark:text-zinc-400">
                 World-class components, built specifically for your Livewire <br class="hidden md:block"> interfaces. Fully flexible, functional, and accessible.
             </p>
 
@@ -97,7 +87,7 @@
         <div class="mt-24 max-w-6xl mx-auto p-4 md:p-8 bg-zinc-50/50 dark:bg-zinc-900/20 rounded-3xl border border-zinc-200/50 dark:border-zinc-800/50 shadow-2xl backdrop-blur-sm relative overflow-hidden group">
             <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-pink-500 to-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity"></div>
             
-            <div class="bg-white dark:bg-zinc-950 rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-xl flex flex-col md:flex-row overflow-hidden aspect-[16/9] md:aspect-auto">
+            <div class="bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-xl flex flex-col md:flex-row overflow-hidden aspect-[16/9] md:aspect-auto">
                 <!-- Mock Sidebar -->
                 <div class="w-full md:w-64 border-r border-zinc-100 dark:border-zinc-800 p-6 flex flex-col gap-6 text-left">
                     <div class="flex items-center gap-3">
@@ -123,7 +113,7 @@
                 </div>
 
                 <!-- Mock Content Area -->
-                <div class="flex-1 p-8 md:p-12 text-left bg-white dark:bg-zinc-950">
+                <div class="flex-1 p-8 md:p-12 text-left bg-white dark:bg-zinc-900">
                     <h2 class="text-3xl font-bold mb-8">Settings</h2>
                     
                     <div class="space-y-12">
