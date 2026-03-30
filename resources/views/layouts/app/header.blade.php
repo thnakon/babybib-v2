@@ -4,7 +4,14 @@
         @include('partials.head')
     </head>
     <body class="min-h-screen bg-white dark:bg-zinc-800">
-        <flux:header container class="border-b border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
+        <flux:header
+            x-data="{ scrolled: window.pageYOffset > 5 }"
+            @scroll.window="scrolled = window.pageYOffset > 5"
+            container
+            sticky
+            x-bind:class="scrolled ? '!border-zinc-200 !bg-zinc-50/95 backdrop-blur-md !dark:border-zinc-700/90 !dark:bg-zinc-900/95 shadow-sm' : '!border-transparent !bg-transparent'"
+            class="sticky top-0 z-50 transition-all duration-300 border-b w-full"
+        >
             <flux:sidebar.toggle class="lg:hidden mr-2" icon="bars-2" inset="left" />
 
             <x-app-logo href="{{ route('dashboard') }}" wire:navigate />

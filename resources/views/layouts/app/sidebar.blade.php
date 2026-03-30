@@ -34,7 +34,14 @@
         </flux:sidebar>
 
         <!-- Mobile User Menu -->
-        <flux:header class="lg:hidden">
+        <!-- Mobile Header -->
+        <flux:header
+            x-data="{ scrolled: window.pageYOffset > 5 }"
+            @scroll.window="scrolled = window.pageYOffset > 5"
+            sticky
+            x-bind:class="scrolled ? '!border-zinc-200 !bg-zinc-50/95 backdrop-blur-md !dark:border-zinc-700/90 !dark:bg-zinc-900/95 shadow-sm' : '!border-transparent !bg-transparent'"
+            class="sticky top-0 z-50 lg:hidden transition-all duration-300 border-b w-full"
+        >
             <flux:sidebar.toggle class="lg:hidden" icon="bars-2" inset="left" />
 
             <flux:spacer />

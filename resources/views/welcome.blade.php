@@ -11,45 +11,53 @@
         <div class="absolute -bottom-[10%] left-[15%] w-[50%] h-[30%] bg-zinc-100/80 dark:bg-zinc-900/40 rounded-full blur-[100px] opacity-50"></div>
     </div>
 
-    <flux:header class="container max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        <div class="flex items-center gap-8">
-            <a href="/" class="flex items-center gap-2 group">
-                <div class="flex gap-0.5 items-end h-5">
-                    <div class="w-1 bg-zinc-900 dark:bg-white h-2 rounded-full transition-all group-hover:h-4"></div>
-                    <div class="w-1 bg-zinc-900 dark:bg-white h-4 rounded-full transition-all group-hover:h-3"></div>
-                    <div class="w-1 bg-zinc-900 dark:bg-white h-5 rounded-full transition-all group-hover:h-2"></div>
-                </div>
-                <span class="text-xl font-bold tracking-tight">flux</span>
-            </a>
+    <flux:header
+        x-data="{ scrolled: window.pageYOffset > 20 }"
+        @scroll.window="scrolled = window.pageYOffset > 20"
+        sticky
+        x-bind:class="scrolled ? '!bg-white/95 !dark:bg-zinc-900/95 !border-zinc-200 !dark:border-zinc-800 shadow-sm backdrop-blur-md py-3' : '!bg-transparent !border-transparent py-5'"
+        class="sticky top-0 w-full transition-all duration-500 z-50 border-b"
+    >
+        <div class="container max-w-7xl mx-auto px-6 flex items-center justify-between">
+            <div class="flex items-center gap-8">
+                <a href="/" class="flex items-center gap-2 group">
+                    <div class="flex gap-0.5 items-end h-5">
+                        <div class="w-1 bg-zinc-900 dark:bg-white h-2 rounded-full transition-all group-hover:h-4"></div>
+                        <div class="w-1 bg-zinc-900 dark:bg-white h-4 rounded-full transition-all group-hover:h-3"></div>
+                        <div class="w-1 bg-zinc-900 dark:bg-white h-5 rounded-full transition-all group-hover:h-2"></div>
+                    </div>
+                    <span class="text-xl font-bold tracking-tight">flux</span>
+                </a>
 
-            <flux:navbar class="hidden md:flex gap-2 text-sm font-medium text-zinc-500">
-                <flux:navbar.item href="#">Docs</flux:navbar.item>
-                <flux:navbar.item href="#">Demos</flux:navbar.item>
-                <flux:navbar.item href="#">Blog</flux:navbar.item>
-                <flux:navbar.item href="#">Themes</flux:navbar.item>
-                <flux:navbar.item href="#">Charts</flux:navbar.item>
-                <flux:navbar.item href="#">Pricing</flux:navbar.item>
-            </flux:navbar>
-        </div>
-        
-        <div class="flex items-center gap-1">
-            <button type="button" onclick="window.toggleDarkMode()" class="p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors focus:outline-none">
-                <flux:icon name="moon" class="w-5 h-5 dark:hidden" />
-                <flux:icon name="sun" class="w-5 h-5 hidden dark:block" />
-            </button>
+                <flux:navbar class="hidden md:flex gap-2 text-sm font-medium text-zinc-500">
+                    <flux:navbar.item href="#">Docs</flux:navbar.item>
+                    <flux:navbar.item href="#">Demos</flux:navbar.item>
+                    <flux:navbar.item href="#">Blog</flux:navbar.item>
+                    <flux:navbar.item href="#">Themes</flux:navbar.item>
+                    <flux:navbar.item href="#">Charts</flux:navbar.item>
+                    <flux:navbar.item href="#">Pricing</flux:navbar.item>
+                </flux:navbar>
+            </div>
             
-            <span class="mx-2 text-zinc-200 dark:text-zinc-800 font-light select-none">|</span>
+            <div class="flex items-center gap-1">
+                <button type="button" onclick="window.toggleDarkMode()" class="p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors focus:outline-none">
+                    <flux:icon name="moon" class="w-5 h-5 dark:hidden" />
+                    <flux:icon name="sun" class="w-5 h-5 hidden dark:block" />
+                </button>
+                
+                <span class="mx-2 text-zinc-200 dark:text-zinc-800 font-light select-none">|</span>
 
-            @if (Route::has('login'))
-                @auth
-                    <flux:button href="{{ url('/dashboard') }}" variant="ghost">Dashboard</flux:button>
-                @else
-                    <flux:button href="{{ route('login') }}" variant="primary" size="sm" class="group/signin px-5 font-bold shadow-sm transition-all hover:scale-[1.02] active:scale-95">
-                        <span>Sign in</span>
-                        <flux:icon name="arrow-right" class="w-4 h-4 ml-1.5 transition-transform group-hover/signin:translate-x-1" />
-                    </flux:button>
-                @endauth
-            @endif
+                @if (Route::has('login'))
+                    @auth
+                        <flux:button href="{{ url('/dashboard') }}" variant="ghost">Dashboard</flux:button>
+                    @else
+                        <flux:button href="{{ route('login') }}" variant="primary" size="sm" class="group/signin px-5 font-bold shadow-sm transition-all hover:scale-[1.02] active:scale-95">
+                            <span>Sign in</span>
+                            <flux:icon name="arrow-right" class="w-4 h-4 ml-1.5 transition-transform group-hover/signin:translate-x-1" />
+                        </flux:button>
+                    @endauth
+                @endif
+            </div>
         </div>
     </flux:header>
 
@@ -156,5 +164,6 @@
             animation: fade-in-up 0.8s ease-out forwards;
         }
     </style>
+    @fluxScripts
 </body>
 </html>
