@@ -80,10 +80,10 @@
                             style="display: none;"
                         >
                             <div class="bg-white dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-800 shadow-xl overflow-hidden p-1.5">
-                                <flux:menu.item href="#" class="!text-zinc-600 dark:!text-zinc-400">Help Center</flux:menu.item>
-                                <flux:menu.item href="#" class="!text-zinc-600 dark:!text-zinc-400">Contact Support</flux:menu.item>
+                                <flux:menu.item href="#" class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-zinc-100 dark:hover:!bg-zinc-800 transition-colors">Help Center</flux:menu.item>
+                                <flux:menu.item href="#" class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-zinc-100 dark:hover:!bg-zinc-800 transition-colors">Contact Support</flux:menu.item>
                                 <flux:menu.separator />
-                                <flux:menu.item href="#" class="!text-zinc-600 dark:!text-zinc-400">Community Discord</flux:menu.item>
+                                <flux:menu.item href="#" class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-zinc-100 dark:hover:!bg-zinc-800 transition-colors">Community Discord</flux:menu.item>
                             </div>
                         </div>
                     </div>
