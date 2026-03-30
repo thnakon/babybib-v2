@@ -60,6 +60,17 @@
                     <flux:tooltip content="Check our pricing" position="bottom">
                         <flux:navbar.item href="#">Pricing</flux:navbar.item>
                     </flux:tooltip>
+
+                    <flux:dropdown>
+                        <flux:navbar.item icon-trailing="chevron-down">Help</flux:navbar.item>
+
+                        <flux:menu>
+                            <flux:menu.item icon="book-open">Help Center</flux:menu.item>
+                            <flux:menu.item icon="chat-bubble-left-right">Contact Support</flux:menu.item>
+                            <flux:menu.separator />
+                            <flux:menu.item icon="users">Community Discord</flux:menu.item>
+                        </flux:menu>
+                    </flux:dropdown>
                 </flux:navbar>
 
                 <span class="mx-2 text-zinc-200 dark:text-zinc-800 font-light select-none">|</span>
