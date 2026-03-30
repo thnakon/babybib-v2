@@ -48,8 +48,8 @@
                     <flux:tooltip content="View product demos" position="bottom">
                         <flux:navbar.item href="#">Demos</flux:navbar.item>
                     </flux:tooltip>
-                    <flux:tooltip content="Browse latest news" position="bottom">
-                        <flux:navbar.item href="#">Blog</flux:navbar.item>
+                    <flux:tooltip content="Citation Generator" position="bottom">
+                        <flux:navbar.item href="{{ route('citation-generator') }}">Generate</flux:navbar.item>
                     </flux:tooltip>
                     <flux:tooltip content="Explore UI themes" position="bottom">
                         <flux:navbar.item href="#">Themes</flux:navbar.item>
