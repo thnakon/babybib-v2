@@ -42,33 +42,51 @@
 
             <div class="flex items-center gap-1">
                 <flux:navbar class="hidden md:flex gap-1 text-sm font-medium text-zinc-500 mr-2">
-                    <flux:navbar.item href="#">Docs</flux:navbar.item>
-                    <flux:navbar.item href="#">Demos</flux:navbar.item>
-                    <flux:navbar.item href="#">Blog</flux:navbar.item>
-                    <flux:navbar.item href="#">Themes</flux:navbar.item>
-                    <flux:navbar.item href="#">Charts</flux:navbar.item>
-                    <flux:navbar.item href="#">Pricing</flux:navbar.item>
+                    <flux:tooltip content="Read documentation" position="bottom">
+                        <flux:navbar.item href="#">Docs</flux:navbar.item>
+                    </flux:tooltip>
+                    <flux:tooltip content="View product demos" position="bottom">
+                        <flux:navbar.item href="#">Demos</flux:navbar.item>
+                    </flux:tooltip>
+                    <flux:tooltip content="Browse latest news" position="bottom">
+                        <flux:navbar.item href="#">Blog</flux:navbar.item>
+                    </flux:tooltip>
+                    <flux:tooltip content="Explore UI themes" position="bottom">
+                        <flux:navbar.item href="#">Themes</flux:navbar.item>
+                    </flux:tooltip>
+                    <flux:tooltip content="View analytics charts" position="bottom">
+                        <flux:navbar.item href="#">Charts</flux:navbar.item>
+                    </flux:tooltip>
+                    <flux:tooltip content="Check our pricing" position="bottom">
+                        <flux:navbar.item href="#">Pricing</flux:navbar.item>
+                    </flux:tooltip>
                 </flux:navbar>
 
                 <span class="mx-2 text-zinc-200 dark:text-zinc-800 font-light select-none">|</span>
 
-                <button type="button" onclick="window.toggleDarkMode()"
-                    class="p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors focus:outline-none">
-                    <flux:icon name="moon" class="w-5 h-5 dark:hidden" />
-                    <flux:icon name="sun" class="w-5 h-5 hidden dark:block" />
-                </button>
+                <flux:tooltip content="Toggle appearance" position="bottom">
+                    <button type="button" onclick="window.toggleDarkMode()"
+                        class="p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors focus:outline-none">
+                        <flux:icon name="moon" class="w-5 h-5 dark:hidden" />
+                        <flux:icon name="sun" class="w-5 h-5 hidden dark:block" />
+                    </button>
+                </flux:tooltip>
 
                 @if (Route::has('login'))
-                    <span class="mx-2 text-zinc-200 dark:text-zinc-800 font-light select-none">|</span>
+                    <span class="mx-2 text-zinc-200 dark:text-zinc-800 font-light select-none"></span>
                     @auth
-                        <flux:button href="{{ url('/dashboard') }}" variant="ghost">Dashboard</flux:button>
+                        <flux:tooltip content="Enter your dashboard" position="bottom">
+                            <flux:button href="{{ url('/dashboard') }}" variant="ghost">Dashboard</flux:button>
+                        </flux:tooltip>
                     @else
-                        <flux:button href="{{ route('login') }}" variant="primary" size="sm"
-                            class="group/signin px-5 font-bold shadow-sm transition-all hover:scale-[1.02] active:scale-95">
-                            <span>Sign in</span>
-                            <flux:icon name="arrow-right"
-                                class="w-4 h-4 ml-1.5 transition-transform group-hover/signin:translate-x-1" />
-                        </flux:button>
+                        <flux:tooltip content="Sign in to your account" position="bottom">
+                            <flux:button href="{{ route('login') }}" variant="primary" size="sm"
+                                class="group/signin px-5 font-bold shadow-sm transition-all hover:scale-[1.02] active:scale-95">
+                                <span>Sign in</span>
+                                <flux:icon name="arrow-right"
+                                    class="w-4 h-4 ml-1.5 transition-transform group-hover/signin:translate-x-1" />
+                            </flux:button>
+                        </flux:tooltip>
                     @endauth
                 @endif
             </div>
