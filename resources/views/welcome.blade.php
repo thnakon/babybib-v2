@@ -62,8 +62,8 @@
                     </flux:tooltip>
 
                     <div x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false" class="relative">
-                        <flux:navbar.item class="flex items-center gap-1 cursor-pointer">
-                            <span>Help</span>
+                        <flux:navbar.item class="!flex !flex-row !items-center gap-1 cursor-pointer">
+                            Help
                             <flux:icon name="chevron-down" class="size-3 transition-transform duration-300"
                                 x-bind:class="open ? 'rotate-180' : ''" />
                         </flux:navbar.item>
