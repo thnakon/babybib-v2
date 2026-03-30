@@ -61,16 +61,32 @@
                         <flux:navbar.item href="#">Pricing</flux:navbar.item>
                     </flux:tooltip>
 
-                    <flux:dropdown>
-                        <flux:navbar.item icon-trailing="chevron-down">Help</flux:navbar.item>
+                    <div x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false" class="relative">
+                        <flux:navbar.item class="flex items-center gap-1 cursor-pointer">
+                            <span>Help</span>
+                            <flux:icon name="chevron-down" class="size-3 transition-transform duration-300"
+                                x-bind:class="open ? 'rotate-180' : ''" />
+                        </flux:navbar.item>
 
-                        <flux:menu>
-                            <flux:menu.item icon="book-open">Help Center</flux:menu.item>
-                            <flux:menu.item icon="chat-bubble-left-right">Contact Support</flux:menu.item>
-                            <flux:menu.separator />
-                            <flux:menu.item icon="users">Community Discord</flux:menu.item>
-                        </flux:menu>
-                    </flux:dropdown>
+                        <div
+                            x-show="open"
+                            x-transition:enter="transition ease-out duration-200"
+                            x-transition:enter-start="opacity-0 translate-y-2"
+                            x-transition:enter-end="opacity-100 translate-y-0"
+                            x-transition:leave="transition ease-in duration-150"
+                            x-transition:leave-start="opacity-100 translate-y-0"
+                            x-transition:leave-end="opacity-0 translate-y-2"
+                            class="absolute left-0 top-full pt-2 z-50 w-48"
+                            style="display: none;"
+                        >
+                            <div class="bg-white dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-800 shadow-xl overflow-hidden p-1.5">
+                                <flux:menu.item href="#" class="!text-zinc-600 dark:!text-zinc-400">Help Center</flux:menu.item>
+                                <flux:menu.item href="#" class="!text-zinc-600 dark:!text-zinc-400">Contact Support</flux:menu.item>
+                                <flux:menu.separator />
+                                <flux:menu.item href="#" class="!text-zinc-600 dark:!text-zinc-400">Community Discord</flux:menu.item>
+                            </div>
+                        </div>
+                    </div>
                 </flux:navbar>
 
                 <span class="mx-2 text-zinc-200 dark:text-zinc-800 font-light select-none">|</span>
