@@ -147,37 +147,37 @@
         </div>
     </flux:header>
 
-    <div class="max-w-screen-2xl mx-auto px-6 flex gap-16 pt-12 pb-24 relative">
+    <div class="max-w-7xl mx-auto px-6 flex gap-8 pt-12 pb-24 relative">
         <!-- Left Sidebar (Nav) -->
-        <aside class="w-64 shrink-0 sticky top-24 h-[calc(100vh-8rem)] overflow-y-auto hidden lg:block custom-scrollbar pr-8 border-r border-zinc-100 dark:border-zinc-800/50">
-            <nav class="space-y-12">
+        <aside class="w-56 shrink-0 sticky top-24 h-[calc(100vh-8rem)] overflow-y-auto hidden lg:block custom-scrollbar pr-4">
+            <nav class="space-y-8">
                 <div>
-                    <h3 class="text-[10px] font-bold text-zinc-400 uppercase tracking-[0.2em] mb-6">{{ __('Guides') }}</h3>
-                    <ul class="space-y-3">
+                    <h3 class="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-4">{{ __('Guides') }}</h3>
+                    <ul class="space-y-2">
                         <li><a href="#" class="block text-sm font-semibold text-zinc-900 dark:text-white border-l-2 border-zinc-900 dark:border-white pl-4 -ml-px">{{ __('Installation') }}</a></li>
-                        <li><a href="#" class="block text-sm font-medium text-zinc-500 hover:text-zinc-900 dark:hover:text-white pl-4 border-l-2 border-transparent transition-colors hover:border-zinc-200 dark:hover:border-zinc-700">{{ __('Upgrade guide') }}</a></li>
-                        <li><a href="#" class="block text-sm font-medium text-zinc-500 hover:text-zinc-900 dark:hover:text-white pl-4 border-l-2 border-transparent transition-colors hover:border-zinc-200 dark:hover:border-zinc-700">{{ __('Principles') }}</a></li>
-                        <li><a href="#" class="block text-sm font-medium text-zinc-500 hover:text-zinc-900 dark:hover:text-white pl-4 border-l-2 border-transparent transition-colors hover:border-zinc-200 dark:hover:border-zinc-700">{{ __('Patterns') }}</a></li>
-                        <li><a href="#" class="block text-sm font-medium text-zinc-500 hover:text-zinc-900 dark:hover:text-white pl-4 border-l-2 border-transparent transition-colors hover:border-zinc-200 dark:hover:border-zinc-700">{{ __('Theming') }}</a></li>
-                        <li><a href="#" class="block text-sm font-medium text-zinc-500 hover:text-zinc-900 dark:hover:text-white pl-4 border-l-2 border-transparent transition-colors hover:border-zinc-200 dark:hover:border-zinc-700">{{ __('Dark mode') }}</a></li>
-                        <li><a href="#" class="block text-sm font-medium text-zinc-500 hover:text-zinc-900 dark:hover:text-white pl-4 border-l-2 border-transparent transition-colors hover:border-zinc-200 dark:hover:border-zinc-700">{{ __('Customization') }}</a></li>
-                        <li><a href="#" class="block text-sm font-medium text-zinc-500 hover:text-zinc-900 dark:hover:text-white pl-4 border-l-2 border-transparent transition-colors hover:border-zinc-200 dark:hover:border-zinc-700">{{ __('Help') }}</a></li>
+                        <li><a href="#" class="block text-sm font-medium text-zinc-500 hover:text-zinc-900 dark:hover:text-white pl-4 border-l-2 border-transparent transition-colors">{{ __('Upgrade guide') }}</a></li>
+                        <li><a href="#" class="block text-sm font-medium text-zinc-500 hover:text-zinc-900 dark:hover:text-white pl-4 border-l-2 border-transparent transition-colors">{{ __('Principles') }}</a></li>
+                        <li><a href="#" class="block text-sm font-medium text-zinc-500 hover:text-zinc-900 dark:hover:text-white pl-4 border-l-2 border-transparent transition-colors">{{ __('Patterns') }}</a></li>
+                        <li><a href="#" class="block text-sm font-medium text-zinc-500 hover:text-zinc-900 dark:hover:text-white pl-4 border-l-2 border-transparent transition-colors">{{ __('Theming') }}</a></li>
+                        <li><a href="#" class="block text-sm font-medium text-zinc-500 hover:text-zinc-900 dark:hover:text-white pl-4 border-l-2 border-transparent transition-colors">{{ __('Dark mode') }}</a></li>
+                        <li><a href="#" class="block text-sm font-medium text-zinc-500 hover:text-zinc-900 dark:hover:text-white pl-4 border-l-2 border-transparent transition-colors">{{ __('Customization') }}</a></li>
+                        <li><a href="#" class="block text-sm font-medium text-zinc-500 hover:text-zinc-900 dark:hover:text-white pl-4 border-l-2 border-transparent transition-colors">{{ __('Help') }}</a></li>
                     </ul>
                 </div>
 
                 <div>
-                    <h3 class="text-[10px] font-bold text-zinc-400 uppercase tracking-[0.2em] mb-6">{{ __('Layouts') }}</h3>
-                    <ul class="space-y-3">
-                        <li><a href="#" class="block text-sm font-medium text-zinc-500 hover:text-zinc-900 dark:hover:text-white pl-4 border-l-2 border-transparent transition-colors hover:border-zinc-200 dark:hover:border-zinc-700">{{ __('Header') }}</a></li>
-                        <li><a href="#" class="block text-sm font-medium text-zinc-500 hover:text-zinc-900 dark:hover:text-white pl-4 border-l-2 border-transparent transition-colors hover:border-zinc-200 dark:hover:border-zinc-700">{{ __('Sidebar') }}</a></li>
+                    <h3 class="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-4">{{ __('Layouts') }}</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="block text-sm font-medium text-zinc-500 hover:text-zinc-900 dark:hover:text-white pl-4 border-l-2 border-transparent transition-colors">{{ __('Header') }}</a></li>
+                        <li><a href="#" class="block text-sm font-medium text-zinc-500 hover:text-zinc-900 dark:hover:text-white pl-4 border-l-2 border-transparent transition-colors">{{ __('Sidebar') }}</a></li>
                     </ul>
                 </div>
 
                 <div>
-                    <h3 class="text-[10px] font-bold text-zinc-400 uppercase tracking-[0.2em] mb-6">{{ __('Components') }}</h3>
-                    <ul class="space-y-3 pb-12">
+                    <h3 class="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-4">{{ __('Components') }}</h3>
+                    <ul class="space-y-2 pb-8">
                         @foreach(['Accordion', 'Autocomplete', 'Avatar', 'Badge', 'Brand', 'Button', 'Breadcrumbs', 'Calendar'] as $comp)
-                            <li><a href="#" class="block text-sm font-medium text-zinc-500 hover:text-zinc-900 dark:hover:text-white pl-4 border-l-2 border-transparent transition-colors hover:border-zinc-200 dark:hover:border-zinc-700">{{ __($comp) }}</a></li>
+                            <li><a href="#" class="block text-sm font-medium text-zinc-500 hover:text-zinc-900 dark:hover:text-white pl-4 border-l-2 border-transparent transition-colors">{{ __($comp) }}</a></li>
                         @endforeach
                     </ul>
                 </div>
@@ -185,68 +185,65 @@
         </aside>
 
         <!-- Main Content -->
-        <main class="flex-1 min-w-0 max-w-4xl">
+        <main class="flex-1 min-w-0">
             <div class="prose prose-zinc dark:prose-invert max-w-none">
-                <h1 class="text-5xl font-bold tracking-tight mb-6">{{ __('Installation') }}</h1>
-                <p class="text-xl text-zinc-500 dark:text-zinc-400 leading-relaxed mb-10">
+                <h1 class="text-4xl font-bold tracking-tight mb-4">{{ __('Installation') }}</h1>
+                <p class="text-lg text-zinc-500 dark:text-zinc-400 leading-relaxed max-w-3xl mb-8">
                     {{ __('Flux is a robust, hand-crafted, UI component library for your Livewire applications.') }}
                 </p>
 
                 <!-- Box Tip -->
-                <div class="bg-zinc-50 dark:bg-zinc-900/50 rounded-2xl border border-zinc-200 dark:border-zinc-800 p-8 flex gap-6 mb-16">
-                    <flux:icon name="light-bulb" class="size-6 text-yellow-500 shrink-0" />
-                    <p class="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
-                        {{ __('Starting a new project?') }} Flux comes baked into the new <a href="#" class="text-zinc-900 dark:text-white font-semibold underline underline-offset-8 decoration-zinc-300 hover:decoration-zinc-900 dark:hover:decoration-white transition-all">Livewire starter kit &rarr;</a>
+                <div class="bg-zinc-50 dark:bg-zinc-900/50 rounded-xl border border-zinc-200 dark:border-zinc-800 p-6 flex gap-4 mb-12">
+                    <flux:icon name="light-bulb" class="size-6 text-zinc-400 shrink-0" />
+                    <p class="text-sm text-zinc-600 dark:text-zinc-400">
+                        {{ __('Starting a new project?') }} Flux comes baked into the new <a href="#" class="text-zinc-900 dark:text-white font-semibold underline underline-offset-4 decoration-zinc-300">Livewire starter kit &rarr;</a>
                     </p>
                 </div>
 
-                <h2 class="text-3xl font-bold mb-8 pt-12 border-t border-zinc-100 dark:border-zinc-800">{{ __('Prerequisites') }}</h2>
-                <p class="text-lg text-zinc-500 dark:text-zinc-400 mb-10">{{ __('Flux requires the following before installing:') }}</p>
+                <h2 class="text-2xl font-bold mb-6 pt-8 border-t border-zinc-100 dark:border-zinc-800">{{ __('Prerequisites') }}</h2>
+                <p class="text-zinc-500 dark:text-zinc-400 mb-8">{{ __('Flux requires the following before installing:') }}</p>
 
                 <!-- Cards Grid -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
-                    <div class="p-8 bg-white dark:bg-zinc-900 rounded-3xl border border-zinc-200 dark:border-zinc-800 shadow-sm relative group hover:border-zinc-400 dark:hover:border-zinc-600 hover:shadow-md transition-all duration-300">
-                        <flux:icon name="heart" class="size-10 text-red-500 mb-6" />
-                        <h4 class="text-lg font-bold mb-2">Laravel</h4>
-                        <p class="text-sm text-zinc-500">{{ __('Version 10 or later') }}</p>
-                        <flux:icon name="arrow-up-right" class="absolute top-6 right-6 size-5 text-zinc-300 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+                    <div class="p-6 bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-sm relative group hover:border-zinc-400 dark:hover:border-zinc-600 transition-all">
+                        <flux:icon name="heart" class="size-8 text-red-500 mb-4" />
+                        <h4 class="font-bold mb-1">Laravel</h4>
+                        <p class="text-xs text-zinc-500">{{ __('Version 10 or later') }}</p>
+                        <flux:icon name="arrow-up-right" class="absolute top-4 right-4 size-4 text-zinc-300 opacity-0 group-hover:opacity-100 transition-opacity" />
                     </div>
 
-                    <div class="p-8 bg-white dark:bg-zinc-900 rounded-3xl border border-zinc-200 dark:border-zinc-800 shadow-sm relative group hover:border-zinc-400 dark:hover:border-zinc-600 hover:shadow-md transition-all duration-300">
-                        <flux:icon name="bolt" class="size-10 text-pink-500 mb-6" />
-                        <h4 class="text-lg font-bold mb-2">Livewire</h4>
-                        <p class="text-sm text-zinc-500">{{ __('Version 3.7.0 or later') }}</p>
-                        <flux:icon name="arrow-up-right" class="absolute top-6 right-6 size-5 text-zinc-300 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <div class="p-6 bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-sm relative group hover:border-zinc-400 dark:hover:border-zinc-600 transition-all">
+                        <flux:icon name="bolt" class="size-8 text-pink-500 mb-4" />
+                        <h4 class="font-bold mb-1">Livewire</h4>
+                        <p class="text-xs text-zinc-500">{{ __('Version 3.7.0 or later') }}</p>
+                        <flux:icon name="arrow-up-right" class="absolute top-4 right-4 size-4 text-zinc-300 opacity-0 group-hover:opacity-100 transition-opacity" />
                     </div>
 
-                    <div class="p-8 bg-white dark:bg-zinc-900 rounded-3xl border border-zinc-200 dark:border-zinc-800 shadow-sm relative group hover:border-zinc-400 dark:hover:border-zinc-600 hover:shadow-md transition-all duration-300">
-                        <flux:icon name="cloud" class="size-10 text-blue-500 mb-6" />
-                        <h4 class="text-lg font-bold mb-2">Tailwind CSS</h4>
-                        <p class="text-sm text-zinc-500">{{ __('Version 4.2 or later') }}</p>
-                        <flux:icon name="arrow-up-right" class="absolute top-6 right-6 size-5 text-zinc-300 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <div class="p-6 bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-sm relative group hover:border-zinc-400 dark:hover:border-zinc-600 transition-all">
+                        <flux:icon name="cloud" class="size-8 text-blue-500 mb-4" />
+                        <h4 class="font-bold mb-1">Tailwind CSS</h4>
+                        <p class="text-xs text-zinc-500">{{ __('Version 4.2 or later') }}</p>
+                        <flux:icon name="arrow-up-right" class="absolute top-4 right-4 size-4 text-zinc-300 opacity-0 group-hover:opacity-100 transition-opacity" />
                     </div>
                 </div>
 
-                <h2 class="text-3xl font-bold mb-8 pt-12 border-t border-zinc-100 dark:border-zinc-800">{{ __('Getting started') }}</h2>
+                <h2 class="text-2xl font-bold mb-6 pt-8 border-t border-zinc-100 dark:border-zinc-800">{{ __('Getting started') }}</h2>
                 
-                <div class="relative pl-16 pb-16 border-l-2 border-zinc-100 dark:border-zinc-800 ml-6">
-                    <div class="absolute -left-[21px] top-0 size-10 rounded-full border-2 border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 flex items-center justify-center text-sm font-bold text-zinc-500 shadow-sm">1</div>
-                    <h3 class="text-2xl font-bold mb-4">{{ __('Install Flux') }}</h3>
-                    <p class="text-lg text-zinc-500 dark:text-zinc-400 mb-6">{{ __('Flux can be installed via composer from your project root:') }}</p>
-                    <div class="bg-zinc-950 rounded-2xl p-6 font-mono text-sm text-zinc-100 overflow-x-auto mb-6 border border-zinc-800 shadow-inner">
-                        <code class="flex items-center gap-3">
-                            <span class="text-zinc-600">$</span>
-                            <span>composer require livewire/flux</span>
-                        </code>
+                <div class="relative pl-12 pb-12 border-l border-zinc-100 dark:border-zinc-800 ml-4">
+                    <div class="absolute -left-[17px] top-0 size-8 rounded-full border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 flex items-center justify-center text-xs font-bold text-zinc-400 shadow-sm">1</div>
+                    <h3 class="text-lg font-bold mb-2">{{ __('Install Flux') }}</h3>
+                    <p class="text-zinc-500 dark:text-zinc-400 mb-4">{{ __('Flux can be installed via composer from your project root:') }}</p>
+                    <div class="bg-zinc-900 rounded-xl p-4 font-mono text-sm text-zinc-100 overflow-x-auto mb-4 border border-zinc-800">
+                        <code>composer require livewire/flux</code>
                     </div>
                 </div>
             </div>
         </main>
 
         <!-- Right Sidebar (On this page) -->
-        <aside class="w-52 shrink-0 sticky top-24 h-[calc(100vh-8rem)] overflow-y-auto hidden xl:block custom-scrollbar pl-8 border-l border-zinc-100 dark:border-zinc-800/50">
-            <h3 class="text-[10px] font-bold text-zinc-900 dark:text-white uppercase tracking-[0.2em] mb-8">{{ __('On this page') }}</h3>
-            <ul class="space-y-5 text-xs font-semibold text-zinc-500">
+        <aside class="w-56 shrink-0 sticky top-24 h-[calc(100vh-8rem)] overflow-y-auto hidden xl:block custom-scrollbar pl-4 border-l border-zinc-100 dark:border-zinc-800">
+            <h3 class="text-xs font-bold text-zinc-900 dark:text-white uppercase tracking-widest mb-6">{{ __('On this page') }}</h3>
+            <ul class="space-y-4 text-sm font-medium text-zinc-500">
                 <li><a href="#" class="hover:text-zinc-900 dark:hover:text-white transition-colors">{{ __('Introduction') }}</a></li>
                 <li><a href="#" class="text-zinc-900 dark:text-white border-l-2 border-zinc-900 dark:border-white pl-4 -ml-px">{{ __('Prerequisites') }}</a></li>
                 <li><a href="#" class="hover:text-zinc-900 dark:hover:text-white transition-colors pl-4 border-l-2 border-transparent">{{ __('Getting started') }}</a></li>
