@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome')->name('home');
+Route::view('manual', 'manual')->name('manual');
 Route::view('citation-generator', 'citation-generator')->name('citation-generator');
 
 Route::get('change-language/{locale}', function ($locale) {

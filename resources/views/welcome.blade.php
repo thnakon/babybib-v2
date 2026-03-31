@@ -43,7 +43,7 @@
             <div class="flex items-center gap-1">
                 <flux:navbar class="hidden md:flex gap-1 text-sm font-medium text-zinc-500 mr-2">
                     <flux:tooltip content="{{ __('User Manual') }}" position="bottom">
-                        <flux:navbar.item href="#">{{ __('Manual') }}</flux:navbar.item>
+                        <flux:navbar.item href="{{ route('manual') }}">{{ __('Manual') }}</flux:navbar.item>
                     </flux:tooltip>
 
                     <flux:tooltip content="{{ __('Citation Generator') }}" position="bottom">
