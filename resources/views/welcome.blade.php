@@ -169,8 +169,14 @@
                     &rsaquo;</span>
             </a>
 
-            <h1 class="text-5xl md:text-7xl font-semibold tracking-tight text-zinc-900 dark:text-white leading-[1.1]">
-                {!! __('The official Livewire component library') !!}<flux:icon name="pencil" class="inline-block size-8 md:size-12 text-pink-500 -ml-1 md:-ml-2 -rotate-12 animate-pulse" />
+            <h1 class="text-5xl md:text-7xl font-semibold tracking-tight text-zinc-900 dark:text-white leading-[1.1] relative inline-block">
+                <span>{!! __('The official Livewire component library') !!}</span>
+                <span class="relative inline-block ml-2">
+                    <svg class="absolute -bottom-2 md:-bottom-4 left-0 w-24 md:w-40 text-pink-500/40" viewBox="0 0 100 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5 15C20 12 35 18 50 15C65 12 80 18 95 15" stroke="currentColor" stroke-width="3" stroke-linecap="round" />
+                    </svg>
+                    <flux:icon name="pencil" class="relative size-12 md:size-16 text-pink-500 -rotate-45 transform -translate-y-2" />
+                </span>
             </h1>
 
             <p class="max-w-2xl text-lg md:text-xl text-zinc-400 dark:text-zinc-400">
