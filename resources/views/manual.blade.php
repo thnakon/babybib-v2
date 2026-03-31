@@ -3,10 +3,16 @@
 <head>
     @include('partials.head', ['title' => __('Manual')])
     <style>
-        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar { width: 8px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #e4e4e7; border-radius: 10px; }
-        .dark .custom-scrollbar::-webkit-scrollbar-thumb { background: #27272a; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { 
+            background: transparent; 
+            border-radius: 10px; 
+            border: 2px solid transparent; /* Added small border for spacing */
+            background-clip: padding-box;
+        }
+        .custom-scrollbar:hover::-webkit-scrollbar-thumb { background: #e4e4e7; }
+        .dark .custom-scrollbar:hover::-webkit-scrollbar-thumb { background: #27272a; }
     </style>
 </head>
 <body class="min-h-screen font-sans antialiased bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 overflow-x-hidden">
@@ -151,6 +157,24 @@
         <!-- Left Sidebar (Nav) -->
         <aside class="w-52 shrink-0 sticky top-24 h-[calc(100vh-8rem)] overflow-y-auto hidden lg:block custom-scrollbar pr-4">
             <nav class="space-y-8">
+                <!-- Search Bar -->
+                <div x-data="{ 
+                    shortcut: navigator.platform.toUpperCase().indexOf('MAC') >= 0 ? '⌘K' : 'Ctrl+K'
+                }" class="mb-4">
+                    <div class="relative group" 
+                        x-on:keydown.window.prevent.cmd.k="$refs.searchInput.focus()"
+                        x-on:keydown.window.prevent.ctrl.k="$refs.searchInput.focus()">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-zinc-400 group-focus-within:text-zinc-600 dark:group-focus-within:text-zinc-200 transition-colors">
+                            <flux:icon name="magnifying-glass" class="size-4" />
+                        </div>
+                        <input x-ref="searchInput" type="text" placeholder="{{ __('Search...') }}" 
+                            class="w-full pl-9 pr-12 py-2 text-sm bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl focus:outline-none focus:ring-2 focus:ring-zinc-900/5 dark:focus:ring-white/5 focus:border-zinc-400 dark:focus:border-zinc-600 transition-all placeholder:text-zinc-400">
+                        <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                            <kbd class="hidden sm:inline-flex items-center px-1.5 py-0.5 rounded border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 font-sans text-[10px] font-medium text-zinc-400" x-text="shortcut"></kbd>
+                        </div>
+                    </div>
+                </div>
+
                 <div>
                     <h3 class="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-4">{{ __('Guides') }}</h3>
                     <ul class="space-y-4">
