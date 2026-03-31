@@ -170,10 +170,11 @@
             </a>
 
             <h1 class="text-5xl md:text-7xl font-semibold tracking-tight text-zinc-900 dark:text-white leading-[1.1] relative inline-block">
-                <span class="relative">
-                    {!! __('The official Livewire component library') !!}
-                    <svg class="absolute -bottom-2 md:-bottom-4 left-0 w-full h-3 md:h-6 text-pink-500/40" viewBox="0 0 400 20" preserveAspectRatio="none">
-                        <path d="M0 10 Q 50 0, 100 10 T 200 10 T 300 10 T 400 10" stroke="currentColor" stroke-width="4" fill="none" stroke-linecap="round" />
+                <span>{!! __('The official Livewire') !!}</span>
+                <span class="relative inline-block">
+                    {!! __('component library') !!}
+                    <svg class="absolute -bottom-2 md:-bottom-4 left-0 w-full h-3 md:h-6 text-pink-500/40" viewBox="0 0 100 20" preserveAspectRatio="none">
+                        <path d="M0 10 Q 25 0, 50 10 T 100 10" stroke="currentColor" stroke-width="4" fill="none" stroke-linecap="round" />
                     </svg>
                 </span>
                 <flux:icon name="pencil" class="inline-block size-12 md:size-20 text-pink-500 -rotate-45 transform -translate-y-2 -ml-2" />
