@@ -95,7 +95,7 @@
                                 <flux:menu.item href="#" icon="facebook" class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-zinc-100 dark:hover:!bg-zinc-800 transition-colors">Facebook</flux:menu.item>
                                 <flux:menu.item href="#" icon="instagram" class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-zinc-100 dark:hover:!bg-zinc-800 transition-colors">Instagram</flux:menu.item>
                                 <flux:menu.item href="#" icon="twitter" class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-zinc-100 dark:hover:!bg-zinc-800 transition-colors">X (Twitter)</flux:menu.item>
-                                <flux:menu.item href="#" icon="message-circle" class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-zinc-100 dark:hover:!bg-zinc-800 transition-colors">Line</flux:menu.item>
+                                <flux:menu.item href="#" icon="line" class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-zinc-100 dark:hover:!bg-zinc-800 transition-colors">Line</flux:menu.item>
                             </div>
                         </div>
                     </div>
@@ -164,31 +164,29 @@
                 <div class="flex items-center justify-center w-4 h-4 bg-pink-500 rounded-full">
                     <flux:icon.bolt class="w-3 h-3 text-white fill-current" />
                 </div>
-                Livewire v4 is here!
-                <span class="opacity-70 group-hover:opacity-100 transition-opacity">Read the upgrade guide
+                {{ __('Livewire v4 is here!') }}
+                <span class="opacity-70 group-hover:opacity-100 transition-opacity">{{ __('Read the upgrade guide') }}
                     &rsaquo;</span>
             </a>
 
-
-
             <h1 class="text-5xl md:text-7xl font-semibold tracking-tight text-zinc-900 dark:text-white leading-[1.1]">
-                The official Livewire <br> component library
+                {!! __('The official Livewire component library') !!}
             </h1>
 
             <p class="max-w-2xl text-lg md:text-xl text-zinc-400 dark:text-zinc-400">
-                World-class components, built specifically for your Livewire <br class="hidden md:block"> interfaces.
-                Fully flexible, functional, and accessible.
+                {{ __('World-class components, built specifically for your Livewire interfaces.') }} <br class="hidden md:block">
+                {{ __('Fully flexible, functional, and accessible.') }}
             </p>
 
             <div class="flex flex-col sm:flex-row gap-4 mt-4">
                 <flux:button href="{{ route('register') }}" variant="primary"
                     class="h-12 px-8 bg-zinc-900 dark:bg-zinc-100 dark:text-zinc-900 font-bold text-base hover:scale-105 transition-transform group">
-                    Get started
+                    {{ __('Get started') }}
                     <flux:icon.arrow-right class="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </flux:button>
                 <flux:button href="#" variant="ghost"
                     class="h-12 px-8 border border-zinc-200 dark:border-zinc-800 font-bold text-base hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-all">
-                    Browse components
+                    {{ __('Browse components') }}
                     <span class="ml-2 text-zinc-400">&rsaquo;</span>
                 </flux:button>
             </div>

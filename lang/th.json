@@ -12,5 +12,16 @@
     "Explore templates": "เลือกดูเทมเพลต",
     "Help Center": "ศูนย์ความช่วยเหลือ",
     "Contact Support": "ติดต่อฝ่ายสนับสนุน",
-    "Community Discord": "ชุมชน Discord"
+    "Community Discord": "ชุมชน Discord",
+    "Enter your dashboard": "เข้าสู่แดชบอร์ด",
+    "Sign in to your account": "เข้าสู่ระบบบัญชีของคุณ",
+    "Toggle appearance": "สลับโหมดกลางคืน/วัน",
+    "Change language": "เปลี่ยนภาษา",
+    "Livewire v4 is here!": "Livewire v4 มาแล้ว!",
+    "Read the upgrade guide": "อ่านคู่มือการอัปเกรด",
+    "The official Livewire component library": "ไลบรารีคอมโพเนนต์ Livewire <br> อย่างเป็นทางการ",
+    "Get started": "เริ่มใช้งาน",
+    "Browse components": "ดูคอมโพเนนต์ทั้งหมด",
+    "World-class components, built specifically for your Livewire interfaces.": "คอมโพเนนต์ระดับโลก สร้างขึ้นเพื่ออินเทอร์เฟซ Livewire ของคุณโดยเฉพาะ",
+    "Fully flexible, functional, and accessible.": "ยืดหยุ่น ใช้งานได้จริง และเข้าถึงง่าย"
 }
