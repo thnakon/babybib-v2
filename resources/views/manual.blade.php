@@ -149,7 +149,7 @@
 
     <div class="max-w-7xl mx-auto px-6 flex gap-8 pt-12 pb-24 relative">
         <!-- Left Sidebar (Nav) -->
-        <aside class="w-56 shrink-0 sticky top-24 h-[calc(100vh-8rem)] overflow-y-auto hidden lg:block custom-scrollbar pr-4">
+        <aside class="w-52 shrink-0 sticky top-24 h-[calc(100vh-8rem)] overflow-y-auto hidden lg:block custom-scrollbar pr-4">
             <nav class="space-y-8">
                 <div>
                     <h3 class="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-4">{{ __('Guides') }}</h3>
@@ -188,7 +188,7 @@
         <main class="flex-1 min-w-0">
             <div class="prose prose-zinc dark:prose-invert max-w-none">
                 <h1 class="text-4xl font-bold tracking-tight mb-4">{{ __('Installation') }}</h1>
-                <p class="text-lg text-zinc-500 dark:text-zinc-400 leading-relaxed max-w-3xl mb-8">
+                <p class="text-lg text-zinc-500 dark:text-zinc-400 leading-relaxed mb-8">
                     {{ __('Flux is a robust, hand-crafted, UI component library for your Livewire applications.') }}
                 </p>
 
@@ -241,7 +241,7 @@
         </main>
 
         <!-- Right Sidebar (On this page) -->
-        <aside class="w-56 shrink-0 sticky top-24 h-[calc(100vh-8rem)] overflow-y-auto hidden xl:block custom-scrollbar pl-4 border-l border-zinc-100 dark:border-zinc-800">
+        <aside class="w-48 shrink-0 sticky top-24 h-[calc(100vh-8rem)] overflow-y-auto hidden xl:block custom-scrollbar pl-4 border-l border-zinc-100 dark:border-zinc-800">
             <h3 class="text-xs font-bold text-zinc-900 dark:text-white uppercase tracking-widest mb-6">{{ __('On this page') }}</h3>
             <ul class="space-y-4 text-sm font-medium text-zinc-500">
                 <li><a href="#" class="hover:text-zinc-900 dark:hover:text-white transition-colors">{{ __('Introduction') }}</a></li>
