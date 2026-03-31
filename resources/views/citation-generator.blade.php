@@ -101,6 +101,19 @@
 
                 <span class="mx-2 text-zinc-200 dark:text-zinc-800 font-light select-none">|</span>
 
+                <flux:tooltip content="Change language" position="bottom">
+                    <flux:dropdown>
+                        <flux:navbar.item icon-trailing="chevron-down" class="!flex !flex-row !items-center gap-1 cursor-pointer">
+                            {{ strtoupper(app()->getLocale()) }}
+                        </flux:navbar.item>
+
+                        <flux:menu>
+                            <flux:menu.item href="{{ route('change-language', 'en') }}" class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-zinc-100 dark:hover:!bg-zinc-800 transition-colors">English (EN)</flux:menu.item>
+                            <flux:menu.item href="{{ route('change-language', 'th') }}" class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-zinc-100 dark:hover:!bg-zinc-800 transition-colors">ไทย (TH)</flux:menu.item>
+                        </flux:menu>
+                    </flux:dropdown>
+                </flux:tooltip>
+
                 <flux:tooltip content="Toggle appearance" position="bottom">
                     <button type="button" onclick="window.toggleDarkMode()"
                         class="p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors focus:outline-none">
