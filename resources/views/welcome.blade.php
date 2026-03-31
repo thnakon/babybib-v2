@@ -177,7 +177,7 @@
                         <path d="M0 10 Q 25 0, 50 10 T 100 10" stroke="currentColor" stroke-width="4" fill="none" stroke-linecap="round" />
                     </svg>
                 </span>
-                <flux:icon name="pencil" class="inline-block size-12 md:size-20 text-pink-500 rotate-12 transform -translate-y-2 md:-translate-y-4 ml-1 md:ml-3 select-none" />
+                <flux:icon name="pencil" class="inline-block size-12 md:size-20 text-pink-500 rotate-[70deg] transform -translate-y-4 md:-translate-y-8 ml-1 md:ml-3 select-none" />
             </h1>
 
             <p class="max-w-2xl text-lg md:text-xl text-zinc-400 dark:text-zinc-400">
