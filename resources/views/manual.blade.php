@@ -153,7 +153,7 @@
             <nav class="space-y-8">
                 <div>
                     <h3 class="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-4">{{ __('Guides') }}</h3>
-                    <ul class="space-y-2">
+                    <ul class="space-y-4">
                         <li><a href="#" class="block text-sm font-semibold text-zinc-900 dark:text-white border-l-2 border-zinc-900 dark:border-white pl-4 -ml-px">{{ __('Installation') }}</a></li>
                         <li><a href="#" class="block text-sm font-medium text-zinc-500 hover:text-zinc-900 dark:hover:text-white pl-4 border-l-2 border-transparent transition-colors">{{ __('Upgrade guide') }}</a></li>
                         <li><a href="#" class="block text-sm font-medium text-zinc-500 hover:text-zinc-900 dark:hover:text-white pl-4 border-l-2 border-transparent transition-colors">{{ __('Principles') }}</a></li>
@@ -167,7 +167,7 @@
 
                 <div>
                     <h3 class="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-4">{{ __('Layouts') }}</h3>
-                    <ul class="space-y-2">
+                    <ul class="space-y-4">
                         <li><a href="#" class="block text-sm font-medium text-zinc-500 hover:text-zinc-900 dark:hover:text-white pl-4 border-l-2 border-transparent transition-colors">{{ __('Header') }}</a></li>
                         <li><a href="#" class="block text-sm font-medium text-zinc-500 hover:text-zinc-900 dark:hover:text-white pl-4 border-l-2 border-transparent transition-colors">{{ __('Sidebar') }}</a></li>
                     </ul>
@@ -175,7 +175,7 @@
 
                 <div>
                     <h3 class="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-4">{{ __('Components') }}</h3>
-                    <ul class="space-y-2 pb-8">
+                    <ul class="space-y-4 pb-8">
                         @foreach(['Accordion', 'Autocomplete', 'Avatar', 'Badge', 'Brand', 'Button', 'Breadcrumbs', 'Calendar'] as $comp)
                             <li><a href="#" class="block text-sm font-medium text-zinc-500 hover:text-zinc-900 dark:hover:text-white pl-4 border-l-2 border-transparent transition-colors">{{ __($comp) }}</a></li>
                         @endforeach
