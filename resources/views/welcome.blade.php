@@ -170,7 +170,7 @@
             </a>
 
             <h1 class="text-5xl md:text-7xl font-semibold tracking-tight text-zinc-900 dark:text-white leading-[1.1]">
-                {!! __('The official Livewire component library') !!}
+                {!! __('The official Livewire component library') !!}<flux:icon name="pencil" class="inline-block size-8 md:size-12 text-pink-500 -ml-1 md:-ml-2 -rotate-12 animate-pulse" />
             </h1>
 
             <p class="max-w-2xl text-lg md:text-xl text-zinc-400 dark:text-zinc-400">
