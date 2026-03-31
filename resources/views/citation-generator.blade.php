@@ -35,6 +35,39 @@
                         <flux:navbar.item href="#">Templates</flux:navbar.item>
                     </flux:tooltip>
 
+                    <!-- Help Dropdown -->
+                    <div x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false" class="relative">
+                        <flux:navbar.item class="cursor-pointer">
+                            <div class="flex items-center gap-1.5 min-w-max">
+                                <span>Help</span>
+                                <flux:icon name="chevron-down" class="size-3 transition-transform duration-300"
+                                    x-bind:class="open ? 'rotate-180' : ''" />
+                            </div>
+                        </flux:navbar.item>
+
+                        <div x-show="open" x-transition:enter="transition ease-out duration-200"
+                            x-transition:enter-start="opacity-0 translate-y-2"
+                            x-transition:enter-end="opacity-100 translate-y-0"
+                            x-transition:leave="transition ease-in duration-150"
+                            x-transition:leave-start="opacity-100 translate-y-0"
+                            x-transition:leave-end="opacity-0 translate-y-2"
+                            class="absolute left-0 top-full pt-2 z-50 w-48" style="display: none;">
+                            <div
+                                class="bg-white dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-800 shadow-xl overflow-hidden p-1.5">
+                                <flux:menu.item href="#"
+                                    class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-zinc-100 dark:hover:!bg-zinc-800 transition-colors">
+                                    Help Center</flux:menu.item>
+                                <flux:menu.item href="#"
+                                    class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-zinc-100 dark:hover:!bg-zinc-800 transition-colors">
+                                    Contact Support</flux:menu.item>
+                                <flux:menu.separator />
+                                <flux:menu.item href="#"
+                                    class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-zinc-100 dark:hover:!bg-zinc-800 transition-colors">
+                                    Community Discord</flux:menu.item>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Share Dropdown -->
                     <div x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false" class="relative">
                         <flux:navbar.item class="cursor-pointer">
@@ -45,24 +78,15 @@
                             </div>
                         </flux:navbar.item>
 
-                        <div x-show="open" x-transition ... class="absolute left-0 top-full pt-2 z-50 w-40" style="display: none;">
+                        <div x-show="open" x-transition ... class="absolute left-0 top-full pt-2 z-50 w-44" style="display: none;">
                             <div class="bg-white dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-800 shadow-xl overflow-hidden p-1.5">
-                                <flux:menu.item href="#" class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-zinc-100 dark:hover:!bg-zinc-800 transition-colors">Facebook</flux:menu.item>
-                                <flux:menu.item href="#" class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-zinc-100 dark:hover:!bg-zinc-800 transition-colors">Instagram</flux:menu.item>
-                                <flux:menu.item href="#" class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-zinc-100 dark:hover:!bg-zinc-800 transition-colors">X (Twitter)</flux:menu.item>
-                                <flux:menu.item href="#" class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-zinc-100 dark:hover:!bg-zinc-800 transition-colors">Line</flux:menu.item>
+                                <flux:menu.item href="#" icon="facebook" class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-zinc-100 dark:hover:!bg-zinc-800 transition-colors">Facebook</flux:menu.item>
+                                <flux:menu.item href="#" icon="instagram" class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-zinc-100 dark:hover:!bg-zinc-800 transition-colors">Instagram</flux:menu.item>
+                                <flux:menu.item href="#" icon="twitter" class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-zinc-100 dark:hover:!bg-zinc-800 transition-colors">X (Twitter)</flux:menu.item>
+                                <flux:menu.item href="#" icon="message-circle" class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-zinc-100 dark:hover:!bg-zinc-800 transition-colors">Line</flux:menu.item>
                             </div>
                         </div>
                     </div>
-
-                    <div x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false" class="relative">
-                        <flux:navbar.item class="cursor-pointer">
-                            <div class="flex items-center gap-1.5 min-w-max">
-                                <span>Help</span>
-                                <flux:icon name="chevron-down" class="size-3 transition-transform duration-300"
-                                    x-bind:class="open ? 'rotate-180' : ''" />
-                            </div>
-                        </flux:navbar.item>
 
                         <div x-show="open" x-transition ... class="absolute left-0 top-full pt-2 z-50 w-48" style="display: none;">
                             <div class="bg-white dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-800 shadow-xl overflow-hidden p-1.5">
