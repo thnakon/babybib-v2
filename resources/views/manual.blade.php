@@ -194,7 +194,7 @@
 
                 <!-- Box Tip -->
                 <div class="bg-zinc-50 dark:bg-zinc-900/50 rounded-xl border border-zinc-200 dark:border-zinc-800 p-6 flex gap-4 mb-12">
-                    <flux:icon name="lightbulb" class="size-6 text-zinc-400 shrink-0" />
+                    <flux:icon name="light-bulb" class="size-6 text-zinc-400 shrink-0" />
                     <p class="text-sm text-zinc-600 dark:text-zinc-400">
                         {{ __('Starting a new project?') }} Flux comes baked into the new <a href="#" class="text-zinc-900 dark:text-white font-semibold underline underline-offset-4 decoration-zinc-300">Livewire starter kit &rarr;</a>
                     </p>
