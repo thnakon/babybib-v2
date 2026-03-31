@@ -23,21 +23,37 @@
 
             <div class="flex items-center gap-1">
                 <flux:navbar class="hidden md:flex gap-1 text-sm font-medium text-zinc-500 mr-2">
-                    <flux:tooltip content="Read documentation" position="bottom">
-                        <flux:navbar.item href="#">Docs</flux:navbar.item>
+                    <flux:tooltip content="User Manual" position="bottom">
+                        <flux:navbar.item href="#">Manual</flux:navbar.item>
                     </flux:tooltip>
-                    <flux:tooltip content="View product demos" position="bottom">
-                        <flux:navbar.item href="#">Demos</flux:navbar.item>
-                    </flux:tooltip>
+
                     <flux:tooltip content="Citation Generator" position="bottom">
                         <flux:navbar.item href="{{ route('citation-generator') }}" current>Generate</flux:navbar.item>
                     </flux:tooltip>
-                    <flux:tooltip content="Explore UI themes" position="bottom">
-                        <flux:navbar.item href="#">Themes</flux:navbar.item>
+
+                    <flux:tooltip content="Explore templates" position="bottom">
+                        <flux:navbar.item href="#">Templates</flux:navbar.item>
                     </flux:tooltip>
-                    <flux:tooltip content="View analytics charts" position="bottom">
-                        <flux:navbar.item href="#">Charts</flux:navbar.item>
-                    </flux:tooltip>
+
+                    <!-- Share Dropdown -->
+                    <div x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false" class="relative">
+                        <flux:navbar.item class="cursor-pointer">
+                            <div class="flex items-center gap-1.5 min-w-max">
+                                <span>Share</span>
+                                <flux:icon name="chevron-down" class="size-3 transition-transform duration-300"
+                                    x-bind:class="open ? 'rotate-180' : ''" />
+                            </div>
+                        </flux:navbar.item>
+
+                        <div x-show="open" x-transition ... class="absolute left-0 top-full pt-2 z-50 w-40" style="display: none;">
+                            <div class="bg-white dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-800 shadow-xl overflow-hidden p-1.5">
+                                <flux:menu.item href="#" class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-zinc-100 dark:hover:!bg-zinc-800 transition-colors">Facebook</flux:menu.item>
+                                <flux:menu.item href="#" class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-zinc-100 dark:hover:!bg-zinc-800 transition-colors">Instagram</flux:menu.item>
+                                <flux:menu.item href="#" class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-zinc-100 dark:hover:!bg-zinc-800 transition-colors">X (Twitter)</flux:menu.item>
+                                <flux:menu.item href="#" class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-zinc-100 dark:hover:!bg-zinc-800 transition-colors">Line</flux:menu.item>
+                            </div>
+                        </div>
+                    </div>
 
                     <div x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false" class="relative">
                         <flux:navbar.item class="cursor-pointer">
