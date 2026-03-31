@@ -42,23 +42,23 @@
 
             <div class="flex items-center gap-1">
                 <flux:navbar class="hidden md:flex gap-1 text-sm font-medium text-zinc-500 mr-2">
-                    <flux:tooltip content="User Manual" position="bottom">
-                        <flux:navbar.item href="#">Manual</flux:navbar.item>
+                    <flux:tooltip content="{{ __('User Manual') }}" position="bottom">
+                        <flux:navbar.item href="#">{{ __('Manual') }}</flux:navbar.item>
                     </flux:tooltip>
 
-                    <flux:tooltip content="Citation Generator" position="bottom">
-                        <flux:navbar.item href="{{ route('citation-generator') }}">Generate</flux:navbar.item>
+                    <flux:tooltip content="{{ __('Citation Generator') }}" position="bottom">
+                        <flux:navbar.item href="{{ route('citation-generator') }}">{{ __('Generate') }}</flux:navbar.item>
                     </flux:tooltip>
 
-                    <flux:tooltip content="Explore templates" position="bottom">
-                        <flux:navbar.item href="#">Templates</flux:navbar.item>
+                    <flux:tooltip content="{{ __('Explore templates') }}" position="bottom">
+                        <flux:navbar.item href="#">{{ __('Templates') }}</flux:navbar.item>
                     </flux:tooltip>
 
                     <!-- Help Dropdown -->
                     <div x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false" class="relative">
                         <flux:navbar.item class="cursor-pointer">
                             <div class="flex items-center gap-1.5 min-w-max">
-                                <span>Help</span>
+                                <span>{{ __('Help') }}</span>
                                 <flux:icon name="chevron-down" class="size-3 transition-transform duration-300"
                                     x-bind:class="open ? 'rotate-180' : ''" />
                             </div>
@@ -71,18 +71,11 @@
                             x-transition:leave-start="opacity-100 translate-y-0"
                             x-transition:leave-end="opacity-0 translate-y-2"
                             class="absolute left-0 top-full pt-2 z-50 w-48" style="display: none;">
-                            <div
-                                class="bg-white dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-800 shadow-xl overflow-hidden p-1.5">
-                                <flux:menu.item href="#"
-                                    class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-zinc-100 dark:hover:!bg-zinc-800 transition-colors">
-                                    Help Center</flux:menu.item>
-                                <flux:menu.item href="#"
-                                    class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-zinc-100 dark:hover:!bg-zinc-800 transition-colors">
-                                    Contact Support</flux:menu.item>
+                            <div class="bg-white dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-800 shadow-xl overflow-hidden p-1.5">
+                                <flux:menu.item href="#" class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-zinc-100 dark:hover:!bg-zinc-800 transition-colors">{{ __('Help Center') }}</flux:menu.item>
+                                <flux:menu.item href="#" class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-zinc-100 dark:hover:!bg-zinc-800 transition-colors">{{ __('Contact Support') }}</flux:menu.item>
                                 <flux:menu.separator />
-                                <flux:menu.item href="#"
-                                    class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-zinc-100 dark:hover:!bg-zinc-800 transition-colors">
-                                    Community Discord</flux:menu.item>
+                                <flux:menu.item href="#" class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-zinc-100 dark:hover:!bg-zinc-800 transition-colors">{{ __('Community Discord') }}</flux:menu.item>
                             </div>
                         </div>
                     </div>
@@ -91,7 +84,7 @@
                     <div x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false" class="relative">
                         <flux:navbar.item class="cursor-pointer">
                             <div class="flex items-center gap-1.5 min-w-max">
-                                <span>Share</span>
+                                <span>{{ __('Share') }}</span>
                                 <flux:icon name="chevron-down" class="size-3 transition-transform duration-300"
                                     x-bind:class="open ? 'rotate-180' : ''" />
                             </div>
@@ -102,7 +95,7 @@
                                 <flux:menu.item href="#" icon="facebook" class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-zinc-100 dark:hover:!bg-zinc-800 transition-colors">Facebook</flux:menu.item>
                                 <flux:menu.item href="#" icon="instagram" class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-zinc-100 dark:hover:!bg-zinc-800 transition-colors">Instagram</flux:menu.item>
                                 <flux:menu.item href="#" icon="twitter" class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-zinc-100 dark:hover:!bg-zinc-800 transition-colors">X (Twitter)</flux:menu.item>
-                                <flux:menu.item href="#" icon="line" class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-zinc-100 dark:hover:!bg-zinc-800 transition-colors">Line</flux:menu.item>
+                                <flux:menu.item href="#" icon="message-circle" class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-zinc-100 dark:hover:!bg-zinc-800 transition-colors">Line</flux:menu.item>
                             </div>
                         </div>
                     </div>
@@ -110,20 +103,31 @@
 
                 <span class="mx-2 text-zinc-200 dark:text-zinc-800 font-light select-none">|</span>
 
-                <flux:tooltip content="Change language" position="bottom">
-                    <flux:dropdown>
-                        <flux:navbar.item icon-trailing="chevron-down" class="!flex !flex-row !items-center gap-1 cursor-pointer">
-                            {{ strtoupper(app()->getLocale()) }}
-                        </flux:navbar.item>
+                <!-- Language Switcher (Hover) -->
+                <div x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false" class="relative">
+                    <flux:navbar.item class="cursor-pointer">
+                        <div class="flex items-center gap-1.5 min-w-max">
+                            <span>{{ strtoupper(app()->getLocale()) }}</span>
+                            <flux:icon name="chevron-down" class="size-3 transition-transform duration-300"
+                                x-bind:class="open ? 'rotate-180' : ''" />
+                        </div>
+                    </flux:navbar.item>
 
-                        <flux:menu>
+                    <div x-show="open" x-transition:enter="transition ease-out duration-200"
+                        x-transition:enter-start="opacity-0 translate-y-2"
+                        x-transition:enter-end="opacity-100 translate-y-0"
+                        x-transition:leave="transition ease-in duration-150"
+                        x-transition:leave-start="opacity-100 translate-y-0"
+                        x-transition:leave-end="opacity-0 translate-y-2"
+                        class="absolute right-0 top-full pt-2 z-50 w-32" style="display: none;">
+                        <div class="bg-white dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-800 shadow-xl overflow-hidden p-1.5">
                             <flux:menu.item href="{{ route('change-language', 'en') }}" class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-zinc-100 dark:hover:!bg-zinc-800 transition-colors">English (EN)</flux:menu.item>
                             <flux:menu.item href="{{ route('change-language', 'th') }}" class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-zinc-100 dark:hover:!bg-zinc-800 transition-colors">ไทย (TH)</flux:menu.item>
-                        </flux:menu>
-                    </flux:dropdown>
-                </flux:tooltip>
+                        </div>
+                    </div>
+                </div>
 
-                <flux:tooltip content="Toggle appearance" position="bottom">
+                <flux:tooltip content="{{ __('Toggle appearance') }}" position="bottom">
                     <button type="button" onclick="window.toggleDarkMode()"
                         class="p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors focus:outline-none">
                         <flux:icon name="moon" class="w-5 h-5 dark:hidden" />
