@@ -193,10 +193,10 @@
         </div>
     </flux:header>
 
-    <div class="max-w-7xl mx-auto px-6 flex gap-6 pt-12 pb-24 relative">
+    <div class="max-w-[1400px] mx-auto px-6 flex gap-10 pt-12 pb-24 relative">
         <!-- Left Sidebar (Nav) -->
         <aside
-            class="w-52 shrink-0 sticky top-24 h-[calc(100vh-8rem)] overflow-y-auto hidden lg:block custom-scrollbar pr-4">
+            class="w-48 shrink-0 sticky top-24 h-[calc(100vh-8rem)] overflow-y-auto hidden lg:block custom-scrollbar pr-4">
             <nav class="space-y-8">
                 <!-- Search Bar -->
                 <div x-data="{
@@ -348,7 +348,7 @@
 
         <!-- Right Sidebar (On this page) -->
         <aside
-            class="w-56 shrink-0 sticky top-24 h-[calc(100vh-8rem)] overflow-y-auto hidden xl:block custom-scrollbar pl-4 border-l border-zinc-100 dark:border-zinc-800">
+            class="w-44 shrink-0 sticky top-24 h-[calc(100vh-8rem)] overflow-y-auto hidden xl:block custom-scrollbar pl-4 border-l border-zinc-100 dark:border-zinc-800">
             <h3 class="text-xs font-bold text-zinc-900 dark:text-white uppercase tracking-widest mb-6">
                 {{ __('On this page') }}</h3>
             <ul class="space-y-4 text-sm font-medium text-zinc-500">
