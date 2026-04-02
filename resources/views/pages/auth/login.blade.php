@@ -5,7 +5,7 @@
         <!-- Session Status -->
         <x-auth-session-status class="text-center" :status="session('status')" />
 
-        <form method="POST" action="{{ route('login.store') }}" class="flex flex-col gap-6">
+        <form method="POST" action="{{ route('login.store') }}" class="flex flex-col gap-6" id="login-form">
             @csrf
 
             <!-- Email Address -->
@@ -43,8 +43,19 @@
             <flux:checkbox name="remember" :label="__('Remember me')" :checked="old('remember')" />
 
             <div class="flex items-center justify-end">
-                <flux:button variant="primary" type="submit" class="w-full" data-test="login-button">
-                    {{ __('Log in') }}
+                <flux:button variant="primary" type="submit" class="w-full" data-test="login-button" id="login-submit-btn"
+                    x-data="{ submitting: false }"
+                    x-on:click="submitting = true; $nextTick(() => $el.closest('form').submit())"
+                    x-bind:disabled="submitting"
+                >
+                    <span x-show="!submitting" class="flex items-center gap-2">
+                        <flux:icon name="arrow-right-end-on-rectangle" class="size-4" />
+                        {{ __('Log in') }}
+                    </span>
+                    <span x-show="submitting" x-cloak class="flex items-center gap-2">
+                        <flux:icon.loading class="size-4" />
+                        {{ __('Logging in...') }}
+                    </span>
                 </flux:button>
             </div>
         </form>

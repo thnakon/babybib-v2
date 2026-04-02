@@ -1,23 +1,23 @@
 <div class="flex flex-col gap-6">
-    {{-- Step Indicator --}}
-    <div class="flex items-center justify-center gap-2 mb-2">
+    {{-- Step Indicator - More minimal --}}
+    <div class="flex items-center justify-center gap-3 mb-2">
         @foreach ([1 => __('Account'), 2 => __('Organization')] as $num => $label)
             <div class="flex items-center gap-2">
-                <div class="flex items-center gap-1.5">
+                <div class="flex items-center gap-2">
                     <div @class([
-                        'w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-300',
-                        'bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 shadow-md scale-110' => $step === $num,
-                        'bg-emerald-500 text-white shadow-sm' => $step > $num,
+                        'w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-bold transition-all duration-300',
+                        'bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 shadow-sm' => $step === $num,
+                        'bg-emerald-500 text-white' => $step > $num,
                         'bg-zinc-100 text-zinc-400 dark:bg-zinc-800 dark:text-zinc-500' => $step < $num,
                     ])>
                         @if ($step > $num)
-                            <flux:icon name="check" class="size-4" />
+                            <flux:icon name="check" class="size-3.5" />
                         @else
                             {{ $num }}
                         @endif
                     </div>
                     <span @class([
-                        'text-xs font-medium transition-colors duration-300 hidden sm:inline',
+                        'text-[11px] font-semibold tracking-tight transition-colors duration-300 hidden sm:inline uppercase',
                         'text-zinc-900 dark:text-white' => $step === $num,
                         'text-emerald-600 dark:text-emerald-400' => $step > $num,
                         'text-zinc-400 dark:text-zinc-500' => $step < $num,
@@ -25,9 +25,9 @@
                 </div>
                 @if ($num < 2)
                     <div @class([
-                        'w-12 h-0.5 rounded-full transition-colors duration-500',
+                        'w-8 h-px transition-colors duration-500',
                         'bg-emerald-500' => $step > $num,
-                        'bg-zinc-200 dark:bg-zinc-700' => $step <= $num,
+                        'bg-zinc-200 dark:bg-zinc-800' => $step <= $num,
                     ])></div>
                 @endif
             </div>
@@ -80,7 +80,7 @@
             </div>
 
             <flux:input
-                wire:model="password"
+                wire:model.live.debounce.300ms="password"
                 :label="__('Password')"
                 type="password"
                 required
@@ -89,40 +89,27 @@
                 viewable
             />
 
-            {{-- Password Requirements --}}
-            <div class="text-xs space-y-1 px-1 -mt-2">
-                <p class="text-zinc-500 dark:text-zinc-400 font-medium">{{ __('Password must have:') }}</p>
-                <div class="flex items-center gap-1.5">
+            {{-- Password Requirements - Compact & Live --}}
+            <div class="flex flex-wrap gap-x-4 gap-y-1 px-1 -mt-2">
+                <div class="flex items-center gap-1.5 text-[11px]">
                     <div @class([
-                        'w-3.5 h-3.5 rounded-full flex items-center justify-center transition-colors',
-                        'bg-emerald-500' => strlen($password) >= 8,
-                        'bg-zinc-200 dark:bg-zinc-700' => strlen($password) < 8,
+                        'w-3 h-3 rounded-full flex items-center justify-center border transition-colors duration-300',
+                        'bg-emerald-500 border-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.3)]' => strlen($password) >= 8,
+                        'border-zinc-300 dark:border-zinc-600' => strlen($password) < 8,
                     ])>
-                        @if(strlen($password) >= 8)
-                            <flux:icon name="check" class="size-2.5 text-white" />
-                        @endif
+                        @if (strlen($password) >= 8) <flux:icon name="check" class="size-2 text-white" /> @endif
                     </div>
-                    <span @class([
-                        'transition-colors',
-                        'text-emerald-600 dark:text-emerald-400' => strlen($password) >= 8,
-                        'text-zinc-400' => strlen($password) < 8,
-                    ])>{{ __('At least 8 characters') }}</span>
+                    <span @class([strlen($password) >= 8 ? 'text-emerald-600 dark:text-emerald-400 font-medium' : 'text-zinc-400'])>{{ __('8+ characters') }}</span>
                 </div>
-                <div class="flex items-center gap-1.5">
+                <div class="flex items-center gap-1.5 text-[11px]">
                     <div @class([
-                        'w-3.5 h-3.5 rounded-full flex items-center justify-center transition-colors',
-                        'bg-emerald-500' => (bool) preg_match('/[A-Z]/', $password),
-                        'bg-zinc-200 dark:bg-zinc-700' => !(bool) preg_match('/[A-Z]/', $password),
+                        'w-3 h-3 rounded-full flex items-center justify-center border transition-colors duration-300',
+                        'bg-emerald-500 border-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.3)]' => (bool) preg_match('/[A-Z]/', $password),
+                        'border-zinc-300 dark:border-zinc-600' => ! (bool) preg_match('/[A-Z]/', $password),
                     ])>
-                        @if((bool) preg_match('/[A-Z]/', $password))
-                            <flux:icon name="check" class="size-2.5 text-white" />
-                        @endif
+                        @if ((bool) preg_match('/[A-Z]/', $password)) <flux:icon name="check" class="size-2 text-white" /> @endif
                     </div>
-                    <span @class([
-                        'transition-colors',
-                        'text-emerald-600 dark:text-emerald-400' => (bool) preg_match('/[A-Z]/', $password),
-                        'text-zinc-400' => !(bool) preg_match('/[A-Z]/', $password),
-                    ])>{{ __('At least 1 uppercase letter (A-Z)') }}</span>
+                    <span @class([(bool) preg_match('/[A-Z]/', $password) ? 'text-emerald-600 dark:text-emerald-400 font-medium' : 'text-zinc-400'])>{{ __('1 uppercase') }}</span>
                 </div>
             </div>
 
@@ -136,9 +123,20 @@
                 viewable
             />
 
+            {{-- Honeypot: hidden from real users, bots fill it --}}
+            <div class="absolute w-0 h-0 overflow-hidden opacity-0" aria-hidden="true" tabindex="-1">
+                <flux:input wire:model="website" type="text" tabindex="-1" autocomplete="off" />
+            </div>
+
             <flux:button type="submit" variant="primary" class="w-full mt-2">
-                {{ __('Next') }}
-                <flux:icon name="arrow-right" class="size-4 ml-1" />
+                <span wire:loading.remove wire:target="nextStep" class="flex items-center gap-2">
+                    {{ __('Next') }}
+                    <flux:icon name="arrow-right" class="size-4" />
+                </span>
+                <span wire:loading wire:target="nextStep" class="flex items-center gap-2">
+                    <flux:icon.loading class="size-4" />
+                    {{ __('Validating...') }}
+                </span>
             </flux:button>
         </form>
 
@@ -245,14 +243,24 @@
                 @enderror
             </div>
 
+            {{-- Honeypot --}}
+            <div class="absolute w-0 h-0 overflow-hidden opacity-0" aria-hidden="true" tabindex="-1">
+                <flux:input wire:model="website" type="text" tabindex="-1" autocomplete="off" />
+            </div>
+
             <div class="flex gap-3 mt-2">
-                <flux:button wire:click="previousStep" type="button" variant="ghost" class="flex-1">
-                    <flux:icon name="arrow-left" class="size-4 mr-1" />
+                <flux:button wire:click="previousStep" type="button" variant="ghost" icon="arrow-left" class="flex-1">
                     {{ __('Back') }}
                 </flux:button>
                 <flux:button type="submit" variant="primary" class="flex-1">
-                    {{ __('Create Account') }}
-                    <flux:icon name="user-plus" class="size-4 ml-1" />
+                    <span wire:loading.remove wire:target="nextStep" class="flex items-center gap-2">
+                        <flux:icon name="user-plus" class="size-4" />
+                        {{ __('Create Account') }}
+                    </span>
+                    <span wire:loading wire:target="nextStep" class="flex items-center gap-2">
+                        <flux:icon.loading class="size-4" />
+                        {{ __('Creating...') }}
+                    </span>
                 </flux:button>
             </div>
         </form>

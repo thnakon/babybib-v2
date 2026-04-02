@@ -139,5 +139,19 @@
     "Enter your email to receive a password reset link": "Enter your email to receive a password reset link",
     "Email password reset link": "Email password reset link",
     "Or, return to": "Or, return to",
-    "log in": "log in"
+    "log in": "log in",
+
+    "Validating...": "Validating...",
+    "Creating...": "Creating...",
+    "Logging in...": "Logging in...",
+    "Sending...": "Sending...",
+    "Resetting...": "Resetting...",
+    "Too many attempts. Please try again in :seconds seconds.": "Too many attempts. Please try again in :seconds seconds.",
+    "Too many registration attempts. Please try again in :seconds seconds.": "Too many registration attempts. Please try again in :seconds seconds.",
+    "Please enter a valid email address.": "Please enter a valid email address.",
+    "Please select a valid organization type.": "Please select a valid organization type.",
+    "Please enter a valid number.": "Please enter a valid number.",
+    "Bot detected.": "Bot detected.",
+    "Reset password": "Reset password",
+    "Please enter your new password below": "Please enter your new password below"
 }

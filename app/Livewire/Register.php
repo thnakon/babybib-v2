@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Str;
 use Livewire\Component;
@@ -30,11 +31,14 @@ class Register extends Component
     public string $student_id = '';
     public bool $terms = false;
 
-    // CAPTCHA
+    // CAPTCHA — only the display values are public; the answer is in session
     public string $captcha_answer = '';
     public int $captcha_num1 = 0;
     public int $captcha_num2 = 0;
     public string $captcha_operator = '+';
+
+    // Honeypot — should remain empty; bots fill it
+    public string $website = '';
 
     public function mount(): void
     {
@@ -42,7 +46,7 @@ class Register extends Component
     }
 
     /**
-     * Generate a simple math captcha
+     * Generate a math captcha and store answer server-side.
      */
     public function generateCaptcha(): void
     {
@@ -56,18 +60,14 @@ class Register extends Component
             [$this->captcha_num1, $this->captcha_num2] = [$this->captcha_num2, $this->captcha_num1];
         }
 
-        $this->captcha_answer = '';
-    }
-
-    /**
-     * Get the expected captcha answer
-     */
-    private function getCaptchaExpectedAnswer(): int
-    {
-        return match ($this->captcha_operator) {
+        // Store the correct answer in the session (NOT as a public Livewire property)
+        $expected = match ($this->captcha_operator) {
             '+' => $this->captcha_num1 + $this->captcha_num2,
             '-' => $this->captcha_num1 - $this->captcha_num2,
         };
+        session(['captcha_expected' => $expected]);
+
+        $this->captcha_answer = '';
     }
 
     /**
@@ -173,10 +173,25 @@ class Register extends Component
     }
 
     /**
-     * Validate and move to the next step
+     * Validate and move to the next step (with rate limiting)
      */
     public function nextStep(): void
     {
+        // Honeypot check — bots fill hidden fields
+        if (! empty($this->website)) {
+            // Silently fail — don't reveal honeypot to attacker
+            return;
+        }
+
+        // Rate limit: max 10 step transitions per minute per IP
+        $key = 'register-step:' . request()->ip();
+        if (RateLimiter::tooManyAttempts($key, 10)) {
+            $seconds = RateLimiter::availableIn($key);
+            $this->addError('username', __('Too many attempts. Please try again in :seconds seconds.', ['seconds' => $seconds]));
+            return;
+        }
+        RateLimiter::hit($key, 60);
+
         if ($this->step === 1) {
             $this->validate($this->step1Rules(), $this->customMessages());
             $this->step = 2;
@@ -201,27 +216,54 @@ class Register extends Component
      */
     private function registerUser(): void
     {
-        // Verify CAPTCHA
-        if ((int) $this->captcha_answer !== $this->getCaptchaExpectedAnswer()) {
+        // Rate limit: max 3 account creations per IP per hour
+        $regKey = 'register-create:' . request()->ip();
+        if (RateLimiter::tooManyAttempts($regKey, 3)) {
+            $seconds = RateLimiter::availableIn($regKey);
+            $this->addError('captcha_answer', __('Too many registration attempts. Please try again in :seconds seconds.', ['seconds' => $seconds]));
+            return;
+        }
+
+        // Verify CAPTCHA against session-stored answer (not client-exposed)
+        $expected = session('captcha_expected');
+        if ($expected === null || (int) $this->captcha_answer !== $expected) {
             $this->addError('captcha_answer', __('Incorrect answer. Please try again.'));
             $this->generateCaptcha();
             return;
         }
 
+        // Hit rate limiter only on actual creation attempt
+        RateLimiter::hit($regKey, 3600);
+
+        // Sanitize text inputs
+        $username    = strip_tags(trim($this->username));
+        $email       = filter_var(trim($this->email), FILTER_SANITIZE_EMAIL);
+        $name        = strip_tags(trim($this->name));
+        $surname     = strip_tags(trim($this->surname));
+        $orgName     = strip_tags(trim($this->org_name));
+        $orgTypeOther = strip_tags(trim($this->org_type_other));
+        $studentId   = strip_tags(trim($this->student_id));
+
         $user = User::create([
-            'username'    => $this->username,
-            'email'       => $this->email,
-            'name'        => $this->name,
-            'surname'     => $this->surname,
+            'username'    => $username,
+            'email'       => $email,
+            'name'        => $name,
+            'surname'     => $surname,
             'password'    => $this->password,
             'org_type'    => $this->org_type === 'other' ? 'other' : $this->org_type,
-            'org_name'    => $this->org_name ?: null,
+            'org_name'    => $orgName ?: null,
             'province'    => $this->province,
             'is_lis_cmu'  => $this->is_lis_cmu,
-            'student_id'  => $this->is_lis_cmu ? $this->student_id : null,
-            'is_verified' => true,
-            'is_active'   => true,
+            'student_id'  => $this->is_lis_cmu ? $studentId : null,
         ]);
+
+        // Set verified/active directly (not via mass assignment)
+        $user->is_verified = true;
+        $user->is_active = true;
+        $user->save();
+
+        // Clean up captcha session
+        session()->forget('captcha_expected');
 
         // Log in and redirect
         Auth::login($user);
@@ -239,7 +281,7 @@ class Register extends Component
     {
         return [
             'username' => ['required', 'string', 'max:50', 'unique:users,username', 'alpha_dash'],
-            'email'    => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
+            'email'    => ['required', 'string', 'email:rfc,dns', 'max:255', 'unique:users,email'],
             'name'     => ['required', 'string', 'max:100'],
             'surname'  => ['required', 'string', 'max:100'],
             'password' => ['required', 'string', 'min:8', 'regex:/[A-Z]/', 'confirmed'],
@@ -253,11 +295,12 @@ class Register extends Component
     private function step2Rules(): array
     {
         $rules = [
-            'org_type'       => ['required', 'string'],
+            'org_type'       => ['required', 'string', 'in:university,high_school,opportunity_school,primary_school,private_company,personal,other'],
             'province'       => ['required', 'string'],
             'org_name'       => ['nullable', 'string', 'max:255'],
             'terms'          => ['accepted'],
-            'captcha_answer' => ['required'],
+            'captcha_answer' => ['required', 'integer'],
+            'website'        => ['max:0'], // honeypot must be empty
         ];
 
         if ($this->org_type === 'other') {
@@ -279,10 +322,14 @@ class Register extends Component
         return [
             'password.regex'            => __('Password must contain at least 1 uppercase letter (A-Z).'),
             'password.min'              => __('Password must be at least 8 characters.'),
+            'email.email'               => __('Please enter a valid email address.'),
             'terms.accepted'            => __('You must agree to the Terms of Service.'),
+            'org_type.in'               => __('Please select a valid organization type.'),
             'org_type_other.required'   => __('Please specify your organization type.'),
             'student_id.required'       => __('Please enter your student ID.'),
             'captcha_answer.required'   => __('Please solve the security question.'),
+            'captcha_answer.integer'    => __('Please enter a valid number.'),
+            'website.max'               => __('Bot detected.'),
         ];
     }
 

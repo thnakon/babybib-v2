@@ -139,5 +139,19 @@
     "Enter your email to receive a password reset link": "กรอกอีเมลเพื่อรับลิงก์รีเซ็ตรหัสผ่าน",
     "Email password reset link": "ส่งลิงก์รีเซ็ตรหัสผ่าน",
     "Or, return to": "หรือกลับไปที่",
-    "log in": "เข้าสู่ระบบ"
+    "log in": "เข้าสู่ระบบ",
+
+    "Validating...": "กำลังตรวจสอบ...",
+    "Creating...": "กำลังสร้างบัญชี...",
+    "Logging in...": "กำลังเข้าสู่ระบบ...",
+    "Sending...": "กำลังส่ง...",
+    "Resetting...": "กำลังรีเซ็ต...",
+    "Too many attempts. Please try again in :seconds seconds.": "มีการพยายามมากเกินไป กรุณาลองใหม่ใน :seconds วินาที",
+    "Too many registration attempts. Please try again in :seconds seconds.": "มีการสมัครสมาชิกมากเกินไป กรุณาลองใหม่ใน :seconds วินาที",
+    "Please enter a valid email address.": "กรุณากรอกที่อยู่อีเมลที่ถูกต้อง",
+    "Please select a valid organization type.": "กรุณาเลือกประเภทองค์กรที่ถูกต้อง",
+    "Please enter a valid number.": "กรุณากรอกตัวเลขที่ถูกต้อง",
+    "Bot detected.": "ตรวจพบบอท",
+    "Reset password": "รีเซ็ตรหัสผ่าน",
+    "Please enter your new password below": "กรุณากรอกรหัสผ่านใหม่ด้านล่าง"
 }

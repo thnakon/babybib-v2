@@ -29,8 +29,6 @@ class User extends Authenticatable
         'student_id',
         'role',
         'language',
-        'is_active',
-        'is_verified',
         'bibliography_count',
         'project_count',
         'profile_picture',
