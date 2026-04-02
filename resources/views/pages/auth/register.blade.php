@@ -1,7 +1,7 @@
 <div class="flex flex-col gap-6">
     {{-- Step Indicator --}}
     <div class="flex items-center justify-center gap-2 mb-2">
-        @foreach ([1 => __('Account'), 2 => __('Organization'), 3 => __('Verify')] as $num => $label)
+        @foreach ([1 => __('Account'), 2 => __('Organization')] as $num => $label)
             <div class="flex items-center gap-2">
                 <div class="flex items-center gap-1.5">
                     <div @class([
@@ -23,9 +23,9 @@
                         'text-zinc-400 dark:text-zinc-500' => $step < $num,
                     ])>{{ $label }}</span>
                 </div>
-                @if ($num < 3)
+                @if ($num < 2)
                     <div @class([
-                        'w-8 h-0.5 rounded-full transition-colors duration-500',
+                        'w-12 h-0.5 rounded-full transition-colors duration-500',
                         'bg-emerald-500' => $step > $num,
                         'bg-zinc-200 dark:bg-zinc-700' => $step <= $num,
                     ])></div>
@@ -216,6 +216,35 @@
                 <p class="text-sm text-red-500">{{ $message }}</p>
             @enderror
 
+            <flux:separator />
+
+            {{-- CAPTCHA --}}
+            <div class="space-y-2">
+                <label class="block text-sm font-medium text-zinc-700 dark:text-zinc-300">
+                    <flux:icon name="shield-check" class="size-4 inline mr-1 text-zinc-400" />
+                    {{ __('Security Question') }}
+                </label>
+                <div class="flex items-center gap-3">
+                    <div class="flex items-center gap-2 px-4 py-2.5 bg-zinc-100 dark:bg-zinc-800 rounded-xl text-base font-bold text-zinc-700 dark:text-zinc-200 select-none tracking-wider min-w-fit">
+                        <span>{{ $captcha_num1 }}</span>
+                        <span class="text-zinc-400">{{ $captcha_operator }}</span>
+                        <span>{{ $captcha_num2 }}</span>
+                        <span class="text-zinc-400">=</span>
+                        <span class="text-zinc-400">?</span>
+                    </div>
+                    <flux:input
+                        wire:model="captcha_answer"
+                        type="number"
+                        required
+                        :placeholder="__('Answer')"
+                        class="flex-1"
+                    />
+                </div>
+                @error('captcha_answer')
+                    <p class="text-sm text-red-500">{{ $message }}</p>
+                @enderror
+            </div>
+
             <div class="flex gap-3 mt-2">
                 <flux:button wire:click="previousStep" type="button" variant="ghost" class="flex-1">
                     <flux:icon name="arrow-left" class="size-4 mr-1" />
@@ -223,7 +252,7 @@
                 </flux:button>
                 <flux:button type="submit" variant="primary" class="flex-1">
                     {{ __('Create Account') }}
-                    <flux:icon name="arrow-right" class="size-4 ml-1" />
+                    <flux:icon name="user-plus" class="size-4 ml-1" />
                 </flux:button>
             </div>
         </form>
@@ -232,37 +261,5 @@
             <span>{{ __('Already have an account?') }}</span>
             <flux:link :href="route('login')" wire:navigate>{{ __('Log in') }}</flux:link>
         </div>
-    @endif
-
-    {{-- Step 3: OTP Verification --}}
-    @if ($step === 3)
-        <form wire:submit="verifyOtp" class="space-y-8">
-            <div class="max-w-64 mx-auto space-y-2">
-                <flux:heading size="lg" class="text-center">{{ __('Verify your account') }}</flux:heading>
-                <flux:text class="text-center">{{ __('Please enter the 6-digit code sent to your email.') }}</flux:text>
-                <p class="text-center text-xs text-zinc-400 mt-1">{{ $email }}</p>
-            </div>
-
-            @if ($otpMessage)
-                <div class="text-center text-sm text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/30 py-2 px-4 rounded-lg">
-                    {{ $otpMessage }}
-                </div>
-            @endif
-
-            <div class="space-y-6">
-                <flux:otp wire:model="otp" length="6" submit="auto" class="mx-auto" />
-
-                @error('otp')
-                    <p class="text-sm text-red-500 text-center">{{ $message }}</p>
-                @enderror
-            </div>
-
-            <div class="text-center">
-                <flux:button wire:click="resendOtp" type="button" variant="ghost" size="sm">
-                    <flux:icon name="arrow-path" class="size-4 mr-1" />
-                    {{ __('Resend OTP') }}
-                </flux:button>
-            </div>
-        </form>
     @endif
 </div>

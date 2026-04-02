@@ -2,17 +2,15 @@
 
 namespace App\Livewire;
 
-use App\Models\EmailVerification;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Str;
 use Livewire\Component;
 
 class Register extends Component
 {
-    // Current step (1, 2, or 3)
+    // Current step (1 or 2)
     public int $step = 1;
 
     // Step 1: Account Details
@@ -32,13 +30,45 @@ class Register extends Component
     public string $student_id = '';
     public bool $terms = false;
 
-    // Step 3: OTP
-    public string $otp = '';
-    public ?User $createdUser = null;
+    // CAPTCHA
+    public string $captcha_answer = '';
+    public int $captcha_num1 = 0;
+    public int $captcha_num2 = 0;
+    public string $captcha_operator = '+';
 
-    // Flash messages
-    public string $otpMessage = '';
-    public bool $otpSent = false;
+    public function mount(): void
+    {
+        $this->generateCaptcha();
+    }
+
+    /**
+     * Generate a simple math captcha
+     */
+    public function generateCaptcha(): void
+    {
+        $this->captcha_num1 = random_int(1, 20);
+        $this->captcha_num2 = random_int(1, 15);
+        $operators = ['+', '-'];
+        $this->captcha_operator = $operators[array_rand($operators)];
+
+        // Ensure no negative results for subtraction
+        if ($this->captcha_operator === '-' && $this->captcha_num2 > $this->captcha_num1) {
+            [$this->captcha_num1, $this->captcha_num2] = [$this->captcha_num2, $this->captcha_num1];
+        }
+
+        $this->captcha_answer = '';
+    }
+
+    /**
+     * Get the expected captcha answer
+     */
+    private function getCaptchaExpectedAnswer(): int
+    {
+        return match ($this->captcha_operator) {
+            '+' => $this->captcha_num1 + $this->captcha_num2,
+            '-' => $this->captcha_num1 - $this->captcha_num2,
+        };
+    }
 
     /**
      * Organization type options
@@ -167,11 +197,16 @@ class Register extends Component
     }
 
     /**
-     * Register the user and generate OTP
+     * Register the user and log in directly
      */
     private function registerUser(): void
     {
-        $finalOrgType = $this->org_type === 'other' ? $this->org_type_other : $this->org_type;
+        // Verify CAPTCHA
+        if ((int) $this->captcha_answer !== $this->getCaptchaExpectedAnswer()) {
+            $this->addError('captcha_answer', __('Incorrect answer. Please try again.'));
+            $this->generateCaptcha();
+            return;
+        }
 
         $user = User::create([
             'username'    => $this->username,
@@ -184,88 +219,17 @@ class Register extends Component
             'province'    => $this->province,
             'is_lis_cmu'  => $this->is_lis_cmu,
             'student_id'  => $this->is_lis_cmu ? $this->student_id : null,
-            'is_verified' => false,
-        ]);
-
-        $this->createdUser = $user;
-        $this->generateAndSendOtp();
-        $this->step = 3;
-    }
-
-    /**
-     * Generate OTP and save to email_verifications table
-     */
-    private function generateAndSendOtp(): void
-    {
-        $code = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
-
-        // Invalidate previous OTPs
-        EmailVerification::where('user_id', $this->createdUser->id)
-            ->where('used', false)
-            ->update(['used' => true]);
-
-        EmailVerification::create([
-            'user_id'    => $this->createdUser->id,
-            'email'      => $this->createdUser->email,
-            'code'       => $code,
-            'expires_at' => now()->addMinutes(10),
-            'used'       => false,
-        ]);
-
-        // TODO: Send email when Google App Password is configured
-        // Mail::to($this->createdUser->email)->send(new \App\Mail\OtpVerificationMail($code));
-
-        $this->otpSent = true;
-        $this->otpMessage = __('OTP has been sent to your email.');
-    }
-
-    /**
-     * Verify the OTP code
-     */
-    public function verifyOtp(): void
-    {
-        $this->validate([
-            'otp' => ['required', 'string', 'size:6'],
-        ]);
-
-        $verification = EmailVerification::where('user_id', $this->createdUser->id)
-            ->where('code', $this->otp)
-            ->where('used', false)
-            ->where('expires_at', '>', now())
-            ->first();
-
-        if (!$verification) {
-            $this->addError('otp', __('Invalid or expired OTP code. Please try again.'));
-            return;
-        }
-
-        // Mark OTP as used
-        $verification->update([
-            'used' => true,
-            'verified_at' => now(),
-        ]);
-
-        // Mark user as verified
-        $this->createdUser->update([
             'is_verified' => true,
+            'is_active'   => true,
         ]);
 
         // Log in and redirect
-        Auth::login($this->createdUser);
-        event(new Registered($this->createdUser));
+        Auth::login($user);
+        event(new Registered($user));
+
+        session()->regenerate();
 
         $this->redirect(route('dashboard'), navigate: true);
-    }
-
-    /**
-     * Resend OTP
-     */
-    public function resendOtp(): void
-    {
-        if ($this->createdUser) {
-            $this->generateAndSendOtp();
-            $this->otpMessage = __('A new OTP has been sent to your email.');
-        }
     }
 
     /**
@@ -289,10 +253,11 @@ class Register extends Component
     private function step2Rules(): array
     {
         $rules = [
-            'org_type' => ['required', 'string'],
-            'province' => ['required', 'string'],
-            'org_name' => ['nullable', 'string', 'max:255'],
-            'terms'    => ['accepted'],
+            'org_type'       => ['required', 'string'],
+            'province'       => ['required', 'string'],
+            'org_name'       => ['nullable', 'string', 'max:255'],
+            'terms'          => ['accepted'],
+            'captcha_answer' => ['required'],
         ];
 
         if ($this->org_type === 'other') {
@@ -312,11 +277,12 @@ class Register extends Component
     private function customMessages(): array
     {
         return [
-            'password.regex'     => __('Password must contain at least 1 uppercase letter (A-Z).'),
-            'password.min'       => __('Password must be at least 8 characters.'),
-            'terms.accepted'     => __('You must agree to the Terms of Service.'),
-            'org_type_other.required' => __('Please specify your organization type.'),
-            'student_id.required' => __('Please enter your student ID.'),
+            'password.regex'            => __('Password must contain at least 1 uppercase letter (A-Z).'),
+            'password.min'              => __('Password must be at least 8 characters.'),
+            'terms.accepted'            => __('You must agree to the Terms of Service.'),
+            'org_type_other.required'   => __('Please specify your organization type.'),
+            'student_id.required'       => __('Please enter your student ID.'),
+            'captcha_answer.required'   => __('Please solve the security question.'),
         ];
     }
 

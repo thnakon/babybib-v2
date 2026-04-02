@@ -121,5 +121,23 @@
     "Please use the following verification code to complete your registration:": "กรุณาใช้รหัสยืนยันต่อไปนี้เพื่อดำเนินการสมัครสมาชิก:",
     "This code will expire in 10 minutes. If you did not request this, please ignore this email.": "รหัสนี้จะหมดอายุใน 10 นาที หากคุณไม่ได้ร้องขอ กรุณาเพิกเฉยอีเมลนี้",
     "All rights reserved.": "สงวนลิขสิทธิ์",
-    "Verification Code": "รหัสยืนยัน"
+    "Verification Code": "รหัสยืนยัน",
+
+    "Security Question": "คำถามเพื่อความปลอดภัย",
+    "Answer": "คำตอบ",
+    "Incorrect answer. Please try again.": "คำตอบไม่ถูกต้อง กรุณาลองอีกครั้ง",
+    "Please solve the security question.": "กรุณาตอบคำถามเพื่อความปลอดภัย",
+
+    "Log in to your account": "เข้าสู่ระบบบัญชีของคุณ",
+    "Enter your email and password below to log in": "กรอกอีเมลและรหัสผ่านเพื่อเข้าสู่ระบบ",
+    "Email address": "ที่อยู่อีเมล",
+    "Forgot your password?": "ลืมรหัสผ่าน?",
+    "Remember me": "จดจำฉัน",
+    "Don't have an account?": "ยังไม่มีบัญชี?",
+    "Sign up": "สมัครสมาชิก",
+    "Forgot password": "ลืมรหัสผ่าน",
+    "Enter your email to receive a password reset link": "กรอกอีเมลเพื่อรับลิงก์รีเซ็ตรหัสผ่าน",
+    "Email password reset link": "ส่งลิงก์รีเซ็ตรหัสผ่าน",
+    "Or, return to": "หรือกลับไปที่",
+    "log in": "เข้าสู่ระบบ"
 }

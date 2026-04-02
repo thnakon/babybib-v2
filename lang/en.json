@@ -121,5 +121,23 @@
     "Please use the following verification code to complete your registration:": "Please use the following verification code to complete your registration:",
     "This code will expire in 10 minutes. If you did not request this, please ignore this email.": "This code will expire in 10 minutes. If you did not request this, please ignore this email.",
     "All rights reserved.": "All rights reserved.",
-    "Verification Code": "Verification Code"
+    "Verification Code": "Verification Code",
+
+    "Security Question": "Security Question",
+    "Answer": "Answer",
+    "Incorrect answer. Please try again.": "Incorrect answer. Please try again.",
+    "Please solve the security question.": "Please solve the security question.",
+
+    "Log in to your account": "Log in to your account",
+    "Enter your email and password below to log in": "Enter your email and password below to log in",
+    "Email address": "Email address",
+    "Forgot your password?": "Forgot your password?",
+    "Remember me": "Remember me",
+    "Don't have an account?": "Don't have an account?",
+    "Sign up": "Sign up",
+    "Forgot password": "Forgot password",
+    "Enter your email to receive a password reset link": "Enter your email to receive a password reset link",
+    "Email password reset link": "Email password reset link",
+    "Or, return to": "Or, return to",
+    "log in": "log in"
 }
