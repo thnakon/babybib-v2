@@ -36,7 +36,10 @@
                         <div class="w-1 bg-zinc-900 dark:bg-white h-5 rounded-full transition-all group-hover:h-2">
                         </div>
                     </div>
-                    <span class="text-xl font-bold tracking-tight">flux</span>
+                    <span class="relative text-xl font-bold tracking-tight">
+                        Babybib
+                        <span class="absolute -right-5 -top-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-400 dark:text-zinc-500">v2</span>
+                    </span>
                 </a>
             </div>
 
