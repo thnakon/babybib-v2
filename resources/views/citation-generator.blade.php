@@ -1,144 +1,117 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    @include('partials.head', ['title' => 'Citation Generator'])
+    @include('partials.head', ['title' => __('Citation Generator')])
 </head>
-<body class="min-h-screen font-sans antialiased bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 overflow-x-hidden">
-    <!-- Navbar (Same as Welcome but sticky background by default for clarity) -->
-    <flux:header 
-        sticky 
-        class="sticky top-0 w-full z-50 border-b bg-white/95 dark:bg-zinc-900/95 border-zinc-200 dark:border-zinc-800 shadow-sm backdrop-blur-md py-3"
-    >
-        <div class="container max-w-7xl mx-auto px-6 flex items-center justify-between">
-            <div class="flex items-center gap-8">
-                <a href="/" class="flex items-center gap-2 group">
-                    <div class="flex gap-0.5 items-end h-5">
-                        <div class="w-1 bg-zinc-900 dark:bg-white h-2 rounded-full transition-all group-hover:h-4"></div>
-                        <div class="w-1 bg-zinc-900 dark:bg-white h-4 rounded-full transition-all group-hover:h-3"></div>
-                        <div class="w-1 bg-zinc-900 dark:bg-white h-5 rounded-full transition-all group-hover:h-2"></div>
-                    </div>
-                    <span class="text-xl font-bold tracking-tight">flux</span>
-                </a>
-            </div>
+<body class="min-h-screen bg-white dark:bg-zinc-800 antialiased">
+    <flux:header container class="bg-zinc-50 dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-700">
+        <flux:sidebar.toggle class="lg:hidden" icon="bars-2" />
 
-            <div class="flex items-center gap-1">
-                <flux:navbar class="hidden md:flex gap-1 text-sm font-medium text-zinc-500 mr-2">
-                    <flux:tooltip content="{{ __('User Manual') }}" position="bottom">
-                        <flux:navbar.item href="{{ route('manual') }}">{{ __('Manual') }}</flux:navbar.item>
-                    </flux:tooltip>
+        <flux:brand href="#" logo="https://fluxui.dev/img/demo/logo.png" name="Acme Inc." class="max-lg:hidden dark:hidden" />
+        <flux:brand href="#" logo="https://fluxui.dev/img/demo/dark-mode-logo.png" name="Acme Inc." class="max-lg:hidden! hidden dark:flex" />
 
-                    <flux:tooltip content="{{ __('Citation Generator') }}" position="bottom">
-                        <flux:navbar.item href="{{ route('citation-generator') }}" current>{{ __('Generate') }}</flux:navbar.item>
-                    </flux:tooltip>
+        <flux:navbar class="-mb-px max-lg:hidden">
+            <flux:navbar.item icon="home" href="#" current>Home</flux:navbar.item>
+            <flux:navbar.item icon="inbox" badge="12" href="#">Inbox</flux:navbar.item>
+            <flux:navbar.item icon="document-text" href="#">Documents</flux:navbar.item>
+            <flux:navbar.item icon="calendar" href="#">Calendar</flux:navbar.item>
 
-                    <flux:tooltip content="{{ __('Explore templates') }}" position="bottom">
-                        <flux:navbar.item href="#">{{ __('Templates') }}</flux:navbar.item>
-                    </flux:tooltip>
+            <flux:separator vertical variant="subtle" class="my-2"/>
 
-                    <!-- Help Dropdown -->
-                    <div x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false" class="relative">
-                        <flux:navbar.item class="cursor-pointer">
-                            <div class="flex items-center gap-1.5 min-w-max">
-                                <span>{{ __('Help') }}</span>
-                                <flux:icon name="chevron-down" class="size-3 transition-transform duration-300"
-                                    x-bind:class="open ? 'rotate-180' : ''" />
-                            </div>
-                        </flux:navbar.item>
+            <flux:dropdown class="max-lg:hidden">
+                <flux:navbar.item icon:trailing="chevron-down">Favorites</flux:navbar.item>
 
-                        <div x-show="open" x-transition:enter="transition ease-out duration-200"
-                            x-transition:enter-start="opacity-0 translate-y-2"
-                            x-transition:enter-end="opacity-100 translate-y-0"
-                            x-transition:leave="transition ease-in duration-150"
-                            x-transition:leave-start="opacity-100 translate-y-0"
-                            x-transition:leave-end="opacity-0 translate-y-2"
-                            class="absolute left-0 top-full pt-2 z-50 w-48" style="display: none;">
-                            <div class="bg-white dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-800 shadow-xl overflow-hidden p-1.5">
-                                <flux:menu.item href="#" class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-zinc-100 dark:hover:!bg-zinc-800 transition-colors">{{ __('Help Center') }}</flux:menu.item>
-                                <flux:menu.item href="#" class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-zinc-100 dark:hover:!bg-zinc-800 transition-colors">{{ __('Contact Support') }}</flux:menu.item>
-                                <flux:menu.separator />
-                                <flux:menu.item href="#" class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-zinc-100 dark:hover:!bg-zinc-800 transition-colors">{{ __('Community Discord') }}</flux:menu.item>
-                            </div>
-                        </div>
-                    </div>
+                <flux:navmenu>
+                    <flux:navmenu.item href="#">Marketing site</flux:navmenu.item>
+                    <flux:navmenu.item href="#">Android app</flux:navmenu.item>
+                    <flux:navmenu.item href="#">Brand guidelines</flux:navmenu.item>
+                </flux:navmenu>
+            </flux:dropdown>
+        </flux:navbar>
 
-                    <!-- Share Dropdown -->
-                    <div x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false" class="relative">
-                        <flux:navbar.item class="cursor-pointer">
-                            <div class="flex items-center gap-1.5 min-w-max">
-                                <span>{{ __('Share') }}</span>
-                                <flux:icon name="chevron-down" class="size-3 transition-transform duration-300"
-                                    x-bind:class="open ? 'rotate-180' : ''" />
-                            </div>
-                        </flux:navbar.item>
+        <flux:spacer />
 
-                        <div x-show="open" x-transition ... class="absolute left-0 top-full pt-2 z-50 w-44" style="display: none;">
-                            <div class="bg-white dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-800 shadow-xl overflow-hidden p-1.5">
-                                <flux:menu.item href="#" icon="facebook" class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-zinc-100 dark:hover:!bg-zinc-800 transition-colors">Facebook</flux:menu.item>
-                                <flux:menu.item href="#" icon="instagram" class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-zinc-100 dark:hover:!bg-zinc-800 transition-colors">Instagram</flux:menu.item>
-                                <flux:menu.item href="#" icon="twitter" class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-zinc-100 dark:hover:!bg-zinc-800 transition-colors">X (Twitter)</flux:menu.item>
-                                <flux:menu.item href="#" icon="line" class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-zinc-100 dark:hover:!bg-zinc-800 transition-colors">Line</flux:menu.item>
-                            </div>
-                        </div>
-                    </div>
-                </flux:navbar>
+        <flux:navbar class="me-4">
+            <flux:navbar.item icon="magnifying-glass" href="#" label="Search" />
+            <flux:navbar.item class="max-lg:hidden" icon="cog-6-tooth" href="#" label="Settings" />
+            <flux:navbar.item class="max-lg:hidden" icon="information-circle" href="#" label="Help" />
+        </flux:navbar>
 
-                <span class="mx-2 text-zinc-200 dark:text-zinc-800 font-light select-none">|</span>
+        <flux:dropdown position="top" align="start">
+            <flux:profile avatar="https://fluxui.dev/img/demo/user.png" />
 
-                <!-- Language Switcher (Hover) -->
-                <div x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false" class="relative">
-                    <flux:navbar.item class="cursor-pointer">
-                        <div class="flex items-center gap-1.5 min-w-max">
-                            <span>{{ strtoupper(app()->getLocale()) }}</span>
-                            <flux:icon name="chevron-down" class="size-3 transition-transform duration-300"
-                                x-bind:class="open ? 'rotate-180' : ''" />
-                        </div>
-                    </flux:navbar.item>
+            <flux:menu>
+                <flux:menu.radio.group>
+                    <flux:menu.radio checked>Olivia Martin</flux:menu.radio>
+                    <flux:menu.radio>Truly Delta</flux:menu.radio>
+                </flux:menu.radio.group>
 
-                    <div x-show="open" x-transition:enter="transition ease-out duration-200"
-                        x-transition:enter-start="opacity-0 translate-y-2"
-                        x-transition:enter-end="opacity-100 translate-y-0"
-                        x-transition:leave="transition ease-in duration-150"
-                        x-transition:leave-start="opacity-100 translate-y-0"
-                        x-transition:leave-end="opacity-0 translate-y-2"
-                        class="absolute right-0 top-full pt-2 z-50 w-32" style="display: none;">
-                        <div class="bg-white dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-800 shadow-xl overflow-hidden p-1.5">
-                            <flux:menu.item href="{{ route('change-language', 'en') }}" class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-zinc-100 dark:hover:!bg-zinc-800 transition-colors">English (EN)</flux:menu.item>
-                            <flux:menu.item href="{{ route('change-language', 'th') }}" class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-zinc-100 dark:hover:!bg-zinc-800 transition-colors">ไทย (TH)</flux:menu.item>
-                        </div>
-                    </div>
-                </div>
+                <flux:menu.separator />
 
-                <flux:tooltip content="{{ __('Toggle appearance') }}" position="bottom">
-                    <button type="button" onclick="window.toggleDarkMode()"
-                        class="p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors focus:outline-none">
-                        <flux:icon name="moon" class="w-5 h-5 dark:hidden" />
-                        <flux:icon name="sun" class="w-5 h-5 hidden dark:block" />
-                    </button>
-                </flux:tooltip>
-
-                @if (Route::has('login'))
-                    <span class="mx-2 text-zinc-200 dark:text-zinc-800 font-light select-none"></span>
-                    @auth
-                        <flux:tooltip content="{{ __('Enter your dashboard') }}" position="bottom">
-                            <flux:button href="{{ url('/dashboard') }}" variant="ghost">{{ __('Dashboard') }}</flux:button>
-                        </flux:tooltip>
-                    @else
-                        <flux:tooltip content="{{ __('Sign in to your account') }}" position="bottom">
-                            <flux:button href="{{ route('login') }}" variant="primary" size="sm" class="group/signin px-5 font-bold shadow-sm transition-all hover:scale-[1.02] active:scale-95">
-                                <span>{{ __('Sign in') }}</span>
-                                <flux:icon name="arrow-right" class="w-4 h-4 ml-1.5 transition-transform group-hover/signin:translate-x-1" />
-                            </flux:button>
-                        </flux:tooltip>
-                    @endauth
-                @endif
-            </div>
-        </div>
+                <flux:menu.item icon="arrow-right-start-on-rectangle">Logout</flux:menu.item>
+            </flux:menu>
+        </flux:dropdown>
     </flux:header>
 
-    <main class="container max-w-7xl mx-auto px-6 py-24 text-center">
-        <h1 class="text-4xl font-bold">Citation Generator</h1>
-        <p class="mt-4 text-zinc-500">Coming soon...</p>
-    </main>
+    <flux:sidebar sticky collapsible="mobile" class="lg:hidden bg-zinc-50 dark:bg-zinc-900 border-r border-zinc-200 dark:border-zinc-700">
+        <flux:sidebar.header>
+            <flux:sidebar.brand
+                href="#"
+                logo="https://fluxui.dev/img/demo/logo.png"
+                logo:dark="https://fluxui.dev/img/demo/dark-mode-logo.png"
+                name="Acme Inc."
+            />
+
+            <flux:sidebar.collapse class="in-data-flux-sidebar-on-desktop:not-in-data-flux-sidebar-collapsed-desktop:-mr-2" />
+        </flux:sidebar.header>
+
+        <flux:sidebar.nav>
+            <flux:sidebar.item icon="home" href="#" current>Home</flux:sidebar.item>
+            <flux:sidebar.item icon="inbox" badge="12" href="#">Inbox</flux:sidebar.item>
+            <flux:sidebar.item icon="document-text" href="#">Documents</flux:sidebar.item>
+            <flux:sidebar.item icon="calendar" href="#">Calendar</flux:sidebar.item>
+
+            <flux:sidebar.group expandable heading="Favorites" class="grid">
+                <flux:sidebar.item href="#">Marketing site</flux:sidebar.item>
+                <flux:sidebar.item href="#">Android app</flux:sidebar.item>
+                <flux:sidebar.item href="#">Brand guidelines</flux:sidebar.item>
+            </flux:sidebar.group>
+        </flux:sidebar.nav>
+
+        <flux:sidebar.spacer />
+
+        <flux:sidebar.nav>
+            <flux:sidebar.item icon="cog-6-tooth" href="#">Settings</flux:sidebar.item>
+            <flux:sidebar.item icon="information-circle" href="#">Help</flux:sidebar.item>
+        </flux:sidebar.nav>
+    </flux:sidebar>
+
+    <flux:main container>
+        <div class="flex max-md:flex-col items-start">
+            <div class="w-full md:w-[220px] pb-4 me-10">
+                <flux:navlist>
+                    <flux:navlist.item href="#" current>Dashboard</flux:navlist.item>
+                    <flux:navlist.item href="#" badge="32">Orders</flux:navlist.item>
+                    <flux:navlist.item href="#">Catalog</flux:navlist.item>
+                    <flux:navlist.item href="#">Payments</flux:navlist.item>
+                    <flux:navlist.item href="#">Customers</flux:navlist.item>
+                    <flux:navlist.item href="#">Billing</flux:navlist.item>
+                    <flux:navlist.item href="#">Quotes</flux:navlist.item>
+                    <flux:navlist.item href="#">Configuration</flux:navlist.item>
+                </flux:navlist>
+            </div>
+
+            <flux:separator class="md:hidden" />
+
+            <div class="flex-1 max-md:pt-6 self-stretch">
+                <flux:heading size="xl" level="1">Good afternoon, Olivia</flux:heading>
+
+                <flux:text class="mb-6 mt-2 text-base">Here's what's new today</flux:text>
+
+                <flux:separator variant="subtle" />
+            </div>
+        </div>
+    </flux:main>
 
     @fluxScripts
 </body>
