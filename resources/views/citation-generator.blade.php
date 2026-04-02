@@ -26,6 +26,14 @@
         .dark .custom-scrollbar:hover::-webkit-scrollbar-thumb {
             background: #27272a;
         }
+
+        .visible-scrollbar::-webkit-scrollbar-thumb {
+            background: #d4d4d8;
+        }
+
+        .dark .visible-scrollbar::-webkit-scrollbar-thumb {
+            background: #3f3f46;
+        }
     </style>
 </head>
 
@@ -309,7 +317,7 @@
 
     <div class="relative mx-auto flex max-w-[1400px] flex-col gap-6 px-4 pb-24 pt-6 sm:px-6 lg:flex-row lg:gap-10 lg:pt-10">
         <aside x-data="{ search: '', shortcut: navigator.platform.toUpperCase().indexOf('MAC') >= 0 ? '⌘K' : 'Ctrl+K' }"
-            class="custom-scrollbar w-full shrink-0 overflow-hidden rounded-2xl border border-zinc-200/80 bg-zinc-50/60 p-4 dark:border-zinc-800 dark:bg-zinc-900/50 lg:block lg:w-64 lg:rounded-none lg:border-0 lg:bg-transparent lg:p-0 lg:h-[calc(100vh-10rem)] lg:overflow-y-auto lg:pr-4">
+            class="custom-scrollbar w-full shrink-0 overflow-hidden rounded-2xl border border-zinc-200/80 bg-zinc-50/60 p-4 dark:border-zinc-800 dark:bg-zinc-900/50 lg:block lg:w-64 lg:rounded-none lg:border-0 lg:bg-transparent lg:p-0 lg:h-[calc(100vh-10rem)] lg:overflow-y-auto lg:pr-4 lg:visible-scrollbar">
             <nav class="max-h-[52vh] space-y-7 overflow-y-auto pr-1 custom-scrollbar lg:max-h-none lg:overflow-visible lg:pr-0">
                 <div class="mb-4">
                     <div class="group relative" x-on:keydown.window.prevent.cmd.k="$refs.searchInput.focus()"
@@ -400,17 +408,259 @@
         </aside>
 
         <main class="min-w-0 flex-1">
-            <div class="grid gap-4 lg:grid-cols-6">
-                <section class="custom-scrollbar h-[calc(100vh-10rem)] overflow-y-auto lg:col-span-4">
-                    <div class="pr-2">
-                        <flux:heading size="lg" level="2">Preview</flux:heading>
-                        <flux:text class="mt-2 text-sm text-zinc-600 dark:text-zinc-300">
-                            Review the generated citation before copying it into your paper or bibliography.
-                        </flux:text>
+            <div class="grid gap-3 lg:grid-cols-7">
+                <section x-data="{ smartQuery: '', selectedType: '', modalOpen: false, copied: false, exportOpen: false, citationStyle: 'apa7', displayMode: 'paper' }"
+                    class="lg:col-span-6">
+                    <div class="flex min-h-[calc(100vh-8rem)] flex-col pr-2">
+                        <div class="mx-auto w-full max-w-3xl space-y-3">
+                            <div class="group relative">
+                                <div class="absolute left-4 top-0 z-10 flex -translate-y-1/2 items-center gap-3 bg-white px-1 dark:bg-zinc-900">
+                                    <button type="button" x-on:click="modalOpen = true"
+                                        class="inline-flex items-center gap-1.5 border-b-2 border-transparent pb-1 text-xs font-semibold text-zinc-900 transition hover:border-pink-400 hover:text-zinc-600 focus:outline-none dark:text-zinc-100 dark:hover:border-pink-500 dark:hover:text-zinc-300"
+                                        aria-label="เปิดฟอร์มกรอกข้อมูลเอง">
+                                        <flux:icon name="plus" class="size-3.5" />
+                                        <span>เลือกทรัพยากร</span>
+                                    </button>
+
+                                    <button type="button" x-on:click="smartQuery = 'เว็บเพจ'; selectedType = 'เว็บเพจ'"
+                                        class="relative border-b-2 border-transparent pb-1 text-xs font-medium transition hover:border-pink-400 dark:hover:border-pink-500"
+                                        x-bind:class="selectedType === 'เว็บเพจ'
+                                            ? 'border-pink-500 text-zinc-900 dark:border-pink-500 dark:text-zinc-100'
+                                            : 'text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100'">
+                                        เว็บเพจ
+                                    </button>
+
+                                    <button type="button" x-on:click="smartQuery = 'หนังสือ'; selectedType = 'หนังสือ'"
+                                        class="relative border-b-2 border-transparent pb-1 text-xs font-medium transition hover:border-pink-400 dark:hover:border-pink-500"
+                                        x-bind:class="selectedType === 'หนังสือ'
+                                            ? 'border-pink-500 text-zinc-900 dark:border-pink-500 dark:text-zinc-100'
+                                            : 'text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100'">
+                                        หนังสือ
+                                    </button>
+
+                                    <button type="button" x-on:click="smartQuery = 'บทความ'; selectedType = 'บทความ'"
+                                        class="relative border-b-2 border-transparent pb-1 text-xs font-medium transition hover:border-pink-400 dark:hover:border-pink-500"
+                                        x-bind:class="selectedType === 'บทความ'
+                                            ? 'border-pink-500 text-zinc-900 dark:border-pink-500 dark:text-zinc-100'
+                                            : 'text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100'">
+                                        บทความ
+                                    </button>
+                                </div>
+                                <div
+                                    class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-zinc-400 transition-colors group-focus-within:text-zinc-600 dark:group-focus-within:text-zinc-200">
+                                    <flux:icon name="magnifying-glass" class="size-5" />
+                                </div>
+                                <input x-model="smartQuery" type="text"
+                                    placeholder="Smart search: ค้นหาประเภทอ้างอิง ผู้แต่ง DOI หรือคำสำคัญ..."
+                                    class="w-full rounded-2xl border border-zinc-200 bg-white py-3.5 pl-12 pr-28 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-900/5 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-zinc-500 dark:focus:ring-white/5">
+                                <div class="absolute right-3 top-0 -translate-y-1/2">
+                                    <span class="inline-flex items-center gap-1.5 bg-white px-1 text-[11px] font-medium text-zinc-400 dark:bg-zinc-900 dark:text-zinc-500">
+                                        <flux:icon name="question-mark-circle" class="size-3.5" />
+                                        ช่วยเหลือ
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="grid gap-3 p-1 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.4fr)_auto]">
+                                <label class="grid max-w-xs gap-1.5 text-xs font-medium text-zinc-500 dark:text-zinc-400">
+                                    <span class="flex items-center justify-between gap-3">
+                                        <span>รูปแบบบรรณานุกรม</span>
+                                        <a href="{{ url('/manual') }}"
+                                            class="text-[11px] font-medium text-zinc-900 underline underline-offset-2 transition hover:text-pink-500 dark:text-zinc-100 dark:hover:text-pink-400">
+                                            เรียนรู้เพิ่มเติม
+                                        </a>
+                                    </span>
+                                    <flux:select x-model="citationStyle" placeholder="">
+                                        <option disabled>เลือกรูปแบบเพื่อจัดรูปแบบบรรณานุกรมและ citation ของคุณ</option>
+                                        <flux:select.option value="apa7">APA 7th</flux:select.option>
+                                        <flux:select.option value="mla9">MLA 9th</flux:select.option>
+                                        <flux:select.option value="chicago17">Chicago 17th</flux:select.option>
+                                    </flux:select>
+                                </label>
+
+                                <div class="grid items-center justify-items-center gap-1.5 text-center text-xs font-medium text-zinc-500 dark:text-zinc-400">
+                                    <span>รูปแบบการแสดง</span>
+                                    <div class="flex items-center justify-center gap-2">
+                                        <flux:tooltip content="มุมมองแบบกระดาษ" position="top">
+                                            <button type="button" x-on:click="displayMode = 'paper'"
+                                                class="inline-flex size-10 items-center justify-center rounded-xl border border-zinc-200 bg-white transition dark:border-zinc-700 dark:bg-zinc-950"
+                                                x-bind:class="displayMode === 'paper' ? 'text-zinc-900 ring-2 ring-zinc-900/10 dark:text-zinc-100 dark:ring-white/10' : 'text-zinc-400 hover:text-zinc-900 dark:text-zinc-500 dark:hover:text-zinc-100'">
+                                                <flux:icon name="document-text" class="size-4" />
+                                            </button>
+                                        </flux:tooltip>
+                                        <flux:tooltip content="มุมมองแบบรายการ" position="top">
+                                            <button type="button" x-on:click="displayMode = 'list'"
+                                                class="inline-flex size-10 items-center justify-center rounded-xl border border-zinc-200 bg-white transition dark:border-zinc-700 dark:bg-zinc-950"
+                                                x-bind:class="displayMode === 'list' ? 'text-zinc-900 ring-2 ring-zinc-900/10 dark:text-zinc-100 dark:ring-white/10' : 'text-zinc-400 hover:text-zinc-900 dark:text-zinc-500 dark:hover:text-zinc-100'">
+                                                <flux:icon name="list-bullet" class="size-4" />
+                                            </button>
+                                        </flux:tooltip>
+                                        <flux:tooltip content="แสดงเฉพาะ citation" position="top">
+                                            <button type="button" x-on:click="displayMode = 'citation'"
+                                                class="inline-flex size-10 items-center justify-center rounded-xl border border-zinc-200 bg-white transition dark:border-zinc-700 dark:bg-zinc-950"
+                                                x-bind:class="displayMode === 'citation' ? 'text-zinc-900 ring-2 ring-zinc-900/10 dark:text-zinc-100 dark:ring-white/10' : 'text-zinc-400 hover:text-zinc-900 dark:text-zinc-500 dark:hover:text-zinc-100'">
+                                                <flux:icon name="chat-bubble-bottom-center-text" class="size-4" />
+                                            </button>
+                                        </flux:tooltip>
+                                    </div>
+                                </div>
+
+                                <div class="flex flex-col gap-2 lg:items-end">
+                                    <span class="hidden h-[18px] text-xs font-medium text-transparent lg:block">actions</span>
+                                    <div class="flex gap-2">
+                                        <button type="button"
+                                            x-on:click="navigator.clipboard.writeText(((displayMode === 'list' ? $refs.listView : (displayMode === 'citation' ? $refs.citationView : $refs.paperView)).innerText || '').trim()); copied = true; setTimeout(() => copied = false, 1800)"
+                                            class="inline-flex h-10 items-center gap-2 rounded-xl border border-zinc-200 bg-white px-3.5 text-sm font-medium text-zinc-700 transition hover:border-zinc-300 hover:text-zinc-900 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-200 dark:hover:border-zinc-500 dark:hover:text-zinc-100">
+                                            <template x-if="!copied">
+                                                <flux:icon name="clipboard-document" class="size-4" />
+                                            </template>
+                                            <template x-if="copied">
+                                                <flux:icon name="check" class="size-4 text-emerald-500" />
+                                            </template>
+                                                <span x-text="copied ? 'คัดลอกแล้ว' : 'Copy'"></span>
+                                        </button>
+
+                                        <div class="relative">
+                                            <button type="button" x-on:click="exportOpen = !exportOpen"
+                                                class="inline-flex h-10 items-center gap-2 rounded-xl border border-zinc-200 bg-white px-3.5 text-sm font-medium text-zinc-700 transition hover:border-zinc-300 hover:text-zinc-900 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-200 dark:hover:border-zinc-500 dark:hover:text-zinc-100">
+                                                <flux:icon name="arrow-down-tray" class="size-4" />
+                                                <span>ส่งออก</span>
+                                            </button>
+
+                                            <div x-cloak x-show="exportOpen" x-transition.opacity x-on:click.outside="exportOpen = false"
+                                                class="absolute right-0 z-20 mt-2 min-w-36 rounded-xl border border-zinc-200 bg-white p-1.5 shadow-lg dark:border-zinc-700 dark:bg-zinc-950">
+                                                <button type="button" x-on:click="exportOpen = false"
+                                                    class="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm text-zinc-600 transition hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-300 dark:hover:bg-zinc-900 dark:hover:text-zinc-100">
+                                                    <flux:icon name="document-text" class="size-4" />
+                                                    Word
+                                                </button>
+                                                <button type="button" x-on:click="window.print(); exportOpen = false"
+                                                    class="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm text-zinc-600 transition hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-300 dark:hover:bg-zinc-900 dark:hover:text-zinc-100">
+                                                    <flux:icon name="document" class="size-4" />
+                                                    PDF
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div x-cloak x-show="modalOpen" x-transition.opacity
+                            class="fixed inset-0 z-50 flex items-center justify-center bg-zinc-950/40 px-4 backdrop-blur-sm">
+                            <div x-show="modalOpen" x-transition
+                                class="w-full max-w-xl border border-zinc-200 bg-white p-6 dark:border-zinc-700 dark:bg-zinc-900">
+                                <div class="flex items-start justify-between gap-4">
+                                    <div class="space-y-1">
+                                        <h3 class="text-lg font-semibold text-zinc-900 dark:text-zinc-100">กรอกข้อมูลบรรณานุกรมเอง</h3>
+                                        <p class="text-sm text-zinc-500 dark:text-zinc-400">
+                                            เพิ่มข้อมูลอ้างอิงด้วยตนเองในกรณีที่ smart search ยังไม่ตรงกับสิ่งที่ต้องการ
+                                        </p>
+                                    </div>
+                                    <button type="button" x-on:click="modalOpen = false"
+                                        class="text-zinc-400 transition hover:text-zinc-900 dark:hover:text-zinc-100"
+                                        aria-label="ปิดหน้าต่าง">
+                                        <flux:icon name="x-mark" class="size-5" />
+                                    </button>
+                                </div>
+
+                                <div class="mt-6 grid gap-4 sm:grid-cols-2">
+                                    <label class="grid gap-2 text-sm text-zinc-600 dark:text-zinc-300">
+                                        <span>ประเภททรัพยากร</span>
+                                        <input type="text" placeholder="เช่น หนังสือ, บทความวารสาร"
+                                            class="w-full border border-zinc-200 bg-white px-3 py-2.5 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-900/5 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-zinc-500 dark:focus:ring-white/5">
+                                    </label>
+
+                                    <label class="grid gap-2 text-sm text-zinc-600 dark:text-zinc-300">
+                                        <span>ปีที่พิมพ์</span>
+                                        <input type="text" placeholder="2026"
+                                            class="w-full border border-zinc-200 bg-white px-3 py-2.5 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-900/5 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-zinc-500 dark:focus:ring-white/5">
+                                    </label>
+
+                                    <label class="grid gap-2 text-sm text-zinc-600 dark:text-zinc-300 sm:col-span-2">
+                                        <span>ชื่อเรื่อง / ชื่อบทความ</span>
+                                        <input type="text" placeholder="กรอกชื่อทรัพยากร"
+                                            class="w-full border border-zinc-200 bg-white px-3 py-2.5 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-900/5 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-zinc-500 dark:focus:ring-white/5">
+                                    </label>
+
+                                    <label class="grid gap-2 text-sm text-zinc-600 dark:text-zinc-300 sm:col-span-2">
+                                        <span>ผู้แต่ง</span>
+                                        <input type="text" placeholder="เช่น นามสกุล, ชื่อย่อ"
+                                            class="w-full border border-zinc-200 bg-white px-3 py-2.5 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-900/5 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-zinc-500 dark:focus:ring-white/5">
+                                    </label>
+                                </div>
+
+                                <div class="mt-6 flex justify-end gap-3">
+                                    <button type="button" x-on:click="modalOpen = false"
+                                        class="px-4 py-2 text-sm font-medium text-zinc-500 transition hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100">
+                                        ยกเลิก
+                                    </button>
+                                    <button type="button"
+                                        class="inline-flex items-center gap-2 bg-zinc-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-white">
+                                        <flux:icon name="plus" class="size-4" />
+                                        เพิ่มรายการ
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-1 justify-center pt-6 lg:pt-8">
+                            <template x-if="displayMode === 'paper'">
+                                <div x-ref="paperView"
+                                    class="flex min-h-[calc(100vh-15rem)] w-full max-w-3xl flex-1 flex-col border border-zinc-200 bg-white px-8 py-10 dark:border-zinc-700 dark:bg-zinc-950">
+                                    <div class="mx-auto flex h-full w-full max-w-xl flex-col space-y-6 text-zinc-800 dark:text-zinc-100">
+                                        <div class="space-y-2 border-b border-dashed border-zinc-200 pb-5 dark:border-zinc-700">
+                                            <p class="text-xs font-semibold uppercase tracking-[0.24em] text-zinc-400 dark:text-zinc-500"
+                                                x-text="citationStyle === 'apa7' ? 'APA 7th Preview' : (citationStyle === 'mla9' ? 'MLA 9th Preview' : 'Chicago 17th Preview')"></p>
+                                            <h3 class="text-2xl font-semibold tracking-tight">Your formatted reference will appear here</h3>
+                                        </div>
+
+                                        <div class="space-y-4 text-[15px] leading-8 text-zinc-600 dark:text-zinc-300">
+                                            <p>
+                                                กรอกข้อมูลของทรัพยากรทางด้านซ้าย แล้วระบบจะแสดงรูปแบบบรรณานุกรมที่จัดเรียงแล้วในพื้นที่นี้
+                                            </p>
+                                            <p>
+                                                คุณสามารถใช้พื้นที่นี้เพื่อตรวจสอบการสะกด ชื่อผู้แต่ง ปีที่พิมพ์ DOI และองค์ประกอบอื่น ๆ ก่อนคัดลอกไปใช้งานจริง
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
+
+                            <template x-if="displayMode === 'list'">
+                                <div x-ref="listView"
+                                    class="w-full max-w-3xl border border-zinc-200 bg-white px-8 py-8 dark:border-zinc-700 dark:bg-zinc-950">
+                                    <div class="space-y-5">
+                                        <div class="border-b border-zinc-200 pb-4 dark:border-zinc-700">
+                                            <h3 class="text-lg font-semibold text-zinc-900 dark:text-zinc-100">Reference List</h3>
+                                            <p class="mt-1 text-sm text-zinc-500 dark:text-zinc-400">แสดงผลรายการอ้างอิงแบบลิสต์ตามรูปแบบที่เลือก</p>
+                                        </div>
+                                        <ul class="space-y-4 text-[15px] leading-8 text-zinc-700 dark:text-zinc-300">
+                                            <li>Smith, J. (2026). <em>Designing better citations</em>. Babybib Press.</li>
+                                            <li>Johnson, A. (2025). Smart search for citation workflows. <em>Journal of Digital Research</em>, 18(2), 44-61.</li>
+                                            <li>Babybib Team. (2026, April 2). Citation generator manual. https://babybib.app/manual</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </template>
+
+                            <template x-if="displayMode === 'citation'">
+                                <div x-ref="citationView"
+                                    class="w-full max-w-3xl border border-zinc-200 bg-white px-8 py-10 dark:border-zinc-700 dark:bg-zinc-950">
+                                    <div class="space-y-4">
+                                        <p class="text-xs font-semibold uppercase tracking-[0.24em] text-zinc-400 dark:text-zinc-500">Single Citation</p>
+                                        <p class="text-lg leading-9 text-zinc-800 dark:text-zinc-100">
+                                            Smith, J. (2026). <em>Designing better citations</em>. Babybib Press.
+                                        </p>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
                     </div>
                 </section>
 
-                <section class="custom-scrollbar h-[calc(100vh-10rem)] overflow-y-auto">
+                <section class="custom-scrollbar h-[calc(100vh-10rem)] overflow-y-auto lg:col-span-1">
                     <div class="pr-2">
                         <flux:heading size="lg" level="2">Saved Items</flux:heading>
                         <flux:text class="mt-2 text-sm text-zinc-600 dark:text-zinc-300">

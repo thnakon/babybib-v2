@@ -37,6 +37,11 @@
 }
 
 @layer base {
+    html:lang(th),
+    html:lang(th-TH) {
+        --font-sans: 'Sarabun', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+            'Segoe UI Symbol', 'Noto Color Emoji';
+    }
 
     *,
     ::after,
