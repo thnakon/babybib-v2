@@ -316,100 +316,263 @@
     @endphp
 
     <div class="relative mx-auto flex max-w-[1400px] flex-col gap-6 px-4 pb-24 pt-6 sm:px-6 lg:flex-row lg:gap-10 lg:pt-10">
-        <aside x-data="{ search: '', shortcut: navigator.platform.toUpperCase().indexOf('MAC') >= 0 ? '⌘K' : 'Ctrl+K' }"
+        <aside x-data="{
+            projectModal: false,
+            projectMenuOpen: null,
+            projectFormMode: 'create',
+            editingProjectId: null,
+            activeProject: 1,
+            projectForm: { name: '', color: 'zinc', icon: 'folder' },
+            projectColors: [
+                { value: 'zinc', label: 'เทา', swatch: 'bg-zinc-500', button: 'bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900' },
+                { value: 'sky', label: 'ฟ้า', swatch: 'bg-sky-500', button: 'bg-sky-500 text-white' },
+                { value: 'emerald', label: 'เขียว', swatch: 'bg-emerald-500', button: 'bg-emerald-500 text-white' },
+                { value: 'amber', label: 'ทอง', swatch: 'bg-amber-500', button: 'bg-amber-500 text-white' },
+                { value: 'rose', label: 'ชมพู', swatch: 'bg-rose-500', button: 'bg-rose-500 text-white' },
+                { value: 'violet', label: 'ม่วง', swatch: 'bg-violet-500', button: 'bg-violet-500 text-white' }
+            ],
+            projectIcons: [
+                { value: 'folder', label: 'โฟลเดอร์' },
+                { value: 'book-open', label: 'หนังสือ' },
+                { value: 'document-text', label: 'เอกสาร' },
+                { value: 'academic-cap', label: 'วิจัย' },
+                { value: 'clipboard-document-list', label: 'รายการ' },
+                { value: 'sparkles', label: 'พิเศษ' }
+            ],
+            projects: [
+                { id: 1, name: 'โครงการวิจัยบทที่ 1', color: 'zinc', icon: 'folder' }
+            ],
+            toast(text, variant = 'success') {
+                window.Flux?.toast(text, { variant, position: 'bottom end' });
+            },
+            projectButtonClass(color) {
+                return (this.projectColors.find(option => option.value === color)?.button) || 'bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900';
+            },
+            openCreateProjectModal() {
+                this.projectFormMode = 'create';
+                this.editingProjectId = null;
+                this.projectForm = { name: '', color: 'zinc', icon: 'folder' };
+                this.projectModal = true;
+            },
+            openEditProjectModal(project) {
+                this.projectFormMode = 'edit';
+                this.editingProjectId = project.id;
+                this.projectForm = { name: project.name, color: project.color, icon: project.icon };
+                this.projectMenuOpen = null;
+                this.projectModal = true;
+            },
+            saveProject() {
+                if (!this.projectForm.name.trim()) {
+                    this.toast('กรุณากรอกชื่อโครงการก่อนบันทึก', 'warning');
+                    return;
+                }
+
+                if (this.projectFormMode === 'create') {
+                    const nextId = Date.now();
+                    this.projects.unshift({
+                        id: nextId,
+                        name: this.projectForm.name.trim(),
+                        color: this.projectForm.color,
+                        icon: this.projectForm.icon
+                    });
+                    this.activeProject = nextId;
+                    this.projectModal = false;
+                    this.toast('สร้างโครงการใหม่เรียบร้อยแล้ว', 'success');
+                    return;
+                }
+
+                const project = this.projects.find(item => item.id === this.editingProjectId);
+                if (!project) {
+                    this.toast('ไม่พบโครงการที่ต้องการแก้ไข', 'danger');
+                    return;
+                }
+
+                project.name = this.projectForm.name.trim();
+                project.color = this.projectForm.color;
+                project.icon = this.projectForm.icon;
+                this.projectModal = false;
+                this.toast('อัปเดตโครงการเรียบร้อยแล้ว', 'success');
+            },
+            duplicateProject(project) {
+                const nextId = Date.now();
+                this.projects.unshift({
+                    id: nextId,
+                    name: project.name + ' (คัดลอก)',
+                    color: project.color,
+                    icon: project.icon
+                });
+                this.activeProject = nextId;
+                this.projectMenuOpen = null;
+                this.toast('คัดลอกโครงการเรียบร้อยแล้ว', 'success');
+            },
+            deleteProject(projectId) {
+                if (this.projects.length === 1) {
+                    this.projectMenuOpen = null;
+                    this.toast('ต้องมีอย่างน้อย 1 โครงการในระบบ', 'warning');
+                    return;
+                }
+
+                const index = this.projects.findIndex(item => item.id === projectId);
+                if (index === -1) {
+                    this.toast('ไม่พบโครงการที่ต้องการลบ', 'danger');
+                    return;
+                }
+
+                this.projects.splice(index, 1);
+                if (this.activeProject === projectId) {
+                    this.activeProject = this.projects[0]?.id ?? null;
+                }
+                this.projectMenuOpen = null;
+                this.toast('ลบโครงการเรียบร้อยแล้ว', 'danger');
+            }
+        }"
             class="custom-scrollbar w-full shrink-0 overflow-hidden rounded-2xl border border-zinc-200/80 bg-zinc-50/60 p-4 dark:border-zinc-800 dark:bg-zinc-900/50 lg:block lg:w-64 lg:rounded-none lg:border-0 lg:bg-transparent lg:p-0 lg:h-[calc(100vh-10rem)] lg:overflow-y-auto lg:pr-4 lg:visible-scrollbar">
-            <nav class="max-h-[52vh] space-y-7 overflow-y-auto pr-1 custom-scrollbar lg:max-h-none lg:overflow-visible lg:pr-0">
-                <div class="mb-4">
-                    <div class="group relative" x-on:keydown.window.prevent.cmd.k="$refs.searchInput.focus()"
-                        x-on:keydown.window.prevent.ctrl.k="$refs.searchInput.focus()">
-                        <div
-                            class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-zinc-400 transition-colors group-focus-within:text-zinc-600 dark:group-focus-within:text-zinc-200">
-                            <flux:icon name="magnifying-glass" class="size-4" />
-                        </div>
-                        <input x-ref="searchInput" x-model.debounce.150ms="search" type="text"
-                            placeholder="ค้นหาประเภททรัพยากร..."
-                            class="w-full rounded-xl border border-zinc-200 bg-zinc-50 py-2 pl-9 pr-12 text-sm placeholder:text-zinc-400 focus:border-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-900/5 dark:border-zinc-800 dark:bg-zinc-950 dark:focus:border-zinc-600 dark:focus:ring-white/5">
-                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                            <kbd class="hidden rounded border border-zinc-200 bg-white px-1.5 py-0.5 font-sans text-[10px] font-medium text-zinc-400 dark:border-zinc-800 dark:bg-zinc-950 lg:inline-flex"
-                                x-text="shortcut"></kbd>
-                        </div>
-                    </div>
+            <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                    <h2 class="text-lg font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">โครงการ</h2>
+                    <span class="rounded-full bg-zinc-100 px-2.5 py-1 text-[11px] font-medium text-zinc-500 dark:bg-zinc-800 dark:text-zinc-300" x-text="projects.length + ' รายการ'"></span>
                 </div>
 
-                @foreach ($citationGroups as $group)
-                    @php
-                        $searchableText = $group['label'].' '.implode(' ', $group['items']);
-                    @endphp
-                    <div class="space-y-3"
-                        x-show="@js($searchableText).toLowerCase().includes(search.toLowerCase())"
-                        x-transition.opacity.duration.150ms>
-                        @php
-                            $accentClasses = match ($group['accent']) {
-                                'amber' => 'bg-amber-50 text-amber-700 ring-amber-200 dark:bg-amber-500/10 dark:text-amber-300 dark:ring-amber-400/20',
-                                'sky' => 'bg-sky-50 text-sky-700 ring-sky-200 dark:bg-sky-500/10 dark:text-sky-300 dark:ring-sky-400/20',
-                                'emerald' => 'bg-emerald-50 text-emerald-700 ring-emerald-200 dark:bg-emerald-500/10 dark:text-emerald-300 dark:ring-emerald-400/20',
-                                'rose' => 'bg-rose-50 text-rose-700 ring-rose-200 dark:bg-rose-500/10 dark:text-rose-300 dark:ring-rose-400/20',
-                                'violet' => 'bg-violet-50 text-violet-700 ring-violet-200 dark:bg-violet-500/10 dark:text-violet-300 dark:ring-violet-400/20',
-                                'orange' => 'bg-orange-50 text-orange-700 ring-orange-200 dark:bg-orange-500/10 dark:text-orange-300 dark:ring-orange-400/20',
-                                'indigo' => 'bg-indigo-50 text-indigo-700 ring-indigo-200 dark:bg-indigo-500/10 dark:text-indigo-300 dark:ring-indigo-400/20',
-                                'cyan' => 'bg-cyan-50 text-cyan-700 ring-cyan-200 dark:bg-cyan-500/10 dark:text-cyan-300 dark:ring-cyan-400/20',
-                                'fuchsia' => 'bg-fuchsia-50 text-fuchsia-700 ring-fuchsia-200 dark:bg-fuchsia-500/10 dark:text-fuchsia-300 dark:ring-fuchsia-400/20',
-                                default => 'bg-teal-50 text-teal-700 ring-teal-200 dark:bg-teal-500/10 dark:text-teal-300 dark:ring-teal-400/20',
-                            };
+                <button type="button" x-on:click="openCreateProjectModal()"
+                    class="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-dashed border-zinc-300 bg-white px-4 py-3 text-sm font-semibold text-zinc-700 transition hover:border-pink-400 hover:text-zinc-900 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-200 dark:hover:border-pink-500 dark:hover:text-zinc-100">
+                    <flux:icon name="plus" class="size-4" />
+                    <span>สร้างโครงการใหม่</span>
+                </button>
 
-                            $headingClasses = match ($group['accent']) {
-                                'amber' => 'text-amber-700 dark:text-amber-300',
-                                'sky' => 'text-sky-700 dark:text-sky-300',
-                                'emerald' => 'text-emerald-700 dark:text-emerald-300',
-                                'rose' => 'text-rose-700 dark:text-rose-300',
-                                'violet' => 'text-violet-700 dark:text-violet-300',
-                                'orange' => 'text-orange-700 dark:text-orange-300',
-                                'indigo' => 'text-indigo-700 dark:text-indigo-300',
-                                'cyan' => 'text-cyan-700 dark:text-cyan-300',
-                                'fuchsia' => 'text-fuchsia-700 dark:text-fuchsia-300',
-                                default => 'text-teal-700 dark:text-teal-300',
-                            };
+                <div class="space-y-3">
+                    <template x-for="project in projects" :key="project.id">
+                        <div class="group relative">
+                            <button type="button" x-on:click="activeProject = project.id"
+                                class="w-full rounded-2xl p-3 pr-11 text-left transition"
+                                x-bind:class="activeProject === project.id
+                                    ? 'bg-zinc-100 text-zinc-900 dark:bg-zinc-800/80 dark:text-zinc-100'
+                                    : 'text-zinc-600 hover:bg-zinc-100/80 hover:text-zinc-900 dark:text-zinc-300 dark:hover:bg-zinc-800/70 dark:hover:text-zinc-100'">
+                                <div class="flex items-center gap-3">
+                                    <span class="inline-flex size-10 items-center justify-center rounded-2xl" x-bind:class="projectButtonClass(project.color)">
+                                        <flux:icon x-show="project.icon === 'folder'" name="folder" class="size-4" />
+                                        <flux:icon x-show="project.icon === 'book-open'" name="book-open" class="size-4" />
+                                        <flux:icon x-show="project.icon === 'document-text'" name="document-text" class="size-4" />
+                                        <flux:icon x-show="project.icon === 'academic-cap'" name="academic-cap" class="size-4" />
+                                        <flux:icon x-show="project.icon === 'clipboard-document-list'" name="clipboard-document-list" class="size-4" />
+                                        <flux:icon x-show="project.icon === 'sparkles'" name="sparkles" class="size-4" />
+                                    </span>
+                                    <h3 class="text-sm font-semibold" x-text="project.name"></h3>
+                                </div>
+                            </button>
 
-                            $activeClasses = match ($group['accent']) {
-                                'amber' => 'border-amber-600 text-amber-800 dark:border-amber-300 dark:text-amber-100',
-                                'sky' => 'border-sky-600 text-sky-800 dark:border-sky-300 dark:text-sky-100',
-                                'emerald' => 'border-emerald-600 text-emerald-800 dark:border-emerald-300 dark:text-emerald-100',
-                                'rose' => 'border-rose-600 text-rose-800 dark:border-rose-300 dark:text-rose-100',
-                                'violet' => 'border-violet-600 text-violet-800 dark:border-violet-300 dark:text-violet-100',
-                                'orange' => 'border-orange-600 text-orange-800 dark:border-orange-300 dark:text-orange-100',
-                                'indigo' => 'border-indigo-600 text-indigo-800 dark:border-indigo-300 dark:text-indigo-100',
-                                'cyan' => 'border-cyan-600 text-cyan-800 dark:border-cyan-300 dark:text-cyan-100',
-                                'fuchsia' => 'border-fuchsia-600 text-fuchsia-800 dark:border-fuchsia-300 dark:text-fuchsia-100',
-                                default => 'border-teal-600 text-teal-800 dark:border-teal-300 dark:text-teal-100',
-                            };
-                        @endphp
+                            <div class="absolute right-2 top-1/2 -translate-y-1/2">
+                                <button type="button"
+                                    x-on:click.stop="projectMenuOpen = projectMenuOpen === project.id ? null : project.id"
+                                    class="inline-flex size-8 items-center justify-center rounded-full text-zinc-400 opacity-0 transition hover:bg-zinc-200 hover:text-zinc-900 group-hover:opacity-100 dark:hover:bg-zinc-700 dark:hover:text-zinc-100"
+                                    x-bind:class="projectMenuOpen === project.id || activeProject === project.id ? 'opacity-100' : ''"
+                                    aria-label="จัดการโครงการ">
+                                    <flux:icon name="ellipsis-horizontal" class="size-4" />
+                                </button>
 
-                        <h3 class="flex items-center gap-2 text-sm font-medium {{ $headingClasses }}">
-                            <span class="inline-flex size-7 items-center justify-center rounded-lg ring-1 {{ $accentClasses }}">
-                                <flux:icon :name="$group['icon']" class="size-4" />
-                            </span>
-                            {{ $group['label'] }}
-                        </h3>
-
-                        <div class="border-l border-zinc-200 pl-5 dark:border-zinc-800">
-                            <div class="space-y-1">
-                                @foreach ($group['items'] as $item)
-                                    <button type="button"
-                                        x-show="@js($item).toLowerCase().includes(search.toLowerCase()) || @js($group['label']).toLowerCase().includes(search.toLowerCase())"
-                                        class="{{ $loop->first ? "border-l-2 pl-4 -ml-[21px] font-semibold {$activeClasses}" : 'border-l-2 border-transparent pl-4 text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100' }} block w-full text-left text-sm leading-6 transition">
-                                        {{ $item }}
+                                <div x-cloak x-show="projectMenuOpen === project.id" x-transition.opacity x-on:click.outside="projectMenuOpen = null"
+                                    class="absolute right-0 z-20 mt-2 w-44 rounded-2xl border border-zinc-200 bg-white p-1.5 shadow-lg dark:border-zinc-700 dark:bg-zinc-950">
+                                    <button type="button" x-on:click="openEditProjectModal(project)"
+                                        class="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left text-sm text-zinc-600 transition hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-300 dark:hover:bg-zinc-900 dark:hover:text-zinc-100">
+                                        <flux:icon name="pencil-square" class="size-4" />
+                                        แก้ไข
                                     </button>
-                                @endforeach
+                                    <button type="button" x-on:click="duplicateProject(project)"
+                                        class="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left text-sm text-zinc-600 transition hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-300 dark:hover:bg-zinc-900 dark:hover:text-zinc-100">
+                                        <flux:icon name="square-2-stack" class="size-4" />
+                                        คัดลอกโครงการ
+                                    </button>
+                                    <button type="button" x-on:click="deleteProject(project.id)"
+                                        class="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left text-sm text-rose-600 transition hover:bg-rose-50 hover:text-rose-700 dark:text-rose-400 dark:hover:bg-rose-500/10 dark:hover:text-rose-300">
+                                        <flux:icon name="trash" class="size-4" />
+                                        ลบ
+                                    </button>
+                                </div>
                             </div>
                         </div>
+                    </template>
+                </div>
+            </div>
+
+            <div x-cloak x-show="projectModal" x-transition.opacity
+                class="fixed inset-0 z-50 flex items-center justify-center bg-zinc-950/40 px-4 backdrop-blur-sm">
+                <div x-show="projectModal" x-transition
+                    class="w-full max-w-lg rounded-[1.75rem] border border-zinc-200 bg-white p-6 dark:border-zinc-700 dark:bg-zinc-900">
+                    <div class="flex items-start justify-between gap-4">
+                        <div class="space-y-1">
+                            <h3 class="text-xl font-semibold text-zinc-900 dark:text-zinc-100" x-text="projectFormMode === 'create' ? 'สร้างโครงการใหม่' : 'แก้ไขโครงการ'"></h3>
+                            <p class="text-sm text-zinc-500 dark:text-zinc-400">ตั้งชื่อ เลือกสี และเลือกไอคอนของโครงการสำหรับจัดเก็บบรรณานุกรม</p>
+                        </div>
+                        <button type="button" x-on:click="projectModal = false"
+                            class="rounded-full p-2 text-zinc-400 transition hover:bg-zinc-100 hover:text-zinc-900 dark:hover:bg-zinc-800 dark:hover:text-zinc-100">
+                            <flux:icon name="x-mark" class="size-5" />
+                        </button>
                     </div>
-                @endforeach
-            </nav>
+
+                    <div class="mt-6 space-y-2">
+                        <label class="text-sm font-medium text-zinc-700 dark:text-zinc-200">ชื่อโครงการ</label>
+                        <input x-model="projectForm.name" type="text" placeholder="เช่น โครงการวิทยานิพนธ์ปี 2026"
+                            class="w-full rounded-2xl border border-zinc-200 bg-white px-4 py-3 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-900/5 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-zinc-500 dark:focus:ring-white/5">
+                    </div>
+
+                    <div class="mt-5 space-y-3">
+                        <label class="text-sm font-medium text-zinc-700 dark:text-zinc-200">สีของโครงการ</label>
+                        <div class="grid grid-cols-3 gap-2">
+                            <template x-for="color in projectColors" :key="color.value">
+                                <button type="button" x-on:click="projectForm.color = color.value"
+                                    class="flex items-center gap-2 rounded-2xl border px-3 py-2 text-sm transition"
+                                    x-bind:class="projectForm.color === color.value
+                                        ? 'border-zinc-900 bg-zinc-50 text-zinc-900 dark:border-zinc-100 dark:bg-zinc-800 dark:text-zinc-100'
+                                        : 'border-zinc-200 text-zinc-600 hover:border-zinc-300 hover:text-zinc-900 dark:border-zinc-700 dark:text-zinc-300 dark:hover:border-zinc-500 dark:hover:text-zinc-100'">
+                                    <span class="size-3 rounded-full" :class="color.swatch"></span>
+                                    <span x-text="color.label"></span>
+                                </button>
+                            </template>
+                        </div>
+                    </div>
+
+                    <div class="mt-5 space-y-3">
+                        <label class="text-sm font-medium text-zinc-700 dark:text-zinc-200">ไอคอนของโครงการ</label>
+                        <div class="grid grid-cols-3 gap-2">
+                            <template x-for="icon in projectIcons" :key="icon.value">
+                                <button type="button" x-on:click="projectForm.icon = icon.value"
+                                    class="flex items-center gap-2 rounded-2xl border px-3 py-2 text-sm transition"
+                                    x-bind:class="projectForm.icon === icon.value
+                                        ? 'border-zinc-900 bg-zinc-50 text-zinc-900 dark:border-zinc-100 dark:bg-zinc-800 dark:text-zinc-100'
+                                        : 'border-zinc-200 text-zinc-600 hover:border-zinc-300 hover:text-zinc-900 dark:border-zinc-700 dark:text-zinc-300 dark:hover:border-zinc-500 dark:hover:text-zinc-100'">
+                                    <span class="inline-flex size-5 items-center justify-center">
+                                        <flux:icon x-show="icon.value === 'folder'" name="folder" class="size-4" />
+                                        <flux:icon x-show="icon.value === 'book-open'" name="book-open" class="size-4" />
+                                        <flux:icon x-show="icon.value === 'document-text'" name="document-text" class="size-4" />
+                                        <flux:icon x-show="icon.value === 'academic-cap'" name="academic-cap" class="size-4" />
+                                        <flux:icon x-show="icon.value === 'clipboard-document-list'" name="clipboard-document-list" class="size-4" />
+                                        <flux:icon x-show="icon.value === 'sparkles'" name="sparkles" class="size-4" />
+                                    </span>
+                                    <span x-text="icon.label"></span>
+                                </button>
+                            </template>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 flex justify-end gap-3">
+                        <button type="button" x-on:click="projectModal = false"
+                            class="px-4 py-2 text-sm font-medium text-zinc-500 transition hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100">
+                            ยกเลิก
+                        </button>
+                        <button type="button"
+                            x-on:click="saveProject()"
+                            class="inline-flex items-center gap-2 rounded-full bg-zinc-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-white">
+                            <flux:icon x-show="projectFormMode === 'create'" name="plus" class="size-4" />
+                            <flux:icon x-show="projectFormMode === 'edit'" name="check" class="size-4" />
+                            <span x-text="projectFormMode === 'create' ? 'สร้างโครงการ' : 'บันทึกการแก้ไข'"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
         </aside>
 
         <main class="min-w-0 flex-1">
             <div class="grid gap-3 lg:grid-cols-7">
-                <section x-data="{ smartQuery: '', selectedType: '', modalOpen: false, copied: false, exportOpen: false, citationStyle: 'apa7', displayMode: 'paper' }"
+                <section x-data="{ smartQuery: '', selectedType: '', modalOpen: false, modalSearch: '', copied: false, exportOpen: false, citationStyle: 'apa7', displayMode: 'paper' }"
                     class="lg:col-span-6">
                     <div class="flex min-h-[calc(100vh-8rem)] flex-col pr-2">
                         <div class="mx-auto w-full max-w-3xl space-y-3">
@@ -548,59 +711,110 @@
                         </div>
 
                         <div x-cloak x-show="modalOpen" x-transition.opacity
-                            class="fixed inset-0 z-50 flex items-center justify-center bg-zinc-950/40 px-4 backdrop-blur-sm">
+                            class="fixed inset-0 z-50 flex items-center justify-center bg-zinc-950/50 px-4 py-6 backdrop-blur-sm">
                             <div x-show="modalOpen" x-transition
-                                class="w-full max-w-xl border border-zinc-200 bg-white p-6 dark:border-zinc-700 dark:bg-zinc-900">
-                                <div class="flex items-start justify-between gap-4">
+                                class="flex max-h-[90vh] w-full max-w-6xl flex-col overflow-hidden rounded-[2rem] border border-zinc-200 bg-white dark:border-zinc-700 dark:bg-zinc-900">
+                                <div class="flex items-start justify-between gap-4 border-b border-zinc-200 px-6 py-5 dark:border-zinc-800 lg:px-8">
                                     <div class="space-y-1">
-                                        <h3 class="text-lg font-semibold text-zinc-900 dark:text-zinc-100">กรอกข้อมูลบรรณานุกรมเอง</h3>
+                                        <p class="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-400 dark:text-zinc-500">Resource Library</p>
+                                        <h3 class="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">
+                                            เลือกประเภททรัพยากรที่ต้องการสร้างบรรณานุกรม
+                                        </h3>
                                         <p class="text-sm text-zinc-500 dark:text-zinc-400">
-                                            เพิ่มข้อมูลอ้างอิงด้วยตนเองในกรณีที่ smart search ยังไม่ตรงกับสิ่งที่ต้องการ
+                                            เริ่มจากเลือกหมวดและชนิดทรัพยากรด้านล่าง ระบบจะพาคุณไปยังรูปแบบที่เหมาะกับการอ้างอิงนั้นทันที
                                         </p>
                                     </div>
                                     <button type="button" x-on:click="modalOpen = false"
-                                        class="text-zinc-400 transition hover:text-zinc-900 dark:hover:text-zinc-100"
+                                        class="rounded-full p-2 text-zinc-400 transition hover:bg-zinc-100 hover:text-zinc-900 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
                                         aria-label="ปิดหน้าต่าง">
                                         <flux:icon name="x-mark" class="size-5" />
                                     </button>
                                 </div>
 
-                                <div class="mt-6 grid gap-4 sm:grid-cols-2">
-                                    <label class="grid gap-2 text-sm text-zinc-600 dark:text-zinc-300">
-                                        <span>ประเภททรัพยากร</span>
-                                        <input type="text" placeholder="เช่น หนังสือ, บทความวารสาร"
-                                            class="w-full border border-zinc-200 bg-white px-3 py-2.5 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-900/5 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-zinc-500 dark:focus:ring-white/5">
-                                    </label>
-
-                                    <label class="grid gap-2 text-sm text-zinc-600 dark:text-zinc-300">
-                                        <span>ปีที่พิมพ์</span>
-                                        <input type="text" placeholder="2026"
-                                            class="w-full border border-zinc-200 bg-white px-3 py-2.5 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-900/5 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-zinc-500 dark:focus:ring-white/5">
-                                    </label>
-
-                                    <label class="grid gap-2 text-sm text-zinc-600 dark:text-zinc-300 sm:col-span-2">
-                                        <span>ชื่อเรื่อง / ชื่อบทความ</span>
-                                        <input type="text" placeholder="กรอกชื่อทรัพยากร"
-                                            class="w-full border border-zinc-200 bg-white px-3 py-2.5 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-900/5 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-zinc-500 dark:focus:ring-white/5">
-                                    </label>
-
-                                    <label class="grid gap-2 text-sm text-zinc-600 dark:text-zinc-300 sm:col-span-2">
-                                        <span>ผู้แต่ง</span>
-                                        <input type="text" placeholder="เช่น นามสกุล, ชื่อย่อ"
-                                            class="w-full border border-zinc-200 bg-white px-3 py-2.5 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-900/5 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-zinc-500 dark:focus:ring-white/5">
-                                    </label>
+                                <div class="border-b border-zinc-200 px-6 py-4 dark:border-zinc-800 lg:px-8">
+                                    <div class="relative">
+                                        <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-zinc-400">
+                                            <flux:icon name="magnifying-glass" class="size-5" />
+                                        </div>
+                                        <input x-model.debounce.150ms="modalSearch" type="text"
+                                            placeholder="ค้นหาประเภททรัพยากร เช่น หนังสืออิเล็กทรอนิกส์, วิทยานิพนธ์, เว็บเพจ"
+                                            class="w-full rounded-2xl border border-zinc-200 bg-zinc-50 py-3 pl-12 pr-4 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-900/5 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-zinc-500 dark:focus:ring-white/5">
+                                    </div>
                                 </div>
 
-                                <div class="mt-6 flex justify-end gap-3">
-                                    <button type="button" x-on:click="modalOpen = false"
-                                        class="px-4 py-2 text-sm font-medium text-zinc-500 transition hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100">
-                                        ยกเลิก
-                                    </button>
-                                    <button type="button"
-                                        class="inline-flex items-center gap-2 bg-zinc-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-white">
-                                        <flux:icon name="plus" class="size-4" />
-                                        เพิ่มรายการ
-                                    </button>
+                                <div class="custom-scrollbar flex-1 overflow-y-auto px-6 py-6 lg:px-8">
+                                    <div class="grid gap-5 lg:grid-cols-2">
+                                        @foreach ($citationGroups as $group)
+                                            @php
+                                                $modalHeadingClasses = match ($group['accent']) {
+                                                    'amber' => 'text-amber-700 dark:text-amber-300',
+                                                    'sky' => 'text-sky-700 dark:text-sky-300',
+                                                    'emerald' => 'text-emerald-700 dark:text-emerald-300',
+                                                    'rose' => 'text-rose-700 dark:text-rose-300',
+                                                    'violet' => 'text-violet-700 dark:text-violet-300',
+                                                    'orange' => 'text-orange-700 dark:text-orange-300',
+                                                    'indigo' => 'text-indigo-700 dark:text-indigo-300',
+                                                    'cyan' => 'text-cyan-700 dark:text-cyan-300',
+                                                    'fuchsia' => 'text-fuchsia-700 dark:text-fuchsia-300',
+                                                    default => 'text-teal-700 dark:text-teal-300',
+                                                };
+
+                                                $modalAccentClasses = match ($group['accent']) {
+                                                    'amber' => 'bg-amber-50 text-amber-700 ring-amber-200 dark:bg-amber-500/10 dark:text-amber-300 dark:ring-amber-400/20',
+                                                    'sky' => 'bg-sky-50 text-sky-700 ring-sky-200 dark:bg-sky-500/10 dark:text-sky-300 dark:ring-sky-400/20',
+                                                    'emerald' => 'bg-emerald-50 text-emerald-700 ring-emerald-200 dark:bg-emerald-500/10 dark:text-emerald-300 dark:ring-emerald-400/20',
+                                                    'rose' => 'bg-rose-50 text-rose-700 ring-rose-200 dark:bg-rose-500/10 dark:text-rose-300 dark:ring-rose-400/20',
+                                                    'violet' => 'bg-violet-50 text-violet-700 ring-violet-200 dark:bg-violet-500/10 dark:text-violet-300 dark:ring-violet-400/20',
+                                                    'orange' => 'bg-orange-50 text-orange-700 ring-orange-200 dark:bg-orange-500/10 dark:text-orange-300 dark:ring-orange-400/20',
+                                                    'indigo' => 'bg-indigo-50 text-indigo-700 ring-indigo-200 dark:bg-indigo-500/10 dark:text-indigo-300 dark:ring-indigo-400/20',
+                                                    'cyan' => 'bg-cyan-50 text-cyan-700 ring-cyan-200 dark:bg-cyan-500/10 dark:text-cyan-300 dark:ring-cyan-400/20',
+                                                    'fuchsia' => 'bg-fuchsia-50 text-fuchsia-700 ring-fuchsia-200 dark:bg-fuchsia-500/10 dark:text-fuchsia-300 dark:ring-fuchsia-400/20',
+                                                    default => 'bg-teal-50 text-teal-700 ring-teal-200 dark:bg-teal-500/10 dark:text-teal-300 dark:ring-teal-400/20',
+                                                };
+                                            @endphp
+                                            <div class="rounded-3xl border border-zinc-200 bg-zinc-50/60 p-5 dark:border-zinc-800 dark:bg-zinc-950/50"
+                                                x-show="@js(($group['label'].' '.implode(' ', $group['items']))).toLowerCase().includes(modalSearch.toLowerCase())"
+                                                x-transition.opacity.duration.150ms>
+                                                <div class="mb-4 flex items-center gap-3">
+                                                    <span class="inline-flex size-10 items-center justify-center rounded-2xl ring-1 {{ $modalAccentClasses }}">
+                                                        <flux:icon :name="$group['icon']" class="size-5" />
+                                                    </span>
+                                                    <div>
+                                                        <h4 class="text-base font-semibold {{ $modalHeadingClasses }}">{{ $group['label'] }}</h4>
+                                                        <p class="text-xs text-zinc-500 dark:text-zinc-400">{{ count($group['items']) }} รูปแบบอ้างอิง</p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="space-y-1.5">
+                                                    @foreach ($group['items'] as $item)
+                                                        <button type="button"
+                                                            x-show="@js($item).toLowerCase().includes(modalSearch.toLowerCase()) || @js($group['label']).toLowerCase().includes(modalSearch.toLowerCase())"
+                                                            x-on:click="selectedType = @js($item); smartQuery = @js($item); modalOpen = false"
+                                                            class="flex w-full items-start justify-between gap-3 rounded-2xl border border-transparent bg-white px-4 py-3 text-left text-sm text-zinc-700 transition hover:border-pink-200 hover:bg-pink-50 hover:text-zinc-900 dark:bg-zinc-900 dark:text-zinc-200 dark:hover:border-pink-500/30 dark:hover:bg-zinc-800 dark:hover:text-zinc-100">
+                                                            <span class="leading-6">{{ $item }}</span>
+                                                            <flux:icon name="arrow-up-right" class="mt-1 size-4 shrink-0 text-zinc-300 dark:text-zinc-600" />
+                                                        </button>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center justify-between gap-4 border-t border-zinc-200 px-6 py-4 dark:border-zinc-800 lg:px-8">
+                                    <p class="text-sm text-zinc-500 dark:text-zinc-400">
+                                        หากยังไม่แน่ใจประเภทที่ต้องใช้ สามารถดูรายละเอียดการอ้างอิงเพิ่มเติมได้ในคู่มือ
+                                    </p>
+                                    <div class="flex items-center gap-3">
+                                        <a href="{{ url('/manual') }}"
+                                            class="text-sm font-medium text-zinc-900 underline underline-offset-2 transition hover:text-pink-500 dark:text-zinc-100 dark:hover:text-pink-400">
+                                            เปิดคู่มือ
+                                        </a>
+                                        <button type="button" x-on:click="modalOpen = false"
+                                            class="inline-flex items-center rounded-full border border-zinc-200 px-4 py-2 text-sm font-medium text-zinc-600 transition hover:border-zinc-300 hover:text-zinc-900 dark:border-zinc-700 dark:text-zinc-300 dark:hover:border-zinc-500 dark:hover:text-zinc-100">
+                                            ปิด
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -671,6 +885,7 @@
             </div>
         </main>
     </div>
+    <flux:toast position="bottom end" class="z-[120]" />
     @fluxScripts
 </body>
 
