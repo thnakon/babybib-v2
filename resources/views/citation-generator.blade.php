@@ -41,25 +41,25 @@
     class="min-h-screen font-sans antialiased bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 overflow-x-hidden">
     <!-- Navbar (Shared) -->
     <flux:header sticky
-        class="sticky top-0 w-full z-50 border-b bg-white/95 dark:bg-zinc-900/95 border-zinc-200 dark:border-zinc-800 shadow-sm backdrop-blur-md py-3">
+        class="sticky top-0 w-full z-50 border-b bg-white/95 dark:bg-zinc-900/95 border-pink-100 dark:border-zinc-800 shadow-sm shadow-pink-100/40 backdrop-blur-md py-3">
         <div class="container max-w-7xl mx-auto px-6 flex items-center justify-between">
             <div class="flex items-center gap-8">
                 <a href="/" class="flex items-center gap-2 group">
                     <div class="flex gap-0.5 items-end h-5">
-                        <div class="w-1 bg-zinc-900 dark:bg-white h-2 rounded-full transition-all group-hover:h-4"></div>
-                        <div class="w-1 bg-zinc-900 dark:bg-white h-4 rounded-full transition-all group-hover:h-3"></div>
-                        <div class="w-1 bg-zinc-900 dark:bg-white h-5 rounded-full transition-all group-hover:h-2">
+                        <div class="w-1 bg-pink-400 dark:bg-pink-300 h-2 rounded-full transition-all group-hover:h-4"></div>
+                        <div class="w-1 bg-pink-500 dark:bg-pink-200 h-4 rounded-full transition-all group-hover:h-3"></div>
+                        <div class="w-1 bg-pink-600 dark:bg-pink-100 h-5 rounded-full transition-all group-hover:h-2">
                         </div>
                     </div>
-                    <span class="relative text-xl font-bold tracking-tight">
+                    <span class="relative text-xl font-bold tracking-tight text-pink-700 dark:text-pink-200">
                         Babybib
-                        <span class="absolute -right-5 -top-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-400 dark:text-zinc-500">v2</span>
+                        <span class="absolute -right-5 -top-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-pink-300 dark:text-pink-400">v2</span>
                     </span>
                 </a>
             </div>
 
             <div class="flex items-center gap-1">
-                <flux:navbar class="hidden md:flex gap-1 text-sm font-medium text-zinc-500 mr-2">
+                <flux:navbar class="hidden md:flex gap-1 text-sm font-medium text-zinc-500 mr-2 [&_[data-current]]:text-pink-600 dark:[&_[data-current]]:text-pink-300 [&_[data-current]]:border-pink-500">
                     <flux:tooltip content="{{ __('User Manual') }}" position="bottom">
                         <flux:navbar.item href="{{ route('manual') }}">{{ __('Manual') }}</flux:navbar.item>
                     </flux:tooltip>
@@ -91,16 +91,16 @@
                             x-transition:leave-end="opacity-0 translate-y-2"
                             class="absolute left-0 top-full pt-2 z-50 w-48" style="display: none;">
                             <div
-                                class="bg-white dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-800 shadow-xl overflow-hidden p-1.5">
+                                class="bg-white dark:bg-zinc-900 rounded-xl border border-pink-100 dark:border-zinc-800 shadow-xl shadow-pink-100/40 overflow-hidden p-1.5">
                                 <flux:menu.item href="#"
-                                    class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-zinc-100 dark:hover:!bg-zinc-800 transition-colors">
+                                    class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-pink-50 hover:!text-pink-700 dark:hover:!bg-pink-500/10 dark:hover:!text-pink-200 transition-colors">
                                     {{ __('Help Center') }}</flux:menu.item>
                                 <flux:menu.item href="#"
-                                    class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-zinc-100 dark:hover:!bg-zinc-800 transition-colors">
+                                    class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-pink-50 hover:!text-pink-700 dark:hover:!bg-pink-500/10 dark:hover:!text-pink-200 transition-colors">
                                     {{ __('Contact Support') }}</flux:menu.item>
                                 <flux:menu.separator />
                                 <flux:menu.item href="#"
-                                    class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-zinc-100 dark:hover:!bg-zinc-800 transition-colors">
+                                    class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-pink-50 hover:!text-pink-700 dark:hover:!bg-pink-500/10 dark:hover:!text-pink-200 transition-colors">
                                     {{ __('Community Discord') }}</flux:menu.item>
                             </div>
                         </div>
@@ -124,18 +124,18 @@
                             x-transition:leave-end="opacity-0 translate-y-2"
                             class="absolute left-0 top-full pt-2 z-50 w-44" style="display: none;">
                             <div
-                                class="bg-white dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-800 shadow-xl overflow-hidden p-1.5">
+                                class="bg-white dark:bg-zinc-900 rounded-xl border border-pink-100 dark:border-zinc-800 shadow-xl shadow-pink-100/40 overflow-hidden p-1.5">
                                 <flux:menu.item href="#" icon="facebook"
-                                    class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-zinc-100 dark:hover:!bg-zinc-800 transition-colors">
+                                    class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-pink-50 hover:!text-pink-700 dark:hover:!bg-pink-500/10 dark:hover:!text-pink-200 transition-colors">
                                     Facebook</flux:menu.item>
                                 <flux:menu.item href="#" icon="instagram"
-                                    class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-zinc-100 dark:hover:!bg-zinc-800 transition-colors">
+                                    class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-pink-50 hover:!text-pink-700 dark:hover:!bg-pink-500/10 dark:hover:!text-pink-200 transition-colors">
                                     Instagram</flux:menu.item>
                                 <flux:menu.item href="#" icon="twitter"
-                                    class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-zinc-100 dark:hover:!bg-zinc-800 transition-colors">
+                                    class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-pink-50 hover:!text-pink-700 dark:hover:!bg-pink-500/10 dark:hover:!text-pink-200 transition-colors">
                                     X (Twitter)</flux:menu.item>
                                 <flux:menu.item href="#" icon="line"
-                                    class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-zinc-100 dark:hover:!bg-zinc-800 transition-colors">
+                                    class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-pink-50 hover:!text-pink-700 dark:hover:!bg-pink-500/10 dark:hover:!text-pink-200 transition-colors">
                                     Line</flux:menu.item>
                             </div>
                         </div>
@@ -162,12 +162,12 @@
                         x-transition:leave-end="opacity-0 translate-y-2"
                         class="absolute right-0 top-full pt-2 z-50 w-32" style="display: none;">
                         <div
-                            class="bg-white dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-800 shadow-xl overflow-hidden p-1.5">
+                            class="bg-white dark:bg-zinc-900 rounded-xl border border-pink-100 dark:border-zinc-800 shadow-xl shadow-pink-100/40 overflow-hidden p-1.5">
                             <flux:menu.item href="{{ route('change-language', 'en') }}"
-                                class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-zinc-100 dark:hover:!bg-zinc-800 transition-colors">
+                                class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-pink-50 hover:!text-pink-700 dark:hover:!bg-pink-500/10 dark:hover:!text-pink-200 transition-colors">
                                 English (EN)</flux:menu.item>
                             <flux:menu.item href="{{ route('change-language', 'th') }}"
-                                class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-zinc-100 dark:hover:!bg-zinc-800 transition-colors">
+                                class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-pink-50 hover:!text-pink-700 dark:hover:!bg-pink-500/10 dark:hover:!text-pink-200 transition-colors">
                                 ไทย (TH)</flux:menu.item>
                         </div>
                     </div>
@@ -175,7 +175,7 @@
 
                 <flux:tooltip content="{{ __('Toggle appearance') }}" position="bottom">
                     <button type="button" onclick="window.toggleDarkMode()"
-                        class="p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors focus:outline-none">
+                        class="p-2 rounded-lg hover:bg-pink-50 hover:text-pink-700 dark:hover:bg-pink-500/10 dark:hover:text-pink-200 transition-colors focus:outline-none">
                         <flux:icon name="moon" class="w-5 h-5 dark:hidden" />
                         <flux:icon name="sun" class="w-5 h-5 hidden dark:block" />
                     </button>
@@ -191,7 +191,7 @@
                     @else
                         <flux:tooltip content="{{ __('Sign in to your account') }}" position="bottom">
                             <flux:button href="{{ route('login') }}" variant="primary" size="sm"
-                                class="group/signin px-5 font-bold shadow-sm transition-all hover:scale-[1.02] active:scale-95">
+                                class="group/signin px-5 font-bold shadow-sm transition-all hover:scale-[1.02] active:scale-95 bg-pink-600 hover:bg-pink-700 dark:bg-pink-500 dark:hover:bg-pink-400 border-pink-600 dark:border-pink-500">
                                 <span>{{ __('Sign in') }}</span>
                                 <flux:icon name="arrow-right"
                                     class="w-4 h-4 ml-1.5 transition-transform group-hover/signin:translate-x-1" />
@@ -318,11 +318,14 @@
     <div class="relative mx-auto flex max-w-[1400px] flex-col gap-6 px-4 pb-24 pt-6 sm:px-6 lg:flex-row lg:gap-10 lg:pt-10">
         <aside x-data="{
             projectModal: false,
+            deleteProjectModal: false,
             projectMenuOpen: null,
             projectFormMode: 'create',
             editingProjectId: null,
             activeProject: 1,
             projectForm: { name: '', color: 'zinc', icon: 'folder' },
+            projectToDelete: null,
+            deleteConfirmationName: '',
             projectColors: [
                 { value: 'zinc', label: 'เทา', swatch: 'bg-zinc-500', button: 'bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900' },
                 { value: 'sky', label: 'ฟ้า', swatch: 'bg-sky-500', button: 'bg-sky-500 text-white' },
@@ -360,6 +363,18 @@
                 this.projectForm = { name: project.name, color: project.color, icon: project.icon };
                 this.projectMenuOpen = null;
                 this.projectModal = true;
+            },
+            openDeleteProjectModal(project) {
+                if (this.projects.length === 1) {
+                    this.projectMenuOpen = null;
+                    this.toast('ต้องมีอย่างน้อย 1 โครงการในระบบ', 'warning');
+                    return;
+                }
+
+                this.projectToDelete = project;
+                this.deleteConfirmationName = '';
+                this.projectMenuOpen = null;
+                this.deleteProjectModal = true;
             },
             saveProject() {
                 if (!this.projectForm.name.trim()) {
@@ -405,28 +420,37 @@
                 this.projectMenuOpen = null;
                 this.toast('คัดลอกโครงการเรียบร้อยแล้ว', 'success');
             },
-            deleteProject(projectId) {
-                if (this.projects.length === 1) {
-                    this.projectMenuOpen = null;
-                    this.toast('ต้องมีอย่างน้อย 1 โครงการในระบบ', 'warning');
+            confirmDeleteProject() {
+                if (!this.projectToDelete) {
+                    this.toast('ไม่พบโครงการที่ต้องการลบ', 'danger');
                     return;
                 }
 
-                const index = this.projects.findIndex(item => item.id === projectId);
+                if (this.deleteConfirmationName.trim() !== this.projectToDelete.name) {
+                    this.toast('ชื่อโครงการไม่ตรงกัน กรุณาตรวจสอบอีกครั้ง', 'warning');
+                    return;
+                }
+
+                const index = this.projects.findIndex(item => item.id === this.projectToDelete.id);
                 if (index === -1) {
                     this.toast('ไม่พบโครงการที่ต้องการลบ', 'danger');
                     return;
                 }
 
+                const deletedProjectName = this.projectToDelete.name;
+                const deletedProjectId = this.projectToDelete.id;
+
                 this.projects.splice(index, 1);
-                if (this.activeProject === projectId) {
+                if (this.activeProject === deletedProjectId) {
                     this.activeProject = this.projects[0]?.id ?? null;
                 }
-                this.projectMenuOpen = null;
-                this.toast('ลบโครงการเรียบร้อยแล้ว', 'danger');
+                this.deleteProjectModal = false;
+                this.projectToDelete = null;
+                this.deleteConfirmationName = '';
+                this.toast('ลบโครงการ ' + deletedProjectName + ' เรียบร้อยแล้ว', 'danger');
             }
         }"
-            class="custom-scrollbar w-full shrink-0 overflow-hidden rounded-2xl border border-zinc-200/80 bg-zinc-50/60 p-4 dark:border-zinc-800 dark:bg-zinc-900/50 lg:block lg:w-64 lg:rounded-none lg:border-0 lg:bg-transparent lg:p-0 lg:h-[calc(100vh-10rem)] lg:overflow-y-auto lg:pr-4 lg:visible-scrollbar">
+            class="custom-scrollbar w-full shrink-0 overflow-hidden rounded-2xl border border-zinc-200/80 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900/50 lg:block lg:w-64 lg:rounded-none lg:border-0 lg:bg-transparent lg:p-0 lg:h-[calc(100vh-10rem)] lg:overflow-y-auto lg:pr-4 lg:visible-scrollbar">
             <div class="space-y-4">
                 <div class="flex items-center justify-between">
                     <h2 class="text-lg font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">โครงการ</h2>
@@ -434,7 +458,7 @@
                 </div>
 
                 <button type="button" x-on:click="openCreateProjectModal()"
-                    class="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-dashed border-zinc-300 bg-white px-4 py-3 text-sm font-semibold text-zinc-700 transition hover:border-pink-400 hover:text-zinc-900 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-200 dark:hover:border-pink-500 dark:hover:text-zinc-100">
+                    class="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-dashed border-pink-300 bg-white/90 px-4 py-3 text-sm font-semibold text-pink-700 transition hover:border-pink-500 hover:bg-pink-50 hover:text-pink-800 dark:border-pink-500/30 dark:bg-zinc-950 dark:text-pink-300 dark:hover:border-pink-500 dark:hover:bg-pink-500/10 dark:hover:text-pink-200">
                     <flux:icon name="plus" class="size-4" />
                     <span>สร้างโครงการใหม่</span>
                 </button>
@@ -463,25 +487,25 @@
                             <div class="absolute right-2 top-1/2 -translate-y-1/2">
                                 <button type="button"
                                     x-on:click.stop="projectMenuOpen = projectMenuOpen === project.id ? null : project.id"
-                                    class="inline-flex size-8 items-center justify-center rounded-full text-zinc-400 opacity-0 transition hover:bg-zinc-200 hover:text-zinc-900 group-hover:opacity-100 dark:hover:bg-zinc-700 dark:hover:text-zinc-100"
+                                    class="inline-flex size-8 items-center justify-center rounded-full text-zinc-400 opacity-0 transition hover:bg-pink-100 hover:text-pink-700 group-hover:opacity-100 dark:hover:bg-pink-500/10 dark:hover:text-pink-200"
                                     x-bind:class="projectMenuOpen === project.id || activeProject === project.id ? 'opacity-100' : ''"
                                     aria-label="จัดการโครงการ">
                                     <flux:icon name="ellipsis-horizontal" class="size-4" />
                                 </button>
 
                                 <div x-cloak x-show="projectMenuOpen === project.id" x-transition.opacity x-on:click.outside="projectMenuOpen = null"
-                                    class="absolute right-0 z-20 mt-2 w-44 rounded-2xl border border-zinc-200 bg-white p-1.5 shadow-lg dark:border-zinc-700 dark:bg-zinc-950">
+                                    class="absolute right-0 z-20 mt-2 w-44 rounded-2xl border border-pink-200/80 bg-white p-1.5 shadow-lg shadow-pink-100/50 dark:border-zinc-700 dark:bg-zinc-950 dark:shadow-none">
                                     <button type="button" x-on:click="openEditProjectModal(project)"
-                                        class="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left text-sm text-zinc-600 transition hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-300 dark:hover:bg-zinc-900 dark:hover:text-zinc-100">
+                                        class="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left text-sm text-zinc-600 transition hover:bg-pink-50 hover:text-pink-800 dark:text-zinc-300 dark:hover:bg-pink-500/10 dark:hover:text-pink-100">
                                         <flux:icon name="pencil-square" class="size-4" />
                                         แก้ไข
                                     </button>
                                     <button type="button" x-on:click="duplicateProject(project)"
-                                        class="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left text-sm text-zinc-600 transition hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-300 dark:hover:bg-zinc-900 dark:hover:text-zinc-100">
+                                        class="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left text-sm text-zinc-600 transition hover:bg-pink-50 hover:text-pink-800 dark:text-zinc-300 dark:hover:bg-pink-500/10 dark:hover:text-pink-100">
                                         <flux:icon name="square-2-stack" class="size-4" />
                                         คัดลอกโครงการ
                                     </button>
-                                    <button type="button" x-on:click="deleteProject(project.id)"
+                                    <button type="button" x-on:click="openDeleteProjectModal(project)"
                                         class="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left text-sm text-rose-600 transition hover:bg-rose-50 hover:text-rose-700 dark:text-rose-400 dark:hover:bg-rose-500/10 dark:hover:text-rose-300">
                                         <flux:icon name="trash" class="size-4" />
                                         ลบ
@@ -496,7 +520,7 @@
             <div x-cloak x-show="projectModal" x-transition.opacity
                 class="fixed inset-0 z-50 flex items-center justify-center bg-zinc-950/40 px-4 backdrop-blur-sm">
                 <div x-show="projectModal" x-transition
-                    class="w-full max-w-lg rounded-[1.75rem] border border-zinc-200 bg-white p-6 dark:border-zinc-700 dark:bg-zinc-900">
+                    class="w-full max-w-lg rounded-[1.75rem] border border-pink-200 bg-white p-6 shadow-2xl shadow-pink-100/60 dark:border-zinc-700 dark:bg-zinc-900 dark:shadow-none">
                     <div class="flex items-start justify-between gap-4">
                         <div class="space-y-1">
                             <h3 class="text-xl font-semibold text-zinc-900 dark:text-zinc-100" x-text="projectFormMode === 'create' ? 'สร้างโครงการใหม่' : 'แก้ไขโครงการ'"></h3>
@@ -511,7 +535,7 @@
                     <div class="mt-6 space-y-2">
                         <label class="text-sm font-medium text-zinc-700 dark:text-zinc-200">ชื่อโครงการ</label>
                         <input x-model="projectForm.name" type="text" placeholder="เช่น โครงการวิทยานิพนธ์ปี 2026"
-                            class="w-full rounded-2xl border border-zinc-200 bg-white px-4 py-3 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-900/5 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-zinc-500 dark:focus:ring-white/5">
+                            class="w-full rounded-2xl border border-pink-200 bg-white px-4 py-3 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500 dark:focus:ring-pink-500/10">
                     </div>
 
                     <div class="mt-5 space-y-3">
@@ -521,8 +545,8 @@
                                 <button type="button" x-on:click="projectForm.color = color.value"
                                     class="flex items-center gap-2 rounded-2xl border px-3 py-2 text-sm transition"
                                     x-bind:class="projectForm.color === color.value
-                                        ? 'border-zinc-900 bg-zinc-50 text-zinc-900 dark:border-zinc-100 dark:bg-zinc-800 dark:text-zinc-100'
-                                        : 'border-zinc-200 text-zinc-600 hover:border-zinc-300 hover:text-zinc-900 dark:border-zinc-700 dark:text-zinc-300 dark:hover:border-zinc-500 dark:hover:text-zinc-100'">
+                                        ? 'border-pink-400 bg-pink-50 text-pink-800 dark:border-pink-500 dark:bg-pink-500/10 dark:text-pink-100'
+                                        : 'border-zinc-200 text-zinc-600 hover:border-pink-300 hover:text-pink-800 dark:border-zinc-700 dark:text-zinc-300 dark:hover:border-pink-500 dark:hover:text-pink-100'">
                                     <span class="size-3 rounded-full" :class="color.swatch"></span>
                                     <span x-text="color.label"></span>
                                 </button>
@@ -537,8 +561,8 @@
                                 <button type="button" x-on:click="projectForm.icon = icon.value"
                                     class="flex items-center gap-2 rounded-2xl border px-3 py-2 text-sm transition"
                                     x-bind:class="projectForm.icon === icon.value
-                                        ? 'border-zinc-900 bg-zinc-50 text-zinc-900 dark:border-zinc-100 dark:bg-zinc-800 dark:text-zinc-100'
-                                        : 'border-zinc-200 text-zinc-600 hover:border-zinc-300 hover:text-zinc-900 dark:border-zinc-700 dark:text-zinc-300 dark:hover:border-zinc-500 dark:hover:text-zinc-100'">
+                                        ? 'border-pink-400 bg-pink-50 text-pink-800 dark:border-pink-500 dark:bg-pink-500/10 dark:text-pink-100'
+                                        : 'border-zinc-200 text-zinc-600 hover:border-pink-300 hover:text-pink-800 dark:border-zinc-700 dark:text-zinc-300 dark:hover:border-pink-500 dark:hover:text-pink-100'">
                                     <span class="inline-flex size-5 items-center justify-center">
                                         <flux:icon x-show="icon.value === 'folder'" name="folder" class="size-4" />
                                         <flux:icon x-show="icon.value === 'book-open'" name="book-open" class="size-4" />
@@ -560,10 +584,53 @@
                         </button>
                         <button type="button"
                             x-on:click="saveProject()"
-                            class="inline-flex items-center gap-2 rounded-full bg-zinc-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-white">
+                            class="inline-flex items-center gap-2 rounded-full bg-pink-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-pink-700 dark:bg-pink-500 dark:text-white dark:hover:bg-pink-400">
                             <flux:icon x-show="projectFormMode === 'create'" name="plus" class="size-4" />
                             <flux:icon x-show="projectFormMode === 'edit'" name="check" class="size-4" />
                             <span x-text="projectFormMode === 'create' ? 'สร้างโครงการ' : 'บันทึกการแก้ไข'"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div x-cloak x-show="deleteProjectModal" x-transition.opacity
+                class="fixed inset-0 z-50 flex items-center justify-center bg-zinc-950/40 px-4 backdrop-blur-sm">
+                <div x-show="deleteProjectModal" x-transition
+                    class="w-full max-w-md rounded-[1.75rem] border border-rose-200 bg-white p-6 shadow-2xl shadow-rose-100/60 dark:border-zinc-700 dark:bg-zinc-900 dark:shadow-none">
+                    <div class="flex items-start justify-between gap-4">
+                        <div class="space-y-1">
+                            <h3 class="text-xl font-semibold text-zinc-900 dark:text-zinc-100">ยืนยันการลบโครงการ</h3>
+                            <p class="text-sm text-zinc-500 dark:text-zinc-400">
+                                พิมพ์ชื่อโครงการให้ตรงเพื่อยืนยันการลบอย่างถาวร
+                            </p>
+                        </div>
+                        <button type="button" x-on:click="deleteProjectModal = false; projectToDelete = null; deleteConfirmationName = ''"
+                            class="rounded-full p-2 text-zinc-400 transition hover:bg-zinc-100 hover:text-zinc-900 dark:hover:bg-zinc-800 dark:hover:text-zinc-100">
+                            <flux:icon name="x-mark" class="size-5" />
+                        </button>
+                    </div>
+
+                    <div class="mt-5 rounded-2xl bg-rose-50 px-4 py-3 text-sm text-rose-700 dark:bg-rose-500/10 dark:text-rose-300">
+                        ชื่อโครงการที่ต้องพิมพ์:
+                        <span class="font-semibold" x-text="projectToDelete?.name || '-'"></span>
+                    </div>
+
+                    <div class="mt-5 space-y-2">
+                        <label class="text-sm font-medium text-zinc-700 dark:text-zinc-200">พิมพ์ชื่อโครงการเพื่อยืนยัน</label>
+                        <input x-model="deleteConfirmationName" type="text"
+                            placeholder="กรอกชื่อโครงการให้ตรงกัน"
+                            class="w-full rounded-2xl border border-rose-200 bg-white px-4 py-3 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-rose-400 focus:outline-none focus:ring-2 focus:ring-rose-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-rose-500 dark:focus:ring-rose-500/10">
+                    </div>
+
+                    <div class="mt-6 flex justify-end gap-3">
+                        <button type="button" x-on:click="deleteProjectModal = false; projectToDelete = null; deleteConfirmationName = ''"
+                            class="px-4 py-2 text-sm font-medium text-zinc-500 transition hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100">
+                            ยกเลิก
+                        </button>
+                        <button type="button" x-on:click="confirmDeleteProject()"
+                            class="inline-flex items-center gap-2 rounded-full bg-rose-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-rose-700">
+                            <flux:icon name="trash" class="size-4" />
+                            ยืนยันการลบ
                         </button>
                     </div>
                 </div>
@@ -572,7 +639,50 @@
 
         <main class="min-w-0 flex-1">
             <div class="grid gap-3 lg:grid-cols-7">
-                <section x-data="{ smartQuery: '', selectedType: '', modalOpen: false, modalSearch: '', copied: false, exportOpen: false, citationStyle: 'apa7', displayMode: 'paper' }"
+                <section x-data="{
+                    smartQuery: '',
+                    selectedType: '',
+                    modalOpen: false,
+                    modalSearch: '',
+                    copied: false,
+                    exportOpen: false,
+                    citationStyle: 'apa7',
+                    displayMode: 'paper',
+                    citations: [
+                        { id: 1, text: 'Johnson, A. (2025). Smart search for citation workflows. Journal of Digital Research, 18(2), 44-61.' },
+                        { id: 2, text: 'Smith, J. (2026). Designing better citations. Babybib Press.' },
+                        { id: 3, text: 'Thanakon, P. (2024). แนวทางการจัดการบรรณานุกรมสำหรับงานวิจัยสมัยใหม่. วารสารสารสนเทศศึกษา, 12(1), 15-32.' },
+                        { id: 4, text: 'Babybib Team. (2026, April 2). Citation generator manual. https://babybib.app/manual' }
+                    ],
+                    toast(text, variant = 'success') {
+                        window.Flux?.toast(text, { variant, position: 'bottom end' });
+                    },
+                    copyEntry(text) {
+                        navigator.clipboard.writeText(text).then(() => this.toast('คัดลอกรายการแล้ว', 'success'));
+                    },
+                    viewEntry(entry) {
+                        this.toast(`ดูรายการ: ${entry.text}`, 'success');
+                    },
+                    moveEntry(entry) {
+                        const target = window.prompt('ย้ายรายการนี้ไปยังโครงการชื่ออะไร?', 'โครงการวิจัยบทที่ 1');
+                        if (target === null) return;
+                        if (!target.trim()) {
+                            this.toast('กรุณาระบุชื่อโครงการปลายทาง', 'warning');
+                            return;
+                        }
+                        this.toast(`ย้ายรายการไปยังโครงการ ${target.trim()} แล้ว`, 'success');
+                    },
+                    editEntry(entry) {
+                        const updated = window.prompt('แก้ไขรายการบรรณานุกรม', entry.text);
+                        if (updated === null) return;
+                        if (!updated.trim()) {
+                            this.toast('ไม่สามารถบันทึกรายการว่างได้', 'warning');
+                            return;
+                        }
+                        entry.text = updated.trim();
+                        this.toast('อัปเดตรายการเรียบร้อยแล้ว', 'success');
+                    }
+                }"
                     class="lg:col-span-6">
                     <div class="flex min-h-[calc(100vh-8rem)] flex-col pr-2">
                         <div class="mx-auto w-full max-w-3xl space-y-3">
@@ -615,9 +725,9 @@
                                 </div>
                                 <input x-model="smartQuery" type="text"
                                     placeholder="Smart search: ค้นหาประเภทอ้างอิง ผู้แต่ง DOI หรือคำสำคัญ..."
-                                    class="w-full rounded-2xl border border-zinc-200 bg-white py-3.5 pl-12 pr-28 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-900/5 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-zinc-500 dark:focus:ring-white/5">
+                                    class="w-full rounded-2xl border border-pink-200 bg-white py-3.5 pl-12 pr-28 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500 dark:focus:ring-pink-500/10">
                                 <div class="absolute right-3 top-0 -translate-y-1/2">
-                                    <span class="inline-flex items-center gap-1.5 bg-white px-1 text-[11px] font-medium text-zinc-400 dark:bg-zinc-900 dark:text-zinc-500">
+                                    <span class="inline-flex items-center gap-1.5 bg-white px-1 text-[11px] font-medium text-pink-400 dark:bg-zinc-900 dark:text-pink-300">
                                         <flux:icon name="question-mark-circle" class="size-3.5" />
                                         ช่วยเหลือ
                                     </span>
@@ -629,7 +739,7 @@
                                     <span class="flex items-center justify-between gap-3">
                                         <span>รูปแบบบรรณานุกรม</span>
                                         <a href="{{ url('/manual') }}"
-                                            class="text-[11px] font-medium text-zinc-900 underline underline-offset-2 transition hover:text-pink-500 dark:text-zinc-100 dark:hover:text-pink-400">
+                                            class="text-[11px] font-medium text-pink-600 underline underline-offset-2 transition hover:text-pink-700 dark:text-pink-300 dark:hover:text-pink-200">
                                             เรียนรู้เพิ่มเติม
                                         </a>
                                     </span>
@@ -646,22 +756,22 @@
                                     <div class="flex items-center justify-center gap-2">
                                         <flux:tooltip content="มุมมองแบบกระดาษ" position="top">
                                             <button type="button" x-on:click="displayMode = 'paper'"
-                                                class="inline-flex size-10 items-center justify-center rounded-xl border border-zinc-200 bg-white transition dark:border-zinc-700 dark:bg-zinc-950"
-                                                x-bind:class="displayMode === 'paper' ? 'text-zinc-900 ring-2 ring-zinc-900/10 dark:text-zinc-100 dark:ring-white/10' : 'text-zinc-400 hover:text-zinc-900 dark:text-zinc-500 dark:hover:text-zinc-100'">
+                                                class="inline-flex size-10 items-center justify-center rounded-xl border border-pink-200 bg-white transition dark:border-zinc-700 dark:bg-zinc-950"
+                                                x-bind:class="displayMode === 'paper' ? 'border-pink-300 text-pink-700 ring-2 ring-pink-500/15 dark:border-pink-500/50 dark:text-pink-200 dark:ring-pink-500/20' : 'text-zinc-400 hover:border-pink-200 hover:text-pink-700 dark:text-zinc-500 dark:hover:text-pink-200'">
                                                 <flux:icon name="document-text" class="size-4" />
                                             </button>
                                         </flux:tooltip>
                                         <flux:tooltip content="มุมมองแบบรายการ" position="top">
                                             <button type="button" x-on:click="displayMode = 'list'"
-                                                class="inline-flex size-10 items-center justify-center rounded-xl border border-zinc-200 bg-white transition dark:border-zinc-700 dark:bg-zinc-950"
-                                                x-bind:class="displayMode === 'list' ? 'text-zinc-900 ring-2 ring-zinc-900/10 dark:text-zinc-100 dark:ring-white/10' : 'text-zinc-400 hover:text-zinc-900 dark:text-zinc-500 dark:hover:text-zinc-100'">
+                                                class="inline-flex size-10 items-center justify-center rounded-xl border border-pink-200 bg-white transition dark:border-zinc-700 dark:bg-zinc-950"
+                                                x-bind:class="displayMode === 'list' ? 'border-pink-300 text-pink-700 ring-2 ring-pink-500/15 dark:border-pink-500/50 dark:text-pink-200 dark:ring-pink-500/20' : 'text-zinc-400 hover:border-pink-200 hover:text-pink-700 dark:text-zinc-500 dark:hover:text-pink-200'">
                                                 <flux:icon name="list-bullet" class="size-4" />
                                             </button>
                                         </flux:tooltip>
                                         <flux:tooltip content="แสดงเฉพาะ citation" position="top">
                                             <button type="button" x-on:click="displayMode = 'citation'"
-                                                class="inline-flex size-10 items-center justify-center rounded-xl border border-zinc-200 bg-white transition dark:border-zinc-700 dark:bg-zinc-950"
-                                                x-bind:class="displayMode === 'citation' ? 'text-zinc-900 ring-2 ring-zinc-900/10 dark:text-zinc-100 dark:ring-white/10' : 'text-zinc-400 hover:text-zinc-900 dark:text-zinc-500 dark:hover:text-zinc-100'">
+                                                class="inline-flex size-10 items-center justify-center rounded-xl border border-pink-200 bg-white transition dark:border-zinc-700 dark:bg-zinc-950"
+                                                x-bind:class="displayMode === 'citation' ? 'border-pink-300 text-pink-700 ring-2 ring-pink-500/15 dark:border-pink-500/50 dark:text-pink-200 dark:ring-pink-500/20' : 'text-zinc-400 hover:border-pink-200 hover:text-pink-700 dark:text-zinc-500 dark:hover:text-pink-200'">
                                                 <flux:icon name="chat-bubble-bottom-center-text" class="size-4" />
                                             </button>
                                         </flux:tooltip>
@@ -673,7 +783,7 @@
                                     <div class="flex gap-2">
                                         <button type="button"
                                             x-on:click="navigator.clipboard.writeText(((displayMode === 'list' ? $refs.listView : (displayMode === 'citation' ? $refs.citationView : $refs.paperView)).innerText || '').trim()); copied = true; setTimeout(() => copied = false, 1800)"
-                                            class="inline-flex h-10 items-center gap-2 rounded-xl border border-zinc-200 bg-white px-3.5 text-sm font-medium text-zinc-700 transition hover:border-zinc-300 hover:text-zinc-900 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-200 dark:hover:border-zinc-500 dark:hover:text-zinc-100">
+                                            class="inline-flex h-10 items-center gap-2 rounded-xl border border-pink-200 bg-white px-3.5 text-sm font-medium text-zinc-700 transition hover:border-pink-300 hover:text-pink-700 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-200 dark:hover:border-pink-500 dark:hover:text-pink-200">
                                             <template x-if="!copied">
                                                 <flux:icon name="clipboard-document" class="size-4" />
                                             </template>
@@ -685,20 +795,20 @@
 
                                         <div class="relative">
                                             <button type="button" x-on:click="exportOpen = !exportOpen"
-                                                class="inline-flex h-10 items-center gap-2 rounded-xl border border-zinc-200 bg-white px-3.5 text-sm font-medium text-zinc-700 transition hover:border-zinc-300 hover:text-zinc-900 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-200 dark:hover:border-zinc-500 dark:hover:text-zinc-100">
+                                                class="inline-flex h-10 items-center gap-2 rounded-xl border border-pink-200 bg-white px-3.5 text-sm font-medium text-zinc-700 transition hover:border-pink-300 hover:text-pink-700 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-200 dark:hover:border-pink-500 dark:hover:text-pink-200">
                                                 <flux:icon name="arrow-down-tray" class="size-4" />
                                                 <span>ส่งออก</span>
                                             </button>
 
                                             <div x-cloak x-show="exportOpen" x-transition.opacity x-on:click.outside="exportOpen = false"
-                                                class="absolute right-0 z-20 mt-2 min-w-36 rounded-xl border border-zinc-200 bg-white p-1.5 shadow-lg dark:border-zinc-700 dark:bg-zinc-950">
+                                                class="absolute right-0 z-20 mt-2 min-w-36 rounded-xl border border-pink-200 bg-white p-1.5 shadow-lg shadow-pink-100/50 dark:border-zinc-700 dark:bg-zinc-950 dark:shadow-none">
                                                 <button type="button" x-on:click="exportOpen = false"
-                                                    class="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm text-zinc-600 transition hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-300 dark:hover:bg-zinc-900 dark:hover:text-zinc-100">
+                                                    class="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm text-zinc-600 transition hover:bg-pink-50 hover:text-pink-800 dark:text-zinc-300 dark:hover:bg-pink-500/10 dark:hover:text-pink-100">
                                                     <flux:icon name="document-text" class="size-4" />
                                                     Word
                                                 </button>
                                                 <button type="button" x-on:click="window.print(); exportOpen = false"
-                                                    class="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm text-zinc-600 transition hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-300 dark:hover:bg-zinc-900 dark:hover:text-zinc-100">
+                                                    class="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm text-zinc-600 transition hover:bg-pink-50 hover:text-pink-800 dark:text-zinc-300 dark:hover:bg-pink-500/10 dark:hover:text-pink-100">
                                                     <flux:icon name="document" class="size-4" />
                                                     PDF
                                                 </button>
@@ -713,7 +823,7 @@
                         <div x-cloak x-show="modalOpen" x-transition.opacity
                             class="fixed inset-0 z-50 flex items-center justify-center bg-zinc-950/50 px-4 py-6 backdrop-blur-sm">
                             <div x-show="modalOpen" x-transition
-                                class="flex max-h-[90vh] w-full max-w-6xl flex-col overflow-hidden rounded-[2rem] border border-zinc-200 bg-white dark:border-zinc-700 dark:bg-zinc-900">
+                                class="flex max-h-[90vh] w-full max-w-6xl flex-col overflow-hidden rounded-[2rem] border border-pink-200 bg-white shadow-2xl shadow-pink-100/60 dark:border-zinc-700 dark:bg-zinc-900 dark:shadow-none">
                                 <div class="flex items-start justify-between gap-4 border-b border-zinc-200 px-6 py-5 dark:border-zinc-800 lg:px-8">
                                     <div class="space-y-1">
                                         <p class="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-400 dark:text-zinc-500">Resource Library</p>
@@ -738,7 +848,7 @@
                                         </div>
                                         <input x-model.debounce.150ms="modalSearch" type="text"
                                             placeholder="ค้นหาประเภททรัพยากร เช่น หนังสืออิเล็กทรอนิกส์, วิทยานิพนธ์, เว็บเพจ"
-                                            class="w-full rounded-2xl border border-zinc-200 bg-zinc-50 py-3 pl-12 pr-4 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-900/5 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-zinc-500 dark:focus:ring-white/5">
+                                            class="w-full rounded-2xl border border-pink-200 bg-pink-50/50 py-3 pl-12 pr-4 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500 dark:focus:ring-pink-500/10">
                                     </div>
                                 </div>
 
@@ -772,7 +882,7 @@
                                                     default => 'bg-teal-50 text-teal-700 ring-teal-200 dark:bg-teal-500/10 dark:text-teal-300 dark:ring-teal-400/20',
                                                 };
                                             @endphp
-                                            <div class="rounded-3xl border border-zinc-200 bg-zinc-50/60 p-5 dark:border-zinc-800 dark:bg-zinc-950/50"
+                                            <div class="rounded-3xl border border-pink-100 bg-gradient-to-br from-pink-50/90 via-white to-rose-50/70 p-5 dark:border-zinc-800 dark:bg-zinc-950/50"
                                                 x-show="@js(($group['label'].' '.implode(' ', $group['items']))).toLowerCase().includes(modalSearch.toLowerCase())"
                                                 x-transition.opacity.duration.150ms>
                                                 <div class="mb-4 flex items-center gap-3">
@@ -790,7 +900,7 @@
                                                         <button type="button"
                                                             x-show="@js($item).toLowerCase().includes(modalSearch.toLowerCase()) || @js($group['label']).toLowerCase().includes(modalSearch.toLowerCase())"
                                                             x-on:click="selectedType = @js($item); smartQuery = @js($item); modalOpen = false"
-                                                            class="flex w-full items-start justify-between gap-3 rounded-2xl border border-transparent bg-white px-4 py-3 text-left text-sm text-zinc-700 transition hover:border-pink-200 hover:bg-pink-50 hover:text-zinc-900 dark:bg-zinc-900 dark:text-zinc-200 dark:hover:border-pink-500/30 dark:hover:bg-zinc-800 dark:hover:text-zinc-100">
+                                                            class="flex w-full items-start justify-between gap-3 rounded-2xl border border-transparent bg-white px-4 py-3 text-left text-sm text-zinc-700 transition hover:border-pink-200 hover:bg-pink-50 hover:text-pink-800 dark:bg-zinc-900 dark:text-zinc-200 dark:hover:border-pink-500/30 dark:hover:bg-pink-500/10 dark:hover:text-pink-100">
                                                             <span class="leading-6">{{ $item }}</span>
                                                             <flux:icon name="arrow-up-right" class="mt-1 size-4 shrink-0 text-zinc-300 dark:text-zinc-600" />
                                                         </button>
@@ -823,20 +933,46 @@
                             <template x-if="displayMode === 'paper'">
                                 <div x-ref="paperView"
                                     class="flex min-h-[calc(100vh-15rem)] w-full max-w-3xl flex-1 flex-col border border-zinc-200 bg-white px-8 py-10 dark:border-zinc-700 dark:bg-zinc-950">
-                                    <div class="mx-auto flex h-full w-full max-w-xl flex-col space-y-6 text-zinc-800 dark:text-zinc-100">
-                                        <div class="space-y-2 border-b border-dashed border-zinc-200 pb-5 dark:border-zinc-700">
-                                            <p class="text-xs font-semibold uppercase tracking-[0.24em] text-zinc-400 dark:text-zinc-500"
-                                                x-text="citationStyle === 'apa7' ? 'APA 7th Preview' : (citationStyle === 'mla9' ? 'MLA 9th Preview' : 'Chicago 17th Preview')"></p>
-                                            <h3 class="text-2xl font-semibold tracking-tight">Your formatted reference will appear here</h3>
+                                    <div class="mx-auto flex h-full w-full max-w-xl flex-col text-zinc-800 dark:text-zinc-100">
+                                        <div class="pb-5 text-center">
+                                            <h3 class="text-[18px] font-semibold tracking-tight">บรรณานุกรม</h3>
                                         </div>
-
-                                        <div class="space-y-4 text-[15px] leading-8 text-zinc-600 dark:text-zinc-300">
-                                            <p>
-                                                กรอกข้อมูลของทรัพยากรทางด้านซ้าย แล้วระบบจะแสดงรูปแบบบรรณานุกรมที่จัดเรียงแล้วในพื้นที่นี้
-                                            </p>
-                                            <p>
-                                                คุณสามารถใช้พื้นที่นี้เพื่อตรวจสอบการสะกด ชื่อผู้แต่ง ปีที่พิมพ์ DOI และองค์ประกอบอื่น ๆ ก่อนคัดลอกไปใช้งานจริง
-                                            </p>
+                                        <div class="space-y-0 text-[15px] leading-[2] text-zinc-700 dark:text-zinc-300">
+                                            <template x-for="entry in citations" :key="'paper-' + entry.id">
+                                                <div class="group relative rounded-2xl px-3 py-1.5 transition hover:bg-pink-50 hover:ring-1 hover:ring-pink-200 dark:hover:bg-pink-500/10 dark:hover:ring-pink-500/20">
+                                                    <p style="padding-left: 0.5in; text-indent: -0.5in; line-height: 2;" x-text="entry.text"></p>
+                                                    <div class="absolute right-3 top-3 hidden items-center gap-2 rounded-full bg-white/95 px-2 py-1.5 shadow-sm ring-1 ring-pink-200 group-hover:flex dark:bg-zinc-950/95 dark:ring-pink-500/20">
+                                                        <flux:tooltip content="ดู">
+                                                            <button type="button" x-on:click="viewEntry(entry)"
+                                                                class="inline-flex size-8 items-center justify-center rounded-full text-zinc-500 transition hover:bg-pink-100 hover:text-pink-700 dark:text-zinc-400 dark:hover:bg-pink-500/10 dark:hover:text-pink-200"
+                                                                aria-label="ดู">
+                                                                <flux:icon name="eye" class="size-4" />
+                                                            </button>
+                                                        </flux:tooltip>
+                                                        <flux:tooltip content="แก้ไข">
+                                                            <button type="button" x-on:click="editEntry(entry)"
+                                                                class="inline-flex size-8 items-center justify-center rounded-full text-zinc-500 transition hover:bg-pink-100 hover:text-pink-700 dark:text-zinc-400 dark:hover:bg-pink-500/10 dark:hover:text-pink-200"
+                                                                aria-label="แก้ไข">
+                                                                <flux:icon name="pencil-square" class="size-4" />
+                                                            </button>
+                                                        </flux:tooltip>
+                                                        <flux:tooltip content="คัดลอก">
+                                                            <button type="button" x-on:click="copyEntry(entry.text)"
+                                                                class="inline-flex size-8 items-center justify-center rounded-full text-zinc-500 transition hover:bg-pink-100 hover:text-pink-700 dark:text-zinc-400 dark:hover:bg-pink-500/10 dark:hover:text-pink-200"
+                                                                aria-label="คัดลอก">
+                                                                <flux:icon name="clipboard-document" class="size-4" />
+                                                            </button>
+                                                        </flux:tooltip>
+                                                        <flux:tooltip content="ย้ายโปรเจค">
+                                                            <button type="button" x-on:click="moveEntry(entry)"
+                                                                class="inline-flex size-8 items-center justify-center rounded-full text-zinc-500 transition hover:bg-pink-100 hover:text-pink-700 dark:text-zinc-400 dark:hover:bg-pink-500/10 dark:hover:text-pink-200"
+                                                                aria-label="ย้ายโปรเจค">
+                                                                <flux:icon name="folder-open" class="size-4" />
+                                                            </button>
+                                                        </flux:tooltip>
+                                                    </div>
+                                                </div>
+                                            </template>
                                         </div>
                                     </div>
                                 </div>
@@ -844,30 +980,87 @@
 
                             <template x-if="displayMode === 'list'">
                                 <div x-ref="listView"
-                                    class="w-full max-w-3xl border border-zinc-200 bg-white px-8 py-8 dark:border-zinc-700 dark:bg-zinc-950">
-                                    <div class="space-y-5">
-                                        <div class="border-b border-zinc-200 pb-4 dark:border-zinc-700">
-                                            <h3 class="text-lg font-semibold text-zinc-900 dark:text-zinc-100">Reference List</h3>
-                                            <p class="mt-1 text-sm text-zinc-500 dark:text-zinc-400">แสดงผลรายการอ้างอิงแบบลิสต์ตามรูปแบบที่เลือก</p>
-                                        </div>
-                                        <ul class="space-y-4 text-[15px] leading-8 text-zinc-700 dark:text-zinc-300">
-                                            <li>Smith, J. (2026). <em>Designing better citations</em>. Babybib Press.</li>
-                                            <li>Johnson, A. (2025). Smart search for citation workflows. <em>Journal of Digital Research</em>, 18(2), 44-61.</li>
-                                            <li>Babybib Team. (2026, April 2). Citation generator manual. https://babybib.app/manual</li>
-                                        </ul>
-                                    </div>
+                                    class="w-full max-w-3xl px-2 py-4">
+                                    <ul class="space-y-4 text-[15px] leading-8 text-zinc-700 dark:text-zinc-300">
+                                        <template x-for="entry in citations" :key="'list-' + entry.id">
+                                            <li class="group flex items-start justify-between gap-4 rounded-2xl px-4 py-3 transition hover:bg-pink-50 hover:ring-1 hover:ring-pink-200 dark:hover:bg-pink-500/10 dark:hover:ring-pink-500/20">
+                                                <span class="min-w-0 flex-1 leading-8" x-text="entry.text"></span>
+                                                <div class="hidden shrink-0 items-center gap-1.5 group-hover:flex">
+                                                    <flux:tooltip content="ดู">
+                                                        <button type="button" x-on:click="viewEntry(entry)"
+                                                            class="inline-flex size-8 items-center justify-center rounded-full text-zinc-500 transition hover:bg-pink-100 hover:text-pink-700 dark:text-zinc-400 dark:hover:bg-pink-500/10 dark:hover:text-pink-200"
+                                                            aria-label="ดู">
+                                                            <flux:icon name="eye" class="size-4" />
+                                                        </button>
+                                                    </flux:tooltip>
+                                                    <flux:tooltip content="แก้ไข">
+                                                        <button type="button" x-on:click="editEntry(entry)"
+                                                            class="inline-flex size-8 items-center justify-center rounded-full text-zinc-500 transition hover:bg-pink-100 hover:text-pink-700 dark:text-zinc-400 dark:hover:bg-pink-500/10 dark:hover:text-pink-200"
+                                                            aria-label="แก้ไข">
+                                                            <flux:icon name="pencil-square" class="size-4" />
+                                                        </button>
+                                                    </flux:tooltip>
+                                                    <flux:tooltip content="คัดลอก">
+                                                        <button type="button" x-on:click="copyEntry(entry.text)"
+                                                            class="inline-flex size-8 items-center justify-center rounded-full text-zinc-500 transition hover:bg-pink-100 hover:text-pink-700 dark:text-zinc-400 dark:hover:bg-pink-500/10 dark:hover:text-pink-200"
+                                                            aria-label="คัดลอก">
+                                                            <flux:icon name="clipboard-document" class="size-4" />
+                                                        </button>
+                                                    </flux:tooltip>
+                                                    <flux:tooltip content="ย้ายโปรเจค">
+                                                        <button type="button" x-on:click="moveEntry(entry)"
+                                                            class="inline-flex size-8 items-center justify-center rounded-full text-zinc-500 transition hover:bg-pink-100 hover:text-pink-700 dark:text-zinc-400 dark:hover:bg-pink-500/10 dark:hover:text-pink-200"
+                                                            aria-label="ย้ายโปรเจค">
+                                                            <flux:icon name="folder-open" class="size-4" />
+                                                        </button>
+                                                    </flux:tooltip>
+                                                </div>
+                                            </li>
+                                        </template>
+                                    </ul>
                                 </div>
                             </template>
 
                             <template x-if="displayMode === 'citation'">
                                 <div x-ref="citationView"
-                                    class="w-full max-w-3xl border border-zinc-200 bg-white px-8 py-10 dark:border-zinc-700 dark:bg-zinc-950">
-                                    <div class="space-y-4">
-                                        <p class="text-xs font-semibold uppercase tracking-[0.24em] text-zinc-400 dark:text-zinc-500">Single Citation</p>
-                                        <p class="text-lg leading-9 text-zinc-800 dark:text-zinc-100">
-                                            Smith, J. (2026). <em>Designing better citations</em>. Babybib Press.
-                                        </p>
-                                    </div>
+                                    class="w-full max-w-3xl px-2 py-4">
+                                    <ul class="space-y-4 text-[15px] leading-8 text-zinc-700 dark:text-zinc-300">
+                                        <template x-for="entry in citations" :key="'citation-' + entry.id">
+                                            <li class="group flex items-start justify-between gap-4 rounded-2xl px-4 py-3 transition hover:bg-pink-50 hover:ring-1 hover:ring-pink-200 dark:hover:bg-pink-500/10 dark:hover:ring-pink-500/20">
+                                                <span class="min-w-0 flex-1 leading-8" x-text="entry.text"></span>
+                                                <div class="hidden shrink-0 items-center gap-1.5 group-hover:flex">
+                                                    <flux:tooltip content="ดู">
+                                                        <button type="button" x-on:click="viewEntry(entry)"
+                                                            class="inline-flex size-8 items-center justify-center rounded-full text-zinc-500 transition hover:bg-pink-100 hover:text-pink-700 dark:text-zinc-400 dark:hover:bg-pink-500/10 dark:hover:text-pink-200"
+                                                            aria-label="ดู">
+                                                            <flux:icon name="eye" class="size-4" />
+                                                        </button>
+                                                    </flux:tooltip>
+                                                    <flux:tooltip content="แก้ไข">
+                                                        <button type="button" x-on:click="editEntry(entry)"
+                                                            class="inline-flex size-8 items-center justify-center rounded-full text-zinc-500 transition hover:bg-pink-100 hover:text-pink-700 dark:text-zinc-400 dark:hover:bg-pink-500/10 dark:hover:text-pink-200"
+                                                            aria-label="แก้ไข">
+                                                            <flux:icon name="pencil-square" class="size-4" />
+                                                        </button>
+                                                    </flux:tooltip>
+                                                    <flux:tooltip content="คัดลอก">
+                                                        <button type="button" x-on:click="copyEntry(entry.text)"
+                                                            class="inline-flex size-8 items-center justify-center rounded-full text-zinc-500 transition hover:bg-pink-100 hover:text-pink-700 dark:text-zinc-400 dark:hover:bg-pink-500/10 dark:hover:text-pink-200"
+                                                            aria-label="คัดลอก">
+                                                            <flux:icon name="clipboard-document" class="size-4" />
+                                                        </button>
+                                                    </flux:tooltip>
+                                                    <flux:tooltip content="ย้ายโปรเจค">
+                                                        <button type="button" x-on:click="moveEntry(entry)"
+                                                            class="inline-flex size-8 items-center justify-center rounded-full text-zinc-500 transition hover:bg-pink-100 hover:text-pink-700 dark:text-zinc-400 dark:hover:bg-pink-500/10 dark:hover:text-pink-200"
+                                                            aria-label="ย้ายโปรเจค">
+                                                            <flux:icon name="folder-open" class="size-4" />
+                                                        </button>
+                                                    </flux:tooltip>
+                                                </div>
+                                            </li>
+                                        </template>
+                                    </ul>
                                 </div>
                             </template>
                         </div>
