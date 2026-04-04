@@ -648,6 +648,27 @@
                     exportOpen: false,
                     citationStyle: 'apa7',
                     displayMode: 'paper',
+                    formModalOpen: false,
+                    formResourceType: '',
+                    form: {
+                        authors: [{ lastName: '', firstName: '' }],
+                        year: '',
+                        title: '',
+                        publisher: '',
+                        volume: '',
+                        issue: '',
+                        pages: '',
+                        edition: '',
+                        editor: '',
+                        bookTitle: '',
+                        doi: '',
+                        url: '',
+                        journalName: '',
+                        websiteName: '',
+                        thesisType: 'master',
+                        university: '',
+                        databaseName: '',
+                    },
                     citations: [
                         { id: 1, text: 'Johnson, A. (2025). Smart search for citation workflows. Journal of Digital Research, 18(2), 44-61.' },
                         { id: 2, text: 'Smith, J. (2026). Designing better citations. Babybib Press.' },
@@ -656,6 +677,128 @@
                     ],
                     toast(text, variant = 'success') {
                         window.Flux?.toast(text, { variant, position: 'bottom end' });
+                    },
+                    resetForm() {
+                        this.form = {
+                            authors: [{ lastName: '', firstName: '' }],
+                            year: '', title: '', publisher: '', volume: '', issue: '',
+                            pages: '', edition: '', editor: '', bookTitle: '', doi: '', url: '',
+                            journalName: '', websiteName: '', thesisType: 'master', university: '', databaseName: '',
+                        };
+                    },
+                    openFormModal(type) {
+                        this.formResourceType = type;
+                        this.selectedType = type;
+                        this.smartQuery = type;
+                        this.modalOpen = false;
+                        this.resetForm();
+                        this.formModalOpen = true;
+                    },
+                    isBookType() {
+                        return ['หนังสือ','หนังสือชุดหลายเล่มจบ','บทความในหนังสือ','หนังสืออิเล็กทรอนิกส์ (มี DOI)','หนังสืออิเล็กทรอนิกส์ (ไม่มี DOI)'].includes(this.formResourceType);
+                    },
+                    isJournalType() {
+                        return ['บทความวารสาร','บทความวารสารอิเล็กทรอนิกส์ (มี DOI)','บทความวารสารอิเล็กทรอนิกส์ (ไม่มี DOI)','วารสารอิเล็กทรอนิกส์ (แบบมีฉบับพิมพ์)','วารสารอิเล็กทรอนิกส์ (แบบไม่มีฉบับพิมพ์)'].includes(this.formResourceType);
+                    },
+                    isWebType() {
+                        return ['เอกสารอิเล็กทรอนิกส์ (เว็บเพจ)','สื่อออนไลน์ (วิดีโอออนไลน์ บทความในโซเชียลมีเดีย)','ราชกิจจานุเบกษาออนไลน์','สิทธิบัตรออนไลน์','การติดต่อสื่อสารส่วนบุคคล'].includes(this.formResourceType);
+                    },
+                    isThesisType() {
+                        return ['วิทยานิพนธ์ (ที่ไม่ได้ตีพิมพ์)','วิทยานิพนธ์จากเว็บไซต์','วิทยานิพนธ์จากฐานข้อมูลเชิงพาณิชย์'].includes(this.formResourceType);
+                    },
+                    formatAuthors() {
+                        const valid = this.form.authors.filter(a => a.lastName.trim());
+                        if (!valid.length) return '';
+                        return valid.map((a, i) => {
+                            const last = a.lastName.trim();
+                            const first = a.firstName.trim();
+                            const name = first ? `${last}, ${first}` : last;
+                            if (valid.length === 1) return name;
+                            if (i === valid.length - 1) return `& ${name}`;
+                            if (valid.length === 2) return `${name} `;
+                            return `${name}, `;
+                        }).join('');
+                    },
+                    formatAuthorsCitation() {
+                        const valid = this.form.authors.filter(a => a.lastName.trim());
+                        if (!valid.length) return '';
+                        if (valid.length === 1) return valid[0].lastName.trim();
+                        if (valid.length === 2) return `${valid[0].lastName.trim()} and ${valid[1].lastName.trim()}`;
+                        return `${valid[0].lastName.trim()} et al.`;
+                    },
+                    generateBibliography() {
+                        const a = this.formatAuthors();
+                        const y = this.form.year.trim();
+                        const t = this.form.title.trim();
+                        if (!a && !t) return '';
+                        let bib = '';
+                        if (a) bib += a;
+                        bib += y ? ` (${y}). ` : ' (n.d.). ';
+                        if (this.isBookType()) {
+                            if (this.formResourceType === 'บทความในหนังสือ') {
+                                bib += t ? `${t}. ` : '';
+                                if (this.form.editor.trim()) bib += `In ${this.form.editor.trim()} (Ed.), `;
+                                if (this.form.bookTitle.trim()) bib += `${this.form.bookTitle.trim()}`;
+                                if (this.form.pages.trim()) bib += ` (pp. ${this.form.pages.trim()})`;
+                                bib += '. ';
+                                if (this.form.publisher.trim()) bib += `${this.form.publisher.trim()}.`;
+                            } else {
+                                bib += t ? `${t}` : '';
+                                if (this.form.volume.trim()) bib += ` (Vols. ${this.form.volume.trim()})`;
+                                if (this.form.edition.trim()) bib += ` (${this.form.edition.trim()} ed.)`;
+                                bib += '. ';
+                                if (this.form.publisher.trim()) bib += `${this.form.publisher.trim()}.`;
+                                if (this.form.doi.trim()) bib += ` ${this.form.doi.trim()}`;
+                            }
+                        } else if (this.isJournalType()) {
+                            bib += t ? `${t}. ` : '';
+                            if (this.form.journalName.trim()) bib += `${this.form.journalName.trim()}`;
+                            if (this.form.volume.trim()) bib += `, ${this.form.volume.trim()}`;
+                            if (this.form.issue.trim()) bib += `(${this.form.issue.trim()})`;
+                            if (this.form.pages.trim()) bib += `, ${this.form.pages.trim()}`;
+                            bib += '.';
+                            if (this.form.doi.trim()) bib += ` ${this.form.doi.trim()}`;
+                        } else if (this.isWebType()) {
+                            bib += t ? `${t}. ` : '';
+                            if (this.form.websiteName.trim()) bib += `${this.form.websiteName.trim()}. `;
+                            if (this.form.url.trim()) bib += `${this.form.url.trim()}`;
+                        } else if (this.isThesisType()) {
+                            bib += t ? `${t} ` : '';
+                            const tt = this.form.thesisType === 'doctoral' ? 'Doctoral dissertation' : 'Master\x27s thesis';
+                            if (this.form.university.trim()) bib += `[${tt}, ${this.form.university.trim()}]. `;
+                            else bib += `[${tt}]. `;
+                            if (this.form.url.trim()) bib += `${this.form.url.trim()}`;
+                        } else {
+                            bib += t ? `${t}.` : '';
+                        }
+                        return bib.replace(/\.\./g, '.').replace(/\s{2,}/g, ' ').trim();
+                    },
+                    generateNarrativeCitation() {
+                        const a = this.formatAuthorsCitation();
+                        const y = this.form.year.trim();
+                        if (!a) return '';
+                        return `${a} (${y || 'n.d.'}) กล่าวว่า ...`;
+                    },
+                    generateParentheticalCitation() {
+                        const a = this.formatAuthorsCitation();
+                        const y = this.form.year.trim();
+                        if (!a) return '';
+                        return `... (${a}, ${y || 'n.d.'})`;
+                    },
+                    getFormatHint() {
+                        if (this.isBookType()) return 'ผู้แต่ง. (ปี). ชื่อหนังสือ (ครั้งที่พิมพ์). สำนักพิมพ์. DOI/URL';
+                        if (this.isJournalType()) return 'ผู้แต่ง. (ปี). ชื่อบทความ. ชื่อวารสาร, ปีที่(ฉบับที่), หน้า. DOI/URL';
+                        if (this.isWebType()) return 'ผู้แต่ง. (ปี, เดือน วัน). ชื่อเรื่อง. ชื่อเว็บไซต์. URL';
+                        if (this.isThesisType()) return 'ผู้แต่ง. (ปี). ชื่อวิทยานิพนธ์ [ประเภท, มหาวิทยาลัย]. URL/ฐานข้อมูล';
+                        return 'เลือกประเภททรัพยากรเพื่อดูรูปแบบ APA 7th Edition ที่เหมาะสม';
+                    },
+                    addCitationFromForm() {
+                        const bib = this.generateBibliography();
+                        if (!bib) { this.toast('กรุณากรอกข้อมูลอย่างน้อยชื่อผู้แต่งและชื่อเรื่อง', 'warning'); return; }
+                        this.citations.push({ id: Date.now(), text: bib });
+                        this.formModalOpen = false;
+                        this.resetForm();
+                        this.toast('เพิ่มรายการบรรณานุกรมเรียบร้อยแล้ว', 'success');
                     },
                     copyEntry(text) {
                         navigator.clipboard.writeText(text).then(() => this.toast('คัดลอกรายการแล้ว', 'success'));
@@ -826,7 +969,7 @@
                                 class="flex max-h-[90vh] w-full max-w-6xl flex-col overflow-hidden rounded-[2rem] border border-pink-200 bg-white shadow-2xl shadow-pink-100/60 dark:border-zinc-700 dark:bg-zinc-900 dark:shadow-none">
                                 <div class="flex items-start justify-between gap-4 border-b border-zinc-200 px-6 py-5 dark:border-zinc-800 lg:px-8">
                                     <div class="space-y-1">
-                                        <p class="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-400 dark:text-zinc-500">Resource Library</p>
+                                        
                                         <h3 class="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">
                                             เลือกประเภททรัพยากรที่ต้องการสร้างบรรณานุกรม
                                         </h3>
@@ -899,7 +1042,7 @@
                                                     @foreach ($group['items'] as $item)
                                                         <button type="button"
                                                             x-show="@js($item).toLowerCase().includes(modalSearch.toLowerCase()) || @js($group['label']).toLowerCase().includes(modalSearch.toLowerCase())"
-                                                            x-on:click="selectedType = @js($item); smartQuery = @js($item); modalOpen = false"
+                                                            x-on:click="openFormModal(@js($item))"
                                                             class="flex w-full items-start justify-between gap-3 rounded-2xl border border-transparent bg-white px-4 py-3 text-left text-sm text-zinc-700 transition hover:border-pink-200 hover:bg-pink-50 hover:text-pink-800 dark:bg-zinc-900 dark:text-zinc-200 dark:hover:border-pink-500/30 dark:hover:bg-pink-500/10 dark:hover:text-pink-100">
                                                             <span class="leading-6">{{ $item }}</span>
                                                             <flux:icon name="arrow-up-right" class="mt-1 size-4 shrink-0 text-zinc-300 dark:text-zinc-600" />
@@ -928,6 +1071,9 @@
                                 </div>
                             </div>
                         </div>
+
+                        {{-- Citation Form Modal --}}
+                        @include('partials.citation-form-modal')
 
                         <div class="flex flex-1 justify-center pt-6 lg:pt-8">
                             <template x-if="displayMode === 'paper'">
