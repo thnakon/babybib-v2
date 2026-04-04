@@ -4,6 +4,25 @@
 <head>
     @include('partials.head', ['title' => __('Citation Generator')])
     <style>
+        body.bibliography-wallpaper {
+            background-image:
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220' viewBox='0 0 220 220'%3E%3Cg fill='none' stroke='%23efb5cc' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' opacity='0.1'%3E%3Cpath d='M72 58h32c6 0 11 5 11 11v53c-5-4-9-5-15-5H72c-5 0-9 4-9 9V67c0-5 4-9 9-9Z'/%3E%3Cpath d='M115 69h21c6 0 11 5 11 11v43c-4-3-8-4-13-4h-19'/%3E%3Cpath d='M79 76h18M79 88h23M79 100h15'/%3E%3C/g%3E%3C/svg%3E"),
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'%3E%3Cg fill='none' stroke='%23f3c4d7' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round' opacity='0.09'%3E%3Crect x='90' y='64' width='56' height='72' rx='10'/%3E%3Cpath d='M101 85h34M101 97h34M101 109h22'/%3E%3Cpath d='M106 147c11-9 24-9 35 0'/%3E%3C/g%3E%3C/svg%3E"),
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260' viewBox='0 0 260 260'%3E%3Cg fill='none' stroke='%23eeb2cb' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' opacity='0.09'%3E%3Cpath d='M103 84h54l13 16v63c0 6-5 11-11 11h-56c-6 0-11-5-11-11V95c0-6 5-11 11-11Z'/%3E%3Cpath d='M157 84v16h16'/%3E%3Cpath d='M112 114h38M112 126h30M112 138h21'/%3E%3C/g%3E%3C/svg%3E"),
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='230' height='230' viewBox='0 0 230 230'%3E%3Cg fill='none' stroke='%23f5cada' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round' opacity='0.08'%3E%3Cpath d='M86 123c0-18 13-31 31-31s31 13 31 31'/%3E%3Cpath d='M92 123h50'/%3E%3Cpath d='M102 79h26'/%3E%3Cpath d='M115 68v22'/%3E%3Cpath d='M92 144h46'/%3E%3C/g%3E%3C/svg%3E");
+            background-size: 520px 520px, 620px 620px, 700px 700px, 580px 580px;
+            background-position: 40px 60px, 320px 260px, 120px 760px, 420px 1120px;
+            background-repeat: repeat;
+        }
+
+        .dark body.bibliography-wallpaper {
+            background-image:
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220' viewBox='0 0 220 220'%3E%3Cg fill='none' stroke='%23514049' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' opacity='0.13'%3E%3Cpath d='M72 58h32c6 0 11 5 11 11v53c-5-4-9-5-15-5H72c-5 0-9 4-9 9V67c0-5 4-9 9-9Z'/%3E%3Cpath d='M115 69h21c6 0 11 5 11 11v43c-4-3-8-4-13-4h-19'/%3E%3Cpath d='M79 76h18M79 88h23M79 100h15'/%3E%3C/g%3E%3C/svg%3E"),
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'%3E%3Cg fill='none' stroke='%2347353f' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round' opacity='0.12'%3E%3Crect x='90' y='64' width='56' height='72' rx='10'/%3E%3Cpath d='M101 85h34M101 97h34M101 109h22'/%3E%3Cpath d='M106 147c11-9 24-9 35 0'/%3E%3C/g%3E%3C/svg%3E"),
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260' viewBox='0 0 260 260'%3E%3Cg fill='none' stroke='%23583d48' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' opacity='0.11'%3E%3Cpath d='M103 84h54l13 16v63c0 6-5 11-11 11h-56c-6 0-11-5-11-11V95c0-6 5-11 11-11Z'/%3E%3Cpath d='M157 84v16h16'/%3E%3Cpath d='M112 114h38M112 126h30M112 138h21'/%3E%3C/g%3E%3C/svg%3E"),
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='230' height='230' viewBox='0 0 230 230'%3E%3Cg fill='none' stroke='%234a3740' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round' opacity='0.1'%3E%3Cpath d='M86 123c0-18 13-31 31-31s31 13 31 31'/%3E%3Cpath d='M92 123h50'/%3E%3Cpath d='M102 79h26'/%3E%3Cpath d='M115 68v22'/%3E%3Cpath d='M92 144h46'/%3E%3C/g%3E%3C/svg%3E");
+        }
+
         .custom-scrollbar::-webkit-scrollbar {
             width: 8px;
         }
@@ -70,10 +89,10 @@
 </head>
 
 <body
-    class="min-h-screen font-sans antialiased bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 overflow-x-hidden">
+    class="bibliography-wallpaper min-h-screen font-sans antialiased bg-zinc-50 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 overflow-x-hidden">
     <!-- Navbar (Shared) -->
     <flux:header sticky
-        class="sticky top-0 w-full z-50 border-b bg-white/95 dark:bg-zinc-900/95 border-pink-100 dark:border-zinc-800 shadow-sm shadow-pink-100/40 backdrop-blur-md py-3">
+        class="sticky top-0 w-full z-[80] border-b bg-zinc-100/95 dark:bg-zinc-900/95 border-zinc-200 dark:border-zinc-800 shadow-sm shadow-zinc-200/60 backdrop-blur-md py-3">
         <div class="container max-w-7xl mx-auto px-6 flex items-center justify-between">
             <div class="flex items-center gap-8">
                 <a href="/" class="flex items-center gap-2 group">
@@ -349,16 +368,16 @@
 
     <div class="relative mx-auto flex max-w-[1400px] flex-col gap-6 px-4 pb-24 pt-6 sm:px-6 lg:flex-row lg:gap-10 lg:pt-10">
         <aside x-data="citationProjectsSidebar()"
-            class="custom-scrollbar w-full shrink-0 overflow-hidden rounded-2xl border border-zinc-200/80 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900/50 lg:block lg:w-64 lg:rounded-none lg:border-0 lg:bg-transparent lg:p-0 lg:h-[calc(100vh-10rem)] lg:overflow-y-auto lg:pr-4 lg:visible-scrollbar">
-            <div class="space-y-4">
+            class="custom-scrollbar flex w-full shrink-0 flex-col overflow-hidden rounded-2xl border border-zinc-200/80 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900/50 lg:w-64 lg:rounded-none lg:border-0 lg:bg-transparent lg:p-0 lg:h-[calc(100vh-10rem)] lg:overflow-y-auto lg:pr-4 lg:visible-scrollbar">
+            <div class="space-y-4 lg:flex-1">
                 <div class="flex items-center justify-between">
                     <h2 class="text-lg font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">โครงการ</h2>
                     <span class="rounded-full bg-zinc-100 px-2.5 py-1 text-[11px] font-medium text-zinc-500 dark:bg-zinc-800 dark:text-zinc-300" x-text="projects.length + ' รายการ'"></span>
                 </div>
 
                 <button type="button" x-on:click="openCreateProjectModal()"
-                    class="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-dashed border-pink-300 bg-white/90 px-4 py-3 text-sm font-semibold text-pink-700 transition hover:border-pink-500 hover:bg-pink-50 hover:text-pink-800 dark:border-pink-500/30 dark:bg-zinc-950 dark:text-pink-300 dark:hover:border-pink-500 dark:hover:bg-pink-500/10 dark:hover:text-pink-200">
-                    <flux:icon name="plus" class="size-4" />
+                    class="inline-flex w-full items-center justify-center gap-1.5 rounded-xl border border-dashed border-pink-300 bg-white/90 px-3.5 py-2.5 text-[13px] font-semibold text-pink-700 transition hover:border-pink-500 hover:bg-pink-50 hover:text-pink-800 dark:border-pink-500/30 dark:bg-zinc-950 dark:text-pink-300 dark:hover:border-pink-500 dark:hover:bg-pink-500/10 dark:hover:text-pink-200">
+                    <flux:icon name="plus" class="size-3.5" />
                     <span>สร้างโครงการใหม่</span>
                 </button>
 
@@ -366,36 +385,36 @@
                     <template x-for="project in projects" :key="project.id">
                         <div class="group relative">
                             <button type="button" x-on:click="activeProject = project.id; broadcastProjects()"
-                                class="w-full rounded-2xl p-3 pr-11 text-left transition"
+                                class="w-full rounded-xl p-2.5 pr-10 text-left transition"
                                 x-bind:class="activeProject === project.id
                                     ? 'bg-zinc-100 text-zinc-900 dark:bg-zinc-800/80 dark:text-zinc-100'
                                     : 'text-zinc-600 hover:bg-zinc-100/80 hover:text-zinc-900 dark:text-zinc-300 dark:hover:bg-zinc-800/70 dark:hover:text-zinc-100'">
-                                <div class="flex items-center gap-3">
-                                    <span class="inline-flex size-10 items-center justify-center rounded-2xl" x-bind:class="projectButtonClass(project.color)">
-                                        <flux:icon x-show="project.icon === 'folder'" name="folder" class="size-4" />
-                                        <flux:icon x-show="project.icon === 'book-open'" name="book-open" class="size-4" />
-                                        <flux:icon x-show="project.icon === 'document-text'" name="document-text" class="size-4" />
-                                        <flux:icon x-show="project.icon === 'academic-cap'" name="academic-cap" class="size-4" />
-                                        <flux:icon x-show="project.icon === 'clipboard-document-list'" name="clipboard-document-list" class="size-4" />
-                                        <flux:icon x-show="project.icon === 'sparkles'" name="sparkles" class="size-4" />
-                                        <flux:icon x-show="project.icon === 'globe-alt'" name="globe-alt" class="size-4" />
-                                        <flux:icon x-show="project.icon === 'light-bulb'" name="light-bulb" class="size-4" />
-                                        <flux:icon x-show="project.icon === 'beaker'" name="beaker" class="size-4" />
-                                        <flux:icon x-show="project.icon === 'briefcase'" name="briefcase" class="size-4" />
-                                        <flux:icon x-show="project.icon === 'newspaper'" name="newspaper" class="size-4" />
-                                        <flux:icon x-show="project.icon === 'presentation-chart-bar'" name="presentation-chart-bar" class="size-4" />
+                                <div class="flex items-center gap-2.5">
+                                    <span class="inline-flex size-9 items-center justify-center rounded-xl" x-bind:class="projectButtonClass(project.color)">
+                                        <flux:icon x-show="project.icon === 'folder'" name="folder" class="size-3.5" />
+                                        <flux:icon x-show="project.icon === 'book-open'" name="book-open" class="size-3.5" />
+                                        <flux:icon x-show="project.icon === 'document-text'" name="document-text" class="size-3.5" />
+                                        <flux:icon x-show="project.icon === 'academic-cap'" name="academic-cap" class="size-3.5" />
+                                        <flux:icon x-show="project.icon === 'clipboard-document-list'" name="clipboard-document-list" class="size-3.5" />
+                                        <flux:icon x-show="project.icon === 'sparkles'" name="sparkles" class="size-3.5" />
+                                        <flux:icon x-show="project.icon === 'globe-alt'" name="globe-alt" class="size-3.5" />
+                                        <flux:icon x-show="project.icon === 'light-bulb'" name="light-bulb" class="size-3.5" />
+                                        <flux:icon x-show="project.icon === 'beaker'" name="beaker" class="size-3.5" />
+                                        <flux:icon x-show="project.icon === 'briefcase'" name="briefcase" class="size-3.5" />
+                                        <flux:icon x-show="project.icon === 'newspaper'" name="newspaper" class="size-3.5" />
+                                        <flux:icon x-show="project.icon === 'presentation-chart-bar'" name="presentation-chart-bar" class="size-3.5" />
                                     </span>
-                                    <h3 class="text-sm font-semibold" x-text="project.name"></h3>
+                                    <h3 class="text-[13px] font-semibold leading-5" x-text="project.name"></h3>
                                 </div>
                             </button>
 
                             <div class="absolute right-2 top-1/2 -translate-y-1/2">
                                 <button type="button"
                                     x-on:click.stop="projectMenuOpen = projectMenuOpen === project.id ? null : project.id"
-                                    class="inline-flex size-8 items-center justify-center rounded-full text-zinc-400 opacity-0 transition hover:bg-pink-100 hover:text-pink-700 group-hover:opacity-100 dark:hover:bg-pink-500/10 dark:hover:text-pink-200"
+                                    class="inline-flex size-7 items-center justify-center rounded-full text-zinc-400 opacity-0 transition hover:bg-pink-100 hover:text-pink-700 group-hover:opacity-100 dark:hover:bg-pink-500/10 dark:hover:text-pink-200"
                                     x-bind:class="projectMenuOpen === project.id || activeProject === project.id ? 'opacity-100' : ''"
                                     aria-label="จัดการโครงการ">
-                                    <flux:icon name="ellipsis-horizontal" class="size-4" />
+                                    <flux:icon name="ellipsis-horizontal" class="size-3.5" />
                                 </button>
 
                                 <div x-cloak x-show="projectMenuOpen === project.id" x-transition.opacity x-on:click.outside="projectMenuOpen = null"
@@ -419,6 +438,17 @@
                             </div>
                         </div>
                     </template>
+                </div>
+            </div>
+
+            <div class="mt-8 border-t border-zinc-200/80 pt-5 text-center dark:border-zinc-800 lg:mt-6">
+                <p class="text-xs font-medium text-zinc-500 dark:text-zinc-400">จัดโดย <span class="font-semibold text-zinc-800 dark:text-zinc-100">Babybib</span></p>
+                <div class="mt-2 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-[12px] text-zinc-500 dark:text-zinc-400">
+                    <a href="{{ route('privacy') }}" class="transition hover:text-pink-600 dark:hover:text-pink-300">ส่วนตัว</a>
+                    <span class="text-zinc-300 dark:text-zinc-700">•</span>
+                    <a href="{{ route('terms') }}" class="transition hover:text-pink-600 dark:hover:text-pink-300">เงื่อนไข</a>
+                    <span class="text-zinc-300 dark:text-zinc-700">•</span>
+                    <a href="{{ route('about') }}" class="transition hover:text-pink-600 dark:hover:text-pink-300">เกี่ยวกับ</a>
                 </div>
             </div>
 
@@ -563,17 +593,17 @@
             </div>
         </aside>
 
-        <main class="min-w-0 flex-1">
-            <div class="grid gap-3 lg:grid-cols-7">
+        <main class="min-w-0 flex-1 lg:pl-2">
+            <div class="grid gap-4 lg:grid-cols-[minmax(0,1fr)_288px] lg:items-start lg:gap-8">
                 <section x-data="citationGeneratorPage()"
-                    class="lg:col-span-6">
-                    <div class="flex min-h-[calc(100vh-8rem)] flex-col pr-2">
+                    class="lg:min-w-0">
+                    <div class="flex min-h-[calc(100vh-8rem)] flex-col lg:pr-0">
                         <div class="mx-auto w-full max-w-3xl space-y-3">
                             <div class="group relative" x-on:click.outside="closeSmartSearch()">
                                 <div x-cloak x-show="smartSearchOpen && (smartSearchLoading || smartSearchResults.length)" x-transition.opacity
                                     x-on:click="closeSmartSearch()"
                                     class="fixed inset-0 z-30 bg-zinc-950/12 backdrop-blur-[3px] dark:bg-zinc-950/30"></div>
-                                <div class="absolute left-4 top-0 z-50 -translate-y-1/2 flex items-center gap-3 rounded-full bg-white px-3 py-1 dark:bg-zinc-900">
+                                        <div class="absolute left-4 top-0 z-40 -translate-y-1/2 flex items-center gap-3 rounded-full bg-white px-3 py-1 dark:bg-zinc-900">
                                     <button type="button" x-on:click="modalOpen = true"
                                         class="inline-flex items-center gap-2 rounded-full bg-pink-600 px-3.5 py-1.5 text-xs font-semibold text-white shadow-sm shadow-pink-500/20 transition hover:bg-pink-700 hover:shadow-md hover:shadow-pink-500/25 focus:outline-none focus:ring-2 focus:ring-pink-500/20 dark:bg-pink-500 dark:hover:bg-pink-400"
                                         aria-label="เปิดฟอร์มกรอกข้อมูลเอง">
@@ -606,7 +636,7 @@
                                     </button>
                                 </div>
                                 <div
-                                    class="pointer-events-none absolute inset-y-0 left-0 z-50 flex items-center pl-4 transition-colors group-focus-within:text-zinc-600 dark:group-focus-within:text-zinc-200">
+                                    class="pointer-events-none absolute inset-y-0 left-0 z-40 flex items-center pl-4 transition-colors group-focus-within:text-zinc-600 dark:group-focus-within:text-zinc-200">
                                     <span class="relative inline-flex size-8 items-center justify-center text-pink-500 dark:text-pink-300">
                                         <flux:icon name="magnifying-glass" class="size-4.5" />
                                     </span>
@@ -617,12 +647,12 @@
                                     x-on:keydown.escape.prevent="closeSmartSearch()"
                                     x-on:keydown.enter.prevent="openFirstSmartSearchResult()"
                                     x-bind:placeholder="smartSearchPlaceholder()"
-                                    class="relative z-40 w-full rounded-2xl border border-pink-200 bg-white py-3.5 pl-16 pr-12 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500 dark:focus:ring-pink-500/10">
+                                    class="relative z-30 w-full rounded-2xl border border-pink-200 bg-white py-3.5 pl-16 pr-12 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500 dark:focus:ring-pink-500/10">
                                 <div x-cloak x-show="smartSearchLoading"
-                                    class="pointer-events-none absolute inset-y-0 right-4 z-40 flex items-center text-pink-500 dark:text-pink-300">
+                                    class="pointer-events-none absolute inset-y-0 right-4 z-30 flex items-center text-pink-500 dark:text-pink-300">
                                     <flux:icon name="arrow-path" class="size-4 animate-spin" />
                                 </div>
-                                <div class="absolute right-3 -top-1 z-40 -translate-y-1/2">
+                                <div class="absolute right-3 -top-1 z-30 -translate-y-1/2">
                                     <a href="{{ url('/manual') }}"
                                         class="inline-flex items-center gap-1.5 bg-white px-1 text-[11px] font-medium text-pink-400 transition hover:text-pink-600 focus:outline-none focus:ring-2 focus:ring-pink-500/20 dark:bg-zinc-900 dark:text-pink-300 dark:hover:text-pink-200"
                                         aria-label="เปิดหน้าช่วยเหลือ">
@@ -632,7 +662,7 @@
                                 </div>
 
                                 <div x-cloak x-show="smartSearchOpen && smartQuery.trim()" x-transition.opacity.origin.top
-                                    class="absolute inset-x-0 top-full z-50 mt-3 overflow-hidden rounded-[1.5rem] border border-pink-200 bg-white/95 shadow-2xl shadow-pink-100/60 backdrop-blur dark:border-zinc-700 dark:bg-zinc-950/95 dark:shadow-none">
+                                    class="absolute inset-x-0 top-full z-40 mt-3 overflow-hidden rounded-[1.5rem] border border-pink-200 bg-white/95 shadow-2xl shadow-pink-100/60 backdrop-blur dark:border-zinc-700 dark:bg-zinc-950/95 dark:shadow-none">
                                     
 
                                     <div class="custom-scrollbar max-h-[24rem] overflow-y-auto p-2">
@@ -762,12 +792,12 @@
                                                 class="absolute right-0 z-20 mt-2 min-w-36 rounded-xl border border-pink-200 bg-white p-1.5 shadow-lg shadow-pink-100/50 dark:border-zinc-700 dark:bg-zinc-950 dark:shadow-none">
                                                 <button type="button" x-on:click="exportOpen = false"
                                                     class="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm text-zinc-600 transition hover:bg-pink-50 hover:text-pink-800 dark:text-zinc-300 dark:hover:bg-pink-500/10 dark:hover:text-pink-100">
-                                                    <flux:icon name="document-text" class="size-4" />
+                                                    <flux:icon name="document-text" class="size-4 text-sky-600 dark:text-sky-400" />
                                                     Word
                                                 </button>
                                                 <button type="button" x-on:click="window.print(); exportOpen = false"
                                                     class="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm text-zinc-600 transition hover:bg-pink-50 hover:text-pink-800 dark:text-zinc-300 dark:hover:bg-pink-500/10 dark:hover:text-pink-100">
-                                                    <flux:icon name="document" class="size-4" />
+                                                    <flux:icon name="document" class="size-4 text-rose-600 dark:text-rose-400" />
                                                     PDF
                                                 </button>
                                             </div>
@@ -779,7 +809,7 @@
                         </div>
 
                         <div x-cloak x-show="modalOpen" x-transition.opacity
-                            class="fixed inset-0 z-50 flex items-center justify-center bg-zinc-950/50 px-4 py-6 backdrop-blur-sm">
+                            class="fixed inset-0 z-[110] flex items-center justify-center bg-zinc-950/50 px-4 py-6 backdrop-blur-sm">
                             <div x-show="modalOpen" x-transition
                                 class="flex max-h-[90vh] w-full max-w-6xl flex-col overflow-hidden rounded-[2rem] border border-pink-200 bg-white shadow-2xl shadow-pink-100/60 dark:border-zinc-700 dark:bg-zinc-900 dark:shadow-none">
                                 <div class="flex items-start justify-between gap-4 border-b border-zinc-200 px-6 py-5 dark:border-zinc-800 lg:px-8">
@@ -891,7 +921,7 @@
                         @include('partials.citation-form-modal')
 
                         <div x-cloak x-show="detailModalOpen" x-transition.opacity
-                            class="fixed inset-0 z-[70] flex items-center justify-center bg-zinc-950/50 px-4 py-6 backdrop-blur-sm">
+                            class="fixed inset-0 z-[110] flex items-center justify-center bg-zinc-950/50 px-4 py-6 backdrop-blur-sm">
                             <div x-show="detailModalOpen" x-transition
                                 class="w-full max-w-5xl rounded-[2rem] border border-pink-200 bg-white p-6 shadow-2xl shadow-pink-100/60 dark:border-zinc-700 dark:bg-zinc-900 dark:shadow-none">
                                 <div class="flex items-start justify-between gap-4">
@@ -964,7 +994,7 @@
                         </div>
 
                         <div x-cloak x-show="editModalOpen" x-transition.opacity
-                            class="fixed inset-0 z-[70] flex items-center justify-center bg-zinc-950/50 px-4 py-6 backdrop-blur-sm">
+                            class="fixed inset-0 z-[110] flex items-center justify-center bg-zinc-950/50 px-4 py-6 backdrop-blur-sm">
                             <div x-show="editModalOpen" x-transition
                                 class="w-full max-w-5xl rounded-[2rem] border border-pink-200 bg-white p-6 shadow-2xl shadow-pink-100/60 dark:border-zinc-700 dark:bg-zinc-900 dark:shadow-none">
                                 <div class="flex items-start justify-between gap-4">
@@ -1063,7 +1093,7 @@
                         </div>
 
                         <div x-cloak x-show="moveModalOpen" x-transition.opacity
-                            class="fixed inset-0 z-[70] flex items-center justify-center bg-zinc-950/50 px-4 py-6 backdrop-blur-sm">
+                            class="fixed inset-0 z-[110] flex items-center justify-center bg-zinc-950/50 px-4 py-6 backdrop-blur-sm">
                             <div x-show="moveModalOpen" x-transition
                                 class="w-full max-w-2xl rounded-[2rem] border border-pink-200 bg-white p-6 shadow-2xl shadow-pink-100/60 dark:border-zinc-700 dark:bg-zinc-900 dark:shadow-none">
                                 <div class="flex items-start justify-between gap-4">
@@ -1111,7 +1141,7 @@
                         </div>
 
                         <div x-cloak x-show="deleteEntryModalOpen" x-transition.opacity
-                            class="fixed inset-0 z-[70] flex items-center justify-center bg-zinc-950/50 px-4 py-6 backdrop-blur-sm">
+                            class="fixed inset-0 z-[110] flex items-center justify-center bg-zinc-950/50 px-4 py-6 backdrop-blur-sm">
                             <div x-show="deleteEntryModalOpen" x-transition
                                 class="w-full max-w-2xl rounded-[2rem] border border-rose-200 bg-white p-6 shadow-2xl shadow-rose-100/60 dark:border-zinc-700 dark:bg-zinc-900 dark:shadow-none">
                                 <div class="flex items-start justify-between gap-4">
@@ -1309,12 +1339,22 @@
                     </div>
                 </section>
 
-                <section class="custom-scrollbar h-[calc(100vh-10rem)] overflow-y-auto lg:col-span-1">
+                <section class="custom-scrollbar h-[calc(100vh-10rem)] overflow-y-auto lg:min-w-0 lg:justify-self-end">
                     <div class="pr-2">
-                        <flux:heading size="lg" level="2">Saved Items</flux:heading>
-                        <flux:text class="mt-2 text-sm text-zinc-600 dark:text-zinc-300">
-                            Keep recent citations nearby so you can reuse or export them later.
-                        </flux:text>
+                        <flux:heading size="lg" level="2">ยังไม่ได้บันทึก</flux:heading>
+                        <div class="mt-3 rounded-2xl border border-pink-200 bg-white/80 p-4 shadow-sm shadow-pink-100/40 dark:border-zinc-700 dark:bg-zinc-950/80 dark:shadow-none">
+                            <flux:text class="text-sm leading-6 text-zinc-600 dark:text-zinc-300">
+                                โครงการและรายการบรรณานุกรมของคุณยังไม่มีการบันทึก เพื่อให้สามารถใช้งานได้เต็มรูปแบบ กรุณาเข้าสู่ระบบก่อนเริ่มใช้งานต่อ
+                            </flux:text>
+
+                            @if (Route::has('login'))
+                                <a href="{{ route('login') }}"
+                                    class="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-pink-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-pink-700 dark:bg-pink-500 dark:hover:bg-pink-400">
+                                    <flux:icon name="arrow-right-end-on-rectangle" class="size-4" />
+                                    <span>Sign in</span>
+                                </a>
+                            @endif
+                        </div>
                     </div>
                 </section>
             </div>

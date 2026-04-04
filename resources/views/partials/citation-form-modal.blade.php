@@ -1,6 +1,6 @@
 {{-- Citation Form Modal - APA 7th Edition --}}
 <div x-cloak x-show="formModalOpen" x-transition.opacity
-    class="fixed inset-0 z-[60] flex items-center justify-center bg-zinc-950/50 px-4 py-6 backdrop-blur-sm">
+    class="fixed inset-0 z-[110] flex items-center justify-center bg-zinc-950/50 px-4 py-6 backdrop-blur-sm">
     <div x-show="formModalOpen" x-transition
         class="flex max-h-[92vh] w-full max-w-7xl flex-col overflow-hidden rounded-[2rem] border border-pink-200 bg-white shadow-2xl shadow-pink-100/60 dark:border-zinc-700 dark:bg-zinc-900 dark:shadow-none">
 
@@ -587,14 +587,14 @@
 
                         <div class="space-y-2">
                             <div class="rounded-2xl border border-violet-200 bg-white p-4 dark:border-zinc-700 dark:bg-zinc-900">
-                                <p class="mb-1 text-[10px] font-semibold uppercase tracking-wider text-violet-500 dark:text-violet-400">Narrative (กล่าวถึงผู้แต่ง)</p>
+                                <p class="mb-1 text-[10px] font-semibold uppercase tracking-wider text-violet-500 dark:text-violet-400">Narrative</p>
                                 <p class="text-sm text-zinc-700 dark:text-zinc-300"
                                     x-text="generateNarrativeCitation() || '...'"
                                     x-bind:class="generateNarrativeCitation() ? '' : 'text-zinc-400 dark:text-zinc-500 italic'">
                                 </p>
                             </div>
                             <div class="rounded-2xl border border-violet-200 bg-white p-4 dark:border-zinc-700 dark:bg-zinc-900">
-                                <p class="mb-1 text-[10px] font-semibold uppercase tracking-wider text-violet-500 dark:text-violet-400">Parenthetical (วงเล็บท้ายประโยค)</p>
+                                <p class="mb-1 text-[10px] font-semibold uppercase tracking-wider text-violet-500 dark:text-violet-400">Parenthetical</p>
                                 <p class="text-sm text-zinc-700 dark:text-zinc-300"
                                     x-text="generateParentheticalCitation() || '...'"
                                     x-bind:class="generateParentheticalCitation() ? '' : 'text-zinc-400 dark:text-zinc-500 italic'">
