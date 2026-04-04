@@ -216,10 +216,10 @@
                             class="bg-white dark:bg-zinc-900 rounded-xl border border-pink-100 dark:border-zinc-800 shadow-xl shadow-pink-100/40 overflow-hidden p-1.5">
                             <flux:menu.item href="{{ route('change-language', 'en') }}"
                                 class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-pink-50 hover:!text-pink-700 dark:hover:!bg-pink-500/10 dark:hover:!text-pink-200 transition-colors">
-                                English (EN)</flux:menu.item>
+                                {{ __('English (EN)') }}</flux:menu.item>
                             <flux:menu.item href="{{ route('change-language', 'th') }}"
                                 class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-pink-50 hover:!text-pink-700 dark:hover:!bg-pink-500/10 dark:hover:!text-pink-200 transition-colors">
-                                ไทย (TH)</flux:menu.item>
+                                {{ __('ไทย (TH)') }}</flux:menu.item>
                         </div>
                     </div>
                 </div>
@@ -256,111 +256,111 @@
     @php
         $citationGroups = [
             [
-                'label' => 'หนังสือ',
+                'label' => __('หนังสือ'),
                 'icon' => 'book-open',
                 'accent' => 'amber',
                 'items' => [
-                    'หนังสือ',
-                    'หนังสือชุดหลายเล่มจบ',
-                    'บทความในหนังสือ',
-                    'หนังสืออิเล็กทรอนิกส์ (มี DOI)',
-                    'หนังสืออิเล็กทรอนิกส์ (ไม่มี DOI)',
+                    __('หนังสือ'),
+                    __('หนังสือชุดหลายเล่มจบ'),
+                    __('บทความในหนังสือ'),
+                    __('หนังสืออิเล็กทรอนิกส์ (มี DOI)'),
+                    __('หนังสืออิเล็กทรอนิกส์ (ไม่มี DOI)'),
                 ],
             ],
             [
-                'label' => 'วารสาร',
+                'label' => __('วารสาร'),
                 'icon' => 'document-text',
                 'accent' => 'sky',
                 'items' => [
-                    'บทความวารสาร',
-                    'บทความวารสารอิเล็กทรอนิกส์ (มี DOI)',
-                    'บทความวารสารอิเล็กทรอนิกส์ (ไม่มี DOI)',
-                    'วารสารอิเล็กทรอนิกส์ (แบบมีฉบับพิมพ์)',
-                    'วารสารอิเล็กทรอนิกส์ (แบบไม่มีฉบับพิมพ์)',
+                    __('บทความวารสาร'),
+                    __('บทความวารสารอิเล็กทรอนิกส์ (มี DOI)'),
+                    __('บทความวารสารอิเล็กทรอนิกส์ (ไม่มี DOI)'),
+                    __('วารสารอิเล็กทรอนิกส์ (แบบมีฉบับพิมพ์)'),
+                    __('วารสารอิเล็กทรอนิกส์ (แบบไม่มีฉบับพิมพ์)'),
                 ],
             ],
             [
-                'label' => 'พจนานุกรม/สารานุกรม',
+                'label' => __('พจนานุกรม/สารานุกรม'),
                 'icon' => 'language',
                 'accent' => 'emerald',
                 'items' => [
-                    'พจนานุกรม',
-                    'พจนานุกรมออนไลน์',
-                    'สารานุกรม',
-                    'สารานุกรมออนไลน์',
+                    __('พจนานุกรม'),
+                    __('พจนานุกรมออนไลน์'),
+                    __('สารานุกรม'),
+                    __('สารานุกรมออนไลน์'),
                 ],
             ],
             [
-                'label' => 'หนังสือพิมพ์',
+                'label' => __('หนังสือพิมพ์'),
                 'icon' => 'newspaper',
                 'accent' => 'rose',
                 'items' => [
-                    'หนังสือพิมพ์แบบรูปเล่ม',
-                    'หนังสือพิมพ์ออนไลน์',
+                    __('หนังสือพิมพ์แบบรูปเล่ม'),
+                    __('หนังสือพิมพ์ออนไลน์'),
                 ],
             ],
             [
-                'label' => 'รายงาน',
+                'label' => __('รายงาน'),
                 'icon' => 'clipboard-document-list',
                 'accent' => 'violet',
                 'items' => [
-                    'รายงาน',
-                    'รายงานการวิจัย',
-                    'รายงานที่จัดทำโดยหน่วยงานราชการหรือองค์กรอื่น',
-                    'รายงานที่จัดทำโดยบุคคลที่สังกัดหน่วยงาน',
+                    __('รายงาน'),
+                    __('รายงานการวิจัย'),
+                    __('รายงานที่จัดทำโดยหน่วยงานราชการหรือองค์กรอื่น'),
+                    __('รายงานที่จัดทำโดยบุคคลที่สังกัดหน่วยงาน'),
                 ],
             ],
             [
-                'label' => 'งานประชุม',
+                'label' => __('งานประชุม'),
                 'icon' => 'presentation-chart-bar',
                 'accent' => 'orange',
                 'items' => [
-                    'เอกสารการประชุมทางวิชาการ (ที่มี Proceeding)',
-                    'เอกสารการประชุมทางวิชาการ (ที่ไม่มี Proceeding)',
-                    'การนำเสนองานวิจัยหรือโปสเตอร์ในงานประชุมวิชาการ',
+                    __('เอกสารการประชุมทางวิชาการ (ที่มี Proceeding)'),
+                    __('เอกสารการประชุมทางวิชาการ (ที่ไม่มี Proceeding)'),
+                    __('การนำเสนองานวิจัยหรือโปสเตอร์ในงานประชุมวิชาการ'),
                 ],
             ],
             [
-                'label' => 'วิทยานิพนธ์',
+                'label' => __('วิทยานิพนธ์'),
                 'icon' => 'academic-cap',
                 'accent' => 'indigo',
                 'items' => [
-                    'วิทยานิพนธ์ (ที่ไม่ได้ตีพิมพ์)',
-                    'วิทยานิพนธ์จากเว็บไซต์',
-                    'วิทยานิพนธ์จากฐานข้อมูลเชิงพาณิชย์',
+                    __('วิทยานิพนธ์ (ที่ไม่ได้ตีพิมพ์)'),
+                    __('วิทยานิพนธ์จากเว็บไซต์'),
+                    __('วิทยานิพนธ์จากฐานข้อมูลเชิงพาณิชย์'),
                 ],
             ],
             [
-                'label' => 'ออนไลน์',
+                'label' => __('ออนไลน์'),
                 'icon' => 'globe-alt',
                 'accent' => 'cyan',
                 'items' => [
-                    'เอกสารอิเล็กทรอนิกส์ (เว็บเพจ)',
-                    'สื่อออนไลน์ (วิดีโอออนไลน์ บทความในโซเชียลมีเดีย)',
-                    'ราชกิจจานุเบกษาออนไลน์',
-                    'สิทธิบัตรออนไลน์',
-                    'การติดต่อสื่อสารส่วนบุคคล',
+                    __('เอกสารอิเล็กทรอนิกส์ (เว็บเพจ)'),
+                    __('สื่อออนไลน์ (วิดีโอออนไลน์ บทความในโซเชียลมีเดีย)'),
+                    __('ราชกิจจานุเบกษาออนไลน์'),
+                    __('สิทธิบัตรออนไลน์'),
+                    __('การติดต่อสื่อสารส่วนบุคคล'),
                 ],
             ],
             [
-                'label' => 'สื่อภาพ/เสียง',
+                'label' => __('สื่อภาพ/เสียง'),
                 'icon' => 'play-circle',
                 'accent' => 'fuchsia',
                 'items' => [
-                    'อินโฟกราฟิก (Infographic)',
-                    'การนำเสนอด้วยสไลด์และเอกสารการสอนออนไลน์',
-                    'สัมมนาออนไลน์ (Webinar)',
-                    'วิดีโอใน Youtube หรือวิดีโอออนไลน์ต่าง ๆ',
-                    'พอดแคสต์ภาพและเสียง (แบบจบในตอน)',
-                    'พอดแคสต์ภาพและเสียง (แบบหลายตอน)',
+                    __('อินโฟกราฟิก (Infographic)'),
+                    __('การนำเสนอด้วยสไลด์และเอกสารการสอนออนไลน์'),
+                    __('สัมมนาออนไลน์ (Webinar)'),
+                    __('วิดีโอใน Youtube หรือวิดีโอออนไลน์ต่าง ๆ'),
+                    __('พอดแคสต์ภาพและเสียง (แบบจบในตอน)'),
+                    __('พอดแคสต์ภาพและเสียง (แบบหลายตอน)'),
                 ],
             ],
             [
-                'label' => 'อื่นๆ',
+                'label' => __('อื่นๆ'),
                 'icon' => 'sparkles',
                 'accent' => 'teal',
                 'items' => [
-                    'AI (เนื้อหาที่สร้างโดย AI)',
+                    __('AI (เนื้อหาที่สร้างโดย AI)'),
                 ],
             ],
         ];
@@ -371,14 +371,14 @@
             class="custom-scrollbar flex w-full shrink-0 flex-col overflow-hidden rounded-2xl border border-zinc-200/80 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900/50 lg:w-64 lg:rounded-none lg:border-0 lg:bg-transparent lg:p-0 lg:h-[calc(100vh-10rem)] lg:overflow-y-auto lg:pr-4 lg:visible-scrollbar">
             <div class="space-y-4 lg:flex-1">
                 <div class="flex items-center justify-between">
-                    <h2 class="text-lg font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">โครงการ</h2>
-                    <span class="rounded-full bg-zinc-100 px-2.5 py-1 text-[11px] font-medium text-zinc-500 dark:bg-zinc-800 dark:text-zinc-300" x-text="projects.length + ' รายการ'"></span>
+                    <h2 class="text-lg font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">{{ __('โครงการ') }}</h2>
+                    <span class="rounded-full bg-zinc-100 px-2.5 py-1 text-[11px] font-medium text-zinc-500 dark:bg-zinc-800 dark:text-zinc-300" x-text="projects.length + ' ' + @js(__('รายการ'))"></span>
                 </div>
 
                 <button type="button" x-on:click="openCreateProjectModal()"
                     class="inline-flex w-full items-center justify-center gap-1.5 rounded-xl border border-dashed border-pink-300 bg-white/90 px-3.5 py-2.5 text-[13px] font-semibold text-pink-700 transition hover:border-pink-500 hover:bg-pink-50 hover:text-pink-800 dark:border-pink-500/30 dark:bg-zinc-950 dark:text-pink-300 dark:hover:border-pink-500 dark:hover:bg-pink-500/10 dark:hover:text-pink-200">
                     <flux:icon name="plus" class="size-3.5" />
-                    <span>สร้างโครงการใหม่</span>
+                    <span>{{ __('สร้างโครงการใหม่') }}</span>
                 </button>
 
                 <div class="space-y-3">
@@ -413,7 +413,7 @@
                                     x-on:click.stop="projectMenuOpen = projectMenuOpen === project.id ? null : project.id"
                                     class="inline-flex size-7 items-center justify-center rounded-full text-zinc-400 opacity-0 transition hover:bg-pink-100 hover:text-pink-700 group-hover:opacity-100 dark:hover:bg-pink-500/10 dark:hover:text-pink-200"
                                     x-bind:class="projectMenuOpen === project.id || activeProject === project.id ? 'opacity-100' : ''"
-                                    aria-label="จัดการโครงการ">
+                                    aria-label="{{ __('จัดการโครงการ') }}">
                                     <flux:icon name="ellipsis-horizontal" class="size-3.5" />
                                 </button>
 
@@ -422,17 +422,17 @@
                                     <button type="button" x-on:click="openEditProjectModal(project)"
                                         class="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left text-sm text-zinc-600 transition hover:bg-pink-50 hover:text-pink-800 dark:text-zinc-300 dark:hover:bg-pink-500/10 dark:hover:text-pink-100">
                                         <flux:icon name="pencil-square" class="size-4" />
-                                        แก้ไข
+                                        {{ __('แก้ไข') }}
                                     </button>
                                     <button type="button" x-on:click="duplicateProject(project)"
                                         class="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left text-sm text-zinc-600 transition hover:bg-pink-50 hover:text-pink-800 dark:text-zinc-300 dark:hover:bg-pink-500/10 dark:hover:text-pink-100">
                                         <flux:icon name="square-2-stack" class="size-4" />
-                                        คัดลอกโครงการ
+                                        {{ __('คัดลอกโครงการ') }}
                                     </button>
                                     <button type="button" x-on:click="openDeleteProjectModal(project)"
                                         class="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left text-sm text-rose-600 transition hover:bg-rose-50 hover:text-rose-700 dark:text-rose-400 dark:hover:bg-rose-500/10 dark:hover:text-rose-300">
                                         <flux:icon name="trash" class="size-4" />
-                                        ลบ
+                                        {{ __('ลบ') }}
                                     </button>
                                 </div>
                             </div>
@@ -442,13 +442,13 @@
             </div>
 
             <div class="mt-8 border-t border-zinc-200/80 pt-5 text-center dark:border-zinc-800 lg:mt-6">
-                <p class="text-xs font-medium text-zinc-500 dark:text-zinc-400">จัดโดย <span class="font-semibold text-zinc-800 dark:text-zinc-100">Babybib</span></p>
+                <p class="text-xs font-medium text-zinc-500 dark:text-zinc-400">{{ __('จัดโดย') }} <span class="font-semibold text-zinc-800 dark:text-zinc-100">Babybib</span></p>
                 <div class="mt-2 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-[12px] text-zinc-500 dark:text-zinc-400">
-                    <a href="{{ route('privacy') }}" class="transition hover:text-pink-600 dark:hover:text-pink-300">ส่วนตัว</a>
+                    <a href="{{ route('privacy') }}" class="transition hover:text-pink-600 dark:hover:text-pink-300">{{ __('Privacy') }}</a>
                     <span class="text-zinc-300 dark:text-zinc-700">•</span>
-                    <a href="{{ route('terms') }}" class="transition hover:text-pink-600 dark:hover:text-pink-300">เงื่อนไข</a>
+                    <a href="{{ route('terms') }}" class="transition hover:text-pink-600 dark:hover:text-pink-300">{{ __('Terms') }}</a>
                     <span class="text-zinc-300 dark:text-zinc-700">•</span>
-                    <a href="{{ route('about') }}" class="transition hover:text-pink-600 dark:hover:text-pink-300">เกี่ยวกับ</a>
+                    <a href="{{ route('about') }}" class="transition hover:text-pink-600 dark:hover:text-pink-300">{{ __('About') }}</a>
                 </div>
             </div>
 
@@ -458,8 +458,8 @@
                     class="w-full max-w-lg rounded-[1.75rem] border border-pink-200 bg-white p-6 shadow-2xl shadow-pink-100/60 dark:border-zinc-700 dark:bg-zinc-900 dark:shadow-none">
                     <div class="flex items-start justify-between gap-4">
                         <div class="space-y-1">
-                            <h3 class="text-xl font-semibold text-zinc-900 dark:text-zinc-100" x-text="projectFormMode === 'create' ? 'สร้างโครงการใหม่' : 'แก้ไขโครงการ'"></h3>
-                            <p class="text-sm text-zinc-500 dark:text-zinc-400">ตั้งชื่อและเลือกสไตล์ที่เหมาะกับโครงการของคุณ</p>
+                            <h3 class="text-xl font-semibold text-zinc-900 dark:text-zinc-100" x-text="projectFormMode === 'create' ? @js(__('สร้างโครงการใหม่')) : @js(__('แก้ไขโครงการ'))"></h3>
+                            <p class="text-sm text-zinc-500 dark:text-zinc-400">{{ __('ตั้งชื่อและเลือกสไตล์ที่เหมาะกับโครงการของคุณ') }}</p>
                         </div>
                         <button type="button" x-on:click="closeProjectModals()"
                             class="rounded-full p-2 text-zinc-400 transition hover:bg-zinc-100 hover:text-zinc-900 dark:hover:bg-zinc-800 dark:hover:text-zinc-100">
@@ -468,16 +468,16 @@
                     </div>
 
                     <div class="mt-6 space-y-2">
-                        <label class="text-sm font-medium text-zinc-700 dark:text-zinc-200">ชื่อโครงการ</label>
-                        <input x-model="projectForm.name" type="text" placeholder="เช่น โครงการวิทยานิพนธ์ปี 2026"
+                        <label class="text-sm font-medium text-zinc-700 dark:text-zinc-200">{{ __('ชื่อโครงการ') }}</label>
+                        <input x-model="projectForm.name" type="text" placeholder="{{ __('เช่น โครงการวิทยานิพนธ์ปี 2026') }}"
                             class="w-full rounded-2xl border border-pink-200 bg-white px-4 py-3 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500 dark:focus:ring-pink-500/10">
                     </div>
 
                     <div class="mt-5 rounded-3xl border border-pink-100 bg-pink-50/60 p-4 dark:border-zinc-800 dark:bg-zinc-950/70">
                         <div class="flex items-center justify-between gap-3">
                             <div>
-                                <p class="text-sm font-medium text-zinc-800 dark:text-zinc-100">ปรับสไตล์โครงการ</p>
-                                <p class="text-xs text-zinc-500 dark:text-zinc-400">เลือกโทนสีและสัญลักษณ์ที่เข้ากับงานของคุณ</p>
+                                <p class="text-sm font-medium text-zinc-800 dark:text-zinc-100">{{ __('ปรับสไตล์โครงการ') }}</p>
+                                <p class="text-xs text-zinc-500 dark:text-zinc-400">{{ __('เลือกโทนสีและสัญลักษณ์ที่เข้ากับงานของคุณ') }}</p>
                             </div>
                             <span class="inline-flex size-11 items-center justify-center rounded-2xl" x-bind:class="projectButtonClass(projectForm.color)">
                                 <flux:icon x-show="projectForm.icon === 'folder'" name="folder" class="size-5" />
@@ -536,14 +536,14 @@
                     <div class="mt-6 flex justify-end gap-3">
                         <button type="button" x-on:click="closeProjectModals()"
                             class="px-4 py-2 text-sm font-medium text-zinc-500 transition hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100">
-                            ยกเลิก
+                            {{ __('ยกเลิก') }}
                         </button>
                         <button type="button"
                             x-on:click="saveProject()"
                             class="inline-flex items-center gap-2 rounded-full bg-pink-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-pink-700 dark:bg-pink-500 dark:text-white dark:hover:bg-pink-400">
                             <flux:icon x-show="projectFormMode === 'create'" name="plus" class="size-4" />
                             <flux:icon x-show="projectFormMode === 'edit'" name="check" class="size-4" />
-                            <span x-text="projectFormMode === 'create' ? 'สร้างโครงการ' : 'บันทึกการแก้ไข'"></span>
+                            <span x-text="projectFormMode === 'create' ? @js(__('สร้างโครงการ')) : @js(__('บันทึกการแก้ไข'))"></span>
                         </button>
                     </div>
                 </div>
@@ -555,9 +555,9 @@
                     class="w-full max-w-md rounded-[1.75rem] border border-rose-200 bg-white p-6 shadow-2xl shadow-rose-100/60 dark:border-zinc-700 dark:bg-zinc-900 dark:shadow-none">
                     <div class="flex items-start justify-between gap-4">
                         <div class="space-y-1">
-                            <h3 class="text-xl font-semibold text-zinc-900 dark:text-zinc-100">ยืนยันการลบโครงการ</h3>
+                            <h3 class="text-xl font-semibold text-zinc-900 dark:text-zinc-100">{{ __('ยืนยันการลบโครงการ') }}</h3>
                             <p class="text-sm text-zinc-500 dark:text-zinc-400">
-                                พิมพ์ชื่อโครงการให้ตรงเพื่อยืนยันการลบอย่างถาวร
+                                {{ __('พิมพ์ชื่อโครงการให้ตรงเพื่อยืนยันการลบอย่างถาวร') }}
                             </p>
                         </div>
                         <button type="button" x-on:click="closeProjectModals()"
@@ -567,26 +567,26 @@
                     </div>
 
                     <div class="mt-5 rounded-2xl bg-rose-50 px-4 py-3 text-sm text-rose-700 dark:bg-rose-500/10 dark:text-rose-300">
-                        ชื่อโครงการที่ต้องพิมพ์:
+                        {{ __('ชื่อโครงการที่ต้องพิมพ์:') }}
                         <span class="font-semibold" x-text="projectToDelete?.name || '-'"></span>
                     </div>
 
                     <div class="mt-5 space-y-2">
-                        <label class="text-sm font-medium text-zinc-700 dark:text-zinc-200">พิมพ์ชื่อโครงการเพื่อยืนยัน</label>
+                        <label class="text-sm font-medium text-zinc-700 dark:text-zinc-200">{{ __('พิมพ์ชื่อโครงการเพื่อยืนยัน') }}</label>
                         <input x-model="deleteConfirmationName" type="text"
-                            placeholder="กรอกชื่อโครงการให้ตรงกัน"
+                            placeholder="{{ __('กรอกชื่อโครงการให้ตรงกัน') }}"
                             class="w-full rounded-2xl border border-rose-200 bg-white px-4 py-3 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-rose-400 focus:outline-none focus:ring-2 focus:ring-rose-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-rose-500 dark:focus:ring-rose-500/10">
                     </div>
 
                     <div class="mt-6 flex justify-end gap-3">
                         <button type="button" x-on:click="closeProjectModals()"
                             class="px-4 py-2 text-sm font-medium text-zinc-500 transition hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100">
-                            ยกเลิก
+                            {{ __('ยกเลิก') }}
                         </button>
                         <button type="button" x-on:click="confirmDeleteProject()"
                             class="inline-flex items-center gap-2 rounded-full bg-rose-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-rose-700">
                             <flux:icon name="trash" class="size-4" />
-                            ยืนยันการลบ
+                            {{ __('ยืนยันการลบ') }}
                         </button>
                     </div>
                 </div>
@@ -606,9 +606,9 @@
                                         <div class="absolute left-4 top-0 z-40 -translate-y-1/2 flex items-center gap-3 rounded-full bg-white px-3 py-1 dark:bg-zinc-900">
                                     <button type="button" x-on:click="modalOpen = true"
                                         class="inline-flex items-center gap-2 rounded-full bg-pink-600 px-3.5 py-1.5 text-xs font-semibold text-white shadow-sm shadow-pink-500/20 transition hover:bg-pink-700 hover:shadow-md hover:shadow-pink-500/25 focus:outline-none focus:ring-2 focus:ring-pink-500/20 dark:bg-pink-500 dark:hover:bg-pink-400"
-                                        aria-label="เปิดฟอร์มกรอกข้อมูลเอง">
+                                        aria-label="{{ __('เปิดฟอร์มกรอกข้อมูลเอง') }}">
                                         <flux:icon name="plus" class="size-3.5" />
-                                        <span>สร้างรายการอ้างอิง</span>
+                                        <span>{{ __('สร้างรายการอ้างอิง') }}</span>
                                     </button>
 
                                     <button type="button" x-on:click="setQuickFilter('website')"
@@ -616,7 +616,7 @@
                                         x-bind:class="activeQuickFilter === 'website'
                                             ? 'border-pink-500 text-zinc-900 dark:border-pink-500 dark:text-zinc-100'
                                             : 'border-transparent text-zinc-500 hover:border-pink-400 hover:text-zinc-900 dark:border-transparent dark:text-zinc-400 dark:hover:border-pink-500 dark:hover:text-zinc-100'">
-                                        เว็บไชต์
+                                        {{ __('เว็บไซต์') }}
                                     </button>
 
                                     <button type="button" x-on:click="setQuickFilter('book')"
@@ -624,7 +624,7 @@
                                         x-bind:class="activeQuickFilter === 'book'
                                             ? 'border-pink-500 text-zinc-900 dark:border-pink-500 dark:text-zinc-100'
                                             : 'border-transparent text-zinc-500 hover:border-pink-400 hover:text-zinc-900 dark:border-transparent dark:text-zinc-400 dark:hover:border-pink-500 dark:hover:text-zinc-100'">
-                                        หนังสือ
+                                        {{ __('หนังสือ') }}
                                     </button>
 
                                     <button type="button" x-on:click="setQuickFilter('article')"
@@ -632,7 +632,7 @@
                                         x-bind:class="activeQuickFilter === 'article'
                                             ? 'border-pink-500 text-zinc-900 dark:border-pink-500 dark:text-zinc-100'
                                             : 'border-transparent text-zinc-500 hover:border-pink-400 hover:text-zinc-900 dark:border-transparent dark:text-zinc-400 dark:hover:border-pink-500 dark:hover:text-zinc-100'">
-                                        บทความ
+                                        {{ __('บทความ') }}
                                     </button>
                                 </div>
                                 <div
@@ -655,9 +655,9 @@
                                 <div class="absolute right-3 -top-1 z-30 -translate-y-1/2">
                                     <a href="{{ url('/manual') }}"
                                         class="inline-flex items-center gap-1.5 bg-white px-1 text-[11px] font-medium text-pink-400 transition hover:text-pink-600 focus:outline-none focus:ring-2 focus:ring-pink-500/20 dark:bg-zinc-900 dark:text-pink-300 dark:hover:text-pink-200"
-                                        aria-label="เปิดหน้าช่วยเหลือ">
+                                        aria-label="{{ __('เปิดหน้าช่วยเหลือ') }}">
                                         <flux:icon name="question-mark-circle" class="size-3.5" />
-                                        ช่วยเหลือ
+                                        {{ __('Help') }}
                                     </a>
                                 </div>
 
@@ -725,14 +725,14 @@
                             <div class="grid gap-3 p-1 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.4fr)_auto]">
                                 <label class="grid max-w-xs gap-1.5 text-xs font-medium text-zinc-500 dark:text-zinc-400">
                                     <span class="flex items-center justify-between gap-3">
-                                        <span>รูปแบบบรรณานุกรม</span>
+                                        <span>{{ __('รูปแบบบรรณานุกรม') }}</span>
                                         <a href="{{ url('/manual') }}"
                                             class="text-[11px] font-medium text-pink-600 underline underline-offset-2 transition hover:text-pink-700 dark:text-pink-300 dark:hover:text-pink-200">
-                                            เรียนรู้เพิ่มเติม
+                                            {{ __('Learn more') }}
                                         </a>
                                     </span>
                                     <flux:select x-model="citationStyle" placeholder="">
-                                        <option disabled>เลือกรูปแบบเพื่อจัดรูปแบบบรรณานุกรมและ citation ของคุณ</option>
+                                        <option disabled>{{ __('เลือกรูปแบบเพื่อจัดรูปแบบบรรณานุกรมและ citation ของคุณ') }}</option>
                                         <flux:select.option value="apa7">APA 7th</flux:select.option>
                                         <flux:select.option value="mla9">MLA 9th</flux:select.option>
                                         <flux:select.option value="chicago17">Chicago 17th</flux:select.option>
@@ -740,23 +740,23 @@
                                 </label>
 
                                 <div class="grid items-center justify-items-center gap-1.5 text-center text-xs font-medium text-zinc-500 dark:text-zinc-400">
-                                    <span>รูปแบบการแสดง</span>
+                                    <span>{{ __('รูปแบบการแสดง') }}</span>
                                     <div class="flex items-center justify-center gap-2">
-                                        <flux:tooltip content="มุมมองแบบกระดาษ" position="top">
+                                        <flux:tooltip content="{{ __('มุมมองแบบกระดาษ') }}" position="top">
                                             <button type="button" x-on:click="displayMode = 'paper'"
                                                 class="inline-flex size-10 items-center justify-center rounded-xl border border-pink-200 bg-white transition dark:border-zinc-700 dark:bg-zinc-950"
                                                 x-bind:class="displayMode === 'paper' ? 'border-pink-300 text-pink-700 ring-2 ring-pink-500/15 dark:border-pink-500/50 dark:text-pink-200 dark:ring-pink-500/20' : 'text-zinc-400 hover:border-pink-200 hover:text-pink-700 dark:text-zinc-500 dark:hover:text-pink-200'">
                                                 <flux:icon name="document-text" class="size-4" />
                                             </button>
                                         </flux:tooltip>
-                                        <flux:tooltip content="มุมมองแบบรายการ" position="top">
+                                        <flux:tooltip content="{{ __('มุมมองแบบรายการ') }}" position="top">
                                             <button type="button" x-on:click="displayMode = 'list'"
                                                 class="inline-flex size-10 items-center justify-center rounded-xl border border-pink-200 bg-white transition dark:border-zinc-700 dark:bg-zinc-950"
                                                 x-bind:class="displayMode === 'list' ? 'border-pink-300 text-pink-700 ring-2 ring-pink-500/15 dark:border-pink-500/50 dark:text-pink-200 dark:ring-pink-500/20' : 'text-zinc-400 hover:border-pink-200 hover:text-pink-700 dark:text-zinc-500 dark:hover:text-pink-200'">
                                                 <flux:icon name="list-bullet" class="size-4" />
                                             </button>
                                         </flux:tooltip>
-                                        <flux:tooltip content="แสดงเฉพาะ citation" position="top">
+                                        <flux:tooltip content="{{ __('แสดงเฉพาะ citation') }}" position="top">
                                             <button type="button" x-on:click="displayMode = 'citation'"
                                                 class="inline-flex size-10 items-center justify-center rounded-xl border border-pink-200 bg-white transition dark:border-zinc-700 dark:bg-zinc-950"
                                                 x-bind:class="displayMode === 'citation' ? 'border-pink-300 text-pink-700 ring-2 ring-pink-500/15 dark:border-pink-500/50 dark:text-pink-200 dark:ring-pink-500/20' : 'text-zinc-400 hover:border-pink-200 hover:text-pink-700 dark:text-zinc-500 dark:hover:text-pink-200'">
@@ -767,7 +767,7 @@
                                 </div>
 
                                 <div class="flex flex-col gap-2 lg:items-end">
-                                    <span class="hidden h-[18px] text-xs font-medium text-transparent lg:block">actions</span>
+                                    <span class="hidden h-[18px] text-xs font-medium text-transparent lg:block">{{ __('Actions') }}</span>
                                     <div class="flex gap-2">
                                         <button type="button"
                                             x-on:click="copyCurrentView()"
@@ -778,14 +778,14 @@
                                             <template x-if="copied">
                                                 <flux:icon name="check" class="size-4 text-emerald-500" />
                                             </template>
-                                                <span x-text="copied ? 'คัดลอกแล้ว' : 'Copy'"></span>
+                                                <span x-text="copied ? @js(__('คัดลอกแล้ว')) : @js(__('Copy'))"></span>
                                         </button>
 
                                         <div class="relative">
                                             <button type="button" x-on:click="exportOpen = !exportOpen"
                                                 class="inline-flex h-10 items-center gap-2 rounded-xl border border-pink-200 bg-white px-3.5 text-sm font-medium text-zinc-700 transition hover:border-pink-300 hover:text-pink-700 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-200 dark:hover:border-pink-500 dark:hover:text-pink-200">
                                                 <flux:icon name="arrow-down-tray" class="size-4" />
-                                                <span>ส่งออก</span>
+                                                <span>{{ __('ส่งออก') }}</span>
                                             </button>
 
                                             <div x-cloak x-show="exportOpen" x-transition.opacity x-on:click.outside="exportOpen = false"
@@ -816,15 +816,15 @@
                                     <div class="space-y-1">
                                         
                                         <h3 class="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">
-                                            เลือกประเภททรัพยากรที่ต้องการสร้างบรรณานุกรม
+                                            {{ __('เลือกประเภททรัพยากรที่ต้องการสร้างบรรณานุกรม') }}
                                         </h3>
                                         <p class="text-sm text-zinc-500 dark:text-zinc-400">
-                                            เริ่มจากเลือกหมวดและชนิดทรัพยากรด้านล่าง ระบบจะพาคุณไปยังรูปแบบที่เหมาะกับการอ้างอิงนั้นทันที
+                                            {{ __('เริ่มจากเลือกหมวดและชนิดทรัพยากรด้านล่าง ระบบจะพาคุณไปยังรูปแบบที่เหมาะกับการอ้างอิงนั้นทันที') }}
                                         </p>
                                     </div>
                                     <button type="button" x-on:click="modalOpen = false"
                                         class="rounded-full p-2 text-zinc-400 transition hover:bg-zinc-100 hover:text-zinc-900 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
-                                        aria-label="ปิดหน้าต่าง">
+                                        aria-label="{{ __('ปิดหน้าต่าง') }}">
                                         <flux:icon name="x-mark" class="size-5" />
                                     </button>
                                 </div>
@@ -835,7 +835,7 @@
                                             <flux:icon name="magnifying-glass" class="size-5" />
                                         </div>
                                         <input x-model.debounce.150ms="modalSearch" type="text"
-                                            placeholder="ค้นหาประเภททรัพยากร เช่น หนังสืออิเล็กทรอนิกส์, วิทยานิพนธ์, เว็บเพจ"
+                                            placeholder="{{ __('ค้นหาประเภททรัพยากร เช่น หนังสืออิเล็กทรอนิกส์, วิทยานิพนธ์, เว็บเพจ') }}"
                                             class="w-full rounded-2xl border border-pink-200 bg-pink-50/50 py-3 pl-12 pr-4 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500 dark:focus:ring-pink-500/10">
                                     </div>
                                 </div>
@@ -879,7 +879,7 @@
                                                     </span>
                                                     <div>
                                                         <h4 class="text-base font-semibold {{ $modalHeadingClasses }}">{{ $group['label'] }}</h4>
-                                                        <p class="text-xs text-zinc-500 dark:text-zinc-400">{{ count($group['items']) }} รูปแบบอ้างอิง</p>
+                                                        <p class="text-xs text-zinc-500 dark:text-zinc-400">{{ count($group['items']) }} {{ __('รูปแบบอ้างอิง') }}</p>
                                                     </div>
                                                 </div>
 
@@ -901,16 +901,16 @@
 
                                 <div class="flex items-center justify-between gap-4 border-t border-zinc-200 px-6 py-4 dark:border-zinc-800 lg:px-8">
                                     <p class="text-sm text-zinc-500 dark:text-zinc-400">
-                                        หากยังไม่แน่ใจประเภทที่ต้องใช้ สามารถดูรายละเอียดการอ้างอิงเพิ่มเติมได้ในคู่มือ
+                                        {{ __('หากยังไม่แน่ใจประเภทที่ต้องใช้ สามารถดูรายละเอียดการอ้างอิงเพิ่มเติมได้ในคู่มือ') }}
                                     </p>
                                     <div class="flex items-center gap-3">
                                         <a href="{{ url('/manual') }}"
                                             class="text-sm font-medium text-zinc-900 underline underline-offset-2 transition hover:text-pink-500 dark:text-zinc-100 dark:hover:text-pink-400">
-                                            เปิดคู่มือ
+                                            {{ __('Open manual') }}
                                         </a>
                                         <button type="button" x-on:click="modalOpen = false"
                                             class="inline-flex items-center rounded-full border border-zinc-200 px-4 py-2 text-sm font-medium text-zinc-600 transition hover:border-zinc-300 hover:text-zinc-900 dark:border-zinc-700 dark:text-zinc-300 dark:hover:border-zinc-500 dark:hover:text-zinc-100">
-                                            ปิด
+                                            {{ __('Close') }}
                                         </button>
                                     </div>
                                 </div>
@@ -926,12 +926,12 @@
                                 class="w-full max-w-5xl rounded-[2rem] border border-pink-200 bg-white p-6 shadow-2xl shadow-pink-100/60 dark:border-zinc-700 dark:bg-zinc-900 dark:shadow-none">
                                 <div class="flex items-start justify-between gap-4">
                                     <div class="space-y-1">
-                                        <h3 class="text-xl font-semibold text-zinc-900 dark:text-zinc-100">รายละเอียดรายการบรรณานุกรม</h3>
+                                        <h3 class="text-xl font-semibold text-zinc-900 dark:text-zinc-100">{{ __('รายละเอียดรายการบรรณานุกรม') }}</h3>
                                         <p class="text-sm text-zinc-500 dark:text-zinc-400">
-                                            โครงการ:
+                                            {{ __('โครงการ:') }}
                                             <span class="font-medium text-pink-600 dark:text-pink-300" x-text="activeEntry ? projectNameById(entryProjectId(activeEntry)) : '-' "></span>
                                             <span class="mx-2 text-zinc-300 dark:text-zinc-600">•</span>
-                                            ประเภท:
+                                            {{ __('ประเภท:') }}
                                             <span class="font-medium text-zinc-700 dark:text-zinc-200" x-text="entryTypeLabel(activeEntry)"></span>
                                         </p>
                                     </div>
@@ -944,7 +944,7 @@
                                 <div class="mt-6 grid gap-4 xl:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)]">
                                     <div class="space-y-4">
                                         <div class="rounded-3xl border border-pink-200 bg-pink-50/50 p-5 dark:border-zinc-700 dark:bg-zinc-950">
-                                            <p class="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-pink-500 dark:text-pink-300">Bibliography</p>
+                                            <p class="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-pink-500 dark:text-pink-300">{{ __('Bibliography') }}</p>
                                             <div class="paper-bibliography-font text-[16px] leading-[2] text-zinc-700 dark:text-zinc-300">
                                                 <p class="thai-distributed" style="padding-left: 0.5in; text-indent: -0.5in; line-height: 2;" x-html="entryPaperPreview(activeEntry)"></p>
                                             </div>
@@ -952,18 +952,18 @@
 
                                         <div class="grid gap-4 lg:grid-cols-2">
                                             <div class="rounded-3xl border border-violet-200 bg-white p-5 dark:border-zinc-700 dark:bg-zinc-950">
-                                                <p class="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-violet-500 dark:text-violet-300">Narrative Citation</p>
+                                                <p class="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-violet-500 dark:text-violet-300">{{ __('Narrative Citation') }}</p>
                                                 <p class="text-sm leading-7 text-zinc-700 dark:text-zinc-300" x-text="entryNarrativeCitation(activeEntry)"></p>
                                             </div>
                                             <div class="rounded-3xl border border-violet-200 bg-white p-5 dark:border-zinc-700 dark:bg-zinc-950">
-                                                <p class="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-violet-500 dark:text-violet-300">Parenthetical Citation</p>
+                                                <p class="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-violet-500 dark:text-violet-300">{{ __('Parenthetical Citation') }}</p>
                                                 <p class="text-sm leading-7 text-zinc-700 dark:text-zinc-300" x-text="entryParentheticalCitation(activeEntry)"></p>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="rounded-3xl border border-zinc-200 bg-white p-5 dark:border-zinc-700 dark:bg-zinc-950">
-                                        <p class="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">Field Details</p>
+                                        <p class="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">{{ __('Field Details') }}</p>
                                         <div class="grid gap-3 sm:grid-cols-2 xl:grid-cols-1">
                                             <template x-for="(field, index) in entryDetailFields(activeEntry)" :key="'field-' + index">
                                                 <div class="rounded-2xl border border-zinc-200 bg-zinc-50 px-4 py-3 dark:border-zinc-700 dark:bg-zinc-900">
@@ -973,7 +973,7 @@
                                             </template>
                                         </div>
                                         <p x-show="entryDetailFields(activeEntry).length === 0" class="text-sm italic text-zinc-400 dark:text-zinc-500">
-                                            ยังไม่มีข้อมูลฟิลด์เพิ่มเติมสำหรับรายการนี้
+                                            {{ __('ยังไม่มีข้อมูลฟิลด์เพิ่มเติมสำหรับรายการนี้') }}
                                         </p>
                                     </div>
                                 </div>
@@ -981,13 +981,13 @@
                                 <div class="mt-6 flex justify-end gap-3">
                                     <button type="button" x-on:click="closeEntryModals()"
                                         class="px-4 py-2 text-sm font-medium text-zinc-500 transition hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100">
-                                        ปิด
+                                        {{ __('Close') }}
                                     </button>
                                     <button type="button" x-on:click="copyEntry(activeEntry)"
                                         class="inline-flex items-center gap-2 rounded-full bg-pink-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-pink-700 dark:bg-pink-500 dark:hover:bg-pink-400">
                                         <flux:icon x-show="copiedEntryId !== activeEntry?.id" name="clipboard-document" class="size-4" />
                                         <flux:icon x-show="copiedEntryId === activeEntry?.id" name="check" class="size-4" />
-                                        <span x-text="copiedEntryId === activeEntry?.id ? 'คัดลอกแล้ว' : 'คัดลอกรายการ'"></span>
+                                        <span x-text="copiedEntryId === activeEntry?.id ? @js(__('คัดลอกแล้ว')) : @js(__('คัดลอกรายการ'))"></span>
                                     </button>
                                 </div>
                             </div>
@@ -999,8 +999,8 @@
                                 class="w-full max-w-5xl rounded-[2rem] border border-pink-200 bg-white p-6 shadow-2xl shadow-pink-100/60 dark:border-zinc-700 dark:bg-zinc-900 dark:shadow-none">
                                 <div class="flex items-start justify-between gap-4">
                                     <div class="space-y-1">
-                                        <h3 class="text-xl font-semibold text-zinc-900 dark:text-zinc-100">แก้ไขรายการบรรณานุกรม</h3>
-                                        <p class="text-sm text-zinc-500 dark:text-zinc-400">แก้ไขบรรณานุกรม, citation และข้อมูลรายฟิลด์ของรายการนี้</p>
+                                        <h3 class="text-xl font-semibold text-zinc-900 dark:text-zinc-100">{{ __('แก้ไขรายการบรรณานุกรม') }}</h3>
+                                        <p class="text-sm text-zinc-500 dark:text-zinc-400">{{ __('แก้ไขบรรณานุกรม, citation และข้อมูลรายฟิลด์ของรายการนี้') }}</p>
                                     </div>
                                     <button type="button" x-on:click="closeEntryModals()"
                                         class="rounded-full p-2 text-zinc-400 transition hover:bg-zinc-100 hover:text-zinc-900 dark:hover:bg-zinc-800 dark:hover:text-zinc-100">
@@ -1011,25 +1011,25 @@
                                 <div class="mt-6 grid gap-5 xl:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
                                     <div class="space-y-5">
                                         <div class="space-y-2">
-                                            <label class="text-sm font-medium text-zinc-700 dark:text-zinc-200">ประเภททรัพยากร</label>
+                                            <label class="text-sm font-medium text-zinc-700 dark:text-zinc-200">{{ __('ประเภททรัพยากร') }}</label>
                                             <input x-model="editEntryDraft.resourceType" type="text"
                                                 class="w-full rounded-2xl border border-pink-200 bg-white px-4 py-3 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
                                         </div>
 
                                         <div class="space-y-2">
-                                            <label class="text-sm font-medium text-zinc-700 dark:text-zinc-200">บรรณานุกรม</label>
+                                            <label class="text-sm font-medium text-zinc-700 dark:text-zinc-200">{{ __('บรรณานุกรม') }}</label>
                                             <textarea x-model="editEntryDraft.text" rows="7"
                                                 class="w-full rounded-3xl border border-pink-200 bg-white px-4 py-4 text-sm leading-7 text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500"></textarea>
                                         </div>
 
                                         <div class="grid gap-4 lg:grid-cols-2">
                                             <div class="space-y-2">
-                                                <label class="text-sm font-medium text-zinc-700 dark:text-zinc-200">Narrative Citation</label>
+                                                <label class="text-sm font-medium text-zinc-700 dark:text-zinc-200">{{ __('Narrative Citation') }}</label>
                                                 <textarea x-model="editEntryDraft.narrativeCitation" rows="4"
                                                     class="w-full rounded-3xl border border-violet-200 bg-white px-4 py-4 text-sm leading-7 text-zinc-700 placeholder:text-zinc-400 focus:border-violet-400 focus:outline-none focus:ring-2 focus:ring-violet-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-violet-500"></textarea>
                                             </div>
                                             <div class="space-y-2">
-                                                <label class="text-sm font-medium text-zinc-700 dark:text-zinc-200">Parenthetical Citation</label>
+                                                <label class="text-sm font-medium text-zinc-700 dark:text-zinc-200">{{ __('Parenthetical Citation') }}</label>
                                                 <textarea x-model="editEntryDraft.parentheticalCitation" rows="4"
                                                     class="w-full rounded-3xl border border-violet-200 bg-white px-4 py-4 text-sm leading-7 text-zinc-700 placeholder:text-zinc-400 focus:border-violet-400 focus:outline-none focus:ring-2 focus:ring-violet-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-violet-500"></textarea>
                                             </div>
@@ -1039,13 +1039,13 @@
                                     <div class="space-y-4 rounded-3xl border border-zinc-200 bg-zinc-50 p-5 dark:border-zinc-700 dark:bg-zinc-950">
                                         <div class="flex items-center justify-between gap-3">
                                             <div>
-                                                <h4 class="text-sm font-semibold text-zinc-800 dark:text-zinc-100">ฟิลด์ข้อมูล</h4>
-                                                <p class="text-xs text-zinc-500 dark:text-zinc-400">แก้ไขหรือเพิ่มข้อมูลย่อยของรายการให้แสดงใน modal รายละเอียด</p>
+                                                <h4 class="text-sm font-semibold text-zinc-800 dark:text-zinc-100">{{ __('ฟิลด์ข้อมูล') }}</h4>
+                                                <p class="text-xs text-zinc-500 dark:text-zinc-400">{{ __('แก้ไขหรือเพิ่มข้อมูลย่อยของรายการให้แสดงใน modal รายละเอียด') }}</p>
                                             </div>
                                             <button type="button" x-on:click="addEditField()"
                                                 class="inline-flex items-center gap-1.5 rounded-full border border-pink-200 bg-white px-3 py-1.5 text-xs font-medium text-pink-600 transition hover:border-pink-300 hover:text-pink-700 dark:border-zinc-700 dark:bg-zinc-900 dark:text-pink-300 dark:hover:border-pink-500">
                                                 <flux:icon name="plus" class="size-3.5" />
-                                                เพิ่มฟิลด์
+                                                {{ __('เพิ่มฟิลด์') }}
                                             </button>
                                         </div>
 
@@ -1054,18 +1054,18 @@
                                                 <div class="rounded-2xl border border-zinc-200 bg-white p-4 dark:border-zinc-700 dark:bg-zinc-900">
                                                     <div class="grid gap-3 sm:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)_auto] sm:items-start">
                                                         <div>
-                                                            <label class="mb-1 block text-xs font-medium text-zinc-500 dark:text-zinc-400">ชื่อฟิลด์</label>
+                                                            <label class="mb-1 block text-xs font-medium text-zinc-500 dark:text-zinc-400">{{ __('ชื่อฟิลด์') }}</label>
                                                             <input x-model="field.label" type="text"
                                                                 class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
                                                         </div>
                                                         <div>
-                                                            <label class="mb-1 block text-xs font-medium text-zinc-500 dark:text-zinc-400">ค่า</label>
+                                                            <label class="mb-1 block text-xs font-medium text-zinc-500 dark:text-zinc-400">{{ __('ค่า') }}</label>
                                                             <textarea x-model="field.value" rows="2"
                                                                 class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500"></textarea>
                                                         </div>
                                                         <button type="button" x-on:click="removeEditField(index)"
                                                             class="mt-6 inline-flex size-9 items-center justify-center rounded-xl text-zinc-400 transition hover:bg-rose-50 hover:text-rose-600 dark:hover:bg-rose-500/10 dark:hover:text-rose-400"
-                                                            aria-label="ลบฟิลด์">
+                                                            aria-label="{{ __('ลบฟิลด์') }}">
                                                             <flux:icon name="trash" class="size-4" />
                                                         </button>
                                                     </div>
@@ -1073,7 +1073,7 @@
                                             </template>
                                         </div>
                                         <p x-show="editEntryDraft.detailFields.length === 0" class="text-sm italic text-zinc-400 dark:text-zinc-500">
-                                            ยังไม่มีฟิลด์ข้อมูล สามารถกดเพิ่มฟิลด์ได้
+                                            {{ __('ยังไม่มีฟิลด์ข้อมูล สามารถกดเพิ่มฟิลด์ได้') }}
                                         </p>
                                     </div>
                                 </div>
@@ -1081,12 +1081,12 @@
                                 <div class="mt-6 flex justify-end gap-3">
                                     <button type="button" x-on:click="closeEntryModals()"
                                         class="px-4 py-2 text-sm font-medium text-zinc-500 transition hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100">
-                                        ยกเลิก
+                                        {{ __('ยกเลิก') }}
                                     </button>
                                     <button type="button" x-on:click="saveEntryEdit()"
                                         class="inline-flex items-center gap-2 rounded-full bg-pink-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-pink-700 dark:bg-pink-500 dark:hover:bg-pink-400">
                                         <flux:icon name="check" class="size-4" />
-                                        บันทึกการแก้ไข
+                                        {{ __('บันทึกการแก้ไข') }}
                                     </button>
                                 </div>
                             </div>
@@ -1098,8 +1098,8 @@
                                 class="w-full max-w-2xl rounded-[2rem] border border-pink-200 bg-white p-6 shadow-2xl shadow-pink-100/60 dark:border-zinc-700 dark:bg-zinc-900 dark:shadow-none">
                                 <div class="flex items-start justify-between gap-4">
                                     <div class="space-y-1">
-                                        <h3 class="text-xl font-semibold text-zinc-900 dark:text-zinc-100">ย้ายรายการไปโครงการอื่น</h3>
-                                        <p class="text-sm text-zinc-500 dark:text-zinc-400">เลือกโครงการปลายทางสำหรับรายการที่เลือก</p>
+                                        <h3 class="text-xl font-semibold text-zinc-900 dark:text-zinc-100">{{ __('ย้ายรายการไปโครงการอื่น') }}</h3>
+                                        <p class="text-sm text-zinc-500 dark:text-zinc-400">{{ __('เลือกโครงการปลายทางสำหรับรายการที่เลือก') }}</p>
                                     </div>
                                     <button type="button" x-on:click="closeEntryModals()"
                                         class="rounded-full p-2 text-zinc-400 transition hover:bg-zinc-100 hover:text-zinc-900 dark:hover:bg-zinc-800 dark:hover:text-zinc-100">
@@ -1118,7 +1118,7 @@
                                                     class="border-zinc-300 text-pink-600 focus:ring-pink-500">
                                                 <div>
                                                     <p class="text-sm font-medium text-zinc-800 dark:text-zinc-100" x-text="project.name"></p>
-                                                    <p class="text-xs text-zinc-500 dark:text-zinc-400" x-text="entryProjectId(activeEntry) === project.id ? 'โครงการปัจจุบัน' : 'โครงการปลายทาง'"></p>
+                                                    <p class="text-xs text-zinc-500 dark:text-zinc-400" x-text="entryProjectId(activeEntry) === project.id ? @js(__('โครงการปัจจุบัน')) : @js(__('โครงการปลายทาง'))"></p>
                                                 </div>
                                             </div>
                                             <flux:icon x-show="moveTargetProjectId === project.id" name="check-circle" class="size-5 text-pink-500" />
@@ -1129,12 +1129,12 @@
                                 <div class="mt-6 flex justify-end gap-3">
                                     <button type="button" x-on:click="closeEntryModals()"
                                         class="px-4 py-2 text-sm font-medium text-zinc-500 transition hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100">
-                                        ยกเลิก
+                                        {{ __('ยกเลิก') }}
                                     </button>
                                     <button type="button" x-on:click="confirmMoveEntry()"
                                         class="inline-flex items-center gap-2 rounded-full bg-pink-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-pink-700 dark:bg-pink-500 dark:hover:bg-pink-400">
                                         <flux:icon name="folder-open" class="size-4" />
-                                        ย้ายรายการ
+                                        {{ __('ย้ายรายการ') }}
                                     </button>
                                 </div>
                             </div>
@@ -1146,8 +1146,8 @@
                                 class="w-full max-w-2xl rounded-[2rem] border border-rose-200 bg-white p-6 shadow-2xl shadow-rose-100/60 dark:border-zinc-700 dark:bg-zinc-900 dark:shadow-none">
                                 <div class="flex items-start justify-between gap-4">
                                     <div class="space-y-1">
-                                        <h3 class="text-xl font-semibold text-zinc-900 dark:text-zinc-100">ลบรายการบรรณานุกรม</h3>
-                                        <p class="text-sm text-zinc-500 dark:text-zinc-400">ยืนยันการลบรายการนี้ออกจากโครงการปัจจุบัน</p>
+                                        <h3 class="text-xl font-semibold text-zinc-900 dark:text-zinc-100">{{ __('ลบรายการบรรณานุกรม') }}</h3>
+                                        <p class="text-sm text-zinc-500 dark:text-zinc-400">{{ __('ยืนยันการลบรายการนี้ออกจากโครงการปัจจุบัน') }}</p>
                                     </div>
                                     <button type="button" x-on:click="closeEntryModals()"
                                         class="rounded-full p-2 text-zinc-400 transition hover:bg-zinc-100 hover:text-zinc-900 dark:hover:bg-zinc-800 dark:hover:text-zinc-100">
@@ -1156,19 +1156,19 @@
                                 </div>
 
                                 <div class="mt-5 rounded-3xl border border-rose-200 bg-rose-50/80 p-4 dark:border-rose-500/20 dark:bg-rose-500/10">
-                                    <p class="text-xs font-semibold uppercase tracking-[0.18em] text-rose-500 dark:text-rose-300">รายการที่จะถูกลบ</p>
+                                    <p class="text-xs font-semibold uppercase tracking-[0.18em] text-rose-500 dark:text-rose-300">{{ __('รายการที่จะถูกลบ') }}</p>
                                     <p class="mt-2 text-sm leading-7 text-zinc-700 dark:text-zinc-200" x-text="activeEntry?.text || '-' "></p>
                                 </div>
 
                                 <div class="mt-6 flex justify-end gap-3">
                                     <button type="button" x-on:click="closeEntryModals()"
                                         class="px-4 py-2 text-sm font-medium text-zinc-500 transition hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100">
-                                        ยกเลิก
+                                        {{ __('ยกเลิก') }}
                                     </button>
                                     <button type="button" x-on:click="confirmDeleteEntry()"
                                         class="inline-flex items-center gap-2 rounded-full bg-rose-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-rose-700 dark:bg-rose-500 dark:hover:bg-rose-400">
                                         <flux:icon name="trash" class="size-4" />
-                                        ลบรายการ
+                                        {{ __('ลบรายการ') }}
                                     </button>
                                 </div>
                             </div>
@@ -1180,7 +1180,7 @@
                                     class="paper-bibliography-font flex min-h-[calc(100vh-15rem)] w-full max-w-3xl flex-1 flex-col border border-zinc-200 bg-white px-8 py-10 dark:border-zinc-700 dark:bg-zinc-950">
                                     <div class="paper-bibliography-font mx-auto flex h-full w-full max-w-xl flex-col text-zinc-800 dark:text-zinc-100">
                                         <div class="pb-5 text-center">
-                                            <h3 class="paper-bibliography-font text-[18px] font-semibold tracking-tight">บรรณานุกรม</h3>
+                                            <h3 class="paper-bibliography-font text-[18px] font-semibold tracking-tight">{{ __('บรรณานุกรม') }}</h3>
                                         </div>
                                         <div class="paper-bibliography-font space-y-0 text-[16px] leading-[2] text-zinc-700 dark:text-zinc-300">
                                             <template x-for="entry in filteredCitations()" :key="'paper-' + entry.id">
@@ -1188,39 +1188,39 @@
                                                     x-bind:class="entryCardClasses(entry, 'paper')">
                                                     <p class="thai-distributed" style="padding-left: 0.5in; text-indent: -0.5in; line-height: 2;" x-html="entry.paperHtml || entry.text"></p>
                                                     <div class="absolute right-3 top-3 hidden items-center gap-2 rounded-full bg-white/95 px-2 py-1.5 shadow-sm ring-1 ring-pink-200 group-hover:flex dark:bg-zinc-950/95 dark:ring-pink-500/20">
-                                                        <flux:tooltip content="ดู">
+                                                        <flux:tooltip content="{{ __('ดู') }}">
                                                             <button type="button" x-on:click="viewEntry(entry)"
                                                                 class="inline-flex size-8 items-center justify-center rounded-full text-zinc-500 transition hover:bg-pink-100 hover:text-pink-700 dark:text-zinc-400 dark:hover:bg-pink-500/10 dark:hover:text-pink-200"
-                                                                aria-label="ดู">
+                                                                aria-label="{{ __('ดู') }}">
                                                                 <flux:icon name="eye" class="size-4" />
                                                             </button>
                                                         </flux:tooltip>
-                                                        <flux:tooltip content="แก้ไข">
+                                                        <flux:tooltip content="{{ __('แก้ไข') }}">
                                                             <button type="button" x-on:click="editEntry(entry)"
                                                                 class="inline-flex size-8 items-center justify-center rounded-full text-zinc-500 transition hover:bg-pink-100 hover:text-pink-700 dark:text-zinc-400 dark:hover:bg-pink-500/10 dark:hover:text-pink-200"
-                                                                aria-label="แก้ไข">
+                                                                aria-label="{{ __('แก้ไข') }}">
                                                                 <flux:icon name="pencil-square" class="size-4" />
                                                             </button>
                                                         </flux:tooltip>
-                                                        <flux:tooltip content="คัดลอก">
+                                                        <flux:tooltip content="{{ __('คัดลอก') }}">
                                                             <button type="button" x-on:click="copyEntry(entry)"
                                                                 class="inline-flex size-8 items-center justify-center rounded-full text-zinc-500 transition hover:bg-pink-100 hover:text-pink-700 dark:text-zinc-400 dark:hover:bg-pink-500/10 dark:hover:text-pink-200"
-                                                                aria-label="คัดลอก">
+                                                                aria-label="{{ __('คัดลอก') }}">
                                                                 <flux:icon x-show="copiedEntryId !== entry.id" name="clipboard-document" class="size-4" />
                                                                 <flux:icon x-show="copiedEntryId === entry.id" name="check" class="size-4 text-emerald-500" />
                                                             </button>
                                                         </flux:tooltip>
-                                                        <flux:tooltip content="ย้ายโปรเจค">
+                                                        <flux:tooltip content="{{ __('ย้ายโครงการ') }}">
                                                             <button type="button" x-on:click="moveEntry(entry)"
                                                                 class="inline-flex size-8 items-center justify-center rounded-full text-zinc-500 transition hover:bg-pink-100 hover:text-pink-700 dark:text-zinc-400 dark:hover:bg-pink-500/10 dark:hover:text-pink-200"
-                                                                aria-label="ย้ายโปรเจค">
+                                                                aria-label="{{ __('ย้ายโครงการ') }}">
                                                                 <flux:icon name="folder-open" class="size-4" />
                                                             </button>
                                                         </flux:tooltip>
-                                                        <flux:tooltip content="ลบ">
+                                                        <flux:tooltip content="{{ __('ลบ') }}">
                                                             <button type="button" x-on:click="requestDeleteEntry(entry)"
                                                                 class="inline-flex size-8 items-center justify-center rounded-full text-zinc-500 transition hover:bg-rose-100 hover:text-rose-700 dark:text-zinc-400 dark:hover:bg-rose-500/10 dark:hover:text-rose-300"
-                                                                aria-label="ลบรายการ">
+                                                                aria-label="{{ __('ลบรายการ') }}">
                                                                 <flux:icon name="trash" class="size-4" />
                                                             </button>
                                                         </flux:tooltip>
@@ -1241,39 +1241,39 @@
                                                 x-bind:class="entryCardClasses(entry, 'list')">
                                                 <span class="min-w-0 flex-1 leading-8" x-text="entry.text"></span>
                                                 <div class="hidden shrink-0 items-center gap-1.5 group-hover:flex">
-                                                    <flux:tooltip content="ดู">
+                                                    <flux:tooltip content="{{ __('ดู') }}">
                                                         <button type="button" x-on:click="viewEntry(entry)"
                                                             class="inline-flex size-8 items-center justify-center rounded-full text-zinc-500 transition hover:bg-pink-100 hover:text-pink-700 dark:text-zinc-400 dark:hover:bg-pink-500/10 dark:hover:text-pink-200"
-                                                            aria-label="ดู">
+                                                            aria-label="{{ __('ดู') }}">
                                                             <flux:icon name="eye" class="size-4" />
                                                         </button>
                                                     </flux:tooltip>
-                                                    <flux:tooltip content="แก้ไข">
+                                                    <flux:tooltip content="{{ __('แก้ไข') }}">
                                                         <button type="button" x-on:click="editEntry(entry)"
                                                             class="inline-flex size-8 items-center justify-center rounded-full text-zinc-500 transition hover:bg-pink-100 hover:text-pink-700 dark:text-zinc-400 dark:hover:bg-pink-500/10 dark:hover:text-pink-200"
-                                                            aria-label="แก้ไข">
+                                                            aria-label="{{ __('แก้ไข') }}">
                                                             <flux:icon name="pencil-square" class="size-4" />
                                                         </button>
                                                     </flux:tooltip>
-                                                    <flux:tooltip content="คัดลอก">
+                                                    <flux:tooltip content="{{ __('คัดลอก') }}">
                                                         <button type="button" x-on:click="copyEntry(entry)"
                                                             class="inline-flex size-8 items-center justify-center rounded-full text-zinc-500 transition hover:bg-pink-100 hover:text-pink-700 dark:text-zinc-400 dark:hover:bg-pink-500/10 dark:hover:text-pink-200"
-                                                            aria-label="คัดลอก">
+                                                            aria-label="{{ __('คัดลอก') }}">
                                                             <flux:icon x-show="copiedEntryId !== entry.id" name="clipboard-document" class="size-4" />
                                                             <flux:icon x-show="copiedEntryId === entry.id" name="check" class="size-4 text-emerald-500" />
                                                         </button>
                                                     </flux:tooltip>
-                                                    <flux:tooltip content="ย้ายโปรเจค">
+                                                    <flux:tooltip content="{{ __('ย้ายโครงการ') }}">
                                                         <button type="button" x-on:click="moveEntry(entry)"
                                                             class="inline-flex size-8 items-center justify-center rounded-full text-zinc-500 transition hover:bg-pink-100 hover:text-pink-700 dark:text-zinc-400 dark:hover:bg-pink-500/10 dark:hover:text-pink-200"
-                                                            aria-label="ย้ายโปรเจค">
+                                                            aria-label="{{ __('ย้ายโครงการ') }}">
                                                             <flux:icon name="folder-open" class="size-4" />
                                                         </button>
                                                     </flux:tooltip>
-                                                    <flux:tooltip content="ลบ">
+                                                    <flux:tooltip content="{{ __('ลบ') }}">
                                                         <button type="button" x-on:click="requestDeleteEntry(entry)"
                                                             class="inline-flex size-8 items-center justify-center rounded-full text-zinc-500 transition hover:bg-rose-100 hover:text-rose-700 dark:text-zinc-400 dark:hover:bg-rose-500/10 dark:hover:text-rose-300"
-                                                            aria-label="ลบรายการ">
+                                                            aria-label="{{ __('ลบรายการ') }}">
                                                             <flux:icon name="trash" class="size-4" />
                                                         </button>
                                                     </flux:tooltip>
@@ -1293,39 +1293,39 @@
                                                 x-bind:class="entryCardClasses(entry, 'citation')">
                                                 <span class="min-w-0 flex-1 leading-8" x-text="entryNarrativePreview(entry)"></span>
                                                 <div class="hidden shrink-0 items-center gap-1.5 group-hover:flex">
-                                                    <flux:tooltip content="ดู">
+                                                    <flux:tooltip content="{{ __('ดู') }}">
                                                         <button type="button" x-on:click="viewEntry(entry)"
                                                             class="inline-flex size-8 items-center justify-center rounded-full text-zinc-500 transition hover:bg-pink-100 hover:text-pink-700 dark:text-zinc-400 dark:hover:bg-pink-500/10 dark:hover:text-pink-200"
-                                                            aria-label="ดู">
+                                                            aria-label="{{ __('ดู') }}">
                                                             <flux:icon name="eye" class="size-4" />
                                                         </button>
                                                     </flux:tooltip>
-                                                    <flux:tooltip content="แก้ไข">
+                                                    <flux:tooltip content="{{ __('แก้ไข') }}">
                                                         <button type="button" x-on:click="editEntry(entry)"
                                                             class="inline-flex size-8 items-center justify-center rounded-full text-zinc-500 transition hover:bg-pink-100 hover:text-pink-700 dark:text-zinc-400 dark:hover:bg-pink-500/10 dark:hover:text-pink-200"
-                                                            aria-label="แก้ไข">
+                                                            aria-label="{{ __('แก้ไข') }}">
                                                             <flux:icon name="pencil-square" class="size-4" />
                                                         </button>
                                                     </flux:tooltip>
-                                                    <flux:tooltip content="คัดลอก">
+                                                    <flux:tooltip content="{{ __('คัดลอก') }}">
                                                         <button type="button" x-on:click="copyEntry(entry)"
                                                             class="inline-flex size-8 items-center justify-center rounded-full text-zinc-500 transition hover:bg-pink-100 hover:text-pink-700 dark:text-zinc-400 dark:hover:bg-pink-500/10 dark:hover:text-pink-200"
-                                                            aria-label="คัดลอก">
+                                                            aria-label="{{ __('คัดลอก') }}">
                                                             <flux:icon x-show="copiedEntryId !== entry.id" name="clipboard-document" class="size-4" />
                                                             <flux:icon x-show="copiedEntryId === entry.id" name="check" class="size-4 text-emerald-500" />
                                                         </button>
                                                     </flux:tooltip>
-                                                    <flux:tooltip content="ย้ายโปรเจค">
+                                                    <flux:tooltip content="{{ __('ย้ายโครงการ') }}">
                                                         <button type="button" x-on:click="moveEntry(entry)"
                                                             class="inline-flex size-8 items-center justify-center rounded-full text-zinc-500 transition hover:bg-pink-100 hover:text-pink-700 dark:text-zinc-400 dark:hover:bg-pink-500/10 dark:hover:text-pink-200"
-                                                            aria-label="ย้ายโปรเจค">
+                                                            aria-label="{{ __('ย้ายโครงการ') }}">
                                                             <flux:icon name="folder-open" class="size-4" />
                                                         </button>
                                                     </flux:tooltip>
-                                                    <flux:tooltip content="ลบ">
+                                                    <flux:tooltip content="{{ __('ลบ') }}">
                                                         <button type="button" x-on:click="requestDeleteEntry(entry)"
                                                             class="inline-flex size-8 items-center justify-center rounded-full text-zinc-500 transition hover:bg-rose-100 hover:text-rose-700 dark:text-zinc-400 dark:hover:bg-rose-500/10 dark:hover:text-rose-300"
-                                                            aria-label="ลบรายการ">
+                                                            aria-label="{{ __('ลบรายการ') }}">
                                                             <flux:icon name="trash" class="size-4" />
                                                         </button>
                                                     </flux:tooltip>
@@ -1341,17 +1341,17 @@
 
                 <section class="custom-scrollbar h-[calc(100vh-10rem)] overflow-y-auto lg:min-w-0 lg:justify-self-end">
                     <div class="pr-2">
-                        <flux:heading size="lg" level="2">ยังไม่ได้บันทึก</flux:heading>
+                        <flux:heading size="lg" level="2">{{ __('ยังไม่ได้บันทึก') }}</flux:heading>
                         <div class="mt-3 rounded-2xl border border-pink-200 bg-white/80 p-4 shadow-sm shadow-pink-100/40 dark:border-zinc-700 dark:bg-zinc-950/80 dark:shadow-none">
                             <flux:text class="text-sm leading-6 text-zinc-600 dark:text-zinc-300">
-                                โครงการและรายการบรรณานุกรมของคุณยังไม่มีการบันทึก เพื่อให้สามารถใช้งานได้เต็มรูปแบบ กรุณาเข้าสู่ระบบก่อนเริ่มใช้งานต่อ
+                                {{ __('โครงการและรายการบรรณานุกรมของคุณยังไม่มีการบันทึก เพื่อให้สามารถใช้งานได้เต็มรูปแบบ กรุณาเข้าสู่ระบบก่อนเริ่มใช้งานต่อ') }}
                             </flux:text>
 
                             @if (Route::has('login'))
                                 <a href="{{ route('login') }}"
                                     class="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-pink-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-pink-700 dark:bg-pink-500 dark:hover:bg-pink-400">
                                     <flux:icon name="arrow-right-end-on-rectangle" class="size-4" />
-                                    <span>Sign in</span>
+                                    <span>{{ __('Sign in') }}</span>
                                 </a>
                             @endif
                         </div>
@@ -1373,35 +1373,35 @@
                 projectToDelete: null,
                 deleteConfirmationName: '',
                 projectColors: [
-                    { value: 'zinc', label: 'เทา', swatch: 'bg-zinc-500', button: 'bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900' },
-                    { value: 'sky', label: 'ฟ้า', swatch: 'bg-sky-500', button: 'bg-sky-500 text-white' },
-                    { value: 'emerald', label: 'เขียว', swatch: 'bg-emerald-500', button: 'bg-emerald-500 text-white' },
-                    { value: 'amber', label: 'ทอง', swatch: 'bg-amber-500', button: 'bg-amber-500 text-white' },
-                    { value: 'rose', label: 'ชมพู', swatch: 'bg-rose-500', button: 'bg-rose-500 text-white' },
-                    { value: 'violet', label: 'ม่วง', swatch: 'bg-violet-500', button: 'bg-violet-500 text-white' },
-                    { value: 'indigo', label: 'กรม', swatch: 'bg-indigo-500', button: 'bg-indigo-500 text-white' },
-                    { value: 'cyan', label: 'ฟ้าน้ำทะเล', swatch: 'bg-cyan-500', button: 'bg-cyan-500 text-white' },
-                    { value: 'teal', label: 'ทีล', swatch: 'bg-teal-500', button: 'bg-teal-500 text-white' },
-                    { value: 'orange', label: 'ส้ม', swatch: 'bg-orange-500', button: 'bg-orange-500 text-white' },
-                    { value: 'fuchsia', label: 'บานเย็น', swatch: 'bg-fuchsia-500', button: 'bg-fuchsia-500 text-white' },
-                    { value: 'lime', label: 'ไลม์', swatch: 'bg-lime-500', button: 'bg-lime-500 text-zinc-950' },
+                    { value: 'zinc', label: @js(__('เทา')), swatch: 'bg-zinc-500', button: 'bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900' },
+                    { value: 'sky', label: @js(__('ฟ้า')), swatch: 'bg-sky-500', button: 'bg-sky-500 text-white' },
+                    { value: 'emerald', label: @js(__('เขียว')), swatch: 'bg-emerald-500', button: 'bg-emerald-500 text-white' },
+                    { value: 'amber', label: @js(__('ทอง')), swatch: 'bg-amber-500', button: 'bg-amber-500 text-white' },
+                    { value: 'rose', label: @js(__('ชมพู')), swatch: 'bg-rose-500', button: 'bg-rose-500 text-white' },
+                    { value: 'violet', label: @js(__('ม่วง')), swatch: 'bg-violet-500', button: 'bg-violet-500 text-white' },
+                    { value: 'indigo', label: @js(__('กรม')), swatch: 'bg-indigo-500', button: 'bg-indigo-500 text-white' },
+                    { value: 'cyan', label: @js(__('ฟ้าน้ำทะเล')), swatch: 'bg-cyan-500', button: 'bg-cyan-500 text-white' },
+                    { value: 'teal', label: @js(__('ทีล')), swatch: 'bg-teal-500', button: 'bg-teal-500 text-white' },
+                    { value: 'orange', label: @js(__('ส้ม')), swatch: 'bg-orange-500', button: 'bg-orange-500 text-white' },
+                    { value: 'fuchsia', label: @js(__('บานเย็น')), swatch: 'bg-fuchsia-500', button: 'bg-fuchsia-500 text-white' },
+                    { value: 'lime', label: @js(__('ไลม์')), swatch: 'bg-lime-500', button: 'bg-lime-500 text-zinc-950' },
                 ],
                 projectIcons: [
-                    { value: 'folder', label: 'โฟลเดอร์' },
-                    { value: 'book-open', label: 'หนังสือ' },
-                    { value: 'document-text', label: 'เอกสาร' },
-                    { value: 'academic-cap', label: 'วิจัย' },
-                    { value: 'clipboard-document-list', label: 'รายการ' },
-                    { value: 'sparkles', label: 'พิเศษ' },
-                    { value: 'globe-alt', label: 'เว็บ' },
-                    { value: 'light-bulb', label: 'ไอเดีย' },
-                    { value: 'beaker', label: 'ทดลอง' },
-                    { value: 'briefcase', label: 'งาน' },
-                    { value: 'newspaper', label: 'ข่าวสาร' },
-                    { value: 'presentation-chart-bar', label: 'พรีเซนต์' },
+                    { value: 'folder', label: @js(__('โฟลเดอร์')) },
+                    { value: 'book-open', label: @js(__('หนังสือ')) },
+                    { value: 'document-text', label: @js(__('เอกสาร')) },
+                    { value: 'academic-cap', label: @js(__('วิจัย')) },
+                    { value: 'clipboard-document-list', label: @js(__('รายการ')) },
+                    { value: 'sparkles', label: @js(__('พิเศษ')) },
+                    { value: 'globe-alt', label: @js(__('เว็บ')) },
+                    { value: 'light-bulb', label: @js(__('ไอเดีย')) },
+                    { value: 'beaker', label: @js(__('ทดลอง')) },
+                    { value: 'briefcase', label: @js(__('งาน')) },
+                    { value: 'newspaper', label: @js(__('ข่าวสาร')) },
+                    { value: 'presentation-chart-bar', label: @js(__('พรีเซนต์')) },
                 ],
                 projects: [
-                    { id: 1, name: 'โครงการวิจัยบทที่ 1', color: 'zinc', icon: 'folder' },
+                    { id: 1, name: @js(__('โครงการวิจัยบทที่ 1')), color: 'zinc', icon: 'folder' },
                 ],
                 init() {
                     this.broadcastProjects();
@@ -1450,7 +1450,7 @@
                 openDeleteProjectModal(project) {
                     if (this.projects.length === 1) {
                         this.projectMenuOpen = null;
-                        this.toast('ต้องมีอย่างน้อย 1 โครงการในระบบ', 'warning');
+                        this.toast(@js(__('ต้องมีอย่างน้อย 1 โครงการในระบบ')), 'warning');
                         return;
                     }
 
@@ -1462,7 +1462,7 @@
                 },
                 saveProject() {
                     if (!this.projectForm.name.trim()) {
-                        this.toast('กรุณากรอกชื่อโครงการก่อนบันทึก', 'warning');
+                        this.toast(@js(__('กรุณากรอกชื่อโครงการก่อนบันทึก')), 'warning');
                         return;
                     }
 
@@ -1477,13 +1477,13 @@
                         this.activeProject = nextId;
                         this.closeProjectModals();
                         this.broadcastProjects();
-                        this.toast('สร้างโครงการใหม่เรียบร้อยแล้ว', 'success');
+                        this.toast(@js(__('สร้างโครงการใหม่เรียบร้อยแล้ว')), 'success');
                         return;
                     }
 
                     const project = this.projects.find(item => item.id === this.editingProjectId);
                     if (!project) {
-                        this.toast('ไม่พบโครงการที่ต้องการแก้ไข', 'danger');
+                        this.toast(@js(__('ไม่พบโครงการที่ต้องการแก้ไข')), 'danger');
                         return;
                     }
 
@@ -1492,35 +1492,35 @@
                     project.icon = this.projectForm.icon;
                     this.closeProjectModals();
                     this.broadcastProjects();
-                    this.toast('อัปเดตโครงการเรียบร้อยแล้ว', 'success');
+                    this.toast(@js(__('อัปเดตโครงการเรียบร้อยแล้ว')), 'success');
                 },
                 duplicateProject(project) {
                     const nextId = Date.now();
                     this.projects.unshift({
                         id: nextId,
-                        name: project.name + ' (คัดลอก)',
+                        name: `${project.name} ${@js(__('(คัดลอก)'))}`,
                         color: project.color,
                         icon: project.icon,
                     });
                     this.activeProject = nextId;
                     this.projectMenuOpen = null;
                     this.broadcastProjects();
-                    this.toast('คัดลอกโครงการเรียบร้อยแล้ว', 'success');
+                    this.toast(@js(__('คัดลอกโครงการเรียบร้อยแล้ว')), 'success');
                 },
                 confirmDeleteProject() {
                     if (!this.projectToDelete) {
-                        this.toast('ไม่พบโครงการที่ต้องการลบ', 'danger');
+                        this.toast(@js(__('ไม่พบโครงการที่ต้องการลบ')), 'danger');
                         return;
                     }
 
                     if (this.deleteConfirmationName.trim() !== this.projectToDelete.name) {
-                        this.toast('ชื่อโครงการไม่ตรงกัน กรุณาตรวจสอบอีกครั้ง', 'warning');
+                        this.toast(@js(__('ชื่อโครงการไม่ตรงกัน กรุณาตรวจสอบอีกครั้ง')), 'warning');
                         return;
                     }
 
                     const index = this.projects.findIndex(item => item.id === this.projectToDelete.id);
                     if (index === -1) {
-                        this.toast('ไม่พบโครงการที่ต้องการลบ', 'danger');
+                        this.toast(@js(__('ไม่พบโครงการที่ต้องการลบ')), 'danger');
                         return;
                     }
 
@@ -1533,7 +1533,7 @@
                     }
                     this.closeProjectModals();
                     this.broadcastProjects();
-                    this.toast('ลบโครงการ ' + deletedProjectName + ' เรียบร้อยแล้ว', 'danger');
+                    this.toast(`${@js(__('ลบโครงการ'))} ${deletedProjectName} ${@js(__('เรียบร้อยแล้ว'))}`, 'danger');
                 },
             };
         };
@@ -1545,7 +1545,7 @@
                     {
                         id: 'mock-book-1',
                         category: 'book',
-                        resourceType: 'หนังสืออิเล็กทรอนิกส์ (มี DOI)',
+                        resourceType: @js(__('หนังสืออิเล็กทรอนิกส์ (มี DOI)')),
                         accent: 'rose',
                         icon: 'book-open',
                         title: 'การเขียนบรรณานุกรมสำหรับงานวิจัยสมัยใหม่',
@@ -1557,13 +1557,13 @@
                         isbn: '9786163987654',
                         doi: '10.5555/babybib.2026.011',
                         url: 'https://library.example.org/books/bibliography-modern-research',
-                        formatLabel: 'หนังสือพร้อม DOI',
+                        formatLabel: @js(__('หนังสือพร้อม DOI')),
                         keywords: ['ก', 'บรรณานุกรม', 'งานวิจัย', 'apa'],
                     },
                     {
                         id: 'mock-book-2',
                         category: 'book',
-                        resourceType: 'หนังสือ',
+                        resourceType: @js(__('หนังสือ')),
                         accent: 'amber',
                         icon: 'book-open',
                         title: 'กลยุทธ์การค้นคว้าและสืบค้นแหล่งอ้างอิง',
@@ -1575,13 +1575,13 @@
                         isbn: '9786164123451',
                         doi: '',
                         url: 'https://library.example.org/books/source-discovery-strategies',
-                        formatLabel: 'หนังสือ',
+                        formatLabel: @js(__('หนังสือ')),
                         keywords: ['ก', 'ค้นคว้า', 'สืบค้น', 'อ้างอิง'],
                     },
                     {
                         id: 'mock-book-3',
                         category: 'article',
-                        resourceType: 'บทความวารสารอิเล็กทรอนิกส์ (มี DOI)',
+                        resourceType: @js(__('บทความวารสารอิเล็กทรอนิกส์ (มี DOI)')),
                         accent: 'violet',
                         icon: 'document-text',
                         title: 'การอ้างอิงบทความดิจิทัลด้วย DOI อย่างถูกต้อง',
@@ -1593,13 +1593,13 @@
                         isbn: '9786164556789',
                         doi: '10.5555/babybib.2026.014',
                         url: 'https://journal.example.org/articles/doi-citation-guide',
-                        formatLabel: 'บทความ',
+                        formatLabel: @js(__('บทความ')),
                         keywords: ['บทความ', 'doi', 'วารสาร', 'apa 7'],
                     },
                     {
                         id: 'mock-book-4',
                         category: 'website',
-                        resourceType: 'เอกสารอิเล็กทรอนิกส์ (เว็บเพจ)',
+                        resourceType: @js(__('เอกสารอิเล็กทรอนิกส์ (เว็บเพจ)')),
                         accent: 'sky',
                         icon: 'globe-alt',
                         title: 'คู่มือการอ้างอิงเว็บไซต์สำหรับงานวิชาการ',
@@ -1611,13 +1611,13 @@
                         isbn: '9786164999120',
                         doi: '',
                         url: 'https://docs.babybib.app/web-citation-guide',
-                        formatLabel: 'เว็บไซต์',
+                        formatLabel: @js(__('เว็บไซต์')),
                         keywords: ['เว็บไซต์', 'url', 'เว็บ', 'แหล่งข้อมูลออนไลน์'],
                     },
                     {
                         id: 'mock-book-5',
                         category: 'article',
-                        resourceType: 'บทความวารสาร',
+                        resourceType: @js(__('บทความวารสาร')),
                         accent: 'emerald',
                         icon: 'academic-cap',
                         title: 'Digital Source Attribution for Student Research',
@@ -1629,7 +1629,7 @@
                         isbn: '9781037001124',
                         doi: '10.5555/babybib.2026.021',
                         url: 'https://journal.example.org/articles/digital-source-attribution',
-                        formatLabel: 'บทความวิจัย',
+                        formatLabel: @js(__('บทความวิจัย')),
                         keywords: ['article', 'metadata', 'citation', 'research', 'digital'],
                     },
                 ],
@@ -1658,19 +1658,107 @@
                 activeEntry: null,
                 editEntryDraft: null,
                 projectOptions: [
-                    { id: 1, name: 'โครงการวิจัยบทที่ 1', color: 'zinc', icon: 'folder' },
+                    { id: 1, name: @js(__('โครงการวิจัยบทที่ 1')), color: 'zinc', icon: 'folder' },
                 ],
                 activeProjectId: 1,
                 moveTargetProjectId: null,
+                modalI18n: @js([
+                    'anonymousFallback' => __('ไม่ปรากฏชื่อผู้แต่ง'),
+                    'authorCitationConjunction' => __('และ'),
+                    'authorEtAl' => __('และคณะ'),
+                    'detailFieldResourceType' => __('ประเภททรัพยากร'),
+                    'detailFieldAuthors' => __('ผู้แต่ง'),
+                    'detailFieldYear' => __('ปีที่พิมพ์'),
+                    'detailFieldMonth' => __('เดือน'),
+                    'detailFieldDay' => __('วัน'),
+                    'detailFieldTitle' => __('ชื่อเรื่อง'),
+                    'detailFieldArticleTitle' => __('ชื่อบทความ'),
+                    'detailFieldPublisher' => __('สำนักพิมพ์'),
+                    'detailFieldVolume' => __('เล่ม'),
+                    'detailFieldEdition' => __('ครั้งที่พิมพ์'),
+                    'detailFieldEditor' => __('บรรณาธิการ'),
+                    'detailFieldBookTitle' => __('ชื่อหนังสือ'),
+                    'detailFieldPages' => __('หน้า'),
+                    'detailFieldJournalName' => __('ชื่อวารสาร'),
+                    'detailFieldIssue' => __('ฉบับที่'),
+                    'detailFieldReferenceWork' => __('ชื่อพจนานุกรม / สารานุกรม'),
+                    'detailFieldNewspaperName' => __('ชื่อหนังสือพิมพ์'),
+                    'detailFieldOrganization' => __('หน่วยงาน / องค์กร'),
+                    'detailFieldPublisherProceeding' => __('Proceeding / ผู้เผยแพร่'),
+                    'detailFieldConferenceName' => __('ชื่องานประชุม'),
+                    'detailFieldConferenceLocation' => __('สถานที่จัด'),
+                    'detailFieldConferencePages' => __('หน้า / เลขโปสเตอร์'),
+                    'detailFieldWebsiteName' => __('ชื่อเว็บไซต์'),
+                    'detailFieldAssignee' => __('ผู้ถือสิทธิ์ / หน่วยงาน'),
+                    'detailFieldThesisType' => __('ประเภทวิทยานิพนธ์'),
+                    'detailFieldUniversity' => __('มหาวิทยาลัย'),
+                    'detailFieldDatabase' => __('ฐานข้อมูล'),
+                    'detailFieldMediaType' => __('รูปแบบสื่อ'),
+                    'detailFieldPlatform' => __('แพลตฟอร์ม'),
+                    'detailFieldModel' => __('รุ่นโมเดล'),
+                    'detailFieldPrompt' => __('Prompt / คำสั่งที่ใช้'),
+                    'noDate' => __('ม.ป.ป.'),
+                    'personalCommunicationNotice' => __('การติดต่อสื่อสารส่วนบุคคลตาม APA ปกติจะใช้อ้างอิงเฉพาะในเนื้อหา ไม่แสดงในบรรณานุกรมท้ายเล่ม'),
+                    'narrativeSuffix' => __('กล่าวว่า ...'),
+                    'formatHintBook' => __('ผู้แต่ง. (ปี). ชื่อหนังสือ (ครั้งที่พิมพ์). สำนักพิมพ์. DOI/URL'),
+                    'formatHintJournal' => __('ผู้แต่ง. (ปี). ชื่อบทความ. ชื่อวารสาร, ปีที่(ฉบับที่), หน้า. DOI/URL'),
+                    'formatHintWebsite' => __('ผู้แต่ง. (ปี, เดือน วัน). ชื่อเรื่อง. ชื่อเว็บไซต์. URL'),
+                    'formatHintThesis' => __('ผู้แต่ง. (ปี). ชื่อวิทยานิพนธ์ [ประเภท, มหาวิทยาลัย]. URL/ฐานข้อมูล'),
+                    'formatHintDefault' => __('เลือกประเภททรัพยากรเพื่อดูรูปแบบ APA 7th Edition ที่เหมาะสม'),
+                    'addCitationWarning' => __('กรุณากรอกข้อมูลอย่างน้อยชื่อเรื่อง หรือข้อมูลผู้แต่ง/หน่วยงาน'),
+                    'addCitationSuccess' => __('เพิ่มรายการบรรณานุกรมเรียบร้อยแล้ว'),
+                    'thesisTypeDoctoral' => __('ดุษฎีนิพนธ์'),
+                    'thesisTypeMaster' => __('วิทยานิพนธ์'),
+                ]),
+                resourceTypeLabels: @js([
+                    'หนังสือ' => __('หนังสือ'),
+                    'หนังสือชุดหลายเล่มจบ' => __('หนังสือชุดหลายเล่มจบ'),
+                    'บทความในหนังสือ' => __('บทความในหนังสือ'),
+                    'หนังสืออิเล็กทรอนิกส์ (มี DOI)' => __('หนังสืออิเล็กทรอนิกส์ (มี DOI)'),
+                    'หนังสืออิเล็กทรอนิกส์ (ไม่มี DOI)' => __('หนังสืออิเล็กทรอนิกส์ (ไม่มี DOI)'),
+                    'บทความวารสาร' => __('บทความวารสาร'),
+                    'บทความวารสารอิเล็กทรอนิกส์ (มี DOI)' => __('บทความวารสารอิเล็กทรอนิกส์ (มี DOI)'),
+                    'บทความวารสารอิเล็กทรอนิกส์ (ไม่มี DOI)' => __('บทความวารสารอิเล็กทรอนิกส์ (ไม่มี DOI)'),
+                    'วารสารอิเล็กทรอนิกส์ (แบบมีฉบับพิมพ์)' => __('วารสารอิเล็กทรอนิกส์ (แบบมีฉบับพิมพ์)'),
+                    'วารสารอิเล็กทรอนิกส์ (แบบไม่มีฉบับพิมพ์)' => __('วารสารอิเล็กทรอนิกส์ (แบบไม่มีฉบับพิมพ์)'),
+                    'เอกสารอิเล็กทรอนิกส์ (เว็บเพจ)' => __('เอกสารอิเล็กทรอนิกส์ (เว็บเพจ)'),
+                    'สื่อออนไลน์ (วิดีโอออนไลน์ บทความในโซเชียลมีเดีย)' => __('สื่อออนไลน์ (วิดีโอออนไลน์ บทความในโซเชียลมีเดีย)'),
+                    'ราชกิจจานุเบกษาออนไลน์' => __('ราชกิจจานุเบกษาออนไลน์'),
+                    'สิทธิบัตรออนไลน์' => __('สิทธิบัตรออนไลน์'),
+                    'การติดต่อสื่อสารส่วนบุคคล' => __('การติดต่อสื่อสารส่วนบุคคล'),
+                    'วิทยานิพนธ์ (ที่ไม่ได้ตีพิมพ์)' => __('วิทยานิพนธ์ (ที่ไม่ได้ตีพิมพ์)'),
+                    'วิทยานิพนธ์จากเว็บไซต์' => __('วิทยานิพนธ์จากเว็บไซต์'),
+                    'วิทยานิพนธ์จากฐานข้อมูลเชิงพาณิชย์' => __('วิทยานิพนธ์จากฐานข้อมูลเชิงพาณิชย์'),
+                    'พจนานุกรม' => __('พจนานุกรม'),
+                    'พจนานุกรมออนไลน์' => __('พจนานุกรมออนไลน์'),
+                    'สารานุกรม' => __('สารานุกรม'),
+                    'สารานุกรมออนไลน์' => __('สารานุกรมออนไลน์'),
+                    'หนังสือพิมพ์แบบรูปเล่ม' => __('หนังสือพิมพ์แบบรูปเล่ม'),
+                    'หนังสือพิมพ์ออนไลน์' => __('หนังสือพิมพ์ออนไลน์'),
+                    'รายงาน' => __('รายงาน'),
+                    'รายงานการวิจัย' => __('รายงานการวิจัย'),
+                    'รายงานที่จัดทำโดยหน่วยงานราชการหรือองค์กรอื่น' => __('รายงานที่จัดทำโดยหน่วยงานราชการหรือองค์กรอื่น'),
+                    'รายงานที่จัดทำโดยบุคคลที่สังกัดหน่วยงาน' => __('รายงานที่จัดทำโดยบุคคลที่สังกัดหน่วยงาน'),
+                    'เอกสารการประชุมทางวิชาการ (ที่มี Proceeding)' => __('เอกสารการประชุมทางวิชาการ (ที่มี Proceeding)'),
+                    'เอกสารการประชุมทางวิชาการ (ที่ไม่มี Proceeding)' => __('เอกสารการประชุมทางวิชาการ (ที่ไม่มี Proceeding)'),
+                    'การนำเสนองานวิจัยหรือโปสเตอร์ในงานประชุมวิชาการ' => __('การนำเสนองานวิจัยหรือโปสเตอร์ในงานประชุมวิชาการ'),
+                    'อินโฟกราฟิก (Infographic)' => __('อินโฟกราฟิก (Infographic)'),
+                    'การนำเสนอด้วยสไลด์และเอกสารการสอนออนไลน์' => __('การนำเสนอด้วยสไลด์และเอกสารการสอนออนไลน์'),
+                    'สัมมนาออนไลน์ (Webinar)' => __('สัมมนาออนไลน์ (Webinar)'),
+                    'วิดีโอใน Youtube หรือวิดีโอออนไลน์ต่าง ๆ' => __('วิดีโอใน Youtube หรือวิดีโอออนไลน์ต่าง ๆ'),
+                    'พอดแคสต์ภาพและเสียง (แบบจบในตอน)' => __('พอดแคสต์ภาพและเสียง (แบบจบในตอน)'),
+                    'พอดแคสต์ภาพและเสียง (แบบหลายตอน)' => __('พอดแคสต์ภาพและเสียง (แบบหลายตอน)'),
+                    'AI (เนื้อหาที่สร้างโดย AI)' => __('AI (เนื้อหาที่สร้างโดย AI)'),
+                ]),
                 authorConditionOptions: [
-                    { value: 'normal', label: 'ทั่วไป (Normal)', example: 'สมชาย ใจดี / Smith, J.' },
-                    { value: 'anonymous', label: 'ไม่ปรากฏชื่อผู้แต่ง (Anonymous)', example: 'ไม่ปรากฏชื่อผู้แต่ง / Anonymous' },
-                    { value: 'pseudonym', label: 'ผู้แต่งใช้นามแฝง (Pseudonym)', example: 'ส. ศิวรักษ์ / Orwell, G.' },
-                    { value: 'royal_title', label: 'ผู้แต่งเป็นราชสกุล (Royal Title)', example: 'ม.ร.ว. คึกฤทธิ์ ปราโมช / Queen Elizabeth II' },
-                    { value: 'noble_title', label: 'ผู้แต่งมีบรรดาศักดิ์ (Noble Title)', example: 'คุณหญิง มาลัย หุวนันทน์ / Churchill, W.' },
-                    { value: 'buddhist_monk', label: 'ผู้แต่งเป็นพระสงฆ์ (Buddhist Monk)', example: 'พระธรรมปิฎก (ป.อ. ปยุตโต) / Dalai Lama' },
-                    { value: 'editor', label: 'บรรณาธิการ (Editor)', example: 'สมชาย ใจดี (บ.ก.) / Smith, J. (Ed.)' },
-                    { value: 'organization', label: 'ชื่อหน่วยงานหรือสถาบัน (Organization)', example: 'สำนักงานราชบัณฑิตยสภา / World Health Organization' },
+                    { value: 'normal', label: @js(__('ทั่วไป (Normal)')), example: @js(__('สมชาย ใจดี / Smith, J.')) },
+                    { value: 'anonymous', label: @js(__('ไม่ปรากฏชื่อผู้แต่ง (Anonymous)')), example: @js(__('ไม่ปรากฏชื่อผู้แต่ง / Anonymous')) },
+                    { value: 'pseudonym', label: @js(__('ผู้แต่งใช้นามแฝง (Pseudonym)')), example: @js(__('ส. ศิวรักษ์ / Orwell, G.')) },
+                    { value: 'royal_title', label: @js(__('ผู้แต่งเป็นราชสกุล (Royal Title)')), example: @js(__('ม.ร.ว. คึกฤทธิ์ ปราโมช / Queen Elizabeth II')) },
+                    { value: 'noble_title', label: @js(__('ผู้แต่งมีบรรดาศักดิ์ (Noble Title)')), example: @js(__('คุณหญิง มาลัย หุวนันทน์ / Churchill, W.')) },
+                    { value: 'buddhist_monk', label: @js(__('ผู้แต่งเป็นพระสงฆ์ (Buddhist Monk)')), example: @js(__('พระธรรมปิฎก (ป.อ. ปยุตโต) / Dalai Lama')) },
+                    { value: 'editor', label: @js(__('บรรณาธิการ (Editor)')), example: @js(__('สมชาย ใจดี (บ.ก.) / Smith, J. (Ed.)')) },
+                    { value: 'organization', label: @js(__('ชื่อหน่วยงานหรือสถาบัน (Organization)')), example: @js(__('สำนักงานราชบัณฑิตยสภา / World Health Organization')) },
                 ],
                 form: {
                     authors: [{ condition: 'normal', firstName: '', middleName: '', lastName: '', displayName: '' }],
@@ -1749,13 +1837,13 @@
                         narrativeCitation: 'ธนกร พิพัฒน์ (2566ก) กล่าวว่า ...',
                         parentheticalCitation: '... (ธนกร พิพัฒน์, 2566ก)',
                         detailFields: [
-                            { label: 'ประเภททรัพยากร', value: 'บทความวารสาร' },
-                            { label: 'ผู้แต่ง', value: 'ธนกร พิพัฒน์' },
-                            { label: 'ปีที่พิมพ์', value: '2566ก' },
-                            { label: 'ชื่อบทความ', value: 'แนวปฏิบัติการอ้างอิงแหล่งข้อมูลดิจิทัลตามรูปแบบ APA 7th edition' },
-                            { label: 'ชื่อวารสาร', value: 'วารสารสารสนเทศศึกษา' },
+                            { label: @js(__('ประเภททรัพยากร')), value: @js(__('บทความวารสาร')) },
+                            { label: @js(__('ผู้แต่ง')), value: 'ธนกร พิพัฒน์' },
+                            { label: @js(__('ปีที่พิมพ์')), value: '2566ก' },
+                            { label: @js(__('ชื่อบทความ')), value: 'แนวปฏิบัติการอ้างอิงแหล่งข้อมูลดิจิทัลตามรูปแบบ APA 7th edition' },
+                            { label: @js(__('ชื่อวารสาร')), value: 'วารสารสารสนเทศศึกษา' },
                             { label: 'Volume / Issue', value: '21(1)' },
-                            { label: 'หน้า', value: '11-29' },
+                            { label: @js(__('หน้า')), value: '11-29' },
                         ],
                     },
                     {
@@ -1767,11 +1855,11 @@
                         narrativeCitation: 'ธนกร พิพัฒน์ (2566ข) กล่าวว่า ...',
                         parentheticalCitation: '... (ธนกร พิพัฒน์, 2566ข)',
                         detailFields: [
-                            { label: 'ประเภททรัพยากร', value: 'หนังสือ' },
-                            { label: 'ผู้แต่ง', value: 'ธนกร พิพัฒน์' },
-                            { label: 'ปีที่พิมพ์', value: '2566ข' },
-                            { label: 'ชื่อเรื่อง', value: 'การพัฒนาทักษะการเขียนบรรณานุกรมของนักศึกษาระดับอุดมศึกษา' },
-                            { label: 'สำนักพิมพ์', value: 'สำนักพิมพ์จุฬาลงกรณ์มหาวิทยาลัย' },
+                            { label: @js(__('ประเภททรัพยากร')), value: @js(__('หนังสือ')) },
+                            { label: @js(__('ผู้แต่ง')), value: 'ธนกร พิพัฒน์' },
+                            { label: @js(__('ปีที่พิมพ์')), value: '2566ข' },
+                            { label: @js(__('ชื่อเรื่อง')), value: 'การพัฒนาทักษะการเขียนบรรณานุกรมของนักศึกษาระดับอุดมศึกษา' },
+                            { label: @js(__('สำนักพิมพ์')), value: 'สำนักพิมพ์จุฬาลงกรณ์มหาวิทยาลัย' },
                         ],
                     },
                     {
@@ -1783,13 +1871,13 @@
                         narrativeCitation: 'ปาริชาติ ศรีอรุณ (2567) กล่าวว่า ...',
                         parentheticalCitation: '... (ปาริชาติ ศรีอรุณ, 2567)',
                         detailFields: [
-                            { label: 'ประเภททรัพยากร', value: 'บทความวารสาร' },
-                            { label: 'ผู้แต่ง', value: 'ปาริชาติ ศรีอรุณ' },
-                            { label: 'ปีที่พิมพ์', value: '2567' },
-                            { label: 'ชื่อบทความ', value: 'การใช้เครื่องมือดิจิทัลเพื่อสนับสนุนการเขียนอ้างอิงในงานวิจัย' },
-                            { label: 'ชื่อวารสาร', value: 'วารสารวิชาการครุศาสตร์' },
+                            { label: @js(__('ประเภททรัพยากร')), value: @js(__('บทความวารสาร')) },
+                            { label: @js(__('ผู้แต่ง')), value: 'ปาริชาติ ศรีอรุณ' },
+                            { label: @js(__('ปีที่พิมพ์')), value: '2567' },
+                            { label: @js(__('ชื่อบทความ')), value: 'การใช้เครื่องมือดิจิทัลเพื่อสนับสนุนการเขียนอ้างอิงในงานวิจัย' },
+                            { label: @js(__('ชื่อวารสาร')), value: 'วารสารวิชาการครุศาสตร์' },
                             { label: 'Volume / Issue', value: '9(3)' },
-                            { label: 'หน้า', value: '101-119' },
+                            { label: @js(__('หน้า')), value: '101-119' },
                         ],
                     },
                     {
@@ -1801,13 +1889,13 @@
                         narrativeCitation: 'Adams (2023a) stated that ...',
                         parentheticalCitation: '... (Adams, 2023a)',
                         detailFields: [
-                            { label: 'ประเภททรัพยากร', value: 'บทความวารสาร' },
-                            { label: 'ผู้แต่ง', value: 'Adams, R. T.' },
-                            { label: 'ปีที่พิมพ์', value: '2023a' },
-                            { label: 'ชื่อบทความ', value: 'Academic citation practices in digital classrooms' },
-                            { label: 'ชื่อวารสาร', value: 'Journal of Educational Technology' },
+                            { label: @js(__('ประเภททรัพยากร')), value: @js(__('บทความวารสาร')) },
+                            { label: @js(__('ผู้แต่ง')), value: 'Adams, R. T.' },
+                            { label: @js(__('ปีที่พิมพ์')), value: '2023a' },
+                            { label: @js(__('ชื่อบทความ')), value: 'Academic citation practices in digital classrooms' },
+                            { label: @js(__('ชื่อวารสาร')), value: 'Journal of Educational Technology' },
                             { label: 'Volume / Issue', value: '14(1)' },
-                            { label: 'หน้า', value: '22-39' },
+                            { label: @js(__('หน้า')), value: '22-39' },
                         ],
                     },
                     {
@@ -1819,11 +1907,11 @@
                         narrativeCitation: 'Adams (2023b) stated that ...',
                         parentheticalCitation: '... (Adams, 2023b)',
                         detailFields: [
-                            { label: 'ประเภททรัพยากร', value: 'หนังสือ' },
-                            { label: 'ผู้แต่ง', value: 'Adams, R. T.' },
-                            { label: 'ปีที่พิมพ์', value: '2023b' },
-                            { label: 'ชื่อเรื่อง', value: 'Designing reference workflows for student research projects' },
-                            { label: 'สำนักพิมพ์', value: 'Learning Design Press' },
+                            { label: @js(__('ประเภททรัพยากร')), value: @js(__('หนังสือ')) },
+                            { label: @js(__('ผู้แต่ง')), value: 'Adams, R. T.' },
+                            { label: @js(__('ปีที่พิมพ์')), value: '2023b' },
+                            { label: @js(__('ชื่อเรื่อง')), value: 'Designing reference workflows for student research projects' },
+                            { label: @js(__('สำนักพิมพ์')), value: 'Learning Design Press' },
                         ],
                     },
                     {
@@ -1835,11 +1923,11 @@
                         narrativeCitation: 'Brown (2022) stated that ...',
                         parentheticalCitation: '... (Brown, 2022)',
                         detailFields: [
-                            { label: 'ประเภททรัพยากร', value: 'หนังสือ' },
-                            { label: 'ผู้แต่ง', value: 'Brown, L. M.' },
-                            { label: 'ปีที่พิมพ์', value: '2022' },
-                            { label: 'ชื่อเรื่อง', value: 'Information literacy and source attribution in higher education' },
-                            { label: 'สำนักพิมพ์', value: 'Routledge' },
+                            { label: @js(__('ประเภททรัพยากร')), value: @js(__('หนังสือ')) },
+                            { label: @js(__('ผู้แต่ง')), value: 'Brown, L. M.' },
+                            { label: @js(__('ปีที่พิมพ์')), value: '2022' },
+                            { label: @js(__('ชื่อเรื่อง')), value: 'Information literacy and source attribution in higher education' },
+                            { label: @js(__('สำนักพิมพ์')), value: 'Routledge' },
                         ],
                     },
                     {
@@ -1851,13 +1939,13 @@
                         narrativeCitation: 'Carter (2024) stated that ...',
                         parentheticalCitation: '... (Carter, 2024)',
                         detailFields: [
-                            { label: 'ประเภททรัพยากร', value: 'บทความวารสาร' },
-                            { label: 'ผู้แต่ง', value: 'Carter, P. J.' },
-                            { label: 'ปีที่พิมพ์', value: '2024' },
-                            { label: 'ชื่อบทความ', value: 'Metadata quality and automated bibliography generation' },
-                            { label: 'ชื่อวารสาร', value: 'International Journal of Digital Libraries' },
+                            { label: @js(__('ประเภททรัพยากร')), value: @js(__('บทความวารสาร')) },
+                            { label: @js(__('ผู้แต่ง')), value: 'Carter, P. J.' },
+                            { label: @js(__('ปีที่พิมพ์')), value: '2024' },
+                            { label: @js(__('ชื่อบทความ')), value: 'Metadata quality and automated bibliography generation' },
+                            { label: @js(__('ชื่อวารสาร')), value: 'International Journal of Digital Libraries' },
                             { label: 'Volume / Issue', value: '20(4)' },
-                            { label: 'หน้า', value: '233-251' },
+                            { label: @js(__('หน้า')), value: '233-251' },
                         ],
                     },
                     {
@@ -1869,13 +1957,13 @@
                         narrativeCitation: 'Smith (2025) stated that ...',
                         parentheticalCitation: '... (Smith, 2025)',
                         detailFields: [
-                            { label: 'ประเภททรัพยากร', value: 'บทความวารสาร' },
-                            { label: 'ผู้แต่ง', value: 'Smith, J. A.' },
-                            { label: 'ปีที่พิมพ์', value: '2025' },
-                            { label: 'ชื่อบทความ', value: 'Citation management for interdisciplinary research teams' },
-                            { label: 'ชื่อวารสาร', value: 'Research Methods Review' },
+                            { label: @js(__('ประเภททรัพยากร')), value: @js(__('บทความวารสาร')) },
+                            { label: @js(__('ผู้แต่ง')), value: 'Smith, J. A.' },
+                            { label: @js(__('ปีที่พิมพ์')), value: '2025' },
+                            { label: @js(__('ชื่อบทความ')), value: 'Citation management for interdisciplinary research teams' },
+                            { label: @js(__('ชื่อวารสาร')), value: 'Research Methods Review' },
                             { label: 'Volume / Issue', value: '12(2)' },
-                            { label: 'หน้า', value: '77-94' },
+                            { label: @js(__('หน้า')), value: '77-94' },
                         ],
                     },
                 ],
@@ -1909,44 +1997,44 @@
                         .trim();
                 },
                 smartSearchPlaceholder() {
-                    if (this.activeQuickFilter === 'website') return 'กรอก URL ของเว็บไชต์ หรือชื่อหน้าเว็บที่ต้องการอ้างอิง...';
-                    if (this.activeQuickFilter === 'book') return 'กรอกชื่อหนังสือ, ISBN หรือชื่อผู้แต่ง...';
-                    if (this.activeQuickFilter === 'article') return 'กรอกชื่อบทความ, DOI หรือชื่อวารสาร...';
+                    if (this.activeQuickFilter === 'website') return @js(__('กรอก URL ของเว็บไซต์ หรือชื่อหน้าเว็บที่ต้องการอ้างอิง...'));
+                    if (this.activeQuickFilter === 'book') return @js(__('กรอกชื่อหนังสือ, ISBN หรือชื่อผู้แต่ง...'));
+                    if (this.activeQuickFilter === 'article') return @js(__('กรอกชื่อบทความ, DOI หรือชื่อวารสาร...'));
 
-                    return 'ค้นหาชื่อหนังสือ, ISBN, DOI หรือวาง URL...';
+                    return @js(__('ค้นหาชื่อหนังสือ, ISBN, DOI หรือวาง URL...'));
                 },
                 smartSearchCategoryLabel() {
                     return {
-                        website: 'เว็บไชต์',
-                        book: 'หนังสือ',
-                        article: 'บทความ',
-                    }[this.activeQuickFilter] || 'ทรัพยากร';
+                        website: @js(__('เว็บไซต์')),
+                        book: @js(__('หนังสือ')),
+                        article: @js(__('บทความ')),
+                    }[this.activeQuickFilter] || @js(__('ทรัพยากร'));
                 },
                 smartSearchLoadingTitle() {
-                    return `กำลังค้นหา${this.smartSearchCategoryLabel()}ตัวอย่าง`;
+                    return `${@js(__('กำลังค้นหา'))}${this.smartSearchCategoryLabel()}${@js(__('ตัวอย่าง'))}`;
                 },
                 smartSearchLoadingDescription() {
-                    if (this.activeQuickFilter === 'website') return 'ระบบกำลังจับคู่ URL และชื่อหน้าเว็บกับข้อมูล mockup';
-                    if (this.activeQuickFilter === 'article') return 'ระบบกำลังจับคู่ชื่อบทความ, DOI และชื่อวารสารกับข้อมูล mockup';
-                    if (this.activeQuickFilter === 'book') return 'ระบบกำลังจับคู่ชื่อหนังสือ, ISBN และผู้แต่งกับข้อมูล mockup';
+                    if (this.activeQuickFilter === 'website') return @js(__('ระบบกำลังจับคู่ URL และชื่อหน้าเว็บกับข้อมูล mockup'));
+                    if (this.activeQuickFilter === 'article') return @js(__('ระบบกำลังจับคู่ชื่อบทความ, DOI และชื่อวารสารกับข้อมูล mockup'));
+                    if (this.activeQuickFilter === 'book') return @js(__('ระบบกำลังจับคู่ชื่อหนังสือ, ISBN และผู้แต่งกับข้อมูล mockup'));
 
-                    return 'ระบบกำลังจับคู่ชื่อหนังสือ, ISBN, DOI และ URL กับข้อมูล mockup';
+                    return @js(__('ระบบกำลังจับคู่ชื่อหนังสือ, ISBN, DOI และ URL กับข้อมูล mockup'));
                 },
                 smartSearchEmptyTitle() {
-                    return `ยังไม่พบ${this.smartSearchCategoryLabel()}ตัวอย่างที่ตรงกับคำค้น`;
+                    return `${@js(__('ยังไม่พบ'))}${this.smartSearchCategoryLabel()}${@js(__('ตัวอย่างที่ตรงกับคำค้น'))}`;
                 },
                 smartSearchEmptyDescription() {
-                    if (this.activeQuickFilter === 'website') return 'ลองกรอก URL ของเว็บไชต์ให้ครบ หรือพิมพ์ชื่อหน้าเว็บที่ต้องการอ้างอิง';
-                    if (this.activeQuickFilter === 'article') return 'ลองกรอกชื่อบทความ, DOI หรือชื่อวารสารให้ชัดขึ้น';
-                    if (this.activeQuickFilter === 'book') return 'ลองกรอกชื่อหนังสือ, ISBN หรือชื่อผู้แต่งให้ชัดขึ้น';
+                    if (this.activeQuickFilter === 'website') return @js(__('ลองกรอก URL ของเว็บไซต์ให้ครบ หรือพิมพ์ชื่อหน้าเว็บที่ต้องการอ้างอิง'));
+                    if (this.activeQuickFilter === 'article') return @js(__('ลองกรอกชื่อบทความ, DOI หรือชื่อวารสารให้ชัดขึ้น'));
+                    if (this.activeQuickFilter === 'book') return @js(__('ลองกรอกชื่อหนังสือ, ISBN หรือชื่อผู้แต่งให้ชัดขึ้น'));
 
-                    return 'ลองพิมพ์ชื่อหนังสือให้ชัดขึ้น หรือค้นด้วย ISBN, DOI, URL เช่น ก, 978..., 10....';
+                    return @js(__('ลองพิมพ์ชื่อหนังสือให้ชัดขึ้น หรือค้นด้วย ISBN, DOI, URL เช่น ก, 978..., 10....'));
                 },
                 smartSearchManualActionLabel() {
-                    if (this.activeQuickFilter === 'website') return 'กรอกข้อมูลเว็บไชต์เอง';
-                    if (this.activeQuickFilter === 'article') return 'กรอกข้อมูลบทความเอง';
+                    if (this.activeQuickFilter === 'website') return @js(__('กรอกข้อมูลเว็บไซต์เอง'));
+                    if (this.activeQuickFilter === 'article') return @js(__('กรอกข้อมูลบทความเอง'));
 
-                    return 'กรอกข้อมูลหนังสือเอง';
+                    return @js(__('กรอกข้อมูลหนังสือเอง'));
                 },
                 smartSearchAccentClass(accent) {
                     return {
@@ -2017,7 +2105,7 @@
 
                     if (isUrl) {
                         this.form.url = trimmed;
-                        if (this.activeQuickFilter === 'website') this.form.websiteName = this.form.websiteName || 'เว็บไซต์ที่ยังไม่ระบุ';
+                        if (this.activeQuickFilter === 'website') this.form.websiteName = this.form.websiteName || @js(__('เว็บไซต์ที่ยังไม่ระบุ'));
                         return;
                     }
 
@@ -2069,8 +2157,8 @@
                             };
 
                             const titleLabel = book.category === 'article'
-                                ? 'ตรงกับชื่อบทความ'
-                                : (book.category === 'website' ? 'ตรงกับชื่อหน้าเว็บ' : 'ตรงกับชื่อหนังสือ');
+                                ? @js(__('ตรงกับชื่อบทความ'))
+                                : (book.category === 'website' ? @js(__('ตรงกับชื่อหน้าเว็บ')) : @js(__('ตรงกับชื่อหนังสือ')));
 
                             if (compact && titleText.startsWith(compact)) {
                                 noteMatch('TITLE', titleLabel, 180);
@@ -2079,23 +2167,23 @@
                             }
 
                             if (compact && subtitleText.includes(compact)) {
-                                noteMatch('TITLE', 'ตรงกับคำอธิบายรายการ', 68);
+                                noteMatch('TITLE', @js(__('ตรงกับคำอธิบายรายการ')), 68);
                             }
 
                             if (compact && authorText.includes(compact)) {
-                                noteMatch('AUTHOR', 'ตรงกับชื่อผู้แต่ง', 92);
+                                noteMatch('AUTHOR', @js(__('ตรงกับชื่อผู้แต่ง')), 92);
                             }
 
                             if (identifier && isbnText.includes(identifier)) {
-                                noteMatch('ISBN', 'ตรงกับ ISBN', 210);
+                                noteMatch('ISBN', @js(__('ตรงกับ ISBN')), 210);
                             }
 
                             if (compact && doiText.includes(compact)) {
-                                noteMatch('DOI', 'ตรงกับ DOI', 215);
+                                noteMatch('DOI', @js(__('ตรงกับ DOI')), 215);
                             }
 
                             if (compact && urlText.includes(compact)) {
-                                noteMatch('URL', 'ตรงกับ URL', 215);
+                                noteMatch('URL', @js(__('ตรงกับ URL')), 215);
                             }
 
                             tokens.forEach(token => {
@@ -2109,19 +2197,19 @@
                             if (flags.isIsbn && book.isbn && book.category === 'book') {
                                 score += 55;
                                 matchType ||= 'ISBN';
-                                matchLabel ||= 'ค้นแบบ ISBN';
+                                matchLabel ||= @js(__('ค้นแบบ ISBN'));
                             }
 
                             if (flags.isDoi && book.doi) {
                                 score += 55;
                                 matchType ||= 'DOI';
-                                matchLabel ||= 'ค้นแบบ DOI';
+                                matchLabel ||= @js(__('ค้นแบบ DOI'));
                             }
 
                             if (flags.isUrl && book.url) {
                                 score += 55;
                                 matchType ||= 'URL';
-                                matchLabel ||= 'ค้นแบบ URL';
+                                matchLabel ||= @js(__('ค้นแบบ URL'));
                             }
 
                             if (score <= 0) return null;
@@ -2134,7 +2222,7 @@
                                 metadataLine: `${book.year} • ${book.publisher}`,
                                 formatLabel: book.formatLabel,
                                 accentClass: this.smartSearchAccentClass(book.accent),
-                                matchLabel: matchLabel || 'ใกล้เคียงกับคำค้นนี้',
+                                matchLabel: matchLabel || @js(__('ใกล้เคียงกับคำค้นนี้')),
                                 preview: this.smartSearchPreview(book, matchType || 'TITLE'),
                                 book,
                                 score,
@@ -2249,13 +2337,13 @@
                         .join('');
                 },
                 projectNameById(projectId) {
-                    return this.projectOptions.find(project => project.id === projectId)?.name || 'โครงการที่ยังไม่ระบุ';
+                    return this.projectOptions.find(project => project.id === projectId)?.name || @js(__('โครงการที่ยังไม่ระบุ'));
                 },
                 entryProjectId(entry) {
                     return entry?.projectId ?? 1;
                 },
                 entryTypeLabel(entry) {
-                    return entry?.resourceType || 'รายการบรรณานุกรม';
+                    return this.resourceTypeLabel(entry?.resourceType || '') || @js(__('รายการบรรณานุกรม'));
                 },
                 entryNarrativeCitation(entry) {
                     return entry?.narrativeCitation || '-';
@@ -2376,6 +2464,12 @@
                 authorConditionExample(condition) {
                     return this.authorConditionMeta(condition)?.example || '';
                 },
+                modalText(key) {
+                    return this.modalI18n[key] || '';
+                },
+                resourceTypeLabel(type) {
+                    return this.resourceTypeLabels[type] || type || '';
+                },
                 usesSpecialAuthorDisplayName(condition) {
                     return ['anonymous', 'pseudonym', 'royal_title', 'noble_title', 'buddhist_monk', 'organization'].includes(condition);
                 },
@@ -2391,7 +2485,7 @@
                     const customName = String(author.displayName || '').trim();
                     const fullName = this.authorFullName(author);
 
-                    if (condition === 'anonymous') return customName || 'Anonymous';
+                    if (condition === 'anonymous') return customName || this.modalText('anonymousFallback');
                     if (this.usesSpecialAuthorDisplayName(condition)) return customName || fullName;
 
                     return fullName;
@@ -2470,70 +2564,70 @@
                         .filter(Boolean)
                         .join('; ');
 
-                    append('ประเภททรัพยากร', this.formResourceType);
-                    append('ผู้แต่ง', authors);
-                    append('ปีที่พิมพ์', this.form.year);
+                    append(this.modalText('detailFieldResourceType'), this.resourceTypeLabel(this.formResourceType));
+                    append(this.modalText('detailFieldAuthors'), authors);
+                    append(this.modalText('detailFieldYear'), this.form.year);
                     if (this.usesDetailedDate()) {
-                        append('เดือน', this.form.month);
-                        append('วัน', this.form.day);
+                        append(this.modalText('detailFieldMonth'), this.form.month);
+                        append(this.modalText('detailFieldDay'), this.form.day);
                     }
-                    append(this.isJournalType() ? 'ชื่อบทความ' : 'ชื่อเรื่อง', this.form.title || this.form.prompt);
+                    append(this.isJournalType() ? this.modalText('detailFieldArticleTitle') : this.modalText('detailFieldTitle'), this.form.title || this.form.prompt);
 
                     if (this.isBookType()) {
-                        append('สำนักพิมพ์', this.form.publisher);
-                        append('เล่ม', this.form.volume);
-                        append('ครั้งที่พิมพ์', this.form.edition);
-                        append('บรรณาธิการ', this.form.editor);
-                        append('ชื่อหนังสือ', this.form.bookTitle);
-                        append('หน้า', this.form.pages);
+                        append(this.modalText('detailFieldPublisher'), this.form.publisher);
+                        append(this.modalText('detailFieldVolume'), this.form.volume);
+                        append(this.modalText('detailFieldEdition'), this.form.edition);
+                        append(this.modalText('detailFieldEditor'), this.form.editor);
+                        append(this.modalText('detailFieldBookTitle'), this.form.bookTitle);
+                        append(this.modalText('detailFieldPages'), this.form.pages);
                         append('DOI', this.form.doi);
                         append('URL', this.form.url);
                     } else if (this.isJournalType()) {
-                        append('ชื่อวารสาร', this.form.journalName);
+                        append(this.modalText('detailFieldJournalName'), this.form.journalName);
                         append('Volume', this.form.volume);
-                        append('Issue', this.form.issue);
-                        append('หน้า', this.form.pages);
+                        append(this.modalText('detailFieldIssue'), this.form.issue);
+                        append(this.modalText('detailFieldPages'), this.form.pages);
                         append('DOI', this.form.doi);
                         append('URL', this.form.url);
                     } else if (this.isDictionaryType()) {
-                        append('ชื่อพจนานุกรม / สารานุกรม', this.form.referenceWork);
-                        append('ฉบับ', this.form.edition);
-                        append('เล่ม', this.form.volume);
-                        append('สำนักพิมพ์', this.form.publisher);
+                        append(this.modalText('detailFieldReferenceWork'), this.form.referenceWork);
+                        append(this.modalText('detailFieldEdition'), this.form.edition);
+                        append(this.modalText('detailFieldVolume'), this.form.volume);
+                        append(this.modalText('detailFieldPublisher'), this.form.publisher);
                         append('URL', this.form.url);
                     } else if (this.isNewspaperType()) {
-                        append('ชื่อหนังสือพิมพ์', this.form.newspaperName);
-                        append('หน้า', this.form.pages);
+                        append(this.modalText('detailFieldNewspaperName'), this.form.newspaperName);
+                        append(this.modalText('detailFieldPages'), this.form.pages);
                         append('URL', this.form.url);
                     } else if (this.isReportType()) {
-                        append('หน่วยงาน / องค์กร', this.form.organization);
+                        append(this.modalText('detailFieldOrganization'), this.form.organization);
                         append('Report No.', this.form.reportNumber);
-                        append('ผู้เผยแพร่', this.form.publisher);
+                        append(this.modalText('detailFieldPublisher'), this.form.publisher);
                         append('URL', this.form.url);
                     } else if (this.isConferenceType()) {
-                        append('ชื่องานประชุม', this.form.conferenceName);
-                        append('สถานที่จัด', this.form.conferenceLocation);
-                        append('หน้า / เลขโปสเตอร์', this.form.pages);
-                        append('Proceeding / ผู้เผยแพร่', this.form.publisher);
+                        append(this.modalText('detailFieldConferenceName'), this.form.conferenceName);
+                        append(this.modalText('detailFieldConferenceLocation'), this.form.conferenceLocation);
+                        append(this.modalText('detailFieldConferencePages'), this.form.pages);
+                        append(this.modalText('detailFieldPublisherProceeding'), this.form.publisher);
                         append('URL', this.form.url);
                     } else if (this.isWebType()) {
-                        append('ชื่อเว็บไซต์', this.form.websiteName);
+                        append(this.modalText('detailFieldWebsiteName'), this.form.websiteName);
                         append('Patent No.', this.form.patentNumber);
-                        append('ผู้ถือสิทธิ์ / หน่วยงาน', this.form.assignee || this.form.websiteName);
+                        append(this.modalText('detailFieldAssignee'), this.form.assignee || this.form.websiteName);
                         append('URL', this.form.url);
                     } else if (this.isThesisType()) {
-                        append('ประเภทวิทยานิพนธ์', this.form.thesisType === 'doctoral' ? 'Doctoral dissertation' : "Master's thesis");
-                        append('มหาวิทยาลัย', this.form.university);
-                        append('ฐานข้อมูล', this.form.databaseName);
+                        append(this.modalText('detailFieldThesisType'), this.form.thesisType === 'doctoral' ? this.modalText('thesisTypeDoctoral') : this.modalText('thesisTypeMaster'));
+                        append(this.modalText('detailFieldUniversity'), this.form.university);
+                        append(this.modalText('detailFieldDatabase'), this.form.databaseName);
                         append('URL', this.form.url);
                     } else if (this.isMediaType()) {
-                        append('รูปแบบสื่อ', this.form.medium);
-                        append('แพลตฟอร์ม', this.form.platform);
+                        append(this.modalText('detailFieldMediaType'), this.form.medium);
+                        append(this.modalText('detailFieldPlatform'), this.form.platform);
                         append('URL', this.form.url);
                     } else if (this.isAiType()) {
-                        append('แพลตฟอร์ม', this.form.platform);
-                        append('รุ่นโมเดล', this.form.model);
-                        append('Prompt', this.form.prompt);
+                        append(this.modalText('detailFieldPlatform'), this.form.platform);
+                        append(this.modalText('detailFieldModel'), this.form.model);
+                        append(this.modalText('detailFieldPrompt'), this.form.prompt);
                         append('URL', this.form.url);
                     }
 
@@ -2611,9 +2705,9 @@
                     if (year && month && day) return ` (${year}, ${month} ${day}). `;
                     if (year && month) return ` (${year}, ${month}). `;
                     if (year) return ` (${year}). `;
-                    if (month && day) return ` (n.d., ${month} ${day}). `;
+                    if (month && day) return ` (${this.modalText('noDate')}, ${month} ${day}). `;
 
-                    return ' (n.d.). ';
+                    return ` (${this.modalText('noDate')}). `;
                 },
                 formatAuthors() {
                     return this.joinAuthors(
@@ -2631,9 +2725,9 @@
 
                     if (!valid.length) return '';
                     if (valid.length === 1) return valid[0];
-                    if (valid.length === 2) return `${valid[0]} and ${valid[1]}`;
+                    if (valid.length === 2) return `${valid[0]} ${this.modalText('authorCitationConjunction')} ${valid[1]}`;
 
-                    return `${valid[0]} et al.`;
+                    return `${valid[0]} ${this.modalText('authorEtAl')}`;
                 },
                 generateBibliography() {
                     const authors = this.formatAuthors();
@@ -2648,11 +2742,11 @@
                     if (!creator && !titleOrPrompt) return '';
                     let bibliography = '';
                     if (this.formResourceType === 'การติดต่อสื่อสารส่วนบุคคล') {
-                        return 'การติดต่อสื่อสารส่วนบุคคลในรูปแบบ APA ใช้อ้างอิงเฉพาะในเนื้อหา และไม่ต้องแสดงในบรรณานุกรมท้ายเล่ม';
+                        return this.modalText('personalCommunicationNotice');
                     }
 
                     if (creator) bibliography += creator;
-                    bibliography += this.usesDetailedDate() ? this.formatDate() : (year ? ` (${year}). ` : ' (n.d.). ');
+                    bibliography += this.usesDetailedDate() ? this.formatDate() : (year ? ` (${year}). ` : ` (${this.modalText('noDate')}). `);
 
                     if (this.isBookType()) {
                         if (this.formResourceType === 'บทความในหนังสือ') {
@@ -2722,7 +2816,7 @@
                         if (this.form.url.trim()) bibliography += `${this.form.url.trim()}`;
                     } else if (this.isThesisType()) {
                         bibliography += title ? `${title} ` : '';
-                        const thesisType = this.form.thesisType === 'doctoral' ? 'Doctoral dissertation' : "Master's thesis";
+                        const thesisType = this.form.thesisType === 'doctoral' ? this.modalText('thesisTypeDoctoral') : this.modalText('thesisTypeMaster');
                         if (this.form.university.trim()) bibliography += `[${thesisType}, ${this.form.university.trim()}]. `;
                         else bibliography += `[${thesisType}]. `;
                         if (this.form.databaseName.trim()) bibliography += `${this.form.databaseName.trim()}. `;
@@ -2746,25 +2840,25 @@
                     const authors = this.formatAuthorsCitation();
                     const year = this.form.year.trim();
                     if (!authors) return '';
-                    return `${authors} (${year || 'n.d.'}) กล่าวว่า ...`;
+                    return `${authors} (${year || this.modalText('noDate')}) ${this.modalText('narrativeSuffix')}`;
                 },
                 generateParentheticalCitation() {
                     const authors = this.formatAuthorsCitation();
                     const year = this.form.year.trim();
                     if (!authors) return '';
-                    return `... (${authors}, ${year || 'n.d.'})`;
+                    return `... (${authors}, ${year || this.modalText('noDate')})`;
                 },
                 getFormatHint() {
-                    if (this.isBookType()) return 'ผู้แต่ง. (ปี). ชื่อหนังสือ (ครั้งที่พิมพ์). สำนักพิมพ์. DOI/URL';
-                    if (this.isJournalType()) return 'ผู้แต่ง. (ปี). ชื่อบทความ. ชื่อวารสาร, ปีที่(ฉบับที่), หน้า. DOI/URL';
-                    if (this.isWebType()) return 'ผู้แต่ง. (ปี, เดือน วัน). ชื่อเรื่อง. ชื่อเว็บไซต์. URL';
-                    if (this.isThesisType()) return 'ผู้แต่ง. (ปี). ชื่อวิทยานิพนธ์ [ประเภท, มหาวิทยาลัย]. URL/ฐานข้อมูล';
-                    return 'เลือกประเภททรัพยากรเพื่อดูรูปแบบ APA 7th Edition ที่เหมาะสม';
+                    if (this.isBookType()) return this.modalText('formatHintBook');
+                    if (this.isJournalType()) return this.modalText('formatHintJournal');
+                    if (this.isWebType()) return this.modalText('formatHintWebsite');
+                    if (this.isThesisType()) return this.modalText('formatHintThesis');
+                    return this.modalText('formatHintDefault');
                 },
                 addCitationFromForm() {
                     const bibliography = this.generateBibliography();
                     if (!bibliography) {
-                        this.toast('กรุณากรอกข้อมูลอย่างน้อยชื่อเรื่อง หรือข้อมูลผู้แต่ง/หน่วยงาน', 'warning');
+                        this.toast(this.modalText('addCitationWarning'), 'warning');
                         return;
                     }
                     const newEntry = {
@@ -2782,7 +2876,7 @@
                     this.formModalOpen = false;
                     this.resetForm();
                     this.markRecentlyAddedEntry(newEntry.id);
-                    this.toast('เพิ่มรายการบรรณานุกรมเรียบร้อยแล้ว', 'success');
+                    this.toast(this.modalText('addCitationSuccess'), 'success');
                 },
                 async copyCurrentView() {
                     const targetRef = this.displayMode === 'list'
@@ -2843,7 +2937,7 @@
                 saveEntryEdit() {
                     if (!this.activeEntry) return;
                     if (!this.editEntryDraft?.text?.trim()) {
-                        this.toast('ไม่สามารถบันทึกรายการว่างได้', 'warning');
+                        this.toast(@js(__('ไม่สามารถบันทึกรายการว่างได้')), 'warning');
                         return;
                     }
                     this.activeEntry.resourceType = this.editEntryDraft.resourceType.trim() || this.activeEntry.resourceType;
@@ -2858,17 +2952,17 @@
                         }))
                         .filter(field => field.label || field.value);
                     this.closeEntryModals();
-                    this.toast('อัปเดตรายการเรียบร้อยแล้ว', 'success');
+                    this.toast(@js(__('อัปเดตรายการเรียบร้อยแล้ว')), 'success');
                 },
                 confirmMoveEntry() {
                     if (!this.activeEntry) return;
                     if (!this.moveTargetProjectId || this.moveTargetProjectId === this.entryProjectId(this.activeEntry)) {
-                        this.toast('กรุณาเลือกโครงการปลายทางอื่น', 'warning');
+                        this.toast(@js(__('กรุณาเลือกโครงการปลายทางอื่น')), 'warning');
                         return;
                     }
                     this.activeEntry.projectId = this.moveTargetProjectId;
                     this.closeEntryModals();
-                    this.toast(`ย้ายรายการไปยังโครงการ ${this.projectNameById(this.moveTargetProjectId)} แล้ว`, 'success');
+                    this.toast(`${@js(__('ย้ายรายการไปยังโครงการ'))} ${this.projectNameById(this.moveTargetProjectId)} ${@js(__('แล้ว'))}`, 'success');
                 },
                 confirmDeleteEntry() {
                     if (!this.activeEntry) return;
@@ -2876,7 +2970,7 @@
                     const entryId = this.activeEntry.id;
                     const index = this.citations.findIndex(entry => entry.id === entryId);
                     if (index === -1) {
-                        this.toast('ไม่พบรายการที่ต้องการลบ', 'danger');
+                        this.toast(@js(__('ไม่พบรายการที่ต้องการลบ')), 'danger');
                         this.closeEntryModals();
                         return;
                     }
@@ -2888,7 +2982,7 @@
                     }
 
                     this.closeEntryModals();
-                    this.toast('ลบรายการบรรณานุกรมเรียบร้อยแล้ว', 'danger');
+                    this.toast(@js(__('ลบรายการบรรณานุกรมเรียบร้อยแล้ว')), 'danger');
                 },
                 closeEntryModals() {
                     this.detailModalOpen = false;

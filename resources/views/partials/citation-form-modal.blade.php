@@ -12,10 +12,10 @@
                 </span>
                 <div>
                     <h3 class="text-lg font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">
-                        กรอกข้อมูลบรรณานุกรม
+                        {{ __('กรอกข้อมูลบรรณานุกรม') }}
                     </h3>
                     <p class="text-xs text-zinc-500 dark:text-zinc-400">
-                        ประเภท: <span class="font-medium text-pink-600 dark:text-pink-300" x-text="formResourceType"></span>
+                        {{ __('ประเภท:') }} <span class="font-medium text-pink-600 dark:text-pink-300" x-text="resourceTypeLabel(formResourceType)"></span>
                         <span class="ml-2 rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-semibold text-amber-700 dark:bg-amber-500/10 dark:text-amber-300">APA 7th</span>
                     </p>
                 </div>
@@ -40,7 +40,7 @@
                             <span class="inline-flex size-6 items-center justify-center rounded-lg bg-violet-100 text-violet-600 dark:bg-violet-500/10 dark:text-violet-300">
                                 <flux:icon name="user" class="size-3.5" />
                             </span>
-                            <h4 class="text-sm font-semibold text-zinc-800 dark:text-zinc-200">ผู้แต่ง</h4>
+                            <h4 class="text-sm font-semibold text-zinc-800 dark:text-zinc-200">{{ __('ผู้แต่ง') }}</h4>
                         </div>
                         <template x-for="(author, index) in form.authors" :key="index">
                             <div class="rounded-2xl border border-zinc-200 bg-zinc-50/70 p-3 dark:border-zinc-700 dark:bg-zinc-900/50">
@@ -48,7 +48,7 @@
                                     <div class="grid flex-1 gap-3">
                                         <div class="grid gap-3 sm:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)]">
                                             <div>
-                                                <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">เงื่อนไขผู้แต่ง</label>
+                                                <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">{{ __('เงื่อนไขผู้แต่ง') }}</label>
                                                 <select x-model="author.condition"
                                                     class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
                                                     <template x-for="option in authorConditionOptions" :key="option.value">
@@ -57,36 +57,36 @@
                                                 </select>
                                             </div>
                                             <div x-show="usesSpecialAuthorDisplayName(author.condition) || author.condition === 'anonymous'">
-                                                <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">ชื่อที่แสดง</label>
+                                                <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">{{ __('ชื่อที่แสดง') }}</label>
                                                 <input x-model="author.displayName" type="text"
-                                                    x-bind:placeholder="author.condition === 'organization' ? 'เช่น World Health Organization' : (author.condition === 'anonymous' ? 'เช่น Anonymous' : 'เช่น ม.ร.ว. คึกฤทธิ์ ปราโมช')"
+                                                    x-bind:placeholder="author.condition === 'organization' ? @js(__('เช่น World Health Organization')) : (author.condition === 'anonymous' ? @js(__('เช่น Anonymous')) : @js(__('เช่น ม.ร.ว. คึกฤทธิ์ ปราโมช')))"
                                                     class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
                                             </div>
                                         </div>
 
                                         <div class="grid gap-2 sm:grid-cols-3">
                                             <div>
-                                                <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">ชื่อ</label>
-                                                <input x-model="author.firstName" type="text" placeholder="เช่น สมชาย / John"
+                                                <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">{{ __('ชื่อ') }}</label>
+                                                <input x-model="author.firstName" type="text" placeholder="{{ __('เช่น สมชาย / John') }}"
                                                     class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
                                             </div>
                                             <div>
-                                                <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">ชื่อกลาง (ถ้ามี)</label>
-                                                <input x-model="author.middleName" type="text" placeholder="เช่น Arthur / กิตติ"
+                                                <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">{{ __('ชื่อกลาง (ถ้ามี)') }}</label>
+                                                <input x-model="author.middleName" type="text" placeholder="{{ __('เช่น Arthur / กิตติ') }}"
                                                     class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
                                             </div>
                                             <div>
-                                                <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">นามสกุล</label>
-                                                <input x-model="author.lastName" type="text" placeholder="เช่น ใจดี / Smith"
+                                                <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">{{ __('นามสกุล') }}</label>
+                                                <input x-model="author.lastName" type="text" placeholder="{{ __('เช่น ใจดี / Smith') }}"
                                                     class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
                                             </div>
                                         </div>
 
                                         <p class="text-[11px] leading-5 text-zinc-500 dark:text-zinc-400">
-                                            ตัวอย่าง: <span class="font-medium text-zinc-700 dark:text-zinc-200" x-text="authorConditionExample(author.condition)"></span>
+                                            {{ __('ตัวอย่าง:') }} <span class="font-medium text-zinc-700 dark:text-zinc-200" x-text="authorConditionExample(author.condition)"></span>
                                         </p>
                                         <p class="text-[11px] leading-5 text-zinc-400 dark:text-zinc-500">
-                                            หากไม่ปรากฏชื่อผู้แต่ง สามารถเลือกเงื่อนไขที่เหมาะสมและเว้นชื่อหรือนามสกุลไว้ได้
+                                            {{ __('หากไม่ปรากฏชื่อผู้แต่ง สามารถเลือกเงื่อนไขที่เหมาะสมและเว้นชื่อหรือนามสกุลไว้ได้') }}
                                         </p>
                                     </div>
                                     <button type="button" x-show="form.authors.length > 1" x-on:click="form.authors.splice(index, 1)"
@@ -99,7 +99,7 @@
                         <button type="button" x-on:click="form.authors.push(emptyAuthor())"
                             class="inline-flex items-center gap-1.5 rounded-lg border border-dashed border-zinc-300 px-3 py-1.5 text-xs font-medium text-zinc-500 transition hover:border-pink-400 hover:text-pink-600 dark:border-zinc-600 dark:text-zinc-400 dark:hover:border-pink-500 dark:hover:text-pink-300">
                             <flux:icon name="plus" class="size-3" />
-                            เพิ่มผู้แต่ง
+                            {{ __('เพิ่มผู้แต่ง') }}
                         </button>
                     </div>
 
@@ -111,21 +111,21 @@
                             <span class="inline-flex size-6 items-center justify-center rounded-lg bg-sky-100 text-sky-600 dark:bg-sky-500/10 dark:text-sky-300">
                                 <flux:icon name="calendar" class="size-3.5" />
                             </span>
-                            <h4 class="text-sm font-semibold text-zinc-800 dark:text-zinc-200">ปีที่พิมพ์</h4>
+                            <h4 class="text-sm font-semibold text-zinc-800 dark:text-zinc-200">{{ __('ปีที่พิมพ์') }}</h4>
                         </div>
                         <div class="max-w-xs">
-                            <input x-model="form.year" type="text" placeholder="เช่น 2025"
+                            <input x-model="form.year" type="text" placeholder="{{ __('เช่น 2025') }}"
                                 class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
                         </div>
                         <div x-show="usesDetailedDate()" class="grid gap-3 sm:grid-cols-2">
                             <div>
-                                <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">เดือน</label>
-                                <input x-model="form.month" type="text" placeholder="เช่น April"
+                                <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">{{ __('เดือน') }}</label>
+                                <input x-model="form.month" type="text" placeholder="{{ __('เช่น April') }}"
                                     class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
                             </div>
                             <div>
-                                <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">วัน</label>
-                                <input x-model="form.day" type="text" placeholder="เช่น 2"
+                                <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">{{ __('วัน') }}</label>
+                                <input x-model="form.day" type="text" placeholder="{{ __('เช่น 2') }}"
                                     class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
                             </div>
                         </div>
@@ -139,10 +139,10 @@
                             <span class="inline-flex size-6 items-center justify-center rounded-lg bg-amber-100 text-amber-600 dark:bg-amber-500/10 dark:text-amber-300">
                                 <flux:icon name="document-text" class="size-3.5" />
                             </span>
-                            <h4 class="text-sm font-semibold text-zinc-800 dark:text-zinc-200">ชื่อเรื่อง</h4>
+                            <h4 class="text-sm font-semibold text-zinc-800 dark:text-zinc-200">{{ __('ชื่อเรื่อง') }}</h4>
                         </div>
                         <div>
-                            <input x-model="form.title" type="text" placeholder="ชื่อหนังสือ / บทความ / เอกสาร"
+                            <input x-model="form.title" type="text" placeholder="{{ __('ชื่อหนังสือ / บทความ / เอกสาร') }}"
                                 class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
                         </div>
                     </div>
@@ -158,33 +158,33 @@
                                     <span class="inline-flex size-6 items-center justify-center rounded-lg bg-emerald-100 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-300">
                                         <flux:icon name="building-office" class="size-3.5" />
                                     </span>
-                                    <h4 class="text-sm font-semibold text-zinc-800 dark:text-zinc-200">ข้อมูลสำนักพิมพ์</h4>
-                                    <flux:tooltip content="APA 7th: ใส่เฉพาะชื่อสำนักพิมพ์ ไม่ต้องใส่เมืองหรือประเทศ คงคำอย่าง Press, Books, Publisher ไว้ได้ และถ้าผู้แต่งกับสำนักพิมพ์เป็นหน่วยงานเดียวกันให้ละสำนักพิมพ์ออก">
+                                    <h4 class="text-sm font-semibold text-zinc-800 dark:text-zinc-200">{{ __('ข้อมูลสำนักพิมพ์') }}</h4>
+                                    <flux:tooltip content="{{ __('APA 7th: ใส่เฉพาะชื่อสำนักพิมพ์ ไม่ต้องใส่เมืองหรือประเทศ คงคำอย่าง Press, Books, Publisher ไว้ได้ และถ้าผู้แต่งกับสำนักพิมพ์เป็นหน่วยงานเดียวกันให้ละสำนักพิมพ์ออก') }}">
                                         <button type="button"
                                             class="inline-flex size-5 items-center justify-center rounded-full text-zinc-400 transition hover:text-pink-500 dark:text-zinc-500 dark:hover:text-pink-300"
-                                            aria-label="คำแนะนำการกรอกสำนักพิมพ์ตาม APA 7th">
+                                            aria-label="{{ __('คำแนะนำการกรอกสำนักพิมพ์ตาม APA 7th') }}">
                                             <flux:icon name="information-circle" class="size-4" />
                                         </button>
                                     </flux:tooltip>
                                 </div>
                                 <div class="grid gap-3 sm:grid-cols-2">
                                     <div>
-                                        <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">สำนักพิมพ์</label>
-                                        <input x-model="form.publisher" type="text" placeholder="เช่น สำนักพิมพ์จุฬาลงกรณ์"
+                                        <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">{{ __('สำนักพิมพ์') }}</label>
+                                        <input x-model="form.publisher" type="text" placeholder="{{ __('เช่น สำนักพิมพ์จุฬาลงกรณ์') }}"
                                             class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
                                         <p class="mt-1 text-[11px] leading-5 text-zinc-400 dark:text-zinc-500">
-                                            ตัวอย่าง APA 7th: ใช้เฉพาะชื่อสำนักพิมพ์ เช่น Sage, Oxford University Press, สำนักพิมพ์จุฬาลงกรณ์มหาวิทยาลัย
+                                            {{ __('ตัวอย่าง APA 7th: ใช้เฉพาะชื่อสำนักพิมพ์ เช่น Sage, Oxford University Press, สำนักพิมพ์จุฬาลงกรณ์มหาวิทยาลัย') }}
                                         </p>
                                     </div>
                                     <div x-show="formResourceType === 'หนังสือชุดหลายเล่มจบ'">
-                                        <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">เล่มที่</label>
-                                        <input x-model="form.volume" type="text" placeholder="เช่น 1-3"
+                                        <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">{{ __('เล่มที่') }}</label>
+                                        <input x-model="form.volume" type="text" placeholder="{{ __('เช่น 1-3') }}"
                                             class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
                                     </div>
                                 </div>
                                 <div x-show="formResourceType !== 'บทความในหนังสือ'">
-                                    <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">พิมพ์ครั้งที่</label>
-                                    <input x-model="form.edition" type="text" placeholder="เช่น 2"
+                                    <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">{{ __('พิมพ์ครั้งที่') }}</label>
+                                    <input x-model="form.edition" type="text" placeholder="{{ __('เช่น 2') }}"
                                         class="w-full max-w-xs rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
                                 </div>
                             </div>
@@ -197,21 +197,21 @@
                                         <span class="inline-flex size-6 items-center justify-center rounded-lg bg-rose-100 text-rose-600 dark:bg-rose-500/10 dark:text-rose-300">
                                             <flux:icon name="bookmark" class="size-3.5" />
                                         </span>
-                                        <h4 class="text-sm font-semibold text-zinc-800 dark:text-zinc-200">ข้อมูลบทความ</h4>
+                                        <h4 class="text-sm font-semibold text-zinc-800 dark:text-zinc-200">{{ __('ข้อมูลบทความ') }}</h4>
                                     </div>
                                     <div>
-                                        <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">ชื่อบรรณาธิการ</label>
-                                        <input x-model="form.editor" type="text" placeholder="เช่น A. B. Editor"
+                                        <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">{{ __('ชื่อบรรณาธิการ') }}</label>
+                                        <input x-model="form.editor" type="text" placeholder="{{ __('เช่น A. B. Editor') }}"
                                             class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
                                     </div>
                                     <div>
-                                        <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">ชื่อหนังสือ (ที่บทความอยู่)</label>
-                                        <input x-model="form.bookTitle" type="text" placeholder="เช่น ชื่อหนังสือรวมบทความ"
+                                        <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">{{ __('ชื่อหนังสือ (ที่บทความอยู่)') }}</label>
+                                        <input x-model="form.bookTitle" type="text" placeholder="{{ __('เช่น ชื่อหนังสือรวมบทความ') }}"
                                             class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
                                     </div>
                                     <div>
-                                        <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">หน้า (pp.)</label>
-                                        <input x-model="form.pages" type="text" placeholder="เช่น 100-120"
+                                        <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">{{ __('หน้า (pp.)') }}</label>
+                                        <input x-model="form.pages" type="text" placeholder="{{ __('เช่น 100-120') }}"
                                             class="w-full max-w-xs rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
                                     </div>
                                 </div>
@@ -253,27 +253,27 @@
                                     <span class="inline-flex size-6 items-center justify-center rounded-lg bg-sky-100 text-sky-600 dark:bg-sky-500/10 dark:text-sky-300">
                                         <flux:icon name="newspaper" class="size-3.5" />
                                     </span>
-                                    <h4 class="text-sm font-semibold text-zinc-800 dark:text-zinc-200">ข้อมูลวารสาร</h4>
+                                    <h4 class="text-sm font-semibold text-zinc-800 dark:text-zinc-200">{{ __('ข้อมูลวารสาร') }}</h4>
                                 </div>
                                 <div>
-                                    <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">ชื่อวารสาร</label>
-                                    <input x-model="form.journalName" type="text" placeholder="เช่น Journal of Digital Research"
+                                    <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">{{ __('ชื่อวารสาร') }}</label>
+                                    <input x-model="form.journalName" type="text" placeholder="{{ __('เช่น Journal of Digital Research') }}"
                                         class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
                                 </div>
                                 <div class="grid gap-3 sm:grid-cols-3">
                                     <div>
-                                        <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">ปีที่ (Volume)</label>
-                                        <input x-model="form.volume" type="text" placeholder="เช่น 18"
+                                        <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">{{ __('ปีที่ (Volume)') }}</label>
+                                        <input x-model="form.volume" type="text" placeholder="{{ __('เช่น 18') }}"
                                             class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
                                     </div>
                                     <div>
-                                        <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">ฉบับที่ (Issue)</label>
-                                        <input x-model="form.issue" type="text" placeholder="เช่น 2"
+                                        <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">{{ __('ฉบับที่ (Issue)') }}</label>
+                                        <input x-model="form.issue" type="text" placeholder="{{ __('เช่น 2') }}"
                                             class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
                                     </div>
                                     <div>
-                                        <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">หน้า</label>
-                                        <input x-model="form.pages" type="text" placeholder="เช่น 44-61"
+                                        <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">{{ __('หน้า') }}</label>
+                                        <input x-model="form.pages" type="text" placeholder="{{ __('เช่น 44-61') }}"
                                             class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
                                     </div>
                                 </div>
@@ -302,29 +302,29 @@
                                     <span class="inline-flex size-6 items-center justify-center rounded-lg bg-emerald-100 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-300">
                                         <flux:icon name="book-open" class="size-3.5" />
                                     </span>
-                                    <h4 class="text-sm font-semibold text-zinc-800 dark:text-zinc-200">ข้อมูลแหล่งอ้างอิง</h4>
+                                        <h4 class="text-sm font-semibold text-zinc-800 dark:text-zinc-200">{{ __('ข้อมูลแหล่งอ้างอิง') }}</h4>
                                 </div>
                                 <div>
-                                    <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">ชื่อพจนานุกรม / สารานุกรม</label>
-                                    <input x-model="form.referenceWork" type="text" placeholder="เช่น Encyclopedia Britannica"
+                                        <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">{{ __('ชื่อพจนานุกรม / สารานุกรม') }}</label>
+                                        <input x-model="form.referenceWork" type="text" placeholder="{{ __('เช่น Encyclopedia Britannica') }}"
                                         class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
                                 </div>
                                 <div class="grid gap-3 sm:grid-cols-2">
                                     <div>
-                                        <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">ฉบับ / Edition</label>
-                                        <input x-model="form.edition" type="text" placeholder="เช่น 15"
+                                            <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">{{ __('ฉบับ / Edition') }}</label>
+                                            <input x-model="form.edition" type="text" placeholder="{{ __('เช่น 15') }}"
                                             class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
                                     </div>
                                     <div>
-                                        <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">เล่ม</label>
-                                        <input x-model="form.volume" type="text" placeholder="เช่น 3"
+                                            <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">{{ __('เล่ม') }}</label>
+                                            <input x-model="form.volume" type="text" placeholder="{{ __('เช่น 3') }}"
                                             class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
                                     </div>
                                 </div>
                                 <div class="grid gap-3 sm:grid-cols-2">
                                     <div>
-                                        <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">สำนักพิมพ์</label>
-                                        <input x-model="form.publisher" type="text" placeholder="เช่น Britannica"
+                                            <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">{{ __('สำนักพิมพ์') }}</label>
+                                            <input x-model="form.publisher" type="text" placeholder="{{ __('เช่น Britannica') }}"
                                             class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
                                     </div>
                                     <div x-show="formResourceType.includes('ออนไลน์')">
@@ -345,17 +345,17 @@
                                     <span class="inline-flex size-6 items-center justify-center rounded-lg bg-rose-100 text-rose-600 dark:bg-rose-500/10 dark:text-rose-300">
                                         <flux:icon name="newspaper" class="size-3.5" />
                                     </span>
-                                    <h4 class="text-sm font-semibold text-zinc-800 dark:text-zinc-200">ข้อมูลหนังสือพิมพ์</h4>
+                                        <h4 class="text-sm font-semibold text-zinc-800 dark:text-zinc-200">{{ __('ข้อมูลหนังสือพิมพ์') }}</h4>
                                 </div>
                                 <div>
-                                    <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">ชื่อหนังสือพิมพ์</label>
-                                    <input x-model="form.newspaperName" type="text" placeholder="เช่น The New York Times"
+                                        <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">{{ __('ชื่อหนังสือพิมพ์') }}</label>
+                                        <input x-model="form.newspaperName" type="text" placeholder="{{ __('เช่น The New York Times') }}"
                                         class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
                                 </div>
                                 <div class="grid gap-3 sm:grid-cols-2">
                                     <div>
-                                        <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">หน้า</label>
-                                        <input x-model="form.pages" type="text" placeholder="เช่น A1-A3"
+                                            <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">{{ __('หน้า') }}</label>
+                                            <input x-model="form.pages" type="text" placeholder="{{ __('เช่น A1-A3') }}"
                                             class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
                                     </div>
                                     <div x-show="formResourceType.includes('ออนไลน์')">
@@ -376,11 +376,11 @@
                                     <span class="inline-flex size-6 items-center justify-center rounded-lg bg-violet-100 text-violet-600 dark:bg-violet-500/10 dark:text-violet-300">
                                         <flux:icon name="clipboard-document-list" class="size-3.5" />
                                     </span>
-                                    <h4 class="text-sm font-semibold text-zinc-800 dark:text-zinc-200">ข้อมูลรายงาน</h4>
+                                        <h4 class="text-sm font-semibold text-zinc-800 dark:text-zinc-200">{{ __('ข้อมูลรายงาน') }}</h4>
                                 </div>
                                 <div>
-                                    <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">หน่วยงาน / องค์กร</label>
-                                    <input x-model="form.organization" type="text" placeholder="เช่น World Health Organization"
+                                        <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">{{ __('หน่วยงาน / องค์กร') }}</label>
+                                        <input x-model="form.organization" type="text" placeholder="{{ __('เช่น World Health Organization') }}"
                                         class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
                                 </div>
                                 <div class="grid gap-3 sm:grid-cols-2">
@@ -390,8 +390,8 @@
                                             class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
                                     </div>
                                     <div>
-                                        <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">สำนักพิมพ์ / ผู้เผยแพร่</label>
-                                        <input x-model="form.publisher" type="text" placeholder="เช่น WHO Press"
+                                            <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">{{ __('สำนักพิมพ์ / ผู้เผยแพร่') }}</label>
+                                            <input x-model="form.publisher" type="text" placeholder="{{ __('เช่น WHO Press') }}"
                                             class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
                                     </div>
                                 </div>
@@ -412,29 +412,29 @@
                                     <span class="inline-flex size-6 items-center justify-center rounded-lg bg-orange-100 text-orange-600 dark:bg-orange-500/10 dark:text-orange-300">
                                         <flux:icon name="presentation-chart-bar" class="size-3.5" />
                                     </span>
-                                    <h4 class="text-sm font-semibold text-zinc-800 dark:text-zinc-200">ข้อมูลงานประชุม</h4>
+                                        <h4 class="text-sm font-semibold text-zinc-800 dark:text-zinc-200">{{ __('ข้อมูลงานประชุม') }}</h4>
                                 </div>
                                 <div>
-                                    <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">ชื่องานประชุม</label>
-                                    <input x-model="form.conferenceName" type="text" placeholder="เช่น International Conference on..."
+                                        <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">{{ __('ชื่องานประชุม') }}</label>
+                                        <input x-model="form.conferenceName" type="text" placeholder="{{ __('เช่น International Conference on...') }}"
                                         class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
                                 </div>
                                 <div class="grid gap-3 sm:grid-cols-2">
                                     <div>
-                                        <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">สถานที่จัด</label>
-                                        <input x-model="form.conferenceLocation" type="text" placeholder="เช่น Bangkok, Thailand"
+                                            <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">{{ __('สถานที่จัด') }}</label>
+                                            <input x-model="form.conferenceLocation" type="text" placeholder="{{ __('เช่น Bangkok, Thailand') }}"
                                             class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
                                     </div>
                                     <div>
-                                        <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">หน้า / เลขโปสเตอร์</label>
-                                        <input x-model="form.pages" type="text" placeholder="เช่น 24-30"
+                                            <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">{{ __('หน้า / เลขโปสเตอร์') }}</label>
+                                            <input x-model="form.pages" type="text" placeholder="{{ __('เช่น 24-30') }}"
                                             class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
                                     </div>
                                 </div>
                                 <div class="grid gap-3 sm:grid-cols-2">
                                     <div>
-                                        <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">ผู้เผยแพร่ / Proceeding</label>
-                                        <input x-model="form.publisher" type="text" placeholder="เช่น ACM"
+                                            <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">{{ __('ผู้เผยแพร่ / Proceeding') }}</label>
+                                            <input x-model="form.publisher" type="text" placeholder="{{ __('เช่น ACM') }}"
                                             class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
                                     </div>
                                     <div>
@@ -456,11 +456,11 @@
                                     <span class="inline-flex size-6 items-center justify-center rounded-lg bg-cyan-100 text-cyan-600 dark:bg-cyan-500/10 dark:text-cyan-300">
                                         <flux:icon name="globe-alt" class="size-3.5" />
                                     </span>
-                                    <h4 class="text-sm font-semibold text-zinc-800 dark:text-zinc-200">ข้อมูลเว็บไซต์</h4>
+                                        <h4 class="text-sm font-semibold text-zinc-800 dark:text-zinc-200">{{ __('ข้อมูลเว็บไซต์') }}</h4>
                                 </div>
                                 <div>
-                                    <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">ชื่อเว็บไซต์</label>
-                                    <input x-model="form.websiteName" type="text" placeholder="เช่น BBC News"
+                                        <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">{{ __('ชื่อเว็บไซต์') }}</label>
+                                        <input x-model="form.websiteName" type="text" placeholder="{{ __('เช่น BBC News') }}"
                                         class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
                                 </div>
                                 <div>
@@ -475,13 +475,13 @@
                                             class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
                                     </div>
                                     <div>
-                                        <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">ผู้ถือสิทธิ์ / หน่วยงาน</label>
-                                        <input x-model="form.websiteName" type="text" placeholder="เช่น Google LLC"
+                                        <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">{{ __('ผู้ถือสิทธิ์ / หน่วยงาน') }}</label>
+                                        <input x-model="form.websiteName" type="text" placeholder="{{ __('เช่น Google LLC') }}"
                                             class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
                                     </div>
                                 </div>
                                 <p x-show="formResourceType === 'การติดต่อสื่อสารส่วนบุคคล'" class="rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-xs leading-5 text-amber-700 dark:border-amber-500/20 dark:bg-amber-500/10 dark:text-amber-300">
-                                    การติดต่อสื่อสารส่วนบุคคลตาม APA ปกติจะใช้อ้างอิงเฉพาะในเนื้อหา ไม่แสดงในบรรณานุกรมท้ายเล่ม
+                                    {{ __('การติดต่อสื่อสารส่วนบุคคลตาม APA ปกติจะใช้อ้างอิงเฉพาะในเนื้อหา ไม่แสดงในบรรณานุกรมท้ายเล่ม') }}
                                 </p>
                             </div>
                         </div>
@@ -496,26 +496,26 @@
                                     <span class="inline-flex size-6 items-center justify-center rounded-lg bg-indigo-100 text-indigo-600 dark:bg-indigo-500/10 dark:text-indigo-300">
                                         <flux:icon name="academic-cap" class="size-3.5" />
                                     </span>
-                                    <h4 class="text-sm font-semibold text-zinc-800 dark:text-zinc-200">ข้อมูลวิทยานิพนธ์</h4>
+                                        <h4 class="text-sm font-semibold text-zinc-800 dark:text-zinc-200">{{ __('ข้อมูลวิทยานิพนธ์') }}</h4>
                                 </div>
                                 <div>
-                                    <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">ประเภท</label>
+                                        <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">{{ __('ประเภท') }}</label>
                                     <select x-model="form.thesisType"
                                         class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
-                                        <option value="doctoral">ดุษฎีนิพนธ์ (Doctoral dissertation)</option>
-                                        <option value="master">วิทยานิพนธ์ (Master's thesis)</option>
+                                        <option value="doctoral">{{ __('ดุษฎีนิพนธ์ (Doctoral dissertation)') }}</option>
+                                        <option value="master">{{ __('วิทยานิพนธ์ (Master\'s thesis)') }}</option>
                                     </select>
                                 </div>
                                 <div>
-                                    <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">มหาวิทยาลัย</label>
-                                    <input x-model="form.university" type="text" placeholder="เช่น จุฬาลงกรณ์มหาวิทยาลัย"
+                                        <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">{{ __('มหาวิทยาลัย') }}</label>
+                                        <input x-model="form.university" type="text" placeholder="{{ __('เช่น จุฬาลงกรณ์มหาวิทยาลัย') }}"
                                         class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
                                 </div>
                                 <template x-if="formResourceType.includes('เว็บไซต์') || formResourceType.includes('ฐานข้อมูล')">
                                     <div class="grid gap-3 sm:grid-cols-2">
                                         <div x-show="formResourceType.includes('ฐานข้อมูล')">
-                                            <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">ชื่อฐานข้อมูล</label>
-                                            <input x-model="form.databaseName" type="text" placeholder="เช่น ProQuest Dissertations"
+                                            <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">{{ __('ชื่อฐานข้อมูล') }}</label>
+                                            <input x-model="form.databaseName" type="text" placeholder="{{ __('เช่น ProQuest Dissertations') }}"
                                                 class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
                                         </div>
                                         <div x-show="formResourceType.includes('เว็บไซต์')">
@@ -537,17 +537,17 @@
                                     <span class="inline-flex size-6 items-center justify-center rounded-lg bg-fuchsia-100 text-fuchsia-600 dark:bg-fuchsia-500/10 dark:text-fuchsia-300">
                                         <flux:icon name="play-circle" class="size-3.5" />
                                     </span>
-                                    <h4 class="text-sm font-semibold text-zinc-800 dark:text-zinc-200">ข้อมูลสื่อ</h4>
+                                        <h4 class="text-sm font-semibold text-zinc-800 dark:text-zinc-200">{{ __('ข้อมูลสื่อ') }}</h4>
                                 </div>
                                 <div class="grid gap-3 sm:grid-cols-2">
                                     <div>
-                                        <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">รูปแบบสื่อ</label>
-                                        <input x-model="form.medium" type="text" placeholder="เช่น Video, Podcast, Infographic"
+                                            <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">{{ __('รูปแบบสื่อ') }}</label>
+                                            <input x-model="form.medium" type="text" placeholder="{{ __('เช่น Video, Podcast, Infographic') }}"
                                             class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
                                     </div>
                                     <div>
-                                        <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">แพลตฟอร์ม / ช่องทาง</label>
-                                        <input x-model="form.platform" type="text" placeholder="เช่น YouTube, Spotify"
+                                            <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">{{ __('แพลตฟอร์ม / ช่องทาง') }}</label>
+                                            <input x-model="form.platform" type="text" placeholder="{{ __('เช่น YouTube, Spotify') }}"
                                             class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
                                     </div>
                                 </div>
@@ -568,23 +568,23 @@
                                     <span class="inline-flex size-6 items-center justify-center rounded-lg bg-teal-100 text-teal-600 dark:bg-teal-500/10 dark:text-teal-300">
                                         <flux:icon name="sparkles" class="size-3.5" />
                                     </span>
-                                    <h4 class="text-sm font-semibold text-zinc-800 dark:text-zinc-200">ข้อมูลเนื้อหาที่สร้างโดย AI</h4>
+                                        <h4 class="text-sm font-semibold text-zinc-800 dark:text-zinc-200">{{ __('ข้อมูลเนื้อหาที่สร้างโดย AI') }}</h4>
                                 </div>
                                 <div class="grid gap-3 sm:grid-cols-2">
                                     <div>
-                                        <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">แพลตฟอร์ม</label>
-                                        <input x-model="form.platform" type="text" placeholder="เช่น ChatGPT"
+                                            <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">{{ __('แพลตฟอร์ม') }}</label>
+                                            <input x-model="form.platform" type="text" placeholder="{{ __('เช่น ChatGPT') }}"
                                             class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
                                     </div>
                                     <div>
-                                        <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">รุ่นโมเดล</label>
-                                        <input x-model="form.model" type="text" placeholder="เช่น GPT-5.4"
+                                            <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">{{ __('รุ่นโมเดล') }}</label>
+                                            <input x-model="form.model" type="text" placeholder="{{ __('เช่น GPT-5.4') }}"
                                             class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
                                     </div>
                                 </div>
                                 <div>
-                                    <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">Prompt / คำสั่งที่ใช้</label>
-                                    <textarea x-model="form.prompt" rows="3" placeholder="เช่น Summarize the impact of..."
+                                        <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">{{ __('Prompt / คำสั่งที่ใช้') }}</label>
+                                        <textarea x-model="form.prompt" rows="3" placeholder="{{ __('เช่น Summarize the impact of...') }}"
                                         class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500"></textarea>
                                 </div>
                                 <div>
@@ -608,12 +608,12 @@
                             <span class="inline-flex size-6 items-center justify-center rounded-lg bg-pink-100 text-pink-600 dark:bg-pink-500/10 dark:text-pink-300">
                                 <flux:icon name="document-text" class="size-3.5" />
                             </span>
-                            <h4 class="text-sm font-semibold text-zinc-800 dark:text-zinc-200">ตัวอย่างบรรณานุกรม</h4>
+                            <h4 class="text-sm font-semibold text-zinc-800 dark:text-zinc-200">{{ __('ตัวอย่างบรรณานุกรม') }}</h4>
                             <span class="rounded-full bg-pink-100 px-2 py-0.5 text-[10px] font-semibold text-pink-600 dark:bg-pink-500/10 dark:text-pink-300">LIVE</span>
                         </div>
                         <div class="min-h-[80px] rounded-2xl border border-pink-200 bg-white p-5 text-sm leading-8 text-zinc-700 shadow-sm dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300"
                             style="padding-left: calc(0.5in + 1.25rem); text-indent: -0.5in;">
-                            <p x-text="generateBibliography() || 'กรุณากรอกข้อมูลด้านซ้ายเพื่อดูตัวอย่างบรรณานุกรมแบบเรียลไทม์...'"
+                            <p x-text="generateBibliography() || @js(__('กรุณากรอกข้อมูลด้านซ้ายเพื่อดูตัวอย่างบรรณานุกรมแบบเรียลไทม์...'))"
                                 x-bind:class="generateBibliography() ? 'text-zinc-800 dark:text-zinc-200' : 'text-zinc-400 dark:text-zinc-500 italic'">
                             </p>
                         </div>
@@ -625,20 +625,20 @@
                             <span class="inline-flex size-6 items-center justify-center rounded-lg bg-violet-100 text-violet-600 dark:bg-violet-500/10 dark:text-violet-300">
                                 <flux:icon name="chat-bubble-bottom-center-text" class="size-3.5" />
                             </span>
-                            <h4 class="text-sm font-semibold text-zinc-800 dark:text-zinc-200">ตัวอย่าง In-text Citation</h4>
+                            <h4 class="text-sm font-semibold text-zinc-800 dark:text-zinc-200">{{ __('ตัวอย่าง In-text Citation') }}</h4>
                             <span class="rounded-full bg-violet-100 px-2 py-0.5 text-[10px] font-semibold text-violet-600 dark:bg-violet-500/10 dark:text-violet-300">LIVE</span>
                         </div>
 
                         <div class="space-y-2">
                             <div class="rounded-2xl border border-violet-200 bg-white p-4 dark:border-zinc-700 dark:bg-zinc-900">
-                                <p class="mb-1 text-[10px] font-semibold uppercase tracking-wider text-violet-500 dark:text-violet-400">Narrative</p>
+                                <p class="mb-1 text-[10px] font-semibold uppercase tracking-wider text-violet-500 dark:text-violet-400">{{ __('การอ้างอิงแบบบรรยาย') }}</p>
                                 <p class="text-sm text-zinc-700 dark:text-zinc-300"
                                     x-text="generateNarrativeCitation() || '...'"
                                     x-bind:class="generateNarrativeCitation() ? '' : 'text-zinc-400 dark:text-zinc-500 italic'">
                                 </p>
                             </div>
                             <div class="rounded-2xl border border-violet-200 bg-white p-4 dark:border-zinc-700 dark:bg-zinc-900">
-                                <p class="mb-1 text-[10px] font-semibold uppercase tracking-wider text-violet-500 dark:text-violet-400">Parenthetical</p>
+                                <p class="mb-1 text-[10px] font-semibold uppercase tracking-wider text-violet-500 dark:text-violet-400">{{ __('การอ้างอิงแบบวงเล็บ') }}</p>
                                 <p class="text-sm text-zinc-700 dark:text-zinc-300"
                                     x-text="generateParentheticalCitation() || '...'"
                                     x-bind:class="generateParentheticalCitation() ? '' : 'text-zinc-400 dark:text-zinc-500 italic'">
@@ -657,18 +657,18 @@
         <div class="flex items-center justify-between gap-4 border-t border-zinc-200 px-6 py-4 dark:border-zinc-800 lg:px-8">
             <button type="button" x-on:click="formModalOpen = false; formResourceType = ''; resetForm()"
                 class="text-sm font-medium text-zinc-500 transition hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100">
-                ยกเลิก
+                {{ __('ยกเลิก') }}
             </button>
             <div class="flex items-center gap-3">
                 <button type="button" x-on:click="formResourceType = ''; formModalOpen = false; modalOpen = true; resetForm()"
                     class="inline-flex items-center gap-2 rounded-full border border-zinc-200 px-4 py-2 text-sm font-medium text-zinc-600 transition hover:border-zinc-300 hover:text-zinc-900 dark:border-zinc-700 dark:text-zinc-300 dark:hover:border-zinc-500 dark:hover:text-zinc-100">
                     <flux:icon name="arrow-left" class="size-4" />
-                    เปลี่ยนประเภท
+                    {{ __('เปลี่ยนประเภท') }}
                 </button>
                 <button type="button" x-on:click="addCitationFromForm()"
                     class="inline-flex items-center gap-2 rounded-full bg-pink-600 px-5 py-2 text-sm font-semibold text-white transition hover:bg-pink-700 active:scale-95 dark:bg-pink-500 dark:hover:bg-pink-400">
                     <flux:icon name="plus" class="size-4" />
-                    เพิ่มรายการ
+                    {{ __('เพิ่มรายการ') }}
                 </button>
             </div>
         </div>

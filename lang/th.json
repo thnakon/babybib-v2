@@ -153,5 +153,17 @@
     "Please enter a valid number.": "กรุณากรอกตัวเลขที่ถูกต้อง",
     "Bot detected.": "ตรวจพบบอท",
     "Reset password": "รีเซ็ตรหัสผ่าน",
-    "Please enter your new password below": "กรุณากรอกรหัสผ่านใหม่ด้านล่าง"
+    "Please enter your new password below": "กรุณากรอกรหัสผ่านใหม่ด้านล่าง",
+    "English (EN)": "English (EN)",
+    "Privacy": "ความเป็นส่วนตัว",
+    "Terms": "ข้อกำหนด",
+    "About": "เกี่ยวกับ",
+    "Learn more": "ดูเพิ่มเติม",
+    "Open manual": "เปิดคู่มือ",
+    "Close": "ปิด",
+    "Actions": "การจัดการ",
+    "Bibliography": "บรรณานุกรม",
+    "Narrative Citation": "การอ้างอิงแบบบรรยาย",
+    "Parenthetical Citation": "การอ้างอิงแบบวงเล็บ",
+    "Field Details": "รายละเอียดฟิลด์"
 }
