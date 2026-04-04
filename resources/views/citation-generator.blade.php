@@ -34,6 +34,17 @@
         .dark .visible-scrollbar::-webkit-scrollbar-thumb {
             background: #3f3f46;
         }
+
+        .thai-distributed {
+            text-align: justify;
+            text-align-last: left;
+            text-justify: inter-character;
+            word-break: break-word;
+        }
+
+        .paper-bibliography-font {
+            font-family: 'Angsana New', serif;
+        }
     </style>
 </head>
 
@@ -316,152 +327,7 @@
     @endphp
 
     <div class="relative mx-auto flex max-w-[1400px] flex-col gap-6 px-4 pb-24 pt-6 sm:px-6 lg:flex-row lg:gap-10 lg:pt-10">
-        <aside x-data="{
-            projectModal: false,
-            deleteProjectModal: false,
-            projectMenuOpen: null,
-            projectFormMode: 'create',
-            editingProjectId: null,
-            activeProject: 1,
-            projectForm: { name: '', color: 'zinc', icon: 'folder' },
-            projectToDelete: null,
-            deleteConfirmationName: '',
-            projectColors: [
-                { value: 'zinc', label: 'เทา', swatch: 'bg-zinc-500', button: 'bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900' },
-                { value: 'sky', label: 'ฟ้า', swatch: 'bg-sky-500', button: 'bg-sky-500 text-white' },
-                { value: 'emerald', label: 'เขียว', swatch: 'bg-emerald-500', button: 'bg-emerald-500 text-white' },
-                { value: 'amber', label: 'ทอง', swatch: 'bg-amber-500', button: 'bg-amber-500 text-white' },
-                { value: 'rose', label: 'ชมพู', swatch: 'bg-rose-500', button: 'bg-rose-500 text-white' },
-                { value: 'violet', label: 'ม่วง', swatch: 'bg-violet-500', button: 'bg-violet-500 text-white' },
-                { value: 'indigo', label: 'กรม', swatch: 'bg-indigo-500', button: 'bg-indigo-500 text-white' },
-                { value: 'cyan', label: 'ฟ้าน้ำทะเล', swatch: 'bg-cyan-500', button: 'bg-cyan-500 text-white' },
-                { value: 'teal', label: 'ทีล', swatch: 'bg-teal-500', button: 'bg-teal-500 text-white' },
-                { value: 'orange', label: 'ส้ม', swatch: 'bg-orange-500', button: 'bg-orange-500 text-white' },
-                { value: 'fuchsia', label: 'บานเย็น', swatch: 'bg-fuchsia-500', button: 'bg-fuchsia-500 text-white' },
-                { value: 'lime', label: 'ไลม์', swatch: 'bg-lime-500', button: 'bg-lime-500 text-zinc-950' }
-            ],
-            projectIcons: [
-                { value: 'folder', label: 'โฟลเดอร์' },
-                { value: 'book-open', label: 'หนังสือ' },
-                { value: 'document-text', label: 'เอกสาร' },
-                { value: 'academic-cap', label: 'วิจัย' },
-                { value: 'clipboard-document-list', label: 'รายการ' },
-                { value: 'sparkles', label: 'พิเศษ' },
-                { value: 'globe-alt', label: 'เว็บ' },
-                { value: 'light-bulb', label: 'ไอเดีย' },
-                { value: 'beaker', label: 'ทดลอง' },
-                { value: 'briefcase', label: 'งาน' },
-                { value: 'newspaper', label: 'ข่าวสาร' },
-                { value: 'presentation-chart-bar', label: 'พรีเซนต์' }
-            ],
-            projects: [
-                { id: 1, name: 'โครงการวิจัยบทที่ 1', color: 'zinc', icon: 'folder' }
-            ],
-            toast(text, variant = 'success') {
-                window.Flux?.toast(text, { variant, position: 'bottom end' });
-            },
-            projectButtonClass(color) {
-                return (this.projectColors.find(option => option.value === color)?.button) || 'bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900';
-            },
-            openCreateProjectModal() {
-                this.projectFormMode = 'create';
-                this.editingProjectId = null;
-                this.projectForm = { name: '', color: 'zinc', icon: 'folder' };
-                this.projectModal = true;
-            },
-            openEditProjectModal(project) {
-                this.projectFormMode = 'edit';
-                this.editingProjectId = project.id;
-                this.projectForm = { name: project.name, color: project.color, icon: project.icon };
-                this.projectMenuOpen = null;
-                this.projectModal = true;
-            },
-            openDeleteProjectModal(project) {
-                if (this.projects.length === 1) {
-                    this.projectMenuOpen = null;
-                    this.toast('ต้องมีอย่างน้อย 1 โครงการในระบบ', 'warning');
-                    return;
-                }
-
-                this.projectToDelete = project;
-                this.deleteConfirmationName = '';
-                this.projectMenuOpen = null;
-                this.deleteProjectModal = true;
-            },
-            saveProject() {
-                if (!this.projectForm.name.trim()) {
-                    this.toast('กรุณากรอกชื่อโครงการก่อนบันทึก', 'warning');
-                    return;
-                }
-
-                if (this.projectFormMode === 'create') {
-                    const nextId = Date.now();
-                    this.projects.unshift({
-                        id: nextId,
-                        name: this.projectForm.name.trim(),
-                        color: this.projectForm.color,
-                        icon: this.projectForm.icon
-                    });
-                    this.activeProject = nextId;
-                    this.projectModal = false;
-                    this.toast('สร้างโครงการใหม่เรียบร้อยแล้ว', 'success');
-                    return;
-                }
-
-                const project = this.projects.find(item => item.id === this.editingProjectId);
-                if (!project) {
-                    this.toast('ไม่พบโครงการที่ต้องการแก้ไข', 'danger');
-                    return;
-                }
-
-                project.name = this.projectForm.name.trim();
-                project.color = this.projectForm.color;
-                project.icon = this.projectForm.icon;
-                this.projectModal = false;
-                this.toast('อัปเดตโครงการเรียบร้อยแล้ว', 'success');
-            },
-            duplicateProject(project) {
-                const nextId = Date.now();
-                this.projects.unshift({
-                    id: nextId,
-                    name: project.name + ' (คัดลอก)',
-                    color: project.color,
-                    icon: project.icon
-                });
-                this.activeProject = nextId;
-                this.projectMenuOpen = null;
-                this.toast('คัดลอกโครงการเรียบร้อยแล้ว', 'success');
-            },
-            confirmDeleteProject() {
-                if (!this.projectToDelete) {
-                    this.toast('ไม่พบโครงการที่ต้องการลบ', 'danger');
-                    return;
-                }
-
-                if (this.deleteConfirmationName.trim() !== this.projectToDelete.name) {
-                    this.toast('ชื่อโครงการไม่ตรงกัน กรุณาตรวจสอบอีกครั้ง', 'warning');
-                    return;
-                }
-
-                const index = this.projects.findIndex(item => item.id === this.projectToDelete.id);
-                if (index === -1) {
-                    this.toast('ไม่พบโครงการที่ต้องการลบ', 'danger');
-                    return;
-                }
-
-                const deletedProjectName = this.projectToDelete.name;
-                const deletedProjectId = this.projectToDelete.id;
-
-                this.projects.splice(index, 1);
-                if (this.activeProject === deletedProjectId) {
-                    this.activeProject = this.projects[0]?.id ?? null;
-                }
-                this.deleteProjectModal = false;
-                this.projectToDelete = null;
-                this.deleteConfirmationName = '';
-                this.toast('ลบโครงการ ' + deletedProjectName + ' เรียบร้อยแล้ว', 'danger');
-            }
-        }"
+        <aside x-data="citationProjectsSidebar()"
             class="custom-scrollbar w-full shrink-0 overflow-hidden rounded-2xl border border-zinc-200/80 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900/50 lg:block lg:w-64 lg:rounded-none lg:border-0 lg:bg-transparent lg:p-0 lg:h-[calc(100vh-10rem)] lg:overflow-y-auto lg:pr-4 lg:visible-scrollbar">
             <div class="space-y-4">
                 <div class="flex items-center justify-between">
@@ -478,7 +344,7 @@
                 <div class="space-y-3">
                     <template x-for="project in projects" :key="project.id">
                         <div class="group relative">
-                            <button type="button" x-on:click="activeProject = project.id"
+                            <button type="button" x-on:click="activeProject = project.id; broadcastProjects()"
                                 class="w-full rounded-2xl p-3 pr-11 text-left transition"
                                 x-bind:class="activeProject === project.id
                                     ? 'bg-zinc-100 text-zinc-900 dark:bg-zinc-800/80 dark:text-zinc-100'
@@ -678,309 +544,7 @@
 
         <main class="min-w-0 flex-1">
             <div class="grid gap-3 lg:grid-cols-7">
-                <section x-data="{
-                    smartQuery: '',
-                    selectedType: '',
-                    activeQuickFilter: '',
-                    modalOpen: false,
-                    modalSearch: '',
-                    copied: false,
-                    exportOpen: false,
-                    citationStyle: 'apa7',
-                    displayMode: 'paper',
-                    formModalOpen: false,
-                    formResourceType: '',
-                    form: {
-                        authors: [{ lastName: '', firstName: '' }],
-                        year: '',
-                        month: '',
-                        day: '',
-                        title: '',
-                        publisher: '',
-                        volume: '',
-                        issue: '',
-                        pages: '',
-                        edition: '',
-                        editor: '',
-                        bookTitle: '',
-                        doi: '',
-                        url: '',
-                        journalName: '',
-                        websiteName: '',
-                        thesisType: 'master',
-                        university: '',
-                        databaseName: '',
-                        referenceWork: '',
-                        newspaperName: '',
-                        organization: '',
-                        reportNumber: '',
-                        conferenceName: '',
-                        conferenceLocation: '',
-                        patentNumber: '',
-                        assignee: '',
-                        platform: '',
-                        medium: '',
-                        model: '',
-                        prompt: '',
-                    },
-                    citations: [
-                        { id: 1, text: 'Johnson, A. (2025). Smart search for citation workflows. Journal of Digital Research, 18(2), 44-61.' },
-                        { id: 2, text: 'Smith, J. (2026). Designing better citations. Babybib Press.' },
-                        { id: 3, text: 'Thanakon, P. (2024). แนวทางการจัดการบรรณานุกรมสำหรับงานวิจัยสมัยใหม่. วารสารสารสนเทศศึกษา, 12(1), 15-32.' },
-                        { id: 4, text: 'Babybib Team. (2026, April 2). Citation generator manual. https://babybib.app/manual' }
-                    ],
-                    toast(text, variant = 'success') {
-                        window.Flux?.toast(text, { variant, position: 'bottom end' });
-                    },
-                    resetForm() {
-                        this.form = {
-                            authors: [{ lastName: '', firstName: '' }],
-                            year: '', month: '', day: '', title: '', publisher: '', volume: '', issue: '',
-                            pages: '', edition: '', editor: '', bookTitle: '', doi: '', url: '',
-                            journalName: '', websiteName: '', thesisType: 'master', university: '', databaseName: '',
-                            referenceWork: '', newspaperName: '', organization: '', reportNumber: '',
-                            conferenceName: '', conferenceLocation: '', patentNumber: '', assignee: '',
-                            platform: '', medium: '', model: '', prompt: '',
-                        };
-                    },
-                    openFormModal(type) {
-                        this.formResourceType = type;
-                        this.selectedType = type;
-                        this.activeQuickFilter = type.includes('เว็บ') ? 'เว็บเพจ' : (type.includes('หนังสือ') ? 'หนังสือ' : (type.includes('บทความ') ? 'บทความ' : ''));
-                        this.smartQuery = type;
-                        this.modalOpen = false;
-                        this.resetForm();
-                        this.formModalOpen = true;
-                    },
-                    setQuickFilter(type) {
-                        this.smartQuery = type;
-                        this.selectedType = type;
-                        this.activeQuickFilter = type;
-                    },
-                    isBookType() {
-                        return ['หนังสือ','หนังสือชุดหลายเล่มจบ','บทความในหนังสือ','หนังสืออิเล็กทรอนิกส์ (มี DOI)','หนังสืออิเล็กทรอนิกส์ (ไม่มี DOI)'].includes(this.formResourceType);
-                    },
-                    isJournalType() {
-                        return ['บทความวารสาร','บทความวารสารอิเล็กทรอนิกส์ (มี DOI)','บทความวารสารอิเล็กทรอนิกส์ (ไม่มี DOI)','วารสารอิเล็กทรอนิกส์ (แบบมีฉบับพิมพ์)','วารสารอิเล็กทรอนิกส์ (แบบไม่มีฉบับพิมพ์)'].includes(this.formResourceType);
-                    },
-                    isWebType() {
-                        return ['เอกสารอิเล็กทรอนิกส์ (เว็บเพจ)','สื่อออนไลน์ (วิดีโอออนไลน์ บทความในโซเชียลมีเดีย)','ราชกิจจานุเบกษาออนไลน์','สิทธิบัตรออนไลน์','การติดต่อสื่อสารส่วนบุคคล'].includes(this.formResourceType);
-                    },
-                    isThesisType() {
-                        return ['วิทยานิพนธ์ (ที่ไม่ได้ตีพิมพ์)','วิทยานิพนธ์จากเว็บไซต์','วิทยานิพนธ์จากฐานข้อมูลเชิงพาณิชย์'].includes(this.formResourceType);
-                    },
-                    isDictionaryType() {
-                        return ['พจนานุกรม','พจนานุกรมออนไลน์','สารานุกรม','สารานุกรมออนไลน์'].includes(this.formResourceType);
-                    },
-                    isNewspaperType() {
-                        return ['หนังสือพิมพ์แบบรูปเล่ม','หนังสือพิมพ์ออนไลน์'].includes(this.formResourceType);
-                    },
-                    isReportType() {
-                        return ['รายงาน','รายงานการวิจัย','รายงานที่จัดทำโดยหน่วยงานราชการหรือองค์กรอื่น','รายงานที่จัดทำโดยบุคคลที่สังกัดหน่วยงาน'].includes(this.formResourceType);
-                    },
-                    isConferenceType() {
-                        return ['เอกสารการประชุมทางวิชาการ (ที่มี Proceeding)','เอกสารการประชุมทางวิชาการ (ที่ไม่มี Proceeding)','การนำเสนองานวิจัยหรือโปสเตอร์ในงานประชุมวิชาการ'].includes(this.formResourceType);
-                    },
-                    isMediaType() {
-                        return ['อินโฟกราฟิก (Infographic)','การนำเสนอด้วยสไลด์และเอกสารการสอนออนไลน์','สัมมนาออนไลน์ (Webinar)','วิดีโอใน Youtube หรือวิดีโอออนไลน์ต่าง ๆ','พอดแคสต์ภาพและเสียง (แบบจบในตอน)','พอดแคสต์ภาพและเสียง (แบบหลายตอน)'].includes(this.formResourceType);
-                    },
-                    isAiType() {
-                        return this.formResourceType === 'AI (เนื้อหาที่สร้างโดย AI)';
-                    },
-                    usesDetailedDate() {
-                        return this.isWebType() || this.isNewspaperType() || this.isConferenceType() || this.isMediaType() || this.isAiType();
-                    },
-                    formatDate() {
-                        const year = this.form.year.trim();
-                        const month = this.form.month.trim();
-                        const day = this.form.day.trim();
-
-                        if (year && month && day) return ` (${year}, ${month} ${day}). `;
-                        if (year && month) return ` (${year}, ${month}). `;
-                        if (year) return ` (${year}). `;
-                        if (month && day) return ` (n.d., ${month} ${day}). `;
-
-                        return ' (n.d.). ';
-                    },
-                    formatAuthors() {
-                        const valid = this.form.authors.filter(a => a.lastName.trim());
-                        if (!valid.length) return '';
-                        return valid.map((a, i) => {
-                            const last = a.lastName.trim();
-                            const first = a.firstName.trim();
-                            const name = first ? `${last}, ${first}` : last;
-                            if (valid.length === 1) return name;
-                            if (i === valid.length - 1) return `& ${name}`;
-                            if (valid.length === 2) return `${name} `;
-                            return `${name}, `;
-                        }).join('');
-                    },
-                    formatAuthorsCitation() {
-                        const valid = this.form.authors.filter(a => a.lastName.trim());
-                        if (!valid.length) return '';
-                        if (valid.length === 1) return valid[0].lastName.trim();
-                        if (valid.length === 2) return `${valid[0].lastName.trim()} and ${valid[1].lastName.trim()}`;
-                        return `${valid[0].lastName.trim()} et al.`;
-                    },
-                    generateBibliography() {
-                        const a = this.formatAuthors();
-                        const y = this.form.year.trim();
-                        const t = this.form.title.trim();
-                        const titleOrPrompt = t || this.form.prompt.trim();
-                        const organization = this.form.organization.trim();
-                        const assignee = this.form.assignee.trim();
-                        const platform = this.form.platform.trim();
-                        const websiteName = this.form.websiteName.trim();
-                        const creator = a || organization || assignee || platform || websiteName;
-                        if (!creator && !titleOrPrompt) return '';
-                        let bib = '';
-                        if (this.formResourceType === 'การติดต่อสื่อสารส่วนบุคคล') {
-                            return 'การติดต่อสื่อสารส่วนบุคคลในรูปแบบ APA ใช้อ้างอิงเฉพาะในเนื้อหา และไม่ต้องแสดงในบรรณานุกรมท้ายเล่ม';
-                        }
-
-                        if (creator) bib += creator;
-                        bib += this.usesDetailedDate() ? this.formatDate() : (y ? ` (${y}). ` : ' (n.d.). ');
-
-                        if (this.isBookType()) {
-                            if (this.formResourceType === 'บทความในหนังสือ') {
-                                bib += t ? `${t}. ` : '';
-                                if (this.form.editor.trim()) bib += `In ${this.form.editor.trim()} (Ed.), `;
-                                if (this.form.bookTitle.trim()) bib += `${this.form.bookTitle.trim()}`;
-                                if (this.form.pages.trim()) bib += ` (pp. ${this.form.pages.trim()})`;
-                                bib += '. ';
-                                if (this.form.publisher.trim()) bib += `${this.form.publisher.trim()}.`;
-                            } else {
-                                bib += t ? `${t}` : '';
-                                if (this.form.volume.trim()) bib += ` (Vols. ${this.form.volume.trim()})`;
-                                if (this.form.edition.trim()) bib += ` (${this.form.edition.trim()} ed.)`;
-                                bib += '. ';
-                                if (this.form.publisher.trim()) bib += `${this.form.publisher.trim()}.`;
-                                if (this.form.doi.trim()) bib += ` ${this.form.doi.trim()}`;
-                                if (!this.form.doi.trim() && this.form.url.trim()) bib += ` ${this.form.url.trim()}`;
-                            }
-                        } else if (this.isJournalType()) {
-                            bib += t ? `${t}. ` : '';
-                            if (this.form.journalName.trim()) bib += `${this.form.journalName.trim()}`;
-                            if (this.form.volume.trim()) bib += `, ${this.form.volume.trim()}`;
-                            if (this.form.issue.trim()) bib += `(${this.form.issue.trim()})`;
-                            if (this.form.pages.trim()) bib += `, ${this.form.pages.trim()}`;
-                            bib += '.';
-                            if (this.form.doi.trim()) bib += ` ${this.form.doi.trim()}`;
-                            if (!this.form.doi.trim() && this.form.url.trim()) bib += ` ${this.form.url.trim()}`;
-                        } else if (this.isDictionaryType()) {
-                            bib += t ? `${t}. ` : '';
-                            if (this.form.referenceWork.trim()) bib += `In ${this.form.referenceWork.trim()}`;
-                            if (this.form.edition.trim()) bib += ` (${this.form.edition.trim()} ed.)`;
-                            if (this.form.volume.trim()) bib += ` (Vol. ${this.form.volume.trim()})`;
-                            bib += '. ';
-                            if (this.form.publisher.trim()) bib += `${this.form.publisher.trim()}. `;
-                            if (this.form.url.trim()) bib += `${this.form.url.trim()}`;
-                        } else if (this.isNewspaperType()) {
-                            bib += t ? `${t}. ` : '';
-                            if (this.form.newspaperName.trim()) bib += `${this.form.newspaperName.trim()}`;
-                            if (this.form.pages.trim()) bib += `, ${this.form.pages.trim()}`;
-                            bib += '.';
-                            if (this.form.url.trim()) bib += ` ${this.form.url.trim()}`;
-                        } else if (this.isReportType()) {
-                            bib += t ? `${t}` : '';
-                            if (this.form.reportNumber.trim()) bib += ` (Report No. ${this.form.reportNumber.trim()})`;
-                            bib += '. ';
-                            if (this.form.publisher.trim()) bib += `${this.form.publisher.trim()}. `;
-                            if (this.form.url.trim()) bib += `${this.form.url.trim()}`;
-                        } else if (this.isConferenceType()) {
-                            bib += t ? `${t}. ` : '';
-                            if (this.form.conferenceName.trim()) bib += `${this.form.conferenceName.trim()}`;
-                            if (this.form.conferenceLocation.trim()) bib += `, ${this.form.conferenceLocation.trim()}`;
-                            if (this.form.pages.trim()) bib += ` (pp. ${this.form.pages.trim()})`;
-                            bib += '. ';
-                            if (this.form.publisher.trim()) bib += `${this.form.publisher.trim()}. `;
-                            if (this.form.url.trim()) bib += `${this.form.url.trim()}`;
-                        } else if (this.isWebType()) {
-                            if (this.formResourceType === 'สิทธิบัตรออนไลน์') {
-                                bib += t ? `${t}` : '';
-                                if (this.form.patentNumber.trim()) bib += ` (${this.form.patentNumber.trim()})`;
-                                bib += '. ';
-                                if (websiteName) bib += `${websiteName}. `;
-                                if (this.form.url.trim()) bib += `${this.form.url.trim()}`;
-                                return bib.replace(/\.\./g, '.').replace(/\s{2,}/g, ' ').trim();
-                            }
-                            bib += t ? `${t}. ` : '';
-                            if (websiteName) bib += `${websiteName}. `;
-                            if (this.form.url.trim()) bib += `${this.form.url.trim()}`;
-                        } else if (this.isThesisType()) {
-                            bib += t ? `${t} ` : '';
-                            const tt = this.form.thesisType === 'doctoral' ? 'Doctoral dissertation' : 'Master\x27s thesis';
-                            if (this.form.university.trim()) bib += `[${tt}, ${this.form.university.trim()}]. `;
-                            else bib += `[${tt}]. `;
-                            if (this.form.databaseName.trim()) bib += `${this.form.databaseName.trim()}. `;
-                            if (this.form.url.trim()) bib += `${this.form.url.trim()}`;
-                        } else if (this.isMediaType()) {
-                            bib += t ? `${t}. ` : '';
-                            if (this.form.medium.trim()) bib += `[${this.form.medium.trim()}]. `;
-                            if (platform) bib += `${platform}. `;
-                            if (this.form.url.trim()) bib += `${this.form.url.trim()}`;
-                        } else if (this.isAiType()) {
-                            bib += titleOrPrompt ? `${titleOrPrompt}. ` : '';
-                            if (this.form.model.trim()) bib += `[${this.form.model.trim()}]. `;
-                            if (this.form.url.trim()) bib += `${this.form.url.trim()}`;
-                        } else {
-                            bib += t ? `${t}.` : '';
-                        }
-                        return bib.replace(/\.\./g, '.').replace(/\s{2,}/g, ' ').trim();
-                    },
-                    generateNarrativeCitation() {
-                        const a = this.formatAuthorsCitation();
-                        const y = this.form.year.trim();
-                        if (!a) return '';
-                        return `${a} (${y || 'n.d.'}) กล่าวว่า ...`;
-                    },
-                    generateParentheticalCitation() {
-                        const a = this.formatAuthorsCitation();
-                        const y = this.form.year.trim();
-                        if (!a) return '';
-                        return `... (${a}, ${y || 'n.d.'})`;
-                    },
-                    getFormatHint() {
-                        if (this.isBookType()) return 'ผู้แต่ง. (ปี). ชื่อหนังสือ (ครั้งที่พิมพ์). สำนักพิมพ์. DOI/URL';
-                        if (this.isJournalType()) return 'ผู้แต่ง. (ปี). ชื่อบทความ. ชื่อวารสาร, ปีที่(ฉบับที่), หน้า. DOI/URL';
-                        if (this.isWebType()) return 'ผู้แต่ง. (ปี, เดือน วัน). ชื่อเรื่อง. ชื่อเว็บไซต์. URL';
-                        if (this.isThesisType()) return 'ผู้แต่ง. (ปี). ชื่อวิทยานิพนธ์ [ประเภท, มหาวิทยาลัย]. URL/ฐานข้อมูล';
-                        return 'เลือกประเภททรัพยากรเพื่อดูรูปแบบ APA 7th Edition ที่เหมาะสม';
-                    },
-                    addCitationFromForm() {
-                        const bib = this.generateBibliography();
-                        if (!bib) { this.toast('กรุณากรอกข้อมูลอย่างน้อยชื่อผู้แต่งและชื่อเรื่อง', 'warning'); return; }
-                        this.citations.push({ id: Date.now(), text: bib });
-                        this.formModalOpen = false;
-                        this.resetForm();
-                        this.toast('เพิ่มรายการบรรณานุกรมเรียบร้อยแล้ว', 'success');
-                    },
-                    copyEntry(text) {
-                        navigator.clipboard.writeText(text).then(() => this.toast('คัดลอกรายการแล้ว', 'success'));
-                    },
-                    viewEntry(entry) {
-                        this.toast(`ดูรายการ: ${entry.text}`, 'success');
-                    },
-                    moveEntry(entry) {
-                        const target = window.prompt('ย้ายรายการนี้ไปยังโครงการชื่ออะไร?', 'โครงการวิจัยบทที่ 1');
-                        if (target === null) return;
-                        if (!target.trim()) {
-                            this.toast('กรุณาระบุชื่อโครงการปลายทาง', 'warning');
-                            return;
-                        }
-                        this.toast(`ย้ายรายการไปยังโครงการ ${target.trim()} แล้ว`, 'success');
-                    },
-                    editEntry(entry) {
-                        const updated = window.prompt('แก้ไขรายการบรรณานุกรม', entry.text);
-                        if (updated === null) return;
-                        if (!updated.trim()) {
-                            this.toast('ไม่สามารถบันทึกรายการว่างได้', 'warning');
-                            return;
-                        }
-                        entry.text = updated.trim();
-                        this.toast('อัปเดตรายการเรียบร้อยแล้ว', 'success');
-                    }
-                }"
+                <section x-data="citationGeneratorPage()"
                     class="lg:col-span-6">
                     <div class="flex min-h-[calc(100vh-8rem)] flex-col pr-2">
                         <div class="mx-auto w-full max-w-3xl space-y-3">
@@ -1232,18 +796,144 @@
                         {{-- Citation Form Modal --}}
                         @include('partials.citation-form-modal')
 
+                        <div x-cloak x-show="detailModalOpen" x-transition.opacity
+                            class="fixed inset-0 z-[70] flex items-center justify-center bg-zinc-950/50 px-4 py-6 backdrop-blur-sm">
+                            <div x-show="detailModalOpen" x-transition
+                                class="w-full max-w-3xl rounded-[2rem] border border-pink-200 bg-white p-6 shadow-2xl shadow-pink-100/60 dark:border-zinc-700 dark:bg-zinc-900 dark:shadow-none">
+                                <div class="flex items-start justify-between gap-4">
+                                    <div class="space-y-1">
+                                        <h3 class="text-xl font-semibold text-zinc-900 dark:text-zinc-100">รายละเอียดรายการบรรณานุกรม</h3>
+                                        <p class="text-sm text-zinc-500 dark:text-zinc-400">โครงการ: <span class="font-medium text-pink-600 dark:text-pink-300" x-text="activeEntry ? projectNameById(entryProjectId(activeEntry)) : '-' "></span></p>
+                                    </div>
+                                    <button type="button" x-on:click="closeEntryModals()"
+                                        class="rounded-full p-2 text-zinc-400 transition hover:bg-zinc-100 hover:text-zinc-900 dark:hover:bg-zinc-800 dark:hover:text-zinc-100">
+                                        <flux:icon name="x-mark" class="size-5" />
+                                    </button>
+                                </div>
+
+                                <div class="mt-6 grid gap-4 lg:grid-cols-2">
+                                    <div class="rounded-3xl border border-pink-200 bg-pink-50/50 p-5 dark:border-zinc-700 dark:bg-zinc-950">
+                                        <p class="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-pink-500 dark:text-pink-300">Paper Preview</p>
+                                        <div class="paper-bibliography-font text-[16px] leading-[2] text-zinc-700 dark:text-zinc-300">
+                                            <p class="thai-distributed" style="padding-left: 0.5in; text-indent: -0.5in; line-height: 2;" x-html="entryPaperPreview(activeEntry)"></p>
+                                        </div>
+                                    </div>
+                                    <div class="rounded-3xl border border-zinc-200 bg-white p-5 dark:border-zinc-700 dark:bg-zinc-950">
+                                        <p class="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">Plain Text</p>
+                                        <p class="text-sm leading-7 text-zinc-700 dark:text-zinc-300" x-text="activeEntry?.text || '-' "></p>
+                                    </div>
+                                </div>
+
+                                <div class="mt-6 flex justify-end gap-3">
+                                    <button type="button" x-on:click="closeEntryModals()"
+                                        class="px-4 py-2 text-sm font-medium text-zinc-500 transition hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100">
+                                        ปิด
+                                    </button>
+                                    <button type="button" x-on:click="copyEntry(activeEntry)"
+                                        class="inline-flex items-center gap-2 rounded-full bg-pink-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-pink-700 dark:bg-pink-500 dark:hover:bg-pink-400">
+                                        <flux:icon x-show="copiedEntryId !== activeEntry?.id" name="clipboard-document" class="size-4" />
+                                        <flux:icon x-show="copiedEntryId === activeEntry?.id" name="check" class="size-4" />
+                                        <span x-text="copiedEntryId === activeEntry?.id ? 'คัดลอกแล้ว' : 'คัดลอกรายการ'"></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div x-cloak x-show="editModalOpen" x-transition.opacity
+                            class="fixed inset-0 z-[70] flex items-center justify-center bg-zinc-950/50 px-4 py-6 backdrop-blur-sm">
+                            <div x-show="editModalOpen" x-transition
+                                class="w-full max-w-3xl rounded-[2rem] border border-pink-200 bg-white p-6 shadow-2xl shadow-pink-100/60 dark:border-zinc-700 dark:bg-zinc-900 dark:shadow-none">
+                                <div class="flex items-start justify-between gap-4">
+                                    <div class="space-y-1">
+                                        <h3 class="text-xl font-semibold text-zinc-900 dark:text-zinc-100">แก้ไขรายการบรรณานุกรม</h3>
+                                        <p class="text-sm text-zinc-500 dark:text-zinc-400">ปรับข้อความรายการด้วยตนเองก่อนบันทึก</p>
+                                    </div>
+                                    <button type="button" x-on:click="closeEntryModals()"
+                                        class="rounded-full p-2 text-zinc-400 transition hover:bg-zinc-100 hover:text-zinc-900 dark:hover:bg-zinc-800 dark:hover:text-zinc-100">
+                                        <flux:icon name="x-mark" class="size-5" />
+                                    </button>
+                                </div>
+
+                                <div class="mt-6 space-y-2">
+                                    <label class="text-sm font-medium text-zinc-700 dark:text-zinc-200">ข้อความบรรณานุกรม</label>
+                                    <textarea x-model="editEntryDraft" rows="8"
+                                        class="w-full rounded-3xl border border-pink-200 bg-white px-4 py-4 text-sm leading-7 text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500"></textarea>
+                                </div>
+
+                                <div class="mt-6 flex justify-end gap-3">
+                                    <button type="button" x-on:click="closeEntryModals()"
+                                        class="px-4 py-2 text-sm font-medium text-zinc-500 transition hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100">
+                                        ยกเลิก
+                                    </button>
+                                    <button type="button" x-on:click="saveEntryEdit()"
+                                        class="inline-flex items-center gap-2 rounded-full bg-pink-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-pink-700 dark:bg-pink-500 dark:hover:bg-pink-400">
+                                        <flux:icon name="check" class="size-4" />
+                                        บันทึกการแก้ไข
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div x-cloak x-show="moveModalOpen" x-transition.opacity
+                            class="fixed inset-0 z-[70] flex items-center justify-center bg-zinc-950/50 px-4 py-6 backdrop-blur-sm">
+                            <div x-show="moveModalOpen" x-transition
+                                class="w-full max-w-2xl rounded-[2rem] border border-pink-200 bg-white p-6 shadow-2xl shadow-pink-100/60 dark:border-zinc-700 dark:bg-zinc-900 dark:shadow-none">
+                                <div class="flex items-start justify-between gap-4">
+                                    <div class="space-y-1">
+                                        <h3 class="text-xl font-semibold text-zinc-900 dark:text-zinc-100">ย้ายรายการไปโครงการอื่น</h3>
+                                        <p class="text-sm text-zinc-500 dark:text-zinc-400">เลือกโครงการปลายทางสำหรับรายการที่เลือก</p>
+                                    </div>
+                                    <button type="button" x-on:click="closeEntryModals()"
+                                        class="rounded-full p-2 text-zinc-400 transition hover:bg-zinc-100 hover:text-zinc-900 dark:hover:bg-zinc-800 dark:hover:text-zinc-100">
+                                        <flux:icon name="x-mark" class="size-5" />
+                                    </button>
+                                </div>
+
+                                <div class="mt-6 space-y-3">
+                                    <template x-for="project in projectOptions" :key="'move-' + project.id">
+                                        <label class="flex cursor-pointer items-center justify-between gap-4 rounded-2xl border px-4 py-3 transition"
+                                            x-bind:class="moveTargetProjectId === project.id
+                                                ? 'border-pink-400 bg-pink-50 dark:border-pink-500 dark:bg-pink-500/10'
+                                                : 'border-zinc-200 hover:border-pink-300 dark:border-zinc-700 dark:hover:border-pink-500'">
+                                            <div class="flex items-center gap-3">
+                                                <input type="radio" name="move-project" x-model="moveTargetProjectId" x-bind:value="project.id"
+                                                    class="border-zinc-300 text-pink-600 focus:ring-pink-500">
+                                                <div>
+                                                    <p class="text-sm font-medium text-zinc-800 dark:text-zinc-100" x-text="project.name"></p>
+                                                    <p class="text-xs text-zinc-500 dark:text-zinc-400" x-text="entryProjectId(activeEntry) === project.id ? 'โครงการปัจจุบัน' : 'โครงการปลายทาง'"></p>
+                                                </div>
+                                            </div>
+                                            <flux:icon x-show="moveTargetProjectId === project.id" name="check-circle" class="size-5 text-pink-500" />
+                                        </label>
+                                    </template>
+                                </div>
+
+                                <div class="mt-6 flex justify-end gap-3">
+                                    <button type="button" x-on:click="closeEntryModals()"
+                                        class="px-4 py-2 text-sm font-medium text-zinc-500 transition hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100">
+                                        ยกเลิก
+                                    </button>
+                                    <button type="button" x-on:click="confirmMoveEntry()"
+                                        class="inline-flex items-center gap-2 rounded-full bg-pink-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-pink-700 dark:bg-pink-500 dark:hover:bg-pink-400">
+                                        <flux:icon name="folder-open" class="size-4" />
+                                        ย้ายรายการ
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="flex flex-1 justify-center pt-6 lg:pt-6">
                             <template x-if="displayMode === 'paper'">
                                 <div x-ref="paperView"
-                                    class="flex min-h-[calc(100vh-15rem)] w-full max-w-3xl flex-1 flex-col border border-zinc-200 bg-white px-8 py-10 dark:border-zinc-700 dark:bg-zinc-950">
-                                    <div class="mx-auto flex h-full w-full max-w-xl flex-col text-zinc-800 dark:text-zinc-100">
+                                    class="paper-bibliography-font flex min-h-[calc(100vh-15rem)] w-full max-w-3xl flex-1 flex-col border border-zinc-200 bg-white px-8 py-10 dark:border-zinc-700 dark:bg-zinc-950">
+                                    <div class="paper-bibliography-font mx-auto flex h-full w-full max-w-xl flex-col text-zinc-800 dark:text-zinc-100">
                                         <div class="pb-5 text-center">
-                                            <h3 class="text-[18px] font-semibold tracking-tight">บรรณานุกรม</h3>
+                                            <h3 class="paper-bibliography-font text-[18px] font-semibold tracking-tight">บรรณานุกรม</h3>
                                         </div>
-                                        <div class="space-y-0 text-[15px] leading-[2] text-zinc-700 dark:text-zinc-300">
-                                            <template x-for="entry in citations" :key="'paper-' + entry.id">
+                                        <div class="paper-bibliography-font space-y-0 text-[16px] leading-[2] text-zinc-700 dark:text-zinc-300">
+                                            <template x-for="entry in filteredCitations()" :key="'paper-' + entry.id">
                                                 <div class="group relative rounded-2xl px-3 py-1.5 transition hover:bg-pink-50 hover:ring-1 hover:ring-pink-200 dark:hover:bg-pink-500/10 dark:hover:ring-pink-500/20">
-                                                    <p style="padding-left: 0.5in; text-indent: -0.5in; line-height: 2;" x-text="entry.text"></p>
+                                                    <p class="thai-distributed" style="padding-left: 0.5in; text-indent: -0.5in; line-height: 2;" x-html="entry.paperHtml || entry.text"></p>
                                                     <div class="absolute right-3 top-3 hidden items-center gap-2 rounded-full bg-white/95 px-2 py-1.5 shadow-sm ring-1 ring-pink-200 group-hover:flex dark:bg-zinc-950/95 dark:ring-pink-500/20">
                                                         <flux:tooltip content="ดู">
                                                             <button type="button" x-on:click="viewEntry(entry)"
@@ -1260,10 +950,11 @@
                                                             </button>
                                                         </flux:tooltip>
                                                         <flux:tooltip content="คัดลอก">
-                                                            <button type="button" x-on:click="copyEntry(entry.text)"
+                                                            <button type="button" x-on:click="copyEntry(entry)"
                                                                 class="inline-flex size-8 items-center justify-center rounded-full text-zinc-500 transition hover:bg-pink-100 hover:text-pink-700 dark:text-zinc-400 dark:hover:bg-pink-500/10 dark:hover:text-pink-200"
                                                                 aria-label="คัดลอก">
-                                                                <flux:icon name="clipboard-document" class="size-4" />
+                                                                <flux:icon x-show="copiedEntryId !== entry.id" name="clipboard-document" class="size-4" />
+                                                                <flux:icon x-show="copiedEntryId === entry.id" name="check" class="size-4 text-emerald-500" />
                                                             </button>
                                                         </flux:tooltip>
                                                         <flux:tooltip content="ย้ายโปรเจค">
@@ -1285,7 +976,7 @@
                                 <div x-ref="listView"
                                     class="w-full max-w-3xl px-2 py-4">
                                     <ul class="space-y-4 text-[15px] leading-8 text-zinc-700 dark:text-zinc-300">
-                                        <template x-for="entry in citations" :key="'list-' + entry.id">
+                                        <template x-for="entry in filteredCitations()" :key="'list-' + entry.id">
                                             <li class="group flex items-start justify-between gap-4 rounded-2xl px-4 py-3 transition hover:bg-pink-50 hover:ring-1 hover:ring-pink-200 dark:hover:bg-pink-500/10 dark:hover:ring-pink-500/20">
                                                 <span class="min-w-0 flex-1 leading-8" x-text="entry.text"></span>
                                                 <div class="hidden shrink-0 items-center gap-1.5 group-hover:flex">
@@ -1304,10 +995,11 @@
                                                         </button>
                                                     </flux:tooltip>
                                                     <flux:tooltip content="คัดลอก">
-                                                        <button type="button" x-on:click="copyEntry(entry.text)"
+                                                        <button type="button" x-on:click="copyEntry(entry)"
                                                             class="inline-flex size-8 items-center justify-center rounded-full text-zinc-500 transition hover:bg-pink-100 hover:text-pink-700 dark:text-zinc-400 dark:hover:bg-pink-500/10 dark:hover:text-pink-200"
                                                             aria-label="คัดลอก">
-                                                            <flux:icon name="clipboard-document" class="size-4" />
+                                                            <flux:icon x-show="copiedEntryId !== entry.id" name="clipboard-document" class="size-4" />
+                                                            <flux:icon x-show="copiedEntryId === entry.id" name="check" class="size-4 text-emerald-500" />
                                                         </button>
                                                     </flux:tooltip>
                                                     <flux:tooltip content="ย้ายโปรเจค">
@@ -1328,7 +1020,7 @@
                                 <div x-ref="citationView"
                                     class="w-full max-w-3xl px-2 py-4">
                                     <ul class="space-y-4 text-[15px] leading-8 text-zinc-700 dark:text-zinc-300">
-                                        <template x-for="entry in citations" :key="'citation-' + entry.id">
+                                        <template x-for="entry in filteredCitations()" :key="'citation-' + entry.id">
                                             <li class="group flex items-start justify-between gap-4 rounded-2xl px-4 py-3 transition hover:bg-pink-50 hover:ring-1 hover:ring-pink-200 dark:hover:bg-pink-500/10 dark:hover:ring-pink-500/20">
                                                 <span class="min-w-0 flex-1 leading-8" x-text="entry.text"></span>
                                                 <div class="hidden shrink-0 items-center gap-1.5 group-hover:flex">
@@ -1347,10 +1039,11 @@
                                                         </button>
                                                     </flux:tooltip>
                                                     <flux:tooltip content="คัดลอก">
-                                                        <button type="button" x-on:click="copyEntry(entry.text)"
+                                                        <button type="button" x-on:click="copyEntry(entry)"
                                                             class="inline-flex size-8 items-center justify-center rounded-full text-zinc-500 transition hover:bg-pink-100 hover:text-pink-700 dark:text-zinc-400 dark:hover:bg-pink-500/10 dark:hover:text-pink-200"
                                                             aria-label="คัดลอก">
-                                                            <flux:icon name="clipboard-document" class="size-4" />
+                                                            <flux:icon x-show="copiedEntryId !== entry.id" name="clipboard-document" class="size-4" />
+                                                            <flux:icon x-show="copiedEntryId === entry.id" name="check" class="size-4 text-emerald-500" />
                                                         </button>
                                                     </flux:tooltip>
                                                     <flux:tooltip content="ย้ายโปรเจค">
@@ -1381,6 +1074,614 @@
             </div>
         </main>
     </div>
+    <script data-navigate-once>
+        window.citationProjectsSidebar = function () {
+            return {
+                projectModal: false,
+                deleteProjectModal: false,
+                projectMenuOpen: null,
+                projectFormMode: 'create',
+                editingProjectId: null,
+                activeProject: 1,
+                projectForm: { name: '', color: 'zinc', icon: 'folder' },
+                projectToDelete: null,
+                deleteConfirmationName: '',
+                projectColors: [
+                    { value: 'zinc', label: 'เทา', swatch: 'bg-zinc-500', button: 'bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900' },
+                    { value: 'sky', label: 'ฟ้า', swatch: 'bg-sky-500', button: 'bg-sky-500 text-white' },
+                    { value: 'emerald', label: 'เขียว', swatch: 'bg-emerald-500', button: 'bg-emerald-500 text-white' },
+                    { value: 'amber', label: 'ทอง', swatch: 'bg-amber-500', button: 'bg-amber-500 text-white' },
+                    { value: 'rose', label: 'ชมพู', swatch: 'bg-rose-500', button: 'bg-rose-500 text-white' },
+                    { value: 'violet', label: 'ม่วง', swatch: 'bg-violet-500', button: 'bg-violet-500 text-white' },
+                    { value: 'indigo', label: 'กรม', swatch: 'bg-indigo-500', button: 'bg-indigo-500 text-white' },
+                    { value: 'cyan', label: 'ฟ้าน้ำทะเล', swatch: 'bg-cyan-500', button: 'bg-cyan-500 text-white' },
+                    { value: 'teal', label: 'ทีล', swatch: 'bg-teal-500', button: 'bg-teal-500 text-white' },
+                    { value: 'orange', label: 'ส้ม', swatch: 'bg-orange-500', button: 'bg-orange-500 text-white' },
+                    { value: 'fuchsia', label: 'บานเย็น', swatch: 'bg-fuchsia-500', button: 'bg-fuchsia-500 text-white' },
+                    { value: 'lime', label: 'ไลม์', swatch: 'bg-lime-500', button: 'bg-lime-500 text-zinc-950' },
+                ],
+                projectIcons: [
+                    { value: 'folder', label: 'โฟลเดอร์' },
+                    { value: 'book-open', label: 'หนังสือ' },
+                    { value: 'document-text', label: 'เอกสาร' },
+                    { value: 'academic-cap', label: 'วิจัย' },
+                    { value: 'clipboard-document-list', label: 'รายการ' },
+                    { value: 'sparkles', label: 'พิเศษ' },
+                    { value: 'globe-alt', label: 'เว็บ' },
+                    { value: 'light-bulb', label: 'ไอเดีย' },
+                    { value: 'beaker', label: 'ทดลอง' },
+                    { value: 'briefcase', label: 'งาน' },
+                    { value: 'newspaper', label: 'ข่าวสาร' },
+                    { value: 'presentation-chart-bar', label: 'พรีเซนต์' },
+                ],
+                projects: [
+                    { id: 1, name: 'โครงการวิจัยบทที่ 1', color: 'zinc', icon: 'folder' },
+                ],
+                init() {
+                    this.broadcastProjects();
+                },
+                toast(text, variant = 'success') {
+                    window.Flux?.toast(text, { variant, position: 'bottom end' });
+                },
+                broadcastProjects() {
+                    window.dispatchEvent(new CustomEvent('citation-projects-updated', {
+                        detail: {
+                            activeProjectId: this.activeProject,
+                            projects: this.projects.map(project => ({
+                                id: project.id,
+                                name: project.name,
+                                color: project.color,
+                                icon: project.icon,
+                            })),
+                        },
+                    }));
+                },
+                projectButtonClass(color) {
+                    return this.projectColors.find(option => option.value === color)?.button || 'bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900';
+                },
+                openCreateProjectModal() {
+                    this.projectFormMode = 'create';
+                    this.editingProjectId = null;
+                    this.projectForm = { name: '', color: 'zinc', icon: 'folder' };
+                    this.projectModal = true;
+                },
+                openEditProjectModal(project) {
+                    this.projectFormMode = 'edit';
+                    this.editingProjectId = project.id;
+                    this.projectForm = { name: project.name, color: project.color, icon: project.icon };
+                    this.projectMenuOpen = null;
+                    this.projectModal = true;
+                },
+                openDeleteProjectModal(project) {
+                    if (this.projects.length === 1) {
+                        this.projectMenuOpen = null;
+                        this.toast('ต้องมีอย่างน้อย 1 โครงการในระบบ', 'warning');
+                        return;
+                    }
+
+                    this.projectToDelete = project;
+                    this.deleteConfirmationName = '';
+                    this.projectMenuOpen = null;
+                    this.deleteProjectModal = true;
+                },
+                saveProject() {
+                    if (!this.projectForm.name.trim()) {
+                        this.toast('กรุณากรอกชื่อโครงการก่อนบันทึก', 'warning');
+                        return;
+                    }
+
+                    if (this.projectFormMode === 'create') {
+                        const nextId = Date.now();
+                        this.projects.unshift({
+                            id: nextId,
+                            name: this.projectForm.name.trim(),
+                            color: this.projectForm.color,
+                            icon: this.projectForm.icon,
+                        });
+                        this.activeProject = nextId;
+                        this.projectModal = false;
+                        this.broadcastProjects();
+                        this.toast('สร้างโครงการใหม่เรียบร้อยแล้ว', 'success');
+                        return;
+                    }
+
+                    const project = this.projects.find(item => item.id === this.editingProjectId);
+                    if (!project) {
+                        this.toast('ไม่พบโครงการที่ต้องการแก้ไข', 'danger');
+                        return;
+                    }
+
+                    project.name = this.projectForm.name.trim();
+                    project.color = this.projectForm.color;
+                    project.icon = this.projectForm.icon;
+                    this.projectModal = false;
+                    this.broadcastProjects();
+                    this.toast('อัปเดตโครงการเรียบร้อยแล้ว', 'success');
+                },
+                duplicateProject(project) {
+                    const nextId = Date.now();
+                    this.projects.unshift({
+                        id: nextId,
+                        name: project.name + ' (คัดลอก)',
+                        color: project.color,
+                        icon: project.icon,
+                    });
+                    this.activeProject = nextId;
+                    this.projectMenuOpen = null;
+                    this.broadcastProjects();
+                    this.toast('คัดลอกโครงการเรียบร้อยแล้ว', 'success');
+                },
+                confirmDeleteProject() {
+                    if (!this.projectToDelete) {
+                        this.toast('ไม่พบโครงการที่ต้องการลบ', 'danger');
+                        return;
+                    }
+
+                    if (this.deleteConfirmationName.trim() !== this.projectToDelete.name) {
+                        this.toast('ชื่อโครงการไม่ตรงกัน กรุณาตรวจสอบอีกครั้ง', 'warning');
+                        return;
+                    }
+
+                    const index = this.projects.findIndex(item => item.id === this.projectToDelete.id);
+                    if (index === -1) {
+                        this.toast('ไม่พบโครงการที่ต้องการลบ', 'danger');
+                        return;
+                    }
+
+                    const deletedProjectName = this.projectToDelete.name;
+                    const deletedProjectId = this.projectToDelete.id;
+
+                    this.projects.splice(index, 1);
+                    if (this.activeProject === deletedProjectId) {
+                        this.activeProject = this.projects[0]?.id ?? null;
+                    }
+                    this.deleteProjectModal = false;
+                    this.projectToDelete = null;
+                    this.deleteConfirmationName = '';
+                    this.broadcastProjects();
+                    this.toast('ลบโครงการ ' + deletedProjectName + ' เรียบร้อยแล้ว', 'danger');
+                },
+            };
+        };
+
+        window.citationGeneratorPage = function () {
+            return {
+                smartQuery: '',
+                selectedType: '',
+                activeQuickFilter: '',
+                copiedEntryId: null,
+                modalOpen: false,
+                modalSearch: '',
+                copied: false,
+                exportOpen: false,
+                citationStyle: 'apa7',
+                displayMode: 'paper',
+                formModalOpen: false,
+                detailModalOpen: false,
+                editModalOpen: false,
+                moveModalOpen: false,
+                formResourceType: '',
+                activeEntry: null,
+                editEntryDraft: '',
+                projectOptions: [
+                    { id: 1, name: 'โครงการวิจัยบทที่ 1', color: 'zinc', icon: 'folder' },
+                ],
+                activeProjectId: 1,
+                moveTargetProjectId: null,
+                form: {
+                    authors: [{ lastName: '', firstName: '' }],
+                    year: '',
+                    month: '',
+                    day: '',
+                    title: '',
+                    publisher: '',
+                    volume: '',
+                    issue: '',
+                    pages: '',
+                    edition: '',
+                    editor: '',
+                    bookTitle: '',
+                    doi: '',
+                    url: '',
+                    journalName: '',
+                    websiteName: '',
+                    thesisType: 'master',
+                    university: '',
+                    databaseName: '',
+                    referenceWork: '',
+                    newspaperName: '',
+                    organization: '',
+                    reportNumber: '',
+                    conferenceName: '',
+                    conferenceLocation: '',
+                    patentNumber: '',
+                    assignee: '',
+                    platform: '',
+                    medium: '',
+                    model: '',
+                    prompt: '',
+                },
+                citations: [
+                    {
+                        id: 1,
+                        projectId: 1,
+                        text: 'กนกวรรณ สุริยา. (2564). การจัดการสารสนเทศเพื่อการอ้างอิงทางวิชาการ. สำนักพิมพ์มหาวิทยาลัยธรรมศาสตร์.',
+                        paperHtml: 'กนกวรรณ สุริยา. (2564). <em>การจัดการสารสนเทศเพื่อการอ้างอิงทางวิชาการ</em>. สำนักพิมพ์มหาวิทยาลัยธรรมศาสตร์.',
+                    },
+                    {
+                        id: 2,
+                        projectId: 1,
+                        text: 'จิราภา วัฒนกุล. (2565). การออกแบบระบบช่วยสร้างบรรณานุกรมสำหรับนักศึกษาไทย. วารสารบรรณารักษศาสตร์และสารสนเทศศาสตร์, 18(2), 25-48.',
+                        paperHtml: 'จิราภา วัฒนกุล. (2565). การออกแบบระบบช่วยสร้างบรรณานุกรมสำหรับนักศึกษาไทย. <em>วารสารบรรณารักษศาสตร์และสารสนเทศศาสตร์, 18</em>(2), 25-48.',
+                    },
+                    {
+                        id: 3,
+                        projectId: 1,
+                        text: 'ธนกร พิพัฒน์. (2566ก). แนวปฏิบัติการอ้างอิงแหล่งข้อมูลดิจิทัลตามรูปแบบ APA 7th edition. วารสารสารสนเทศศึกษา, 21(1), 11-29.',
+                        paperHtml: 'ธนกร พิพัฒน์. (2566ก). แนวปฏิบัติการอ้างอิงแหล่งข้อมูลดิจิทัลตามรูปแบบ APA 7th edition. <em>วารสารสารสนเทศศึกษา, 21</em>(1), 11-29.',
+                    },
+                    {
+                        id: 4,
+                        projectId: 1,
+                        text: 'ธนกร พิพัฒน์. (2566ข). การพัฒนาทักษะการเขียนบรรณานุกรมของนักศึกษาระดับอุดมศึกษา. สำนักพิมพ์จุฬาลงกรณ์มหาวิทยาลัย.',
+                        paperHtml: 'ธนกร พิพัฒน์. (2566ข). <em>การพัฒนาทักษะการเขียนบรรณานุกรมของนักศึกษาระดับอุดมศึกษา</em>. สำนักพิมพ์จุฬาลงกรณ์มหาวิทยาลัย.',
+                    },
+                    {
+                        id: 5,
+                        projectId: 1,
+                        text: 'ปาริชาติ ศรีอรุณ. (2567). การใช้เครื่องมือดิจิทัลเพื่อสนับสนุนการเขียนอ้างอิงในงานวิจัย. วารสารวิชาการครุศาสตร์, 9(3), 101-119.',
+                        paperHtml: 'ปาริชาติ ศรีอรุณ. (2567). การใช้เครื่องมือดิจิทัลเพื่อสนับสนุนการเขียนอ้างอิงในงานวิจัย. <em>วารสารวิชาการครุศาสตร์, 9</em>(3), 101-119.',
+                    },
+                    {
+                        id: 6,
+                        projectId: 1,
+                        text: 'Adams, R. T. (2023a). Academic citation practices in digital classrooms. Journal of Educational Technology, 14(1), 22-39.',
+                        paperHtml: 'Adams, R. T. (2023a). Academic citation practices in digital classrooms. <em>Journal of Educational Technology, 14</em>(1), 22-39.',
+                    },
+                    {
+                        id: 7,
+                        projectId: 1,
+                        text: 'Adams, R. T. (2023b). Designing reference workflows for student research projects. Learning Design Press.',
+                        paperHtml: 'Adams, R. T. (2023b). <em>Designing reference workflows for student research projects</em>. Learning Design Press.',
+                    },
+                    {
+                        id: 8,
+                        projectId: 1,
+                        text: 'Brown, L. M. (2022). Information literacy and source attribution in higher education. Routledge.',
+                        paperHtml: 'Brown, L. M. (2022). <em>Information literacy and source attribution in higher education</em>. Routledge.',
+                    },
+                    {
+                        id: 9,
+                        projectId: 1,
+                        text: 'Carter, P. J. (2024). Metadata quality and automated bibliography generation. International Journal of Digital Libraries, 20(4), 233-251.',
+                        paperHtml: 'Carter, P. J. (2024). Metadata quality and automated bibliography generation. <em>International Journal of Digital Libraries, 20</em>(4), 233-251.',
+                    },
+                    {
+                        id: 10,
+                        projectId: 1,
+                        text: 'Smith, J. A. (2025). Citation management for interdisciplinary research teams. Research Methods Review, 12(2), 77-94.',
+                        paperHtml: 'Smith, J. A. (2025). Citation management for interdisciplinary research teams. <em>Research Methods Review, 12</em>(2), 77-94.',
+                    },
+                ],
+                init() {
+                    window.addEventListener('citation-projects-updated', (event) => {
+                        this.projectOptions = event.detail.projects || this.projectOptions;
+                        this.activeProjectId = event.detail.activeProjectId ?? this.activeProjectId;
+
+                        const fallbackProjectId = this.activeProjectId ?? this.projectOptions[0]?.id ?? 1;
+                        const validProjectIds = new Set(this.projectOptions.map(project => project.id));
+
+                        this.citations.forEach((entry) => {
+                            if (!validProjectIds.has(this.entryProjectId(entry))) {
+                                entry.projectId = fallbackProjectId;
+                            }
+                        });
+                    });
+                },
+                toast(text, variant = 'success') {
+                    window.Flux?.toast(text, { variant, position: 'bottom end' });
+                },
+                escapeHtml(value) {
+                    return String(value ?? '')
+                        .replace(/&/g, '&amp;')
+                        .replace(/</g, '&lt;')
+                        .replace(/>/g, '&gt;')
+                        .replace(/"/g, '&quot;')
+                        .replace(/'/g, '&#039;');
+                },
+                entryPaperPreview(entry) {
+                    return entry?.paperHtml || this.escapeHtml(entry?.text || '');
+                },
+                projectNameById(projectId) {
+                    return this.projectOptions.find(project => project.id === projectId)?.name || 'โครงการที่ยังไม่ระบุ';
+                },
+                entryProjectId(entry) {
+                    return entry?.projectId ?? 1;
+                },
+                filteredCitations() {
+                    return this.citations.filter(entry => this.entryProjectId(entry) === this.activeProjectId);
+                },
+                resetForm() {
+                    this.form = {
+                        authors: [{ lastName: '', firstName: '' }],
+                        year: '', month: '', day: '', title: '', publisher: '', volume: '', issue: '',
+                        pages: '', edition: '', editor: '', bookTitle: '', doi: '', url: '',
+                        journalName: '', websiteName: '', thesisType: 'master', university: '', databaseName: '',
+                        referenceWork: '', newspaperName: '', organization: '', reportNumber: '',
+                        conferenceName: '', conferenceLocation: '', patentNumber: '', assignee: '',
+                        platform: '', medium: '', model: '', prompt: '',
+                    };
+                },
+                openFormModal(type) {
+                    this.formResourceType = type;
+                    this.selectedType = type;
+                    this.activeQuickFilter = type.includes('เว็บ') ? 'เว็บเพจ' : (type.includes('หนังสือ') ? 'หนังสือ' : (type.includes('บทความ') ? 'บทความ' : ''));
+                    this.smartQuery = type;
+                    this.modalOpen = false;
+                    this.resetForm();
+                    this.formModalOpen = true;
+                },
+                setQuickFilter(type) {
+                    this.smartQuery = type;
+                    this.selectedType = type;
+                    this.activeQuickFilter = type;
+                },
+                isBookType() {
+                    return ['หนังสือ', 'หนังสือชุดหลายเล่มจบ', 'บทความในหนังสือ', 'หนังสืออิเล็กทรอนิกส์ (มี DOI)', 'หนังสืออิเล็กทรอนิกส์ (ไม่มี DOI)'].includes(this.formResourceType);
+                },
+                isJournalType() {
+                    return ['บทความวารสาร', 'บทความวารสารอิเล็กทรอนิกส์ (มี DOI)', 'บทความวารสารอิเล็กทรอนิกส์ (ไม่มี DOI)', 'วารสารอิเล็กทรอนิกส์ (แบบมีฉบับพิมพ์)', 'วารสารอิเล็กทรอนิกส์ (แบบไม่มีฉบับพิมพ์)'].includes(this.formResourceType);
+                },
+                isWebType() {
+                    return ['เอกสารอิเล็กทรอนิกส์ (เว็บเพจ)', 'สื่อออนไลน์ (วิดีโอออนไลน์ บทความในโซเชียลมีเดีย)', 'ราชกิจจานุเบกษาออนไลน์', 'สิทธิบัตรออนไลน์', 'การติดต่อสื่อสารส่วนบุคคล'].includes(this.formResourceType);
+                },
+                isThesisType() {
+                    return ['วิทยานิพนธ์ (ที่ไม่ได้ตีพิมพ์)', 'วิทยานิพนธ์จากเว็บไซต์', 'วิทยานิพนธ์จากฐานข้อมูลเชิงพาณิชย์'].includes(this.formResourceType);
+                },
+                isDictionaryType() {
+                    return ['พจนานุกรม', 'พจนานุกรมออนไลน์', 'สารานุกรม', 'สารานุกรมออนไลน์'].includes(this.formResourceType);
+                },
+                isNewspaperType() {
+                    return ['หนังสือพิมพ์แบบรูปเล่ม', 'หนังสือพิมพ์ออนไลน์'].includes(this.formResourceType);
+                },
+                isReportType() {
+                    return ['รายงาน', 'รายงานการวิจัย', 'รายงานที่จัดทำโดยหน่วยงานราชการหรือองค์กรอื่น', 'รายงานที่จัดทำโดยบุคคลที่สังกัดหน่วยงาน'].includes(this.formResourceType);
+                },
+                isConferenceType() {
+                    return ['เอกสารการประชุมทางวิชาการ (ที่มี Proceeding)', 'เอกสารการประชุมทางวิชาการ (ที่ไม่มี Proceeding)', 'การนำเสนองานวิจัยหรือโปสเตอร์ในงานประชุมวิชาการ'].includes(this.formResourceType);
+                },
+                isMediaType() {
+                    return ['อินโฟกราฟิก (Infographic)', 'การนำเสนอด้วยสไลด์และเอกสารการสอนออนไลน์', 'สัมมนาออนไลน์ (Webinar)', 'วิดีโอใน Youtube หรือวิดีโอออนไลน์ต่าง ๆ', 'พอดแคสต์ภาพและเสียง (แบบจบในตอน)', 'พอดแคสต์ภาพและเสียง (แบบหลายตอน)'].includes(this.formResourceType);
+                },
+                isAiType() {
+                    return this.formResourceType === 'AI (เนื้อหาที่สร้างโดย AI)';
+                },
+                usesDetailedDate() {
+                    return this.isWebType() || this.isNewspaperType() || this.isConferenceType() || this.isMediaType() || this.isAiType();
+                },
+                formatDate() {
+                    const year = this.form.year.trim();
+                    const month = this.form.month.trim();
+                    const day = this.form.day.trim();
+
+                    if (year && month && day) return ` (${year}, ${month} ${day}). `;
+                    if (year && month) return ` (${year}, ${month}). `;
+                    if (year) return ` (${year}). `;
+                    if (month && day) return ` (n.d., ${month} ${day}). `;
+
+                    return ' (n.d.). ';
+                },
+                formatAuthors() {
+                    const valid = this.form.authors.filter(author => author.lastName.trim());
+                    if (!valid.length) return '';
+                    return valid.map((author, index) => {
+                        const last = author.lastName.trim();
+                        const first = author.firstName.trim();
+                        const name = first ? `${last}, ${first}` : last;
+                        if (valid.length === 1) return name;
+                        if (index === valid.length - 1) return `& ${name}`;
+                        if (valid.length === 2) return `${name} `;
+                        return `${name}, `;
+                    }).join('');
+                },
+                formatAuthorsCitation() {
+                    const valid = this.form.authors.filter(author => author.lastName.trim());
+                    if (!valid.length) return '';
+                    if (valid.length === 1) return valid[0].lastName.trim();
+                    if (valid.length === 2) return `${valid[0].lastName.trim()} and ${valid[1].lastName.trim()}`;
+                    return `${valid[0].lastName.trim()} et al.`;
+                },
+                generateBibliography() {
+                    const authors = this.formatAuthors();
+                    const year = this.form.year.trim();
+                    const title = this.form.title.trim();
+                    const titleOrPrompt = title || this.form.prompt.trim();
+                    const organization = this.form.organization.trim();
+                    const assignee = this.form.assignee.trim();
+                    const platform = this.form.platform.trim();
+                    const websiteName = this.form.websiteName.trim();
+                    const creator = authors || organization || assignee || platform || websiteName;
+                    if (!creator && !titleOrPrompt) return '';
+                    let bibliography = '';
+                    if (this.formResourceType === 'การติดต่อสื่อสารส่วนบุคคล') {
+                        return 'การติดต่อสื่อสารส่วนบุคคลในรูปแบบ APA ใช้อ้างอิงเฉพาะในเนื้อหา และไม่ต้องแสดงในบรรณานุกรมท้ายเล่ม';
+                    }
+
+                    if (creator) bibliography += creator;
+                    bibliography += this.usesDetailedDate() ? this.formatDate() : (year ? ` (${year}). ` : ' (n.d.). ');
+
+                    if (this.isBookType()) {
+                        if (this.formResourceType === 'บทความในหนังสือ') {
+                            bibliography += title ? `${title}. ` : '';
+                            if (this.form.editor.trim()) bibliography += `In ${this.form.editor.trim()} (Ed.), `;
+                            if (this.form.bookTitle.trim()) bibliography += `${this.form.bookTitle.trim()}`;
+                            if (this.form.pages.trim()) bibliography += ` (pp. ${this.form.pages.trim()})`;
+                            bibliography += '. ';
+                            if (this.form.publisher.trim()) bibliography += `${this.form.publisher.trim()}.`;
+                        } else {
+                            bibliography += title ? `${title}` : '';
+                            if (this.form.volume.trim()) bibliography += ` (Vols. ${this.form.volume.trim()})`;
+                            if (this.form.edition.trim()) bibliography += ` (${this.form.edition.trim()} ed.)`;
+                            bibliography += '. ';
+                            if (this.form.publisher.trim()) bibliography += `${this.form.publisher.trim()}.`;
+                            if (this.form.doi.trim()) bibliography += ` ${this.form.doi.trim()}`;
+                            if (!this.form.doi.trim() && this.form.url.trim()) bibliography += ` ${this.form.url.trim()}`;
+                        }
+                    } else if (this.isJournalType()) {
+                        bibliography += title ? `${title}. ` : '';
+                        if (this.form.journalName.trim()) bibliography += `${this.form.journalName.trim()}`;
+                        if (this.form.volume.trim()) bibliography += `, ${this.form.volume.trim()}`;
+                        if (this.form.issue.trim()) bibliography += `(${this.form.issue.trim()})`;
+                        if (this.form.pages.trim()) bibliography += `, ${this.form.pages.trim()}`;
+                        bibliography += '.';
+                        if (this.form.doi.trim()) bibliography += ` ${this.form.doi.trim()}`;
+                        if (!this.form.doi.trim() && this.form.url.trim()) bibliography += ` ${this.form.url.trim()}`;
+                    } else if (this.isDictionaryType()) {
+                        bibliography += title ? `${title}. ` : '';
+                        if (this.form.referenceWork.trim()) bibliography += `In ${this.form.referenceWork.trim()}`;
+                        if (this.form.edition.trim()) bibliography += ` (${this.form.edition.trim()} ed.)`;
+                        if (this.form.volume.trim()) bibliography += ` (Vol. ${this.form.volume.trim()})`;
+                        bibliography += '. ';
+                        if (this.form.publisher.trim()) bibliography += `${this.form.publisher.trim()}. `;
+                        if (this.form.url.trim()) bibliography += `${this.form.url.trim()}`;
+                    } else if (this.isNewspaperType()) {
+                        bibliography += title ? `${title}. ` : '';
+                        if (this.form.newspaperName.trim()) bibliography += `${this.form.newspaperName.trim()}`;
+                        if (this.form.pages.trim()) bibliography += `, ${this.form.pages.trim()}`;
+                        bibliography += '.';
+                        if (this.form.url.trim()) bibliography += ` ${this.form.url.trim()}`;
+                    } else if (this.isReportType()) {
+                        bibliography += title ? `${title}` : '';
+                        if (this.form.reportNumber.trim()) bibliography += ` (Report No. ${this.form.reportNumber.trim()})`;
+                        bibliography += '. ';
+                        if (this.form.publisher.trim()) bibliography += `${this.form.publisher.trim()}. `;
+                        if (this.form.url.trim()) bibliography += `${this.form.url.trim()}`;
+                    } else if (this.isConferenceType()) {
+                        bibliography += title ? `${title}. ` : '';
+                        if (this.form.conferenceName.trim()) bibliography += `${this.form.conferenceName.trim()}`;
+                        if (this.form.conferenceLocation.trim()) bibliography += `, ${this.form.conferenceLocation.trim()}`;
+                        if (this.form.pages.trim()) bibliography += ` (pp. ${this.form.pages.trim()})`;
+                        bibliography += '. ';
+                        if (this.form.publisher.trim()) bibliography += `${this.form.publisher.trim()}. `;
+                        if (this.form.url.trim()) bibliography += `${this.form.url.trim()}`;
+                    } else if (this.isWebType()) {
+                        if (this.formResourceType === 'สิทธิบัตรออนไลน์') {
+                            bibliography += title ? `${title}` : '';
+                            if (this.form.patentNumber.trim()) bibliography += ` (${this.form.patentNumber.trim()})`;
+                            bibliography += '. ';
+                            if (websiteName) bibliography += `${websiteName}. `;
+                            if (this.form.url.trim()) bibliography += `${this.form.url.trim()}`;
+                            return bibliography.replace(/\.\./g, '.').replace(/\s{2,}/g, ' ').trim();
+                        }
+                        bibliography += title ? `${title}. ` : '';
+                        if (websiteName) bibliography += `${websiteName}. `;
+                        if (this.form.url.trim()) bibliography += `${this.form.url.trim()}`;
+                    } else if (this.isThesisType()) {
+                        bibliography += title ? `${title} ` : '';
+                        const thesisType = this.form.thesisType === 'doctoral' ? 'Doctoral dissertation' : "Master's thesis";
+                        if (this.form.university.trim()) bibliography += `[${thesisType}, ${this.form.university.trim()}]. `;
+                        else bibliography += `[${thesisType}]. `;
+                        if (this.form.databaseName.trim()) bibliography += `${this.form.databaseName.trim()}. `;
+                        if (this.form.url.trim()) bibliography += `${this.form.url.trim()}`;
+                    } else if (this.isMediaType()) {
+                        bibliography += title ? `${title}. ` : '';
+                        if (this.form.medium.trim()) bibliography += `[${this.form.medium.trim()}]. `;
+                        if (platform) bibliography += `${platform}. `;
+                        if (this.form.url.trim()) bibliography += `${this.form.url.trim()}`;
+                    } else if (this.isAiType()) {
+                        bibliography += titleOrPrompt ? `${titleOrPrompt}. ` : '';
+                        if (this.form.model.trim()) bibliography += `[${this.form.model.trim()}]. `;
+                        if (this.form.url.trim()) bibliography += `${this.form.url.trim()}`;
+                    } else {
+                        bibliography += title ? `${title}.` : '';
+                    }
+
+                    return bibliography.replace(/\.\./g, '.').replace(/\s{2,}/g, ' ').trim();
+                },
+                generateNarrativeCitation() {
+                    const authors = this.formatAuthorsCitation();
+                    const year = this.form.year.trim();
+                    if (!authors) return '';
+                    return `${authors} (${year || 'n.d.'}) กล่าวว่า ...`;
+                },
+                generateParentheticalCitation() {
+                    const authors = this.formatAuthorsCitation();
+                    const year = this.form.year.trim();
+                    if (!authors) return '';
+                    return `... (${authors}, ${year || 'n.d.'})`;
+                },
+                getFormatHint() {
+                    if (this.isBookType()) return 'ผู้แต่ง. (ปี). ชื่อหนังสือ (ครั้งที่พิมพ์). สำนักพิมพ์. DOI/URL';
+                    if (this.isJournalType()) return 'ผู้แต่ง. (ปี). ชื่อบทความ. ชื่อวารสาร, ปีที่(ฉบับที่), หน้า. DOI/URL';
+                    if (this.isWebType()) return 'ผู้แต่ง. (ปี, เดือน วัน). ชื่อเรื่อง. ชื่อเว็บไซต์. URL';
+                    if (this.isThesisType()) return 'ผู้แต่ง. (ปี). ชื่อวิทยานิพนธ์ [ประเภท, มหาวิทยาลัย]. URL/ฐานข้อมูล';
+                    return 'เลือกประเภททรัพยากรเพื่อดูรูปแบบ APA 7th Edition ที่เหมาะสม';
+                },
+                addCitationFromForm() {
+                    const bibliography = this.generateBibliography();
+                    if (!bibliography) {
+                        this.toast('กรุณากรอกข้อมูลอย่างน้อยชื่อผู้แต่งและชื่อเรื่อง', 'warning');
+                        return;
+                    }
+                    this.citations.push({ id: Date.now(), projectId: this.activeProjectId, text: bibliography, paperHtml: this.escapeHtml(bibliography) });
+                    this.formModalOpen = false;
+                    this.resetForm();
+                    this.toast('เพิ่มรายการบรรณานุกรมเรียบร้อยแล้ว', 'success');
+                },
+                copyEntry(entry) {
+                    navigator.clipboard.writeText(entry.text).then(() => {
+                        this.copiedEntryId = entry.id;
+                        setTimeout(() => {
+                            if (this.copiedEntryId === entry.id) this.copiedEntryId = null;
+                        }, 1800);
+                    });
+                },
+                viewEntry(entry) {
+                    this.activeEntry = entry;
+                    this.detailModalOpen = true;
+                },
+                moveEntry(entry) {
+                    this.activeEntry = entry;
+                    this.moveTargetProjectId = this.projectOptions.find(project => project.id !== this.entryProjectId(entry))?.id ?? this.entryProjectId(entry);
+                    this.moveModalOpen = true;
+                },
+                editEntry(entry) {
+                    this.activeEntry = entry;
+                    this.editEntryDraft = entry.text;
+                    this.editModalOpen = true;
+                },
+                saveEntryEdit() {
+                    if (!this.activeEntry) return;
+                    if (!this.editEntryDraft.trim()) {
+                        this.toast('ไม่สามารถบันทึกรายการว่างได้', 'warning');
+                        return;
+                    }
+                    this.activeEntry.text = this.editEntryDraft.trim();
+                    this.activeEntry.paperHtml = this.escapeHtml(this.editEntryDraft.trim());
+                    this.closeEntryModals();
+                    this.toast('อัปเดตรายการเรียบร้อยแล้ว', 'success');
+                },
+                confirmMoveEntry() {
+                    if (!this.activeEntry) return;
+                    if (!this.moveTargetProjectId || this.moveTargetProjectId === this.entryProjectId(this.activeEntry)) {
+                        this.toast('กรุณาเลือกโครงการปลายทางอื่น', 'warning');
+                        return;
+                    }
+                    this.activeEntry.projectId = this.moveTargetProjectId;
+                    this.closeEntryModals();
+                    this.toast(`ย้ายรายการไปยังโครงการ ${this.projectNameById(this.moveTargetProjectId)} แล้ว`, 'success');
+                },
+                closeEntryModals() {
+                    this.detailModalOpen = false;
+                    this.editModalOpen = false;
+                    this.moveModalOpen = false;
+                    this.activeEntry = null;
+                    this.editEntryDraft = '';
+                    this.moveTargetProjectId = null;
+                },
+            };
+        };
+    </script>
     <flux:toast position="bottom end" class="z-[120]" />
     @fluxScripts
 </body>
