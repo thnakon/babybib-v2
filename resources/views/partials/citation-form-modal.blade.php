@@ -337,13 +337,7 @@
                     </div>
 
                     {{-- APA Format Guide --}}
-                    <div class="rounded-2xl border border-amber-200 bg-amber-50/50 p-4 dark:border-amber-500/20 dark:bg-amber-500/5">
-                        <div class="flex items-center gap-2">
-                            <flux:icon name="light-bulb" class="size-4 text-amber-500" />
-                            <p class="text-xs font-semibold text-amber-700 dark:text-amber-300">รูปแบบ APA 7th Edition</p>
-                        </div>
-                        <p class="mt-2 text-xs leading-5 text-amber-700/80 dark:text-amber-300/70" x-text="getFormatHint()"></p>
-                    </div>
+                    
                 </div>
             </div>
         </div>

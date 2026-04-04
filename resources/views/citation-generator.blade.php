@@ -332,7 +332,13 @@
                 { value: 'emerald', label: 'เขียว', swatch: 'bg-emerald-500', button: 'bg-emerald-500 text-white' },
                 { value: 'amber', label: 'ทอง', swatch: 'bg-amber-500', button: 'bg-amber-500 text-white' },
                 { value: 'rose', label: 'ชมพู', swatch: 'bg-rose-500', button: 'bg-rose-500 text-white' },
-                { value: 'violet', label: 'ม่วง', swatch: 'bg-violet-500', button: 'bg-violet-500 text-white' }
+                { value: 'violet', label: 'ม่วง', swatch: 'bg-violet-500', button: 'bg-violet-500 text-white' },
+                { value: 'indigo', label: 'กรม', swatch: 'bg-indigo-500', button: 'bg-indigo-500 text-white' },
+                { value: 'cyan', label: 'ฟ้าน้ำทะเล', swatch: 'bg-cyan-500', button: 'bg-cyan-500 text-white' },
+                { value: 'teal', label: 'ทีล', swatch: 'bg-teal-500', button: 'bg-teal-500 text-white' },
+                { value: 'orange', label: 'ส้ม', swatch: 'bg-orange-500', button: 'bg-orange-500 text-white' },
+                { value: 'fuchsia', label: 'บานเย็น', swatch: 'bg-fuchsia-500', button: 'bg-fuchsia-500 text-white' },
+                { value: 'lime', label: 'ไลม์', swatch: 'bg-lime-500', button: 'bg-lime-500 text-zinc-950' }
             ],
             projectIcons: [
                 { value: 'folder', label: 'โฟลเดอร์' },
@@ -340,7 +346,13 @@
                 { value: 'document-text', label: 'เอกสาร' },
                 { value: 'academic-cap', label: 'วิจัย' },
                 { value: 'clipboard-document-list', label: 'รายการ' },
-                { value: 'sparkles', label: 'พิเศษ' }
+                { value: 'sparkles', label: 'พิเศษ' },
+                { value: 'globe-alt', label: 'เว็บ' },
+                { value: 'light-bulb', label: 'ไอเดีย' },
+                { value: 'beaker', label: 'ทดลอง' },
+                { value: 'briefcase', label: 'งาน' },
+                { value: 'newspaper', label: 'ข่าวสาร' },
+                { value: 'presentation-chart-bar', label: 'พรีเซนต์' }
             ],
             projects: [
                 { id: 1, name: 'โครงการวิจัยบทที่ 1', color: 'zinc', icon: 'folder' }
@@ -479,6 +491,12 @@
                                         <flux:icon x-show="project.icon === 'academic-cap'" name="academic-cap" class="size-4" />
                                         <flux:icon x-show="project.icon === 'clipboard-document-list'" name="clipboard-document-list" class="size-4" />
                                         <flux:icon x-show="project.icon === 'sparkles'" name="sparkles" class="size-4" />
+                                        <flux:icon x-show="project.icon === 'globe-alt'" name="globe-alt" class="size-4" />
+                                        <flux:icon x-show="project.icon === 'light-bulb'" name="light-bulb" class="size-4" />
+                                        <flux:icon x-show="project.icon === 'beaker'" name="beaker" class="size-4" />
+                                        <flux:icon x-show="project.icon === 'briefcase'" name="briefcase" class="size-4" />
+                                        <flux:icon x-show="project.icon === 'newspaper'" name="newspaper" class="size-4" />
+                                        <flux:icon x-show="project.icon === 'presentation-chart-bar'" name="presentation-chart-bar" class="size-4" />
                                     </span>
                                     <h3 class="text-sm font-semibold" x-text="project.name"></h3>
                                 </div>
@@ -524,7 +542,7 @@
                     <div class="flex items-start justify-between gap-4">
                         <div class="space-y-1">
                             <h3 class="text-xl font-semibold text-zinc-900 dark:text-zinc-100" x-text="projectFormMode === 'create' ? 'สร้างโครงการใหม่' : 'แก้ไขโครงการ'"></h3>
-                            <p class="text-sm text-zinc-500 dark:text-zinc-400">ตั้งชื่อ เลือกสี และเลือกไอคอนของโครงการสำหรับจัดเก็บบรรณานุกรม</p>
+                            <p class="text-sm text-zinc-500 dark:text-zinc-400">ตั้งชื่อและเลือกสไตล์ที่เหมาะกับโครงการของคุณ</p>
                         </div>
                         <button type="button" x-on:click="projectModal = false"
                             class="rounded-full p-2 text-zinc-400 transition hover:bg-zinc-100 hover:text-zinc-900 dark:hover:bg-zinc-800 dark:hover:text-zinc-100">
@@ -538,28 +556,44 @@
                             class="w-full rounded-2xl border border-pink-200 bg-white px-4 py-3 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500 dark:focus:ring-pink-500/10">
                     </div>
 
-                    <div class="mt-5 space-y-3">
-                        <label class="text-sm font-medium text-zinc-700 dark:text-zinc-200">สีของโครงการ</label>
-                        <div class="grid grid-cols-3 gap-2">
+                    <div class="mt-5 rounded-3xl border border-pink-100 bg-pink-50/60 p-4 dark:border-zinc-800 dark:bg-zinc-950/70">
+                        <div class="flex items-center justify-between gap-3">
+                            <div>
+                                <p class="text-sm font-medium text-zinc-800 dark:text-zinc-100">ปรับสไตล์โครงการ</p>
+                                <p class="text-xs text-zinc-500 dark:text-zinc-400">เลือกโทนสีและสัญลักษณ์ที่เข้ากับงานของคุณ</p>
+                            </div>
+                            <span class="inline-flex size-11 items-center justify-center rounded-2xl" x-bind:class="projectButtonClass(projectForm.color)">
+                                <flux:icon x-show="projectForm.icon === 'folder'" name="folder" class="size-5" />
+                                <flux:icon x-show="projectForm.icon === 'book-open'" name="book-open" class="size-5" />
+                                <flux:icon x-show="projectForm.icon === 'document-text'" name="document-text" class="size-5" />
+                                <flux:icon x-show="projectForm.icon === 'academic-cap'" name="academic-cap" class="size-5" />
+                                <flux:icon x-show="projectForm.icon === 'clipboard-document-list'" name="clipboard-document-list" class="size-5" />
+                                <flux:icon x-show="projectForm.icon === 'sparkles'" name="sparkles" class="size-5" />
+                                <flux:icon x-show="projectForm.icon === 'globe-alt'" name="globe-alt" class="size-5" />
+                                <flux:icon x-show="projectForm.icon === 'light-bulb'" name="light-bulb" class="size-5" />
+                                <flux:icon x-show="projectForm.icon === 'beaker'" name="beaker" class="size-5" />
+                                <flux:icon x-show="projectForm.icon === 'briefcase'" name="briefcase" class="size-5" />
+                                <flux:icon x-show="projectForm.icon === 'newspaper'" name="newspaper" class="size-5" />
+                                <flux:icon x-show="projectForm.icon === 'presentation-chart-bar'" name="presentation-chart-bar" class="size-5" />
+                            </span>
+                        </div>
+
+                        <div class="mt-4 grid grid-cols-4 gap-2">
                             <template x-for="color in projectColors" :key="color.value">
                                 <button type="button" x-on:click="projectForm.color = color.value"
-                                    class="flex items-center gap-2 rounded-2xl border px-3 py-2 text-sm transition"
+                                    class="flex items-center justify-center rounded-2xl border px-3 py-3 text-sm transition"
                                     x-bind:class="projectForm.color === color.value
                                         ? 'border-pink-400 bg-pink-50 text-pink-800 dark:border-pink-500 dark:bg-pink-500/10 dark:text-pink-100'
                                         : 'border-zinc-200 text-zinc-600 hover:border-pink-300 hover:text-pink-800 dark:border-zinc-700 dark:text-zinc-300 dark:hover:border-pink-500 dark:hover:text-pink-100'">
-                                    <span class="size-3 rounded-full" :class="color.swatch"></span>
-                                    <span x-text="color.label"></span>
+                                    <span class="size-5 rounded-full ring-2 ring-white/70 dark:ring-zinc-900/70" :class="color.swatch"></span>
                                 </button>
                             </template>
                         </div>
-                    </div>
 
-                    <div class="mt-5 space-y-3">
-                        <label class="text-sm font-medium text-zinc-700 dark:text-zinc-200">ไอคอนของโครงการ</label>
-                        <div class="grid grid-cols-3 gap-2">
+                        <div class="mt-4 grid grid-cols-3 gap-2">
                             <template x-for="icon in projectIcons" :key="icon.value">
                                 <button type="button" x-on:click="projectForm.icon = icon.value"
-                                    class="flex items-center gap-2 rounded-2xl border px-3 py-2 text-sm transition"
+                                    class="flex items-center justify-center rounded-2xl border px-3 py-3 text-sm transition"
                                     x-bind:class="projectForm.icon === icon.value
                                         ? 'border-pink-400 bg-pink-50 text-pink-800 dark:border-pink-500 dark:bg-pink-500/10 dark:text-pink-100'
                                         : 'border-zinc-200 text-zinc-600 hover:border-pink-300 hover:text-pink-800 dark:border-zinc-700 dark:text-zinc-300 dark:hover:border-pink-500 dark:hover:text-pink-100'">
@@ -570,8 +604,13 @@
                                         <flux:icon x-show="icon.value === 'academic-cap'" name="academic-cap" class="size-4" />
                                         <flux:icon x-show="icon.value === 'clipboard-document-list'" name="clipboard-document-list" class="size-4" />
                                         <flux:icon x-show="icon.value === 'sparkles'" name="sparkles" class="size-4" />
+                                        <flux:icon x-show="icon.value === 'globe-alt'" name="globe-alt" class="size-4" />
+                                        <flux:icon x-show="icon.value === 'light-bulb'" name="light-bulb" class="size-4" />
+                                        <flux:icon x-show="icon.value === 'beaker'" name="beaker" class="size-4" />
+                                        <flux:icon x-show="icon.value === 'briefcase'" name="briefcase" class="size-4" />
+                                        <flux:icon x-show="icon.value === 'newspaper'" name="newspaper" class="size-4" />
+                                        <flux:icon x-show="icon.value === 'presentation-chart-bar'" name="presentation-chart-bar" class="size-4" />
                                     </span>
-                                    <span x-text="icon.label"></span>
                                 </button>
                             </template>
                         </div>
@@ -642,6 +681,7 @@
                 <section x-data="{
                     smartQuery: '',
                     selectedType: '',
+                    activeQuickFilter: '',
                     modalOpen: false,
                     modalSearch: '',
                     copied: false,
@@ -689,10 +729,16 @@
                     openFormModal(type) {
                         this.formResourceType = type;
                         this.selectedType = type;
+                        this.activeQuickFilter = type.includes('เว็บ') ? 'เว็บเพจ' : (type.includes('หนังสือ') ? 'หนังสือ' : (type.includes('บทความ') ? 'บทความ' : ''));
                         this.smartQuery = type;
                         this.modalOpen = false;
                         this.resetForm();
                         this.formModalOpen = true;
+                    },
+                    setQuickFilter(type) {
+                        this.smartQuery = type;
+                        this.selectedType = type;
+                        this.activeQuickFilter = type;
                     },
                     isBookType() {
                         return ['หนังสือ','หนังสือชุดหลายเล่มจบ','บทความในหนังสือ','หนังสืออิเล็กทรอนิกส์ (มี DOI)','หนังสืออิเล็กทรอนิกส์ (ไม่มี DOI)'].includes(this.formResourceType);
@@ -830,35 +876,35 @@
                     <div class="flex min-h-[calc(100vh-8rem)] flex-col pr-2">
                         <div class="mx-auto w-full max-w-3xl space-y-3">
                             <div class="group relative">
-                                <div class="absolute left-4 top-0 z-10 flex -translate-y-1/2 items-center gap-3 bg-white px-1 dark:bg-zinc-900">
+                                <div class="absolute left-4 -top-1 z-10 flex -translate-y-1/2 items-center gap-3 bg-white px-1 dark:bg-zinc-900">
                                     <button type="button" x-on:click="modalOpen = true"
-                                        class="inline-flex items-center gap-1.5 border-b-2 border-transparent pb-1 text-xs font-semibold text-zinc-900 transition hover:border-pink-400 hover:text-zinc-600 focus:outline-none dark:text-zinc-100 dark:hover:border-pink-500 dark:hover:text-zinc-300"
+                                        class="inline-flex items-center gap-2 rounded-full bg-pink-600 px-3.5 py-1.5 text-xs font-semibold text-white shadow-sm shadow-pink-500/20 transition hover:bg-pink-700 hover:shadow-md hover:shadow-pink-500/25 focus:outline-none focus:ring-2 focus:ring-pink-500/20 dark:bg-pink-500 dark:hover:bg-pink-400"
                                         aria-label="เปิดฟอร์มกรอกข้อมูลเอง">
                                         <flux:icon name="plus" class="size-3.5" />
-                                        <span>เลือกทรัพยากร</span>
+                                        <span>สร้างรายการอ้างอิง</span>
                                     </button>
 
-                                    <button type="button" x-on:click="smartQuery = 'เว็บเพจ'; selectedType = 'เว็บเพจ'"
-                                        class="relative border-b-2 border-transparent pb-1 text-xs font-medium transition hover:border-pink-400 dark:hover:border-pink-500"
-                                        x-bind:class="selectedType === 'เว็บเพจ'
+                                    <button type="button" x-on:click="setQuickFilter('เว็บเพจ')"
+                                        class="relative border-b-2 pb-1 text-xs font-medium transition"
+                                        x-bind:class="activeQuickFilter === 'เว็บเพจ'
                                             ? 'border-pink-500 text-zinc-900 dark:border-pink-500 dark:text-zinc-100'
-                                            : 'text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100'">
+                                            : 'border-transparent text-zinc-500 hover:border-pink-400 hover:text-zinc-900 dark:border-transparent dark:text-zinc-400 dark:hover:border-pink-500 dark:hover:text-zinc-100'">
                                         เว็บเพจ
                                     </button>
 
-                                    <button type="button" x-on:click="smartQuery = 'หนังสือ'; selectedType = 'หนังสือ'"
-                                        class="relative border-b-2 border-transparent pb-1 text-xs font-medium transition hover:border-pink-400 dark:hover:border-pink-500"
-                                        x-bind:class="selectedType === 'หนังสือ'
+                                    <button type="button" x-on:click="setQuickFilter('หนังสือ')"
+                                        class="relative border-b-2 pb-1 text-xs font-medium transition"
+                                        x-bind:class="activeQuickFilter === 'หนังสือ'
                                             ? 'border-pink-500 text-zinc-900 dark:border-pink-500 dark:text-zinc-100'
-                                            : 'text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100'">
+                                            : 'border-transparent text-zinc-500 hover:border-pink-400 hover:text-zinc-900 dark:border-transparent dark:text-zinc-400 dark:hover:border-pink-500 dark:hover:text-zinc-100'">
                                         หนังสือ
                                     </button>
 
-                                    <button type="button" x-on:click="smartQuery = 'บทความ'; selectedType = 'บทความ'"
-                                        class="relative border-b-2 border-transparent pb-1 text-xs font-medium transition hover:border-pink-400 dark:hover:border-pink-500"
-                                        x-bind:class="selectedType === 'บทความ'
+                                    <button type="button" x-on:click="setQuickFilter('บทความ')"
+                                        class="relative border-b-2 pb-1 text-xs font-medium transition"
+                                        x-bind:class="activeQuickFilter === 'บทความ'
                                             ? 'border-pink-500 text-zinc-900 dark:border-pink-500 dark:text-zinc-100'
-                                            : 'text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100'">
+                                            : 'border-transparent text-zinc-500 hover:border-pink-400 hover:text-zinc-900 dark:border-transparent dark:text-zinc-400 dark:hover:border-pink-500 dark:hover:text-zinc-100'">
                                         บทความ
                                     </button>
                                 </div>
@@ -869,11 +915,13 @@
                                 <input x-model="smartQuery" type="text"
                                     placeholder="Smart search: ค้นหาประเภทอ้างอิง ผู้แต่ง DOI หรือคำสำคัญ..."
                                     class="w-full rounded-2xl border border-pink-200 bg-white py-3.5 pl-12 pr-28 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500 dark:focus:ring-pink-500/10">
-                                <div class="absolute right-3 top-0 -translate-y-1/2">
-                                    <span class="inline-flex items-center gap-1.5 bg-white px-1 text-[11px] font-medium text-pink-400 dark:bg-zinc-900 dark:text-pink-300">
+                                <div class="absolute right-3 -top-1 -translate-y-1/2">
+                                    <a href="{{ url('/manual') }}"
+                                        class="inline-flex items-center gap-1.5 bg-white px-1 text-[11px] font-medium text-pink-400 transition hover:text-pink-600 focus:outline-none focus:ring-2 focus:ring-pink-500/20 dark:bg-zinc-900 dark:text-pink-300 dark:hover:text-pink-200"
+                                        aria-label="เปิดหน้าช่วยเหลือ">
                                         <flux:icon name="question-mark-circle" class="size-3.5" />
                                         ช่วยเหลือ
-                                    </span>
+                                    </a>
                                 </div>
                             </div>
 
@@ -1075,7 +1123,7 @@
                         {{-- Citation Form Modal --}}
                         @include('partials.citation-form-modal')
 
-                        <div class="flex flex-1 justify-center pt-6 lg:pt-8">
+                        <div class="flex flex-1 justify-center pt-6 lg:pt-6">
                             <template x-if="displayMode === 'paper'">
                                 <div x-ref="paperView"
                                     class="flex min-h-[calc(100vh-15rem)] w-full max-w-3xl flex-1 flex-col border border-zinc-200 bg-white px-8 py-10 dark:border-zinc-700 dark:bg-zinc-950">
