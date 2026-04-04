@@ -693,6 +693,8 @@
                     form: {
                         authors: [{ lastName: '', firstName: '' }],
                         year: '',
+                        month: '',
+                        day: '',
                         title: '',
                         publisher: '',
                         volume: '',
@@ -708,6 +710,18 @@
                         thesisType: 'master',
                         university: '',
                         databaseName: '',
+                        referenceWork: '',
+                        newspaperName: '',
+                        organization: '',
+                        reportNumber: '',
+                        conferenceName: '',
+                        conferenceLocation: '',
+                        patentNumber: '',
+                        assignee: '',
+                        platform: '',
+                        medium: '',
+                        model: '',
+                        prompt: '',
                     },
                     citations: [
                         { id: 1, text: 'Johnson, A. (2025). Smart search for citation workflows. Journal of Digital Research, 18(2), 44-61.' },
@@ -721,9 +735,12 @@
                     resetForm() {
                         this.form = {
                             authors: [{ lastName: '', firstName: '' }],
-                            year: '', title: '', publisher: '', volume: '', issue: '',
+                            year: '', month: '', day: '', title: '', publisher: '', volume: '', issue: '',
                             pages: '', edition: '', editor: '', bookTitle: '', doi: '', url: '',
                             journalName: '', websiteName: '', thesisType: 'master', university: '', databaseName: '',
+                            referenceWork: '', newspaperName: '', organization: '', reportNumber: '',
+                            conferenceName: '', conferenceLocation: '', patentNumber: '', assignee: '',
+                            platform: '', medium: '', model: '', prompt: '',
                         };
                     },
                     openFormModal(type) {
@@ -752,6 +769,39 @@
                     isThesisType() {
                         return ['วิทยานิพนธ์ (ที่ไม่ได้ตีพิมพ์)','วิทยานิพนธ์จากเว็บไซต์','วิทยานิพนธ์จากฐานข้อมูลเชิงพาณิชย์'].includes(this.formResourceType);
                     },
+                    isDictionaryType() {
+                        return ['พจนานุกรม','พจนานุกรมออนไลน์','สารานุกรม','สารานุกรมออนไลน์'].includes(this.formResourceType);
+                    },
+                    isNewspaperType() {
+                        return ['หนังสือพิมพ์แบบรูปเล่ม','หนังสือพิมพ์ออนไลน์'].includes(this.formResourceType);
+                    },
+                    isReportType() {
+                        return ['รายงาน','รายงานการวิจัย','รายงานที่จัดทำโดยหน่วยงานราชการหรือองค์กรอื่น','รายงานที่จัดทำโดยบุคคลที่สังกัดหน่วยงาน'].includes(this.formResourceType);
+                    },
+                    isConferenceType() {
+                        return ['เอกสารการประชุมทางวิชาการ (ที่มี Proceeding)','เอกสารการประชุมทางวิชาการ (ที่ไม่มี Proceeding)','การนำเสนองานวิจัยหรือโปสเตอร์ในงานประชุมวิชาการ'].includes(this.formResourceType);
+                    },
+                    isMediaType() {
+                        return ['อินโฟกราฟิก (Infographic)','การนำเสนอด้วยสไลด์และเอกสารการสอนออนไลน์','สัมมนาออนไลน์ (Webinar)','วิดีโอใน Youtube หรือวิดีโอออนไลน์ต่าง ๆ','พอดแคสต์ภาพและเสียง (แบบจบในตอน)','พอดแคสต์ภาพและเสียง (แบบหลายตอน)'].includes(this.formResourceType);
+                    },
+                    isAiType() {
+                        return this.formResourceType === 'AI (เนื้อหาที่สร้างโดย AI)';
+                    },
+                    usesDetailedDate() {
+                        return this.isWebType() || this.isNewspaperType() || this.isConferenceType() || this.isMediaType() || this.isAiType();
+                    },
+                    formatDate() {
+                        const year = this.form.year.trim();
+                        const month = this.form.month.trim();
+                        const day = this.form.day.trim();
+
+                        if (year && month && day) return ` (${year}, ${month} ${day}). `;
+                        if (year && month) return ` (${year}, ${month}). `;
+                        if (year) return ` (${year}). `;
+                        if (month && day) return ` (n.d., ${month} ${day}). `;
+
+                        return ' (n.d.). ';
+                    },
                     formatAuthors() {
                         const valid = this.form.authors.filter(a => a.lastName.trim());
                         if (!valid.length) return '';
@@ -776,10 +826,21 @@
                         const a = this.formatAuthors();
                         const y = this.form.year.trim();
                         const t = this.form.title.trim();
-                        if (!a && !t) return '';
+                        const titleOrPrompt = t || this.form.prompt.trim();
+                        const organization = this.form.organization.trim();
+                        const assignee = this.form.assignee.trim();
+                        const platform = this.form.platform.trim();
+                        const websiteName = this.form.websiteName.trim();
+                        const creator = a || organization || assignee || platform || websiteName;
+                        if (!creator && !titleOrPrompt) return '';
                         let bib = '';
-                        if (a) bib += a;
-                        bib += y ? ` (${y}). ` : ' (n.d.). ';
+                        if (this.formResourceType === 'การติดต่อสื่อสารส่วนบุคคล') {
+                            return 'การติดต่อสื่อสารส่วนบุคคลในรูปแบบ APA ใช้อ้างอิงเฉพาะในเนื้อหา และไม่ต้องแสดงในบรรณานุกรมท้ายเล่ม';
+                        }
+
+                        if (creator) bib += creator;
+                        bib += this.usesDetailedDate() ? this.formatDate() : (y ? ` (${y}). ` : ' (n.d.). ');
+
                         if (this.isBookType()) {
                             if (this.formResourceType === 'บทความในหนังสือ') {
                                 bib += t ? `${t}. ` : '';
@@ -795,6 +856,7 @@
                                 bib += '. ';
                                 if (this.form.publisher.trim()) bib += `${this.form.publisher.trim()}.`;
                                 if (this.form.doi.trim()) bib += ` ${this.form.doi.trim()}`;
+                                if (!this.form.doi.trim() && this.form.url.trim()) bib += ` ${this.form.url.trim()}`;
                             }
                         } else if (this.isJournalType()) {
                             bib += t ? `${t}. ` : '';
@@ -804,15 +866,62 @@
                             if (this.form.pages.trim()) bib += `, ${this.form.pages.trim()}`;
                             bib += '.';
                             if (this.form.doi.trim()) bib += ` ${this.form.doi.trim()}`;
-                        } else if (this.isWebType()) {
+                            if (!this.form.doi.trim() && this.form.url.trim()) bib += ` ${this.form.url.trim()}`;
+                        } else if (this.isDictionaryType()) {
                             bib += t ? `${t}. ` : '';
-                            if (this.form.websiteName.trim()) bib += `${this.form.websiteName.trim()}. `;
+                            if (this.form.referenceWork.trim()) bib += `In ${this.form.referenceWork.trim()}`;
+                            if (this.form.edition.trim()) bib += ` (${this.form.edition.trim()} ed.)`;
+                            if (this.form.volume.trim()) bib += ` (Vol. ${this.form.volume.trim()})`;
+                            bib += '. ';
+                            if (this.form.publisher.trim()) bib += `${this.form.publisher.trim()}. `;
+                            if (this.form.url.trim()) bib += `${this.form.url.trim()}`;
+                        } else if (this.isNewspaperType()) {
+                            bib += t ? `${t}. ` : '';
+                            if (this.form.newspaperName.trim()) bib += `${this.form.newspaperName.trim()}`;
+                            if (this.form.pages.trim()) bib += `, ${this.form.pages.trim()}`;
+                            bib += '.';
+                            if (this.form.url.trim()) bib += ` ${this.form.url.trim()}`;
+                        } else if (this.isReportType()) {
+                            bib += t ? `${t}` : '';
+                            if (this.form.reportNumber.trim()) bib += ` (Report No. ${this.form.reportNumber.trim()})`;
+                            bib += '. ';
+                            if (this.form.publisher.trim()) bib += `${this.form.publisher.trim()}. `;
+                            if (this.form.url.trim()) bib += `${this.form.url.trim()}`;
+                        } else if (this.isConferenceType()) {
+                            bib += t ? `${t}. ` : '';
+                            if (this.form.conferenceName.trim()) bib += `${this.form.conferenceName.trim()}`;
+                            if (this.form.conferenceLocation.trim()) bib += `, ${this.form.conferenceLocation.trim()}`;
+                            if (this.form.pages.trim()) bib += ` (pp. ${this.form.pages.trim()})`;
+                            bib += '. ';
+                            if (this.form.publisher.trim()) bib += `${this.form.publisher.trim()}. `;
+                            if (this.form.url.trim()) bib += `${this.form.url.trim()}`;
+                        } else if (this.isWebType()) {
+                            if (this.formResourceType === 'สิทธิบัตรออนไลน์') {
+                                bib += t ? `${t}` : '';
+                                if (this.form.patentNumber.trim()) bib += ` (${this.form.patentNumber.trim()})`;
+                                bib += '. ';
+                                if (websiteName) bib += `${websiteName}. `;
+                                if (this.form.url.trim()) bib += `${this.form.url.trim()}`;
+                                return bib.replace(/\.\./g, '.').replace(/\s{2,}/g, ' ').trim();
+                            }
+                            bib += t ? `${t}. ` : '';
+                            if (websiteName) bib += `${websiteName}. `;
                             if (this.form.url.trim()) bib += `${this.form.url.trim()}`;
                         } else if (this.isThesisType()) {
                             bib += t ? `${t} ` : '';
                             const tt = this.form.thesisType === 'doctoral' ? 'Doctoral dissertation' : 'Master\x27s thesis';
                             if (this.form.university.trim()) bib += `[${tt}, ${this.form.university.trim()}]. `;
                             else bib += `[${tt}]. `;
+                            if (this.form.databaseName.trim()) bib += `${this.form.databaseName.trim()}. `;
+                            if (this.form.url.trim()) bib += `${this.form.url.trim()}`;
+                        } else if (this.isMediaType()) {
+                            bib += t ? `${t}. ` : '';
+                            if (this.form.medium.trim()) bib += `[${this.form.medium.trim()}]. `;
+                            if (platform) bib += `${platform}. `;
+                            if (this.form.url.trim()) bib += `${this.form.url.trim()}`;
+                        } else if (this.isAiType()) {
+                            bib += titleOrPrompt ? `${titleOrPrompt}. ` : '';
+                            if (this.form.model.trim()) bib += `[${this.form.model.trim()}]. `;
                             if (this.form.url.trim()) bib += `${this.form.url.trim()}`;
                         } else {
                             bib += t ? `${t}.` : '';

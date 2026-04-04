@@ -83,6 +83,18 @@
                             <input x-model="form.year" type="text" placeholder="เช่น 2025"
                                 class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
                         </div>
+                        <div x-show="usesDetailedDate()" class="grid gap-3 sm:grid-cols-2">
+                            <div>
+                                <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">เดือน</label>
+                                <input x-model="form.month" type="text" placeholder="เช่น April"
+                                    class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
+                            </div>
+                            <div>
+                                <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">วัน</label>
+                                <input x-model="form.day" type="text" placeholder="เช่น 2"
+                                    class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
+                            </div>
+                        </div>
                     </div>
 
                     <hr class="border-zinc-100 dark:border-zinc-800">
@@ -126,7 +138,7 @@
                                             class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
                                     </div>
                                 </div>
-                                <div x-show="formResourceType === 'หนังสือชุดหลายเล่มจบ'">
+                                <div x-show="formResourceType !== 'บทความในหนังสือ'">
                                     <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">พิมพ์ครั้งที่</label>
                                     <input x-model="form.edition" type="text" placeholder="เช่น 2"
                                         class="w-full max-w-xs rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
@@ -171,11 +183,18 @@
                                         </span>
                                         <h4 class="text-sm font-semibold text-zinc-800 dark:text-zinc-200" x-text="formResourceType.includes('DOI') ? 'DOI' : 'URL'"></h4>
                                     </div>
-                                    <div>
-                                        <input x-model="form.doi" type="text"
-                                            x-bind:placeholder="formResourceType.includes('DOI') ? 'เช่น https://doi.org/10.xxxx/xxxxx' : 'เช่น https://example.com/book'"
-                                            class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
-                                    </div>
+                                    <template x-if="formResourceType.includes('DOI')">
+                                        <div>
+                                            <input x-model="form.doi" type="text" placeholder="เช่น https://doi.org/10.xxxx/xxxxx"
+                                                class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
+                                        </div>
+                                    </template>
+                                    <template x-if="!formResourceType.includes('DOI')">
+                                        <div>
+                                            <input x-model="form.url" type="text" placeholder="เช่น https://example.com/book"
+                                                class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
+                                        </div>
+                                    </template>
                                 </div>
                             </template>
                         </div>
@@ -217,10 +236,169 @@
                                 <template x-if="formResourceType.includes('DOI') || formResourceType.includes('อิเล็กทรอนิกส์')">
                                     <div>
                                         <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400" x-text="formResourceType.includes('DOI') ? 'DOI' : 'URL'"></label>
-                                        <input x-model="form.doi" type="text" placeholder="เช่น https://doi.org/10.xxxx/xxxxx"
-                                            class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
+                                        <template x-if="formResourceType.includes('DOI')">
+                                            <input x-model="form.doi" type="text" placeholder="เช่น https://doi.org/10.xxxx/xxxxx"
+                                                class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
+                                        </template>
+                                        <template x-if="!formResourceType.includes('DOI')">
+                                            <input x-model="form.url" type="text" placeholder="เช่น https://example.com/article"
+                                                class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
+                                        </template>
                                     </div>
                                 </template>
+                            </div>
+                        </div>
+                    </template>
+
+                    <template x-if="isDictionaryType()">
+                        <div class="space-y-5">
+                            <hr class="border-zinc-100 dark:border-zinc-800">
+                            <div class="space-y-3">
+                                <div class="flex items-center gap-2">
+                                    <span class="inline-flex size-6 items-center justify-center rounded-lg bg-emerald-100 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-300">
+                                        <flux:icon name="book-open" class="size-3.5" />
+                                    </span>
+                                    <h4 class="text-sm font-semibold text-zinc-800 dark:text-zinc-200">ข้อมูลแหล่งอ้างอิง</h4>
+                                </div>
+                                <div>
+                                    <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">ชื่อพจนานุกรม / สารานุกรม</label>
+                                    <input x-model="form.referenceWork" type="text" placeholder="เช่น Encyclopedia Britannica"
+                                        class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
+                                </div>
+                                <div class="grid gap-3 sm:grid-cols-2">
+                                    <div>
+                                        <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">ฉบับ / Edition</label>
+                                        <input x-model="form.edition" type="text" placeholder="เช่น 15"
+                                            class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
+                                    </div>
+                                    <div>
+                                        <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">เล่ม</label>
+                                        <input x-model="form.volume" type="text" placeholder="เช่น 3"
+                                            class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
+                                    </div>
+                                </div>
+                                <div class="grid gap-3 sm:grid-cols-2">
+                                    <div>
+                                        <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">สำนักพิมพ์</label>
+                                        <input x-model="form.publisher" type="text" placeholder="เช่น Britannica"
+                                            class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
+                                    </div>
+                                    <div x-show="formResourceType.includes('ออนไลน์')">
+                                        <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">URL</label>
+                                        <input x-model="form.url" type="text" placeholder="เช่น https://example.com/entry"
+                                            class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+
+                    <template x-if="isNewspaperType()">
+                        <div class="space-y-5">
+                            <hr class="border-zinc-100 dark:border-zinc-800">
+                            <div class="space-y-3">
+                                <div class="flex items-center gap-2">
+                                    <span class="inline-flex size-6 items-center justify-center rounded-lg bg-rose-100 text-rose-600 dark:bg-rose-500/10 dark:text-rose-300">
+                                        <flux:icon name="newspaper" class="size-3.5" />
+                                    </span>
+                                    <h4 class="text-sm font-semibold text-zinc-800 dark:text-zinc-200">ข้อมูลหนังสือพิมพ์</h4>
+                                </div>
+                                <div>
+                                    <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">ชื่อหนังสือพิมพ์</label>
+                                    <input x-model="form.newspaperName" type="text" placeholder="เช่น The New York Times"
+                                        class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
+                                </div>
+                                <div class="grid gap-3 sm:grid-cols-2">
+                                    <div>
+                                        <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">หน้า</label>
+                                        <input x-model="form.pages" type="text" placeholder="เช่น A1-A3"
+                                            class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
+                                    </div>
+                                    <div x-show="formResourceType.includes('ออนไลน์')">
+                                        <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">URL</label>
+                                        <input x-model="form.url" type="text" placeholder="เช่น https://example.com/news"
+                                            class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+
+                    <template x-if="isReportType()">
+                        <div class="space-y-5">
+                            <hr class="border-zinc-100 dark:border-zinc-800">
+                            <div class="space-y-3">
+                                <div class="flex items-center gap-2">
+                                    <span class="inline-flex size-6 items-center justify-center rounded-lg bg-violet-100 text-violet-600 dark:bg-violet-500/10 dark:text-violet-300">
+                                        <flux:icon name="clipboard-document-list" class="size-3.5" />
+                                    </span>
+                                    <h4 class="text-sm font-semibold text-zinc-800 dark:text-zinc-200">ข้อมูลรายงาน</h4>
+                                </div>
+                                <div>
+                                    <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">หน่วยงาน / องค์กร</label>
+                                    <input x-model="form.organization" type="text" placeholder="เช่น World Health Organization"
+                                        class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
+                                </div>
+                                <div class="grid gap-3 sm:grid-cols-2">
+                                    <div>
+                                        <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">Report No.</label>
+                                        <input x-model="form.reportNumber" type="text" placeholder="เช่น WHO-2026-04"
+                                            class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
+                                    </div>
+                                    <div>
+                                        <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">สำนักพิมพ์ / ผู้เผยแพร่</label>
+                                        <input x-model="form.publisher" type="text" placeholder="เช่น WHO Press"
+                                            class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">URL</label>
+                                    <input x-model="form.url" type="text" placeholder="เช่น https://example.org/report.pdf"
+                                        class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+
+                    <template x-if="isConferenceType()">
+                        <div class="space-y-5">
+                            <hr class="border-zinc-100 dark:border-zinc-800">
+                            <div class="space-y-3">
+                                <div class="flex items-center gap-2">
+                                    <span class="inline-flex size-6 items-center justify-center rounded-lg bg-orange-100 text-orange-600 dark:bg-orange-500/10 dark:text-orange-300">
+                                        <flux:icon name="presentation-chart-bar" class="size-3.5" />
+                                    </span>
+                                    <h4 class="text-sm font-semibold text-zinc-800 dark:text-zinc-200">ข้อมูลงานประชุม</h4>
+                                </div>
+                                <div>
+                                    <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">ชื่องานประชุม</label>
+                                    <input x-model="form.conferenceName" type="text" placeholder="เช่น International Conference on..."
+                                        class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
+                                </div>
+                                <div class="grid gap-3 sm:grid-cols-2">
+                                    <div>
+                                        <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">สถานที่จัด</label>
+                                        <input x-model="form.conferenceLocation" type="text" placeholder="เช่น Bangkok, Thailand"
+                                            class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
+                                    </div>
+                                    <div>
+                                        <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">หน้า / เลขโปสเตอร์</label>
+                                        <input x-model="form.pages" type="text" placeholder="เช่น 24-30"
+                                            class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
+                                    </div>
+                                </div>
+                                <div class="grid gap-3 sm:grid-cols-2">
+                                    <div>
+                                        <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">ผู้เผยแพร่ / Proceeding</label>
+                                        <input x-model="form.publisher" type="text" placeholder="เช่น ACM"
+                                            class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
+                                    </div>
+                                    <div>
+                                        <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">URL</label>
+                                        <input x-model="form.url" type="text" placeholder="เช่น https://example.com/proceeding"
+                                            class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </template>
@@ -246,6 +424,21 @@
                                     <input x-model="form.url" type="text" placeholder="เช่น https://example.com/article"
                                         class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
                                 </div>
+                                <div x-show="formResourceType === 'สิทธิบัตรออนไลน์'" class="grid gap-3 sm:grid-cols-2">
+                                    <div>
+                                        <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">Patent No.</label>
+                                        <input x-model="form.patentNumber" type="text" placeholder="เช่น US1234567B2"
+                                            class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
+                                    </div>
+                                    <div>
+                                        <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">ผู้ถือสิทธิ์ / หน่วยงาน</label>
+                                        <input x-model="form.websiteName" type="text" placeholder="เช่น Google LLC"
+                                            class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
+                                    </div>
+                                </div>
+                                <p x-show="formResourceType === 'การติดต่อสื่อสารส่วนบุคคล'" class="rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-xs leading-5 text-amber-700 dark:border-amber-500/20 dark:bg-amber-500/10 dark:text-amber-300">
+                                    การติดต่อสื่อสารส่วนบุคคลตาม APA ปกติจะใช้อ้างอิงเฉพาะในเนื้อหา ไม่แสดงในบรรณานุกรมท้ายเล่ม
+                                </p>
                             </div>
                         </div>
                     </template>
@@ -275,12 +468,86 @@
                                         class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
                                 </div>
                                 <template x-if="formResourceType.includes('เว็บไซต์') || formResourceType.includes('ฐานข้อมูล')">
-                                    <div>
-                                        <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400" x-text="formResourceType.includes('ฐานข้อมูล') ? 'ชื่อฐานข้อมูล' : 'URL'"></label>
-                                        <input x-model="form.url" type="text" placeholder="เช่น https://thesis.example.ac.th/..."
-                                            class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
+                                    <div class="grid gap-3 sm:grid-cols-2">
+                                        <div x-show="formResourceType.includes('ฐานข้อมูล')">
+                                            <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">ชื่อฐานข้อมูล</label>
+                                            <input x-model="form.databaseName" type="text" placeholder="เช่น ProQuest Dissertations"
+                                                class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
+                                        </div>
+                                        <div x-show="formResourceType.includes('เว็บไซต์')">
+                                            <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">URL</label>
+                                            <input x-model="form.url" type="text" placeholder="เช่น https://thesis.example.ac.th/..."
+                                                class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
+                                        </div>
                                     </div>
                                 </template>
+                            </div>
+                        </div>
+                    </template>
+
+                    <template x-if="isMediaType()">
+                        <div class="space-y-5">
+                            <hr class="border-zinc-100 dark:border-zinc-800">
+                            <div class="space-y-3">
+                                <div class="flex items-center gap-2">
+                                    <span class="inline-flex size-6 items-center justify-center rounded-lg bg-fuchsia-100 text-fuchsia-600 dark:bg-fuchsia-500/10 dark:text-fuchsia-300">
+                                        <flux:icon name="play-circle" class="size-3.5" />
+                                    </span>
+                                    <h4 class="text-sm font-semibold text-zinc-800 dark:text-zinc-200">ข้อมูลสื่อ</h4>
+                                </div>
+                                <div class="grid gap-3 sm:grid-cols-2">
+                                    <div>
+                                        <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">รูปแบบสื่อ</label>
+                                        <input x-model="form.medium" type="text" placeholder="เช่น Video, Podcast, Infographic"
+                                            class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
+                                    </div>
+                                    <div>
+                                        <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">แพลตฟอร์ม / ช่องทาง</label>
+                                        <input x-model="form.platform" type="text" placeholder="เช่น YouTube, Spotify"
+                                            class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">URL</label>
+                                    <input x-model="form.url" type="text" placeholder="เช่น https://youtube.com/..."
+                                        class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+
+                    <template x-if="isAiType()">
+                        <div class="space-y-5">
+                            <hr class="border-zinc-100 dark:border-zinc-800">
+                            <div class="space-y-3">
+                                <div class="flex items-center gap-2">
+                                    <span class="inline-flex size-6 items-center justify-center rounded-lg bg-teal-100 text-teal-600 dark:bg-teal-500/10 dark:text-teal-300">
+                                        <flux:icon name="sparkles" class="size-3.5" />
+                                    </span>
+                                    <h4 class="text-sm font-semibold text-zinc-800 dark:text-zinc-200">ข้อมูลเนื้อหาที่สร้างโดย AI</h4>
+                                </div>
+                                <div class="grid gap-3 sm:grid-cols-2">
+                                    <div>
+                                        <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">แพลตฟอร์ม</label>
+                                        <input x-model="form.platform" type="text" placeholder="เช่น ChatGPT"
+                                            class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
+                                    </div>
+                                    <div>
+                                        <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">รุ่นโมเดล</label>
+                                        <input x-model="form.model" type="text" placeholder="เช่น GPT-5.4"
+                                            class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">Prompt / คำสั่งที่ใช้</label>
+                                    <textarea x-model="form.prompt" rows="3" placeholder="เช่น Summarize the impact of..."
+                                        class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500"></textarea>
+                                </div>
+                                <div>
+                                    <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">URL</label>
+                                    <input x-model="form.url" type="text" placeholder="เช่น https://chat.openai.com/"
+                                        class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
+                                </div>
                             </div>
                         </div>
                     </template>
