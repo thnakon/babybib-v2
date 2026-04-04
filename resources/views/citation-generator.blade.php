@@ -646,7 +646,7 @@
                                     <span class="hidden h-[18px] text-xs font-medium text-transparent lg:block">actions</span>
                                     <div class="flex gap-2">
                                         <button type="button"
-                                            x-on:click="navigator.clipboard.writeText(((displayMode === 'list' ? $refs.listView : (displayMode === 'citation' ? $refs.citationView : $refs.paperView)).innerText || '').trim()); copied = true; setTimeout(() => copied = false, 1800)"
+                                            x-on:click="copyCurrentView()"
                                             class="inline-flex h-10 items-center gap-2 rounded-xl border border-pink-200 bg-white px-3.5 text-sm font-medium text-zinc-700 transition hover:border-pink-300 hover:text-pink-700 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-200 dark:hover:border-pink-500 dark:hover:text-pink-200">
                                             <template x-if="!copied">
                                                 <flux:icon name="clipboard-document" class="size-4" />
@@ -1071,7 +1071,7 @@
                                     class="w-full max-w-3xl px-2 py-4">
                                     <ul class="space-y-4 text-[15px] leading-8 text-zinc-700 dark:text-zinc-300">
                                         <template x-for="entry in filteredCitations()" :key="'list-' + entry.id">
-                                            <li class="group flex items-start justify-between gap-4 rounded-2xl px-4 py-3 transition hover:bg-pink-50 hover:ring-1 hover:ring-pink-200 dark:hover:bg-pink-500/10 dark:hover:ring-pink-500/20">
+                                            <li class="group flex items-start justify-between gap-4 rounded-2xl border border-zinc-200 bg-white/95 px-4 py-3.5 shadow-sm shadow-zinc-200/50 transition hover:border-pink-300 hover:bg-pink-50 hover:shadow-pink-100/70 dark:border-zinc-700 dark:bg-zinc-950/90 dark:shadow-none dark:hover:border-pink-500/40 dark:hover:bg-pink-500/10">
                                                 <span class="min-w-0 flex-1 leading-8" x-text="entry.text"></span>
                                                 <div class="hidden shrink-0 items-center gap-1.5 group-hover:flex">
                                                     <flux:tooltip content="ดู">
@@ -1115,8 +1115,8 @@
                                     class="w-full max-w-3xl px-2 py-4">
                                     <ul class="space-y-4 text-[15px] leading-8 text-zinc-700 dark:text-zinc-300">
                                         <template x-for="entry in filteredCitations()" :key="'citation-' + entry.id">
-                                            <li class="group flex items-start justify-between gap-4 rounded-2xl px-4 py-3 transition hover:bg-pink-50 hover:ring-1 hover:ring-pink-200 dark:hover:bg-pink-500/10 dark:hover:ring-pink-500/20">
-                                                <span class="min-w-0 flex-1 leading-8" x-text="entry.text"></span>
+                                            <li class="group flex items-start justify-between gap-4 rounded-2xl border border-zinc-200 bg-white/95 px-4 py-3.5 shadow-sm shadow-zinc-200/50 transition hover:border-pink-300 hover:bg-pink-50 hover:shadow-pink-100/70 dark:border-zinc-700 dark:bg-zinc-950/90 dark:shadow-none dark:hover:border-pink-500/40 dark:hover:bg-pink-500/10">
+                                                <span class="min-w-0 flex-1 leading-8" x-text="entryNarrativePreview(entry)"></span>
                                                 <div class="hidden shrink-0 items-center gap-1.5 group-hover:flex">
                                                     <flux:tooltip content="ดู">
                                                         <button type="button" x-on:click="viewEntry(entry)"
@@ -1587,6 +1587,37 @@
                 toast(text, variant = 'success') {
                     window.Flux?.toast(text, { variant, position: 'bottom end' });
                 },
+                markCopied(entryId = null) {
+                    if (entryId !== null) {
+                        this.copiedEntryId = entryId;
+                        setTimeout(() => {
+                            if (this.copiedEntryId === entryId) this.copiedEntryId = null;
+                        }, 1800);
+                        return;
+                    }
+
+                    this.copied = true;
+                    setTimeout(() => {
+                        this.copied = false;
+                    }, 1800);
+                },
+                async writeClipboardPayload(text, html = '') {
+                    if (html && navigator.clipboard?.write && typeof ClipboardItem !== 'undefined') {
+                        try {
+                            await navigator.clipboard.write([
+                                new ClipboardItem({
+                                    'text/plain': new Blob([text], { type: 'text/plain' }),
+                                    'text/html': new Blob([html], { type: 'text/html' }),
+                                }),
+                            ]);
+                            return true;
+                        } catch (error) {
+                        }
+                    }
+
+                    await navigator.clipboard.writeText(text);
+                    return false;
+                },
                 escapeHtml(value) {
                     return String(value ?? '')
                         .replace(/&/g, '&amp;')
@@ -1597,6 +1628,14 @@
                 },
                 entryPaperPreview(entry) {
                     return entry?.paperHtml || this.escapeHtml(entry?.text || '');
+                },
+                paperEntryClipboardHtml(entry) {
+                    return `<p style="margin:0 0 0.75rem 0; line-height:2; padding-left:0.5in; text-indent:-0.5in;">${this.entryPaperPreview(entry)}</p>`;
+                },
+                paperViewClipboardHtml() {
+                    return this.filteredCitations()
+                        .map(entry => this.paperEntryClipboardHtml(entry))
+                        .join('');
                 },
                 projectNameById(projectId) {
                     return this.projectOptions.find(project => project.id === projectId)?.name || 'โครงการที่ยังไม่ระบุ';
@@ -1609,6 +1648,15 @@
                 },
                 entryNarrativeCitation(entry) {
                     return entry?.narrativeCitation || '-';
+                },
+                entryNarrativePreview(entry) {
+                    const narrative = String(entry?.narrativeCitation || '').trim();
+                    if (!narrative) return '-';
+
+                    return narrative
+                        .replace(/\s+(กล่าวว่า|stated that)\s*\.\.\.$/i, '')
+                        .replace(/\s+\.\.\.$/, '')
+                        .trim();
                 },
                 entryParentheticalCitation(entry) {
                     return entry?.parentheticalCitation || '-';
@@ -1950,13 +1998,31 @@
                     this.resetForm();
                     this.toast('เพิ่มรายการบรรณานุกรมเรียบร้อยแล้ว', 'success');
                 },
-                copyEntry(entry) {
-                    navigator.clipboard.writeText(entry.text).then(() => {
-                        this.copiedEntryId = entry.id;
-                        setTimeout(() => {
-                            if (this.copiedEntryId === entry.id) this.copiedEntryId = null;
-                        }, 1800);
-                    });
+                async copyCurrentView() {
+                    const targetRef = this.displayMode === 'list'
+                        ? this.$refs.listView
+                        : (this.displayMode === 'citation' ? this.$refs.citationView : this.$refs.paperView);
+                    const plainText = String(targetRef?.innerText || '').trim();
+
+                    if (!plainText) return;
+
+                    if (this.displayMode === 'paper') {
+                        await this.writeClipboardPayload(
+                            this.filteredCitations().map(entry => entry.text).join('\n\n'),
+                            this.paperViewClipboardHtml(),
+                        );
+                    } else {
+                        await this.writeClipboardPayload(plainText);
+                    }
+
+                    this.markCopied();
+                },
+                async copyEntry(entry) {
+                    await this.writeClipboardPayload(
+                        entry.text,
+                        this.paperEntryClipboardHtml(entry),
+                    );
+                    this.markCopied(entry.id);
                 },
                 viewEntry(entry) {
                     this.activeEntry = entry;
