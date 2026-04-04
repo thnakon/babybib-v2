@@ -45,6 +45,27 @@
         .paper-bibliography-font {
             font-family: 'Angsana New', serif;
         }
+
+        @keyframes recent-citation-pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(236, 72, 153, 0.28);
+                transform: translateY(0);
+            }
+
+            50% {
+                box-shadow: 0 0 0 12px rgba(236, 72, 153, 0);
+                transform: translateY(-2px);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(236, 72, 153, 0);
+                transform: translateY(0);
+            }
+        }
+
+        .recent-citation-entry {
+            animation: recent-citation-pulse 1.8s ease-out 2;
+        }
     </style>
 </head>
 
@@ -402,7 +423,7 @@
             </div>
 
             <div x-cloak x-show="projectModal" x-transition.opacity
-                class="fixed inset-0 z-50 flex items-center justify-center bg-zinc-950/40 px-4 backdrop-blur-sm">
+                class="fixed inset-0 z-[110] flex items-center justify-center bg-zinc-950/40 px-4 backdrop-blur-sm">
                 <div x-show="projectModal" x-transition
                     class="w-full max-w-lg rounded-[1.75rem] border border-pink-200 bg-white p-6 shadow-2xl shadow-pink-100/60 dark:border-zinc-700 dark:bg-zinc-900 dark:shadow-none">
                     <div class="flex items-start justify-between gap-4">
@@ -410,7 +431,7 @@
                             <h3 class="text-xl font-semibold text-zinc-900 dark:text-zinc-100" x-text="projectFormMode === 'create' ? 'สร้างโครงการใหม่' : 'แก้ไขโครงการ'"></h3>
                             <p class="text-sm text-zinc-500 dark:text-zinc-400">ตั้งชื่อและเลือกสไตล์ที่เหมาะกับโครงการของคุณ</p>
                         </div>
-                        <button type="button" x-on:click="projectModal = false"
+                        <button type="button" x-on:click="closeProjectModals()"
                             class="rounded-full p-2 text-zinc-400 transition hover:bg-zinc-100 hover:text-zinc-900 dark:hover:bg-zinc-800 dark:hover:text-zinc-100">
                             <flux:icon name="x-mark" class="size-5" />
                         </button>
@@ -483,7 +504,7 @@
                     </div>
 
                     <div class="mt-6 flex justify-end gap-3">
-                        <button type="button" x-on:click="projectModal = false"
+                        <button type="button" x-on:click="closeProjectModals()"
                             class="px-4 py-2 text-sm font-medium text-zinc-500 transition hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100">
                             ยกเลิก
                         </button>
@@ -499,7 +520,7 @@
             </div>
 
             <div x-cloak x-show="deleteProjectModal" x-transition.opacity
-                class="fixed inset-0 z-50 flex items-center justify-center bg-zinc-950/40 px-4 backdrop-blur-sm">
+                class="fixed inset-0 z-[110] flex items-center justify-center bg-zinc-950/40 px-4 backdrop-blur-sm">
                 <div x-show="deleteProjectModal" x-transition
                     class="w-full max-w-md rounded-[1.75rem] border border-rose-200 bg-white p-6 shadow-2xl shadow-rose-100/60 dark:border-zinc-700 dark:bg-zinc-900 dark:shadow-none">
                     <div class="flex items-start justify-between gap-4">
@@ -509,7 +530,7 @@
                                 พิมพ์ชื่อโครงการให้ตรงเพื่อยืนยันการลบอย่างถาวร
                             </p>
                         </div>
-                        <button type="button" x-on:click="deleteProjectModal = false; projectToDelete = null; deleteConfirmationName = ''"
+                        <button type="button" x-on:click="closeProjectModals()"
                             class="rounded-full p-2 text-zinc-400 transition hover:bg-zinc-100 hover:text-zinc-900 dark:hover:bg-zinc-800 dark:hover:text-zinc-100">
                             <flux:icon name="x-mark" class="size-5" />
                         </button>
@@ -528,7 +549,7 @@
                     </div>
 
                     <div class="mt-6 flex justify-end gap-3">
-                        <button type="button" x-on:click="deleteProjectModal = false; projectToDelete = null; deleteConfirmationName = ''"
+                        <button type="button" x-on:click="closeProjectModals()"
                             class="px-4 py-2 text-sm font-medium text-zinc-500 transition hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100">
                             ยกเลิก
                         </button>
@@ -548,8 +569,11 @@
                     class="lg:col-span-6">
                     <div class="flex min-h-[calc(100vh-8rem)] flex-col pr-2">
                         <div class="mx-auto w-full max-w-3xl space-y-3">
-                            <div class="group relative">
-                                <div class="absolute left-4 -top-1 z-10 flex -translate-y-1/2 items-center gap-3 bg-white px-1 dark:bg-zinc-900">
+                            <div class="group relative" x-on:click.outside="closeSmartSearch()">
+                                <div x-cloak x-show="smartSearchOpen && (smartSearchLoading || smartSearchResults.length)" x-transition.opacity
+                                    x-on:click="closeSmartSearch()"
+                                    class="fixed inset-0 z-30 bg-zinc-950/12 backdrop-blur-[3px] dark:bg-zinc-950/30"></div>
+                                <div class="absolute left-4 top-0 z-50 -translate-y-1/2 flex items-center gap-3 rounded-full bg-white px-3 py-1 dark:bg-zinc-900">
                                     <button type="button" x-on:click="modalOpen = true"
                                         class="inline-flex items-center gap-2 rounded-full bg-pink-600 px-3.5 py-1.5 text-xs font-semibold text-white shadow-sm shadow-pink-500/20 transition hover:bg-pink-700 hover:shadow-md hover:shadow-pink-500/25 focus:outline-none focus:ring-2 focus:ring-pink-500/20 dark:bg-pink-500 dark:hover:bg-pink-400"
                                         aria-label="เปิดฟอร์มกรอกข้อมูลเอง">
@@ -557,44 +581,114 @@
                                         <span>สร้างรายการอ้างอิง</span>
                                     </button>
 
-                                    <button type="button" x-on:click="setQuickFilter('เว็บเพจ')"
+                                    <button type="button" x-on:click="setQuickFilter('website')"
                                         class="relative border-b-2 pb-1 text-xs font-medium transition"
-                                        x-bind:class="activeQuickFilter === 'เว็บเพจ'
+                                        x-bind:class="activeQuickFilter === 'website'
                                             ? 'border-pink-500 text-zinc-900 dark:border-pink-500 dark:text-zinc-100'
                                             : 'border-transparent text-zinc-500 hover:border-pink-400 hover:text-zinc-900 dark:border-transparent dark:text-zinc-400 dark:hover:border-pink-500 dark:hover:text-zinc-100'">
-                                        เว็บเพจ
+                                        เว็บไชต์
                                     </button>
 
-                                    <button type="button" x-on:click="setQuickFilter('หนังสือ')"
+                                    <button type="button" x-on:click="setQuickFilter('book')"
                                         class="relative border-b-2 pb-1 text-xs font-medium transition"
-                                        x-bind:class="activeQuickFilter === 'หนังสือ'
+                                        x-bind:class="activeQuickFilter === 'book'
                                             ? 'border-pink-500 text-zinc-900 dark:border-pink-500 dark:text-zinc-100'
                                             : 'border-transparent text-zinc-500 hover:border-pink-400 hover:text-zinc-900 dark:border-transparent dark:text-zinc-400 dark:hover:border-pink-500 dark:hover:text-zinc-100'">
                                         หนังสือ
                                     </button>
 
-                                    <button type="button" x-on:click="setQuickFilter('บทความ')"
+                                    <button type="button" x-on:click="setQuickFilter('article')"
                                         class="relative border-b-2 pb-1 text-xs font-medium transition"
-                                        x-bind:class="activeQuickFilter === 'บทความ'
+                                        x-bind:class="activeQuickFilter === 'article'
                                             ? 'border-pink-500 text-zinc-900 dark:border-pink-500 dark:text-zinc-100'
                                             : 'border-transparent text-zinc-500 hover:border-pink-400 hover:text-zinc-900 dark:border-transparent dark:text-zinc-400 dark:hover:border-pink-500 dark:hover:text-zinc-100'">
                                         บทความ
                                     </button>
                                 </div>
                                 <div
-                                    class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-zinc-400 transition-colors group-focus-within:text-zinc-600 dark:group-focus-within:text-zinc-200">
-                                    <flux:icon name="magnifying-glass" class="size-5" />
+                                    class="pointer-events-none absolute inset-y-0 left-0 z-50 flex items-center pl-4 transition-colors group-focus-within:text-zinc-600 dark:group-focus-within:text-zinc-200">
+                                    <span class="relative inline-flex size-8 items-center justify-center text-pink-500 dark:text-pink-300">
+                                        <flux:icon name="magnifying-glass" class="size-4.5" />
+                                    </span>
                                 </div>
-                                <input x-model="smartQuery" type="text"
-                                    placeholder="ค้นหาประเภทอ้างอิง ผู้แต่ง DOI หรือคำสำคัญ..."
-                                    class="w-full rounded-2xl border border-pink-200 bg-white py-3.5 pl-12 pr-28 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500 dark:focus:ring-pink-500/10">
-                                <div class="absolute right-3 -top-1 -translate-y-1/2">
+                                <input x-ref="smartSearchInput" x-model="smartQuery" type="text"
+                                    x-on:input="queueSmartSearch()"
+                                    x-on:focus="handleSmartSearchFocus()"
+                                    x-on:keydown.escape.prevent="closeSmartSearch()"
+                                    x-on:keydown.enter.prevent="openFirstSmartSearchResult()"
+                                    x-bind:placeholder="smartSearchPlaceholder()"
+                                    class="relative z-40 w-full rounded-2xl border border-pink-200 bg-white py-3.5 pl-16 pr-12 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500 dark:focus:ring-pink-500/10">
+                                <div x-cloak x-show="smartSearchLoading"
+                                    class="pointer-events-none absolute inset-y-0 right-4 z-40 flex items-center text-pink-500 dark:text-pink-300">
+                                    <flux:icon name="arrow-path" class="size-4 animate-spin" />
+                                </div>
+                                <div class="absolute right-3 -top-1 z-40 -translate-y-1/2">
                                     <a href="{{ url('/manual') }}"
                                         class="inline-flex items-center gap-1.5 bg-white px-1 text-[11px] font-medium text-pink-400 transition hover:text-pink-600 focus:outline-none focus:ring-2 focus:ring-pink-500/20 dark:bg-zinc-900 dark:text-pink-300 dark:hover:text-pink-200"
                                         aria-label="เปิดหน้าช่วยเหลือ">
                                         <flux:icon name="question-mark-circle" class="size-3.5" />
                                         ช่วยเหลือ
                                     </a>
+                                </div>
+
+                                <div x-cloak x-show="smartSearchOpen && smartQuery.trim()" x-transition.opacity.origin.top
+                                    class="absolute inset-x-0 top-full z-50 mt-3 overflow-hidden rounded-[1.5rem] border border-pink-200 bg-white/95 shadow-2xl shadow-pink-100/60 backdrop-blur dark:border-zinc-700 dark:bg-zinc-950/95 dark:shadow-none">
+                                    
+
+                                    <div class="custom-scrollbar max-h-[24rem] overflow-y-auto p-2">
+                                        <template x-if="smartSearchLoading">
+                                            <div class="flex items-center gap-3 rounded-2xl px-4 py-4 text-sm text-zinc-500 dark:text-zinc-400">
+                                                <span class="inline-flex size-10 items-center justify-center rounded-2xl bg-pink-50 text-pink-500 dark:bg-pink-500/10 dark:text-pink-300">
+                                                    <flux:icon name="arrow-path" class="size-4 animate-spin" />
+                                                </span>
+                                                <div>
+                                                    <p class="font-medium text-zinc-700 dark:text-zinc-200" x-text="smartSearchLoadingTitle()"></p>
+                                                    <p class="text-xs" x-text="smartSearchLoadingDescription()"></p>
+                                                </div>
+                                            </div>
+                                        </template>
+
+                                        <template x-if="!smartSearchLoading && smartSearchResults.length">
+                                            <div class="space-y-1.5">
+                                                <template x-for="result in smartSearchResults" :key="result.key">
+                                                    <button type="button" x-on:click="openSmartSearchResult(result)"
+                                                        class="flex w-full items-start gap-3 rounded-2xl border border-transparent px-3 py-3 text-left transition hover:border-pink-200 hover:bg-pink-50 dark:hover:border-pink-500/30 dark:hover:bg-pink-500/10">
+                                                        <span class="inline-flex size-10 shrink-0 items-center justify-center rounded-2xl border text-xs font-semibold"
+                                                            x-bind:class="result.accentClass">
+                                                            <flux:icon x-show="result.icon === 'book-open'" name="book-open" class="size-4" />
+                                                            <flux:icon x-show="result.icon === 'document-text'" name="document-text" class="size-4" />
+                                                            <flux:icon x-show="result.icon === 'academic-cap'" name="academic-cap" class="size-4" />
+                                                            <flux:icon x-show="result.icon === 'globe-alt'" name="globe-alt" class="size-4" />
+                                                        </span>
+                                                        <span class="min-w-0 flex-1">
+                                                            <span class="flex flex-wrap items-center gap-2">
+                                                                <span class="text-sm font-semibold text-zinc-800 dark:text-zinc-100" x-text="result.title"></span>
+                                                                <span class="rounded-full bg-zinc-100 px-2.5 py-1 text-[11px] font-medium text-zinc-500 dark:bg-zinc-800 dark:text-zinc-300" x-text="result.formatLabel"></span>
+                                                            </span>
+                                                            <span class="mt-1 block text-xs font-medium text-pink-600 dark:text-pink-300" x-text="result.matchLabel"></span>
+                                                            <span class="mt-1 block text-xs leading-5 text-zinc-700 dark:text-zinc-200" x-text="result.authorLine"></span>
+                                                            <span class="mt-1 block text-xs leading-5 text-zinc-500 dark:text-zinc-400" x-text="result.metadataLine"></span>
+                                                            <span class="mt-1 block text-[11px] leading-5 text-zinc-400 dark:text-zinc-500" x-text="result.preview"></span>
+                                                        </span>
+                                                        <flux:icon name="arrow-up-right" class="mt-1 size-4 shrink-0 text-zinc-300 dark:text-zinc-600" />
+                                                    </button>
+                                                </template>
+                                            </div>
+                                        </template>
+
+                                        <template x-if="!smartSearchLoading && !smartSearchResults.length">
+                                            <div class="rounded-[1.25rem] border border-dashed border-pink-200 bg-pink-50/60 px-4 py-5 text-center dark:border-zinc-700 dark:bg-zinc-900/70">
+                                                <p class="text-sm font-semibold text-zinc-800 dark:text-zinc-100" x-text="smartSearchEmptyTitle()"></p>
+                                                <p class="mt-1 text-xs leading-5 text-zinc-500 dark:text-zinc-400" x-text="smartSearchEmptyDescription()"></p>
+                                                <button type="button" x-on:click="openManualResourceFormFromSearch()"
+                                                    class="mt-4 inline-flex items-center gap-2 rounded-full border border-pink-200 bg-white px-4 py-2 text-xs font-medium text-pink-600 transition hover:border-pink-300 hover:text-pink-700 dark:border-zinc-700 dark:bg-zinc-950 dark:text-pink-300 dark:hover:border-pink-500">
+                                                    <flux:icon x-show="activeQuickFilter !== 'website'" name="book-open" class="size-3.5" />
+                                                    <flux:icon x-show="activeQuickFilter === 'website'" name="globe-alt" class="size-3.5" />
+                                                    <span x-text="smartSearchManualActionLabel()"></span>
+                                                </button>
+                                            </div>
+                                        </template>
+                                    </div>
                                 </div>
                             </div>
 
@@ -1016,6 +1110,40 @@
                             </div>
                         </div>
 
+                        <div x-cloak x-show="deleteEntryModalOpen" x-transition.opacity
+                            class="fixed inset-0 z-[70] flex items-center justify-center bg-zinc-950/50 px-4 py-6 backdrop-blur-sm">
+                            <div x-show="deleteEntryModalOpen" x-transition
+                                class="w-full max-w-2xl rounded-[2rem] border border-rose-200 bg-white p-6 shadow-2xl shadow-rose-100/60 dark:border-zinc-700 dark:bg-zinc-900 dark:shadow-none">
+                                <div class="flex items-start justify-between gap-4">
+                                    <div class="space-y-1">
+                                        <h3 class="text-xl font-semibold text-zinc-900 dark:text-zinc-100">ลบรายการบรรณานุกรม</h3>
+                                        <p class="text-sm text-zinc-500 dark:text-zinc-400">ยืนยันการลบรายการนี้ออกจากโครงการปัจจุบัน</p>
+                                    </div>
+                                    <button type="button" x-on:click="closeEntryModals()"
+                                        class="rounded-full p-2 text-zinc-400 transition hover:bg-zinc-100 hover:text-zinc-900 dark:hover:bg-zinc-800 dark:hover:text-zinc-100">
+                                        <flux:icon name="x-mark" class="size-5" />
+                                    </button>
+                                </div>
+
+                                <div class="mt-5 rounded-3xl border border-rose-200 bg-rose-50/80 p-4 dark:border-rose-500/20 dark:bg-rose-500/10">
+                                    <p class="text-xs font-semibold uppercase tracking-[0.18em] text-rose-500 dark:text-rose-300">รายการที่จะถูกลบ</p>
+                                    <p class="mt-2 text-sm leading-7 text-zinc-700 dark:text-zinc-200" x-text="activeEntry?.text || '-' "></p>
+                                </div>
+
+                                <div class="mt-6 flex justify-end gap-3">
+                                    <button type="button" x-on:click="closeEntryModals()"
+                                        class="px-4 py-2 text-sm font-medium text-zinc-500 transition hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100">
+                                        ยกเลิก
+                                    </button>
+                                    <button type="button" x-on:click="confirmDeleteEntry()"
+                                        class="inline-flex items-center gap-2 rounded-full bg-rose-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-rose-700 dark:bg-rose-500 dark:hover:bg-rose-400">
+                                        <flux:icon name="trash" class="size-4" />
+                                        ลบรายการ
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="flex flex-1 justify-center pt-6 lg:pt-6">
                             <template x-if="displayMode === 'paper'">
                                 <div x-ref="paperView"
@@ -1026,7 +1154,8 @@
                                         </div>
                                         <div class="paper-bibliography-font space-y-0 text-[16px] leading-[2] text-zinc-700 dark:text-zinc-300">
                                             <template x-for="entry in filteredCitations()" :key="'paper-' + entry.id">
-                                                <div class="group relative rounded-2xl px-3 py-1.5 transition hover:bg-pink-50 hover:ring-1 hover:ring-pink-200 dark:hover:bg-pink-500/10 dark:hover:ring-pink-500/20">
+                                                <div x-bind:data-entry-id="entry.id" class="group relative rounded-2xl px-3 py-1.5 transition hover:bg-pink-50 hover:ring-1 hover:ring-pink-200 dark:hover:bg-pink-500/10 dark:hover:ring-pink-500/20"
+                                                    x-bind:class="entryCardClasses(entry, 'paper')">
                                                     <p class="thai-distributed" style="padding-left: 0.5in; text-indent: -0.5in; line-height: 2;" x-html="entry.paperHtml || entry.text"></p>
                                                     <div class="absolute right-3 top-3 hidden items-center gap-2 rounded-full bg-white/95 px-2 py-1.5 shadow-sm ring-1 ring-pink-200 group-hover:flex dark:bg-zinc-950/95 dark:ring-pink-500/20">
                                                         <flux:tooltip content="ดู">
@@ -1058,6 +1187,13 @@
                                                                 <flux:icon name="folder-open" class="size-4" />
                                                             </button>
                                                         </flux:tooltip>
+                                                        <flux:tooltip content="ลบ">
+                                                            <button type="button" x-on:click="requestDeleteEntry(entry)"
+                                                                class="inline-flex size-8 items-center justify-center rounded-full text-zinc-500 transition hover:bg-rose-100 hover:text-rose-700 dark:text-zinc-400 dark:hover:bg-rose-500/10 dark:hover:text-rose-300"
+                                                                aria-label="ลบรายการ">
+                                                                <flux:icon name="trash" class="size-4" />
+                                                            </button>
+                                                        </flux:tooltip>
                                                     </div>
                                                 </div>
                                             </template>
@@ -1071,7 +1207,8 @@
                                     class="w-full max-w-3xl px-2 py-4">
                                     <ul class="space-y-4 text-[15px] leading-8 text-zinc-700 dark:text-zinc-300">
                                         <template x-for="entry in filteredCitations()" :key="'list-' + entry.id">
-                                            <li class="group flex items-start justify-between gap-4 rounded-2xl border border-zinc-200 bg-white/95 px-4 py-3.5 shadow-sm shadow-zinc-200/50 transition hover:border-pink-300 hover:bg-pink-50 hover:shadow-pink-100/70 dark:border-zinc-700 dark:bg-zinc-950/90 dark:shadow-none dark:hover:border-pink-500/40 dark:hover:bg-pink-500/10">
+                                            <li x-bind:data-entry-id="entry.id" class="group flex items-start justify-between gap-4 rounded-2xl border border-zinc-200 bg-white/95 px-4 py-3.5 shadow-sm shadow-zinc-200/50 transition hover:border-pink-300 hover:bg-pink-50 hover:shadow-pink-100/70 dark:border-zinc-700 dark:bg-zinc-950/90 dark:shadow-none dark:hover:border-pink-500/40 dark:hover:bg-pink-500/10"
+                                                x-bind:class="entryCardClasses(entry, 'list')">
                                                 <span class="min-w-0 flex-1 leading-8" x-text="entry.text"></span>
                                                 <div class="hidden shrink-0 items-center gap-1.5 group-hover:flex">
                                                     <flux:tooltip content="ดู">
@@ -1103,6 +1240,13 @@
                                                             <flux:icon name="folder-open" class="size-4" />
                                                         </button>
                                                     </flux:tooltip>
+                                                    <flux:tooltip content="ลบ">
+                                                        <button type="button" x-on:click="requestDeleteEntry(entry)"
+                                                            class="inline-flex size-8 items-center justify-center rounded-full text-zinc-500 transition hover:bg-rose-100 hover:text-rose-700 dark:text-zinc-400 dark:hover:bg-rose-500/10 dark:hover:text-rose-300"
+                                                            aria-label="ลบรายการ">
+                                                            <flux:icon name="trash" class="size-4" />
+                                                        </button>
+                                                    </flux:tooltip>
                                                 </div>
                                             </li>
                                         </template>
@@ -1115,7 +1259,8 @@
                                     class="w-full max-w-3xl px-2 py-4">
                                     <ul class="space-y-4 text-[15px] leading-8 text-zinc-700 dark:text-zinc-300">
                                         <template x-for="entry in filteredCitations()" :key="'citation-' + entry.id">
-                                            <li class="group flex items-start justify-between gap-4 rounded-2xl border border-zinc-200 bg-white/95 px-4 py-3.5 shadow-sm shadow-zinc-200/50 transition hover:border-pink-300 hover:bg-pink-50 hover:shadow-pink-100/70 dark:border-zinc-700 dark:bg-zinc-950/90 dark:shadow-none dark:hover:border-pink-500/40 dark:hover:bg-pink-500/10">
+                                            <li x-bind:data-entry-id="entry.id" class="group flex items-start justify-between gap-4 rounded-2xl border border-zinc-200 bg-white/95 px-4 py-3.5 shadow-sm shadow-zinc-200/50 transition hover:border-pink-300 hover:bg-pink-50 hover:shadow-pink-100/70 dark:border-zinc-700 dark:bg-zinc-950/90 dark:shadow-none dark:hover:border-pink-500/40 dark:hover:bg-pink-500/10"
+                                                x-bind:class="entryCardClasses(entry, 'citation')">
                                                 <span class="min-w-0 flex-1 leading-8" x-text="entryNarrativePreview(entry)"></span>
                                                 <div class="hidden shrink-0 items-center gap-1.5 group-hover:flex">
                                                     <flux:tooltip content="ดู">
@@ -1145,6 +1290,13 @@
                                                             class="inline-flex size-8 items-center justify-center rounded-full text-zinc-500 transition hover:bg-pink-100 hover:text-pink-700 dark:text-zinc-400 dark:hover:bg-pink-500/10 dark:hover:text-pink-200"
                                                             aria-label="ย้ายโปรเจค">
                                                             <flux:icon name="folder-open" class="size-4" />
+                                                        </button>
+                                                    </flux:tooltip>
+                                                    <flux:tooltip content="ลบ">
+                                                        <button type="button" x-on:click="requestDeleteEntry(entry)"
+                                                            class="inline-flex size-8 items-center justify-center rounded-full text-zinc-500 transition hover:bg-rose-100 hover:text-rose-700 dark:text-zinc-400 dark:hover:bg-rose-500/10 dark:hover:text-rose-300"
+                                                            aria-label="ลบรายการ">
+                                                            <flux:icon name="trash" class="size-4" />
                                                         </button>
                                                     </flux:tooltip>
                                                 </div>
@@ -1230,16 +1382,25 @@
                         },
                     }));
                 },
+                closeProjectModals() {
+                    this.projectModal = false;
+                    this.deleteProjectModal = false;
+                    this.projectToDelete = null;
+                    this.deleteConfirmationName = '';
+                },
                 projectButtonClass(color) {
                     return this.projectColors.find(option => option.value === color)?.button || 'bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900';
                 },
                 openCreateProjectModal() {
+                    this.closeProjectModals();
                     this.projectFormMode = 'create';
                     this.editingProjectId = null;
                     this.projectForm = { name: '', color: 'zinc', icon: 'folder' };
+                    this.projectMenuOpen = null;
                     this.projectModal = true;
                 },
                 openEditProjectModal(project) {
+                    this.closeProjectModals();
                     this.projectFormMode = 'edit';
                     this.editingProjectId = project.id;
                     this.projectForm = { name: project.name, color: project.color, icon: project.icon };
@@ -1253,6 +1414,7 @@
                         return;
                     }
 
+                    this.closeProjectModals();
                     this.projectToDelete = project;
                     this.deleteConfirmationName = '';
                     this.projectMenuOpen = null;
@@ -1273,7 +1435,7 @@
                             icon: this.projectForm.icon,
                         });
                         this.activeProject = nextId;
-                        this.projectModal = false;
+                        this.closeProjectModals();
                         this.broadcastProjects();
                         this.toast('สร้างโครงการใหม่เรียบร้อยแล้ว', 'success');
                         return;
@@ -1288,7 +1450,7 @@
                     project.name = this.projectForm.name.trim();
                     project.color = this.projectForm.color;
                     project.icon = this.projectForm.icon;
-                    this.projectModal = false;
+                    this.closeProjectModals();
                     this.broadcastProjects();
                     this.toast('อัปเดตโครงการเรียบร้อยแล้ว', 'success');
                 },
@@ -1329,9 +1491,7 @@
                     if (this.activeProject === deletedProjectId) {
                         this.activeProject = this.projects[0]?.id ?? null;
                     }
-                    this.deleteProjectModal = false;
-                    this.projectToDelete = null;
-                    this.deleteConfirmationName = '';
+                    this.closeProjectModals();
                     this.broadcastProjects();
                     this.toast('ลบโครงการ ' + deletedProjectName + ' เรียบร้อยแล้ว', 'danger');
                 },
@@ -1341,9 +1501,108 @@
         window.citationGeneratorPage = function () {
             return {
                 smartQuery: '',
+                smartSearchMockBooks: [
+                    {
+                        id: 'mock-book-1',
+                        category: 'book',
+                        resourceType: 'หนังสืออิเล็กทรอนิกส์ (มี DOI)',
+                        accent: 'rose',
+                        icon: 'book-open',
+                        title: 'การเขียนบรรณานุกรมสำหรับงานวิจัยสมัยใหม่',
+                        subtitle: 'คู่มือเริ่มต้นสำหรับนักศึกษาไทย',
+                        authors: [{ lastName: 'สุริยา', firstName: 'กนกวรรณ' }],
+                        authorLine: 'กนกวรรณ สุริยา',
+                        year: '2567',
+                        publisher: 'สำนักพิมพ์มหาวิทยาลัยธรรมศาสตร์',
+                        isbn: '9786163987654',
+                        doi: '10.5555/babybib.2026.011',
+                        url: 'https://library.example.org/books/bibliography-modern-research',
+                        formatLabel: 'หนังสือพร้อม DOI',
+                        keywords: ['ก', 'บรรณานุกรม', 'งานวิจัย', 'apa'],
+                    },
+                    {
+                        id: 'mock-book-2',
+                        category: 'book',
+                        resourceType: 'หนังสือ',
+                        accent: 'amber',
+                        icon: 'book-open',
+                        title: 'กลยุทธ์การค้นคว้าและสืบค้นแหล่งอ้างอิง',
+                        subtitle: 'จาก keyword สู่รายการบรรณานุกรม',
+                        authors: [{ lastName: 'พิพัฒน์', firstName: 'ธนกร' }],
+                        authorLine: 'ธนกร พิพัฒน์',
+                        year: '2566',
+                        publisher: 'สำนักพิมพ์จุฬาลงกรณ์มหาวิทยาลัย',
+                        isbn: '9786164123451',
+                        doi: '',
+                        url: 'https://library.example.org/books/source-discovery-strategies',
+                        formatLabel: 'หนังสือ',
+                        keywords: ['ก', 'ค้นคว้า', 'สืบค้น', 'อ้างอิง'],
+                    },
+                    {
+                        id: 'mock-book-3',
+                        category: 'article',
+                        resourceType: 'บทความวารสารอิเล็กทรอนิกส์ (มี DOI)',
+                        accent: 'violet',
+                        icon: 'document-text',
+                        title: 'การอ้างอิงบทความดิจิทัลด้วย DOI อย่างถูกต้อง',
+                        subtitle: 'ตัวอย่างบทความวารสารสำหรับงานวิชาการภาษาไทย',
+                        authors: [{ lastName: 'ศรีอรุณ', firstName: 'ปาริชาติ' }],
+                        authorLine: 'ปาริชาติ ศรีอรุณ',
+                        year: '2568',
+                        publisher: 'วารสารสารสนเทศศึกษา',
+                        isbn: '9786164556789',
+                        doi: '10.5555/babybib.2026.014',
+                        url: 'https://journal.example.org/articles/doi-citation-guide',
+                        formatLabel: 'บทความ',
+                        keywords: ['บทความ', 'doi', 'วารสาร', 'apa 7'],
+                    },
+                    {
+                        id: 'mock-book-4',
+                        category: 'website',
+                        resourceType: 'เอกสารอิเล็กทรอนิกส์ (เว็บเพจ)',
+                        accent: 'sky',
+                        icon: 'globe-alt',
+                        title: 'คู่มือการอ้างอิงเว็บไซต์สำหรับงานวิชาการ',
+                        subtitle: 'หน้าเว็บตัวอย่างสำหรับการคัดลอก URL ไปสร้างบรรณานุกรม',
+                        authors: [{ lastName: 'Babybib', firstName: 'Editorial Team' }],
+                        authorLine: 'Babybib Editorial Team',
+                        year: '2026',
+                        publisher: 'babybib-v2.js Docs',
+                        isbn: '9786164999120',
+                        doi: '',
+                        url: 'https://docs.babybib.app/web-citation-guide',
+                        formatLabel: 'เว็บไซต์',
+                        keywords: ['เว็บไซต์', 'url', 'เว็บ', 'แหล่งข้อมูลออนไลน์'],
+                    },
+                    {
+                        id: 'mock-book-5',
+                        category: 'article',
+                        resourceType: 'บทความวารสาร',
+                        accent: 'emerald',
+                        icon: 'academic-cap',
+                        title: 'Digital Source Attribution for Student Research',
+                        subtitle: 'Sample journal article for metadata-driven citation workflows',
+                        authors: [{ lastName: 'Adams', firstName: 'Rachel T.' }],
+                        authorLine: 'Rachel T. Adams',
+                        year: '2025',
+                        publisher: 'Journal of Educational Technology',
+                        isbn: '9781037001124',
+                        doi: '10.5555/babybib.2026.021',
+                        url: 'https://journal.example.org/articles/digital-source-attribution',
+                        formatLabel: 'บทความวิจัย',
+                        keywords: ['article', 'metadata', 'citation', 'research', 'digital'],
+                    },
+                ],
+                smartSearchResults: [],
+                smartSearchLoading: false,
+                smartSearchOpen: false,
+                smartSearchTimer: null,
+                smartSearchRequestId: 0,
                 selectedType: '',
                 activeQuickFilter: '',
                 copiedEntryId: null,
+                recentlyAddedEntryId: null,
+                recentEntryTimer: null,
                 modalOpen: false,
                 modalSearch: '',
                 copied: false,
@@ -1354,6 +1613,7 @@
                 detailModalOpen: false,
                 editModalOpen: false,
                 moveModalOpen: false,
+                deleteEntryModalOpen: false,
                 formResourceType: '',
                 activeEntry: null,
                 editEntryDraft: null,
@@ -1587,6 +1847,310 @@
                 toast(text, variant = 'success') {
                     window.Flux?.toast(text, { variant, position: 'bottom end' });
                 },
+                normalizeSmartSearchText(value) {
+                    return String(value ?? '')
+                        .toLowerCase()
+                        .trim();
+                },
+                normalizeSmartSearchIdentifier(value) {
+                    return String(value ?? '')
+                        .toLowerCase()
+                        .replace(/[\s-]+/g, '')
+                        .trim();
+                },
+                smartSearchPlaceholder() {
+                    if (this.activeQuickFilter === 'website') return 'กรอก URL ของเว็บไชต์ หรือชื่อหน้าเว็บที่ต้องการอ้างอิง...';
+                    if (this.activeQuickFilter === 'book') return 'กรอกชื่อหนังสือ, ISBN หรือชื่อผู้แต่ง...';
+                    if (this.activeQuickFilter === 'article') return 'กรอกชื่อบทความ, DOI หรือชื่อวารสาร...';
+
+                    return 'ค้นหาชื่อหนังสือ, ISBN, DOI หรือวาง URL...';
+                },
+                smartSearchCategoryLabel() {
+                    return {
+                        website: 'เว็บไชต์',
+                        book: 'หนังสือ',
+                        article: 'บทความ',
+                    }[this.activeQuickFilter] || 'ทรัพยากร';
+                },
+                smartSearchLoadingTitle() {
+                    return `กำลังค้นหา${this.smartSearchCategoryLabel()}ตัวอย่าง`;
+                },
+                smartSearchLoadingDescription() {
+                    if (this.activeQuickFilter === 'website') return 'ระบบกำลังจับคู่ URL และชื่อหน้าเว็บกับข้อมูล mockup';
+                    if (this.activeQuickFilter === 'article') return 'ระบบกำลังจับคู่ชื่อบทความ, DOI และชื่อวารสารกับข้อมูล mockup';
+                    if (this.activeQuickFilter === 'book') return 'ระบบกำลังจับคู่ชื่อหนังสือ, ISBN และผู้แต่งกับข้อมูล mockup';
+
+                    return 'ระบบกำลังจับคู่ชื่อหนังสือ, ISBN, DOI และ URL กับข้อมูล mockup';
+                },
+                smartSearchEmptyTitle() {
+                    return `ยังไม่พบ${this.smartSearchCategoryLabel()}ตัวอย่างที่ตรงกับคำค้น`;
+                },
+                smartSearchEmptyDescription() {
+                    if (this.activeQuickFilter === 'website') return 'ลองกรอก URL ของเว็บไชต์ให้ครบ หรือพิมพ์ชื่อหน้าเว็บที่ต้องการอ้างอิง';
+                    if (this.activeQuickFilter === 'article') return 'ลองกรอกชื่อบทความ, DOI หรือชื่อวารสารให้ชัดขึ้น';
+                    if (this.activeQuickFilter === 'book') return 'ลองกรอกชื่อหนังสือ, ISBN หรือชื่อผู้แต่งให้ชัดขึ้น';
+
+                    return 'ลองพิมพ์ชื่อหนังสือให้ชัดขึ้น หรือค้นด้วย ISBN, DOI, URL เช่น ก, 978..., 10....';
+                },
+                smartSearchManualActionLabel() {
+                    if (this.activeQuickFilter === 'website') return 'กรอกข้อมูลเว็บไชต์เอง';
+                    if (this.activeQuickFilter === 'article') return 'กรอกข้อมูลบทความเอง';
+
+                    return 'กรอกข้อมูลหนังสือเอง';
+                },
+                smartSearchAccentClass(accent) {
+                    return {
+                        amber: 'border-amber-200 bg-amber-50 text-amber-600 dark:border-amber-500/30 dark:bg-amber-500/10 dark:text-amber-300',
+                        sky: 'border-sky-200 bg-sky-50 text-sky-600 dark:border-sky-500/30 dark:bg-sky-500/10 dark:text-sky-300',
+                        emerald: 'border-emerald-200 bg-emerald-50 text-emerald-600 dark:border-emerald-500/30 dark:bg-emerald-500/10 dark:text-emerald-300',
+                        rose: 'border-rose-200 bg-rose-50 text-rose-600 dark:border-rose-500/30 dark:bg-rose-500/10 dark:text-rose-300',
+                        violet: 'border-violet-200 bg-violet-50 text-violet-600 dark:border-violet-500/30 dark:bg-violet-500/10 dark:text-violet-300',
+                        orange: 'border-orange-200 bg-orange-50 text-orange-600 dark:border-orange-500/30 dark:bg-orange-500/10 dark:text-orange-300',
+                        indigo: 'border-indigo-200 bg-indigo-50 text-indigo-600 dark:border-indigo-500/30 dark:bg-indigo-500/10 dark:text-indigo-300',
+                        cyan: 'border-cyan-200 bg-cyan-50 text-cyan-600 dark:border-cyan-500/30 dark:bg-cyan-500/10 dark:text-cyan-300',
+                        fuchsia: 'border-fuchsia-200 bg-fuchsia-50 text-fuchsia-600 dark:border-fuchsia-500/30 dark:bg-fuchsia-500/10 dark:text-fuchsia-300',
+                    }[accent] || 'border-teal-200 bg-teal-50 text-teal-600 dark:border-teal-500/30 dark:bg-teal-500/10 dark:text-teal-300';
+                },
+                handleSmartSearchFocus() {
+                    if (!this.smartQuery.trim()) return;
+
+                    this.smartSearchOpen = true;
+                    if (!this.smartSearchResults.length) {
+                        this.queueSmartSearch();
+                    }
+                },
+                closeSmartSearch() {
+                    this.smartSearchOpen = false;
+                    this.smartSearchLoading = false;
+                    if (this.smartSearchTimer) {
+                        clearTimeout(this.smartSearchTimer);
+                    }
+                },
+                smartSearchPreview(book, matchType) {
+                    if (matchType === 'ISBN') return `ISBN ${book.isbn}`;
+                    if (matchType === 'DOI') return `DOI ${book.doi}`;
+                    if (matchType === 'URL') return book.url;
+                    if (book.subtitle) return book.subtitle;
+
+                    return `${book.publisher} • ${book.year}`;
+                },
+                smartSearchResourceTypeForBook(book) {
+                    if (book.resourceType) return book.resourceType;
+                    if (book.category === 'website') return 'เอกสารอิเล็กทรอนิกส์ (เว็บเพจ)';
+                    if (book.category === 'article' && book.doi) return 'บทความวารสารอิเล็กทรอนิกส์ (มี DOI)';
+                    if (book.category === 'article') return 'บทความวารสาร';
+                    if (book.doi) return 'หนังสืออิเล็กทรอนิกส์ (มี DOI)';
+                    if (book.url) return 'หนังสืออิเล็กทรอนิกส์ (ไม่มี DOI)';
+
+                    return 'หนังสือ';
+                },
+                fillBookFormFromSmartSearch(book) {
+                    this.form.authors = (book.authors || []).map(author => ({
+                        lastName: author.lastName || '',
+                        firstName: author.firstName || '',
+                    }));
+                    if (!this.form.authors.length) {
+                        this.form.authors = [{ lastName: '', firstName: '' }];
+                    }
+
+                    this.form.year = book.year || '';
+                    this.form.title = book.title || '';
+                    this.form.publisher = book.category === 'book' ? (book.publisher || '') : '';
+                    this.form.journalName = book.category === 'article' ? (book.publisher || '') : '';
+                    this.form.websiteName = book.category === 'website' ? (book.publisher || '') : '';
+                    this.form.doi = book.doi || '';
+                    this.form.url = book.url || '';
+                },
+                seedBookFormFromQuery(query) {
+                    const trimmed = String(query || '').trim();
+                    const isUrl = /https?:\/\/|www\./i.test(trimmed);
+                    const isDoi = /10\.\d{4,9}\/[\-._;()\/:a-z0-9]+/i.test(trimmed);
+
+                    if (!trimmed) return;
+
+                    if (isUrl) {
+                        this.form.url = trimmed;
+                        if (this.activeQuickFilter === 'website') this.form.websiteName = this.form.websiteName || 'เว็บไซต์ที่ยังไม่ระบุ';
+                        return;
+                    }
+
+                    if (isDoi) {
+                        this.form.doi = trimmed;
+                        return;
+                    }
+
+                    if (!this.normalizeSmartSearchIdentifier(trimmed).match(/^(?:97[89])?(?:\d){10,13}[\dx]?$/i)) {
+                        this.form.title = trimmed;
+                    }
+                },
+                buildSmartSearchResults(query) {
+                    const normalized = this.normalizeSmartSearchText(query);
+                    const compact = normalized.replace(/\s+/g, ' ');
+                    const identifier = this.normalizeSmartSearchIdentifier(query);
+                    const tokens = compact.split(/[\s,()\/:-]+/).filter(Boolean);
+                    const categoryFilter = this.activeQuickFilter;
+                    const flags = {
+                        isUrl: /https?:\/\/|www\./i.test(query),
+                        isDoi: /10\.\d{4,9}\/[\-._;()\/:a-z0-9]+/i.test(query),
+                        isIsbn: /(?:97[89][\-\s]?)?(?:\d[\-\s]?){9,12}[\dx]/i.test(query),
+                    };
+
+                    return this.smartSearchMockBooks
+                        .map(book => {
+                            if (categoryFilter && book.category !== categoryFilter) {
+                                return null;
+                            }
+
+                            const titleText = this.normalizeSmartSearchText(book.title);
+                            const subtitleText = this.normalizeSmartSearchText(book.subtitle);
+                            const authorText = this.normalizeSmartSearchText(book.authorLine);
+                            const publisherText = this.normalizeSmartSearchText(book.publisher);
+                            const keywordText = this.normalizeSmartSearchText((book.keywords || []).join(' '));
+                            const isbnText = this.normalizeSmartSearchIdentifier(book.isbn);
+                            const doiText = this.normalizeSmartSearchText(book.doi);
+                            const urlText = this.normalizeSmartSearchText(book.url);
+                            let score = 0;
+                            let matchType = '';
+                            let matchLabel = '';
+
+                            const noteMatch = (type, label, points) => {
+                                score += points;
+                                if (!matchType || points >= 90) {
+                                    matchType = type;
+                                    matchLabel = label;
+                                }
+                            };
+
+                            const titleLabel = book.category === 'article'
+                                ? 'ตรงกับชื่อบทความ'
+                                : (book.category === 'website' ? 'ตรงกับชื่อหน้าเว็บ' : 'ตรงกับชื่อหนังสือ');
+
+                            if (compact && titleText.startsWith(compact)) {
+                                noteMatch('TITLE', titleLabel, 180);
+                            } else if (compact && titleText.includes(compact)) {
+                                noteMatch('TITLE', titleLabel, 135);
+                            }
+
+                            if (compact && subtitleText.includes(compact)) {
+                                noteMatch('TITLE', 'ตรงกับคำอธิบายรายการ', 68);
+                            }
+
+                            if (compact && authorText.includes(compact)) {
+                                noteMatch('AUTHOR', 'ตรงกับชื่อผู้แต่ง', 92);
+                            }
+
+                            if (identifier && isbnText.includes(identifier)) {
+                                noteMatch('ISBN', 'ตรงกับ ISBN', 210);
+                            }
+
+                            if (compact && doiText.includes(compact)) {
+                                noteMatch('DOI', 'ตรงกับ DOI', 215);
+                            }
+
+                            if (compact && urlText.includes(compact)) {
+                                noteMatch('URL', 'ตรงกับ URL', 215);
+                            }
+
+                            tokens.forEach(token => {
+                                if (titleText.includes(token)) score += token.length === 1 ? 18 : 26;
+                                if (subtitleText.includes(token)) score += 10;
+                                if (authorText.includes(token)) score += 18;
+                                if (publisherText.includes(token)) score += 12;
+                                if (keywordText.includes(token)) score += 14;
+                            });
+
+                            if (flags.isIsbn && book.isbn && book.category === 'book') {
+                                score += 55;
+                                matchType ||= 'ISBN';
+                                matchLabel ||= 'ค้นแบบ ISBN';
+                            }
+
+                            if (flags.isDoi && book.doi) {
+                                score += 55;
+                                matchType ||= 'DOI';
+                                matchLabel ||= 'ค้นแบบ DOI';
+                            }
+
+                            if (flags.isUrl && book.url) {
+                                score += 55;
+                                matchType ||= 'URL';
+                                matchLabel ||= 'ค้นแบบ URL';
+                            }
+
+                            if (score <= 0) return null;
+
+                            return {
+                                key: book.id,
+                                title: book.title,
+                                icon: book.icon || 'book-open',
+                                authorLine: book.authorLine,
+                                metadataLine: `${book.year} • ${book.publisher}`,
+                                formatLabel: book.formatLabel,
+                                accentClass: this.smartSearchAccentClass(book.accent),
+                                matchLabel: matchLabel || 'ใกล้เคียงกับคำค้นนี้',
+                                preview: this.smartSearchPreview(book, matchType || 'TITLE'),
+                                book,
+                                score,
+                            };
+                        })
+                        .filter(Boolean)
+                        .sort((left, right) => right.score - left.score)
+                        .slice(0, 6);
+                },
+                queueSmartSearch() {
+                    const query = String(this.smartQuery || '').trim();
+
+                    if (this.smartSearchTimer) {
+                        clearTimeout(this.smartSearchTimer);
+                    }
+
+                    if (!query) {
+                        this.smartSearchLoading = false;
+                        this.smartSearchOpen = false;
+                        this.smartSearchResults = [];
+                        return;
+                    }
+
+                    this.smartSearchOpen = true;
+                    this.smartSearchLoading = true;
+                    const requestId = Date.now();
+                    this.smartSearchRequestId = requestId;
+
+                    this.smartSearchTimer = setTimeout(() => {
+                        if (this.smartSearchRequestId !== requestId) return;
+                        this.smartSearchResults = this.buildSmartSearchResults(query);
+                        this.smartSearchLoading = false;
+                        this.smartSearchOpen = true;
+                    }, 380);
+                },
+                openSmartSearchResult(result) {
+                    this.smartSearchResults = [];
+                    this.smartSearchOpen = false;
+                    this.smartSearchLoading = false;
+                    this.openFormModal(this.smartSearchResourceTypeForBook(result.book));
+                    this.fillBookFormFromSmartSearch(result.book);
+                },
+                openFirstSmartSearchResult() {
+                    if (this.smartSearchLoading) return;
+
+                    if (this.smartSearchResults.length) {
+                        this.openSmartSearchResult(this.smartSearchResults[0]);
+                        return;
+                    }
+
+                    this.openManualResourceFormFromSearch();
+                },
+                manualResourceTypeForQuickFilter() {
+                    if (this.activeQuickFilter === 'website') return 'เอกสารอิเล็กทรอนิกส์ (เว็บเพจ)';
+                    if (this.activeQuickFilter === 'article') return 'บทความวารสารอิเล็กทรอนิกส์ (มี DOI)';
+
+                    return 'หนังสือ';
+                },
+                openManualResourceFormFromSearch() {
+                    this.smartSearchOpen = false;
+                    this.openFormModal(this.manualResourceTypeForQuickFilter());
+                    this.seedBookFormFromQuery(this.smartQuery);
+                },
                 markCopied(entryId = null) {
                     if (entryId !== null) {
                         this.copiedEntryId = entryId;
@@ -1679,8 +2243,59 @@
                         value: field.value || '',
                     }));
                 },
+                citationSortKey(entry) {
+                    return String(entry?.text || '').trim();
+                },
+                compareCitationEntries(left, right) {
+                    const comparison = this.citationSortKey(left).localeCompare(this.citationSortKey(right), ['th', 'en'], {
+                        numeric: true,
+                        sensitivity: 'base',
+                    });
+
+                    if (comparison !== 0) return comparison;
+
+                    return Number(left?.id || 0) - Number(right?.id || 0);
+                },
                 filteredCitations() {
-                    return this.citations.filter(entry => this.entryProjectId(entry) === this.activeProjectId);
+                    return this.citations
+                        .filter(entry => this.entryProjectId(entry) === this.activeProjectId)
+                        .slice()
+                        .sort((left, right) => this.compareCitationEntries(left, right));
+                },
+                entryCardClasses(entry, mode) {
+                    if (this.recentlyAddedEntryId !== entry?.id) return '';
+
+                    if (mode === 'paper') {
+                        return 'recent-citation-entry bg-pink-50/90 ring-2 ring-pink-300 shadow-lg shadow-pink-100/70 dark:bg-pink-500/10 dark:ring-pink-500/40 dark:shadow-none';
+                    }
+
+                    return 'recent-citation-entry border-pink-400 bg-pink-50 shadow-lg shadow-pink-100/80 dark:border-pink-500 dark:bg-pink-500/10 dark:shadow-none';
+                },
+                scrollToEntry(entryId) {
+                    this.$nextTick(() => {
+                        const entryElement = this.$root.querySelector(`[data-entry-id="${entryId}"]`);
+                        if (!entryElement) return;
+
+                        entryElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'center',
+                            inline: 'nearest',
+                        });
+                    });
+                },
+                markRecentlyAddedEntry(entryId) {
+                    this.recentlyAddedEntryId = entryId;
+                    this.scrollToEntry(entryId);
+
+                    if (this.recentEntryTimer) {
+                        clearTimeout(this.recentEntryTimer);
+                    }
+
+                    this.recentEntryTimer = setTimeout(() => {
+                        if (this.recentlyAddedEntryId === entryId) {
+                            this.recentlyAddedEntryId = null;
+                        }
+                    }, 4200);
                 },
                 buildDetailFields() {
                     const fields = [];
@@ -1776,16 +2391,22 @@
                 openFormModal(type) {
                     this.formResourceType = type;
                     this.selectedType = type;
-                    this.activeQuickFilter = type.includes('เว็บ') ? 'เว็บเพจ' : (type.includes('หนังสือ') ? 'หนังสือ' : (type.includes('บทความ') ? 'บทความ' : ''));
-                    this.smartQuery = type;
+                    this.activeQuickFilter = '';
+                    this.smartSearchResults = [];
+                    this.smartSearchOpen = false;
+                    this.smartSearchLoading = false;
                     this.modalOpen = false;
                     this.resetForm();
                     this.formModalOpen = true;
                 },
-                setQuickFilter(type) {
-                    this.smartQuery = type;
-                    this.selectedType = type;
-                    this.activeQuickFilter = type;
+                setQuickFilter(filterKey) {
+                    this.smartQuery = '';
+                    this.selectedType = '';
+                    this.activeQuickFilter = filterKey;
+                    this.smartSearchResults = [];
+                    this.smartSearchLoading = false;
+                    this.smartSearchOpen = false;
+                    this.$nextTick(() => this.$refs.smartSearchInput?.focus());
                 },
                 isBookType() {
                     return ['หนังสือ', 'หนังสือชุดหลายเล่มจบ', 'บทความในหนังสือ', 'หนังสืออิเล็กทรอนิกส์ (มี DOI)', 'หนังสืออิเล็กทรอนิกส์ (ไม่มี DOI)'].includes(this.formResourceType);
@@ -1984,7 +2605,7 @@
                         this.toast('กรุณากรอกข้อมูลอย่างน้อยชื่อผู้แต่งและชื่อเรื่อง', 'warning');
                         return;
                     }
-                    this.citations.push({
+                    const newEntry = {
                         id: Date.now(),
                         projectId: this.activeProjectId,
                         resourceType: this.formResourceType,
@@ -1993,9 +2614,12 @@
                         narrativeCitation: this.generateNarrativeCitation(),
                         parentheticalCitation: this.generateParentheticalCitation(),
                         detailFields: this.buildDetailFields(),
-                    });
+                    };
+
+                    this.citations.push(newEntry);
                     this.formModalOpen = false;
                     this.resetForm();
+                    this.markRecentlyAddedEntry(newEntry.id);
                     this.toast('เพิ่มรายการบรรณานุกรมเรียบร้อยแล้ว', 'success');
                 },
                 async copyCurrentView() {
@@ -2032,6 +2656,10 @@
                     this.activeEntry = entry;
                     this.moveTargetProjectId = this.projectOptions.find(project => project.id !== this.entryProjectId(entry))?.id ?? this.entryProjectId(entry);
                     this.moveModalOpen = true;
+                },
+                requestDeleteEntry(entry) {
+                    this.activeEntry = entry;
+                    this.deleteEntryModalOpen = true;
                 },
                 editEntry(entry) {
                     this.activeEntry = entry;
@@ -2080,10 +2708,31 @@
                     this.closeEntryModals();
                     this.toast(`ย้ายรายการไปยังโครงการ ${this.projectNameById(this.moveTargetProjectId)} แล้ว`, 'success');
                 },
+                confirmDeleteEntry() {
+                    if (!this.activeEntry) return;
+
+                    const entryId = this.activeEntry.id;
+                    const index = this.citations.findIndex(entry => entry.id === entryId);
+                    if (index === -1) {
+                        this.toast('ไม่พบรายการที่ต้องการลบ', 'danger');
+                        this.closeEntryModals();
+                        return;
+                    }
+
+                    this.citations.splice(index, 1);
+
+                    if (this.recentlyAddedEntryId === entryId) {
+                        this.recentlyAddedEntryId = null;
+                    }
+
+                    this.closeEntryModals();
+                    this.toast('ลบรายการบรรณานุกรมเรียบร้อยแล้ว', 'danger');
+                },
                 closeEntryModals() {
                     this.detailModalOpen = false;
                     this.editModalOpen = false;
                     this.moveModalOpen = false;
+                    this.deleteEntryModalOpen = false;
                     this.activeEntry = null;
                     this.editEntryDraft = this.emptyEditDraft();
                     this.moveTargetProjectId = null;
