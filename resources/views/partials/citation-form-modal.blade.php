@@ -159,12 +159,22 @@
                                         <flux:icon name="building-office" class="size-3.5" />
                                     </span>
                                     <h4 class="text-sm font-semibold text-zinc-800 dark:text-zinc-200">ข้อมูลสำนักพิมพ์</h4>
+                                    <flux:tooltip content="APA 7th: ใส่เฉพาะชื่อสำนักพิมพ์ ไม่ต้องใส่เมืองหรือประเทศ คงคำอย่าง Press, Books, Publisher ไว้ได้ และถ้าผู้แต่งกับสำนักพิมพ์เป็นหน่วยงานเดียวกันให้ละสำนักพิมพ์ออก">
+                                        <button type="button"
+                                            class="inline-flex size-5 items-center justify-center rounded-full text-zinc-400 transition hover:text-pink-500 dark:text-zinc-500 dark:hover:text-pink-300"
+                                            aria-label="คำแนะนำการกรอกสำนักพิมพ์ตาม APA 7th">
+                                            <flux:icon name="information-circle" class="size-4" />
+                                        </button>
+                                    </flux:tooltip>
                                 </div>
                                 <div class="grid gap-3 sm:grid-cols-2">
                                     <div>
                                         <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">สำนักพิมพ์</label>
                                         <input x-model="form.publisher" type="text" placeholder="เช่น สำนักพิมพ์จุฬาลงกรณ์"
                                             class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
+                                        <p class="mt-1 text-[11px] leading-5 text-zinc-400 dark:text-zinc-500">
+                                            ตัวอย่าง APA 7th: ใช้เฉพาะชื่อสำนักพิมพ์ เช่น Sage, Oxford University Press, สำนักพิมพ์จุฬาลงกรณ์มหาวิทยาลัย
+                                        </p>
                                     </div>
                                     <div x-show="formResourceType === 'หนังสือชุดหลายเล่มจบ'">
                                         <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">เล่มที่</label>
