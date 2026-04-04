@@ -586,7 +586,7 @@
                                     <flux:icon name="magnifying-glass" class="size-5" />
                                 </div>
                                 <input x-model="smartQuery" type="text"
-                                    placeholder="Smart search: ค้นหาประเภทอ้างอิง ผู้แต่ง DOI หรือคำสำคัญ..."
+                                    placeholder="ค้นหาประเภทอ้างอิง ผู้แต่ง DOI หรือคำสำคัญ..."
                                     class="w-full rounded-2xl border border-pink-200 bg-white py-3.5 pl-12 pr-28 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500 dark:focus:ring-pink-500/10">
                                 <div class="absolute right-3 -top-1 -translate-y-1/2">
                                     <a href="{{ url('/manual') }}"
@@ -799,11 +799,17 @@
                         <div x-cloak x-show="detailModalOpen" x-transition.opacity
                             class="fixed inset-0 z-[70] flex items-center justify-center bg-zinc-950/50 px-4 py-6 backdrop-blur-sm">
                             <div x-show="detailModalOpen" x-transition
-                                class="w-full max-w-3xl rounded-[2rem] border border-pink-200 bg-white p-6 shadow-2xl shadow-pink-100/60 dark:border-zinc-700 dark:bg-zinc-900 dark:shadow-none">
+                                class="w-full max-w-5xl rounded-[2rem] border border-pink-200 bg-white p-6 shadow-2xl shadow-pink-100/60 dark:border-zinc-700 dark:bg-zinc-900 dark:shadow-none">
                                 <div class="flex items-start justify-between gap-4">
                                     <div class="space-y-1">
                                         <h3 class="text-xl font-semibold text-zinc-900 dark:text-zinc-100">รายละเอียดรายการบรรณานุกรม</h3>
-                                        <p class="text-sm text-zinc-500 dark:text-zinc-400">โครงการ: <span class="font-medium text-pink-600 dark:text-pink-300" x-text="activeEntry ? projectNameById(entryProjectId(activeEntry)) : '-' "></span></p>
+                                        <p class="text-sm text-zinc-500 dark:text-zinc-400">
+                                            โครงการ:
+                                            <span class="font-medium text-pink-600 dark:text-pink-300" x-text="activeEntry ? projectNameById(entryProjectId(activeEntry)) : '-' "></span>
+                                            <span class="mx-2 text-zinc-300 dark:text-zinc-600">•</span>
+                                            ประเภท:
+                                            <span class="font-medium text-zinc-700 dark:text-zinc-200" x-text="entryTypeLabel(activeEntry)"></span>
+                                        </p>
                                     </div>
                                     <button type="button" x-on:click="closeEntryModals()"
                                         class="rounded-full p-2 text-zinc-400 transition hover:bg-zinc-100 hover:text-zinc-900 dark:hover:bg-zinc-800 dark:hover:text-zinc-100">
@@ -811,16 +817,40 @@
                                     </button>
                                 </div>
 
-                                <div class="mt-6 grid gap-4 lg:grid-cols-2">
-                                    <div class="rounded-3xl border border-pink-200 bg-pink-50/50 p-5 dark:border-zinc-700 dark:bg-zinc-950">
-                                        <p class="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-pink-500 dark:text-pink-300">Paper Preview</p>
-                                        <div class="paper-bibliography-font text-[16px] leading-[2] text-zinc-700 dark:text-zinc-300">
-                                            <p class="thai-distributed" style="padding-left: 0.5in; text-indent: -0.5in; line-height: 2;" x-html="entryPaperPreview(activeEntry)"></p>
+                                <div class="mt-6 grid gap-4 xl:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)]">
+                                    <div class="space-y-4">
+                                        <div class="rounded-3xl border border-pink-200 bg-pink-50/50 p-5 dark:border-zinc-700 dark:bg-zinc-950">
+                                            <p class="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-pink-500 dark:text-pink-300">Bibliography</p>
+                                            <div class="paper-bibliography-font text-[16px] leading-[2] text-zinc-700 dark:text-zinc-300">
+                                                <p class="thai-distributed" style="padding-left: 0.5in; text-indent: -0.5in; line-height: 2;" x-html="entryPaperPreview(activeEntry)"></p>
+                                            </div>
+                                        </div>
+
+                                        <div class="grid gap-4 lg:grid-cols-2">
+                                            <div class="rounded-3xl border border-violet-200 bg-white p-5 dark:border-zinc-700 dark:bg-zinc-950">
+                                                <p class="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-violet-500 dark:text-violet-300">Narrative Citation</p>
+                                                <p class="text-sm leading-7 text-zinc-700 dark:text-zinc-300" x-text="entryNarrativeCitation(activeEntry)"></p>
+                                            </div>
+                                            <div class="rounded-3xl border border-violet-200 bg-white p-5 dark:border-zinc-700 dark:bg-zinc-950">
+                                                <p class="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-violet-500 dark:text-violet-300">Parenthetical Citation</p>
+                                                <p class="text-sm leading-7 text-zinc-700 dark:text-zinc-300" x-text="entryParentheticalCitation(activeEntry)"></p>
+                                            </div>
                                         </div>
                                     </div>
+
                                     <div class="rounded-3xl border border-zinc-200 bg-white p-5 dark:border-zinc-700 dark:bg-zinc-950">
-                                        <p class="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">Plain Text</p>
-                                        <p class="text-sm leading-7 text-zinc-700 dark:text-zinc-300" x-text="activeEntry?.text || '-' "></p>
+                                        <p class="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">Field Details</p>
+                                        <div class="grid gap-3 sm:grid-cols-2 xl:grid-cols-1">
+                                            <template x-for="(field, index) in entryDetailFields(activeEntry)" :key="'field-' + index">
+                                                <div class="rounded-2xl border border-zinc-200 bg-zinc-50 px-4 py-3 dark:border-zinc-700 dark:bg-zinc-900">
+                                                    <p class="text-[11px] font-semibold uppercase tracking-[0.16em] text-zinc-500 dark:text-zinc-400" x-text="field.label"></p>
+                                                    <p class="mt-1 text-sm leading-6 text-zinc-800 dark:text-zinc-100" x-text="field.value"></p>
+                                                </div>
+                                            </template>
+                                        </div>
+                                        <p x-show="entryDetailFields(activeEntry).length === 0" class="text-sm italic text-zinc-400 dark:text-zinc-500">
+                                            ยังไม่มีข้อมูลฟิลด์เพิ่มเติมสำหรับรายการนี้
+                                        </p>
                                     </div>
                                 </div>
 
@@ -842,11 +872,11 @@
                         <div x-cloak x-show="editModalOpen" x-transition.opacity
                             class="fixed inset-0 z-[70] flex items-center justify-center bg-zinc-950/50 px-4 py-6 backdrop-blur-sm">
                             <div x-show="editModalOpen" x-transition
-                                class="w-full max-w-3xl rounded-[2rem] border border-pink-200 bg-white p-6 shadow-2xl shadow-pink-100/60 dark:border-zinc-700 dark:bg-zinc-900 dark:shadow-none">
+                                class="w-full max-w-5xl rounded-[2rem] border border-pink-200 bg-white p-6 shadow-2xl shadow-pink-100/60 dark:border-zinc-700 dark:bg-zinc-900 dark:shadow-none">
                                 <div class="flex items-start justify-between gap-4">
                                     <div class="space-y-1">
                                         <h3 class="text-xl font-semibold text-zinc-900 dark:text-zinc-100">แก้ไขรายการบรรณานุกรม</h3>
-                                        <p class="text-sm text-zinc-500 dark:text-zinc-400">ปรับข้อความรายการด้วยตนเองก่อนบันทึก</p>
+                                        <p class="text-sm text-zinc-500 dark:text-zinc-400">แก้ไขบรรณานุกรม, citation และข้อมูลรายฟิลด์ของรายการนี้</p>
                                     </div>
                                     <button type="button" x-on:click="closeEntryModals()"
                                         class="rounded-full p-2 text-zinc-400 transition hover:bg-zinc-100 hover:text-zinc-900 dark:hover:bg-zinc-800 dark:hover:text-zinc-100">
@@ -854,10 +884,74 @@
                                     </button>
                                 </div>
 
-                                <div class="mt-6 space-y-2">
-                                    <label class="text-sm font-medium text-zinc-700 dark:text-zinc-200">ข้อความบรรณานุกรม</label>
-                                    <textarea x-model="editEntryDraft" rows="8"
-                                        class="w-full rounded-3xl border border-pink-200 bg-white px-4 py-4 text-sm leading-7 text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500"></textarea>
+                                <div class="mt-6 grid gap-5 xl:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+                                    <div class="space-y-5">
+                                        <div class="space-y-2">
+                                            <label class="text-sm font-medium text-zinc-700 dark:text-zinc-200">ประเภททรัพยากร</label>
+                                            <input x-model="editEntryDraft.resourceType" type="text"
+                                                class="w-full rounded-2xl border border-pink-200 bg-white px-4 py-3 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
+                                        </div>
+
+                                        <div class="space-y-2">
+                                            <label class="text-sm font-medium text-zinc-700 dark:text-zinc-200">บรรณานุกรม</label>
+                                            <textarea x-model="editEntryDraft.text" rows="7"
+                                                class="w-full rounded-3xl border border-pink-200 bg-white px-4 py-4 text-sm leading-7 text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500"></textarea>
+                                        </div>
+
+                                        <div class="grid gap-4 lg:grid-cols-2">
+                                            <div class="space-y-2">
+                                                <label class="text-sm font-medium text-zinc-700 dark:text-zinc-200">Narrative Citation</label>
+                                                <textarea x-model="editEntryDraft.narrativeCitation" rows="4"
+                                                    class="w-full rounded-3xl border border-violet-200 bg-white px-4 py-4 text-sm leading-7 text-zinc-700 placeholder:text-zinc-400 focus:border-violet-400 focus:outline-none focus:ring-2 focus:ring-violet-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-violet-500"></textarea>
+                                            </div>
+                                            <div class="space-y-2">
+                                                <label class="text-sm font-medium text-zinc-700 dark:text-zinc-200">Parenthetical Citation</label>
+                                                <textarea x-model="editEntryDraft.parentheticalCitation" rows="4"
+                                                    class="w-full rounded-3xl border border-violet-200 bg-white px-4 py-4 text-sm leading-7 text-zinc-700 placeholder:text-zinc-400 focus:border-violet-400 focus:outline-none focus:ring-2 focus:ring-violet-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-violet-500"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="space-y-4 rounded-3xl border border-zinc-200 bg-zinc-50 p-5 dark:border-zinc-700 dark:bg-zinc-950">
+                                        <div class="flex items-center justify-between gap-3">
+                                            <div>
+                                                <h4 class="text-sm font-semibold text-zinc-800 dark:text-zinc-100">ฟิลด์ข้อมูล</h4>
+                                                <p class="text-xs text-zinc-500 dark:text-zinc-400">แก้ไขหรือเพิ่มข้อมูลย่อยของรายการให้แสดงใน modal รายละเอียด</p>
+                                            </div>
+                                            <button type="button" x-on:click="addEditField()"
+                                                class="inline-flex items-center gap-1.5 rounded-full border border-pink-200 bg-white px-3 py-1.5 text-xs font-medium text-pink-600 transition hover:border-pink-300 hover:text-pink-700 dark:border-zinc-700 dark:bg-zinc-900 dark:text-pink-300 dark:hover:border-pink-500">
+                                                <flux:icon name="plus" class="size-3.5" />
+                                                เพิ่มฟิลด์
+                                            </button>
+                                        </div>
+
+                                        <div class="custom-scrollbar max-h-[26rem] space-y-3 overflow-y-auto pr-1">
+                                            <template x-for="(field, index) in editEntryDraft.detailFields" :key="'edit-field-' + index">
+                                                <div class="rounded-2xl border border-zinc-200 bg-white p-4 dark:border-zinc-700 dark:bg-zinc-900">
+                                                    <div class="grid gap-3 sm:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)_auto] sm:items-start">
+                                                        <div>
+                                                            <label class="mb-1 block text-xs font-medium text-zinc-500 dark:text-zinc-400">ชื่อฟิลด์</label>
+                                                            <input x-model="field.label" type="text"
+                                                                class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
+                                                        </div>
+                                                        <div>
+                                                            <label class="mb-1 block text-xs font-medium text-zinc-500 dark:text-zinc-400">ค่า</label>
+                                                            <textarea x-model="field.value" rows="2"
+                                                                class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500"></textarea>
+                                                        </div>
+                                                        <button type="button" x-on:click="removeEditField(index)"
+                                                            class="mt-6 inline-flex size-9 items-center justify-center rounded-xl text-zinc-400 transition hover:bg-rose-50 hover:text-rose-600 dark:hover:bg-rose-500/10 dark:hover:text-rose-400"
+                                                            aria-label="ลบฟิลด์">
+                                                            <flux:icon name="trash" class="size-4" />
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </template>
+                                        </div>
+                                        <p x-show="editEntryDraft.detailFields.length === 0" class="text-sm italic text-zinc-400 dark:text-zinc-500">
+                                            ยังไม่มีฟิลด์ข้อมูล สามารถกดเพิ่มฟิลด์ได้
+                                        </p>
+                                    </div>
                                 </div>
 
                                 <div class="mt-6 flex justify-end gap-3">
@@ -1262,7 +1356,7 @@
                 moveModalOpen: false,
                 formResourceType: '',
                 activeEntry: null,
-                editEntryDraft: '',
+                editEntryDraft: null,
                 projectOptions: [
                     { id: 1, name: 'โครงการวิจัยบทที่ 1', color: 'zinc', icon: 'folder' },
                 ],
@@ -1305,62 +1399,174 @@
                     {
                         id: 1,
                         projectId: 1,
+                        resourceType: 'หนังสือ',
                         text: 'กนกวรรณ สุริยา. (2564). การจัดการสารสนเทศเพื่อการอ้างอิงทางวิชาการ. สำนักพิมพ์มหาวิทยาลัยธรรมศาสตร์.',
                         paperHtml: 'กนกวรรณ สุริยา. (2564). <em>การจัดการสารสนเทศเพื่อการอ้างอิงทางวิชาการ</em>. สำนักพิมพ์มหาวิทยาลัยธรรมศาสตร์.',
+                        narrativeCitation: 'กนกวรรณ สุริยา (2564) กล่าวว่า ...',
+                        parentheticalCitation: '... (กนกวรรณ สุริยา, 2564)',
+                        detailFields: [
+                            { label: 'ประเภททรัพยากร', value: 'หนังสือ' },
+                            { label: 'ผู้แต่ง', value: 'กนกวรรณ สุริยา' },
+                            { label: 'ปีที่พิมพ์', value: '2564' },
+                            { label: 'ชื่อเรื่อง', value: 'การจัดการสารสนเทศเพื่อการอ้างอิงทางวิชาการ' },
+                            { label: 'สำนักพิมพ์', value: 'สำนักพิมพ์มหาวิทยาลัยธรรมศาสตร์' },
+                        ],
                     },
                     {
                         id: 2,
                         projectId: 1,
+                        resourceType: 'บทความวารสาร',
                         text: 'จิราภา วัฒนกุล. (2565). การออกแบบระบบช่วยสร้างบรรณานุกรมสำหรับนักศึกษาไทย. วารสารบรรณารักษศาสตร์และสารสนเทศศาสตร์, 18(2), 25-48.',
                         paperHtml: 'จิราภา วัฒนกุล. (2565). การออกแบบระบบช่วยสร้างบรรณานุกรมสำหรับนักศึกษาไทย. <em>วารสารบรรณารักษศาสตร์และสารสนเทศศาสตร์, 18</em>(2), 25-48.',
+                        narrativeCitation: 'จิราภา วัฒนกุล (2565) กล่าวว่า ...',
+                        parentheticalCitation: '... (จิราภา วัฒนกุล, 2565)',
+                        detailFields: [
+                            { label: 'ประเภททรัพยากร', value: 'บทความวารสาร' },
+                            { label: 'ผู้แต่ง', value: 'จิราภา วัฒนกุล' },
+                            { label: 'ปีที่พิมพ์', value: '2565' },
+                            { label: 'ชื่อบทความ', value: 'การออกแบบระบบช่วยสร้างบรรณานุกรมสำหรับนักศึกษาไทย' },
+                            { label: 'ชื่อวารสาร', value: 'วารสารบรรณารักษศาสตร์และสารสนเทศศาสตร์' },
+                            { label: 'Volume / Issue', value: '18(2)' },
+                            { label: 'หน้า', value: '25-48' },
+                        ],
                     },
                     {
                         id: 3,
                         projectId: 1,
+                        resourceType: 'บทความวารสาร',
                         text: 'ธนกร พิพัฒน์. (2566ก). แนวปฏิบัติการอ้างอิงแหล่งข้อมูลดิจิทัลตามรูปแบบ APA 7th edition. วารสารสารสนเทศศึกษา, 21(1), 11-29.',
                         paperHtml: 'ธนกร พิพัฒน์. (2566ก). แนวปฏิบัติการอ้างอิงแหล่งข้อมูลดิจิทัลตามรูปแบบ APA 7th edition. <em>วารสารสารสนเทศศึกษา, 21</em>(1), 11-29.',
+                        narrativeCitation: 'ธนกร พิพัฒน์ (2566ก) กล่าวว่า ...',
+                        parentheticalCitation: '... (ธนกร พิพัฒน์, 2566ก)',
+                        detailFields: [
+                            { label: 'ประเภททรัพยากร', value: 'บทความวารสาร' },
+                            { label: 'ผู้แต่ง', value: 'ธนกร พิพัฒน์' },
+                            { label: 'ปีที่พิมพ์', value: '2566ก' },
+                            { label: 'ชื่อบทความ', value: 'แนวปฏิบัติการอ้างอิงแหล่งข้อมูลดิจิทัลตามรูปแบบ APA 7th edition' },
+                            { label: 'ชื่อวารสาร', value: 'วารสารสารสนเทศศึกษา' },
+                            { label: 'Volume / Issue', value: '21(1)' },
+                            { label: 'หน้า', value: '11-29' },
+                        ],
                     },
                     {
                         id: 4,
                         projectId: 1,
+                        resourceType: 'หนังสือ',
                         text: 'ธนกร พิพัฒน์. (2566ข). การพัฒนาทักษะการเขียนบรรณานุกรมของนักศึกษาระดับอุดมศึกษา. สำนักพิมพ์จุฬาลงกรณ์มหาวิทยาลัย.',
                         paperHtml: 'ธนกร พิพัฒน์. (2566ข). <em>การพัฒนาทักษะการเขียนบรรณานุกรมของนักศึกษาระดับอุดมศึกษา</em>. สำนักพิมพ์จุฬาลงกรณ์มหาวิทยาลัย.',
+                        narrativeCitation: 'ธนกร พิพัฒน์ (2566ข) กล่าวว่า ...',
+                        parentheticalCitation: '... (ธนกร พิพัฒน์, 2566ข)',
+                        detailFields: [
+                            { label: 'ประเภททรัพยากร', value: 'หนังสือ' },
+                            { label: 'ผู้แต่ง', value: 'ธนกร พิพัฒน์' },
+                            { label: 'ปีที่พิมพ์', value: '2566ข' },
+                            { label: 'ชื่อเรื่อง', value: 'การพัฒนาทักษะการเขียนบรรณานุกรมของนักศึกษาระดับอุดมศึกษา' },
+                            { label: 'สำนักพิมพ์', value: 'สำนักพิมพ์จุฬาลงกรณ์มหาวิทยาลัย' },
+                        ],
                     },
                     {
                         id: 5,
                         projectId: 1,
+                        resourceType: 'บทความวารสาร',
                         text: 'ปาริชาติ ศรีอรุณ. (2567). การใช้เครื่องมือดิจิทัลเพื่อสนับสนุนการเขียนอ้างอิงในงานวิจัย. วารสารวิชาการครุศาสตร์, 9(3), 101-119.',
                         paperHtml: 'ปาริชาติ ศรีอรุณ. (2567). การใช้เครื่องมือดิจิทัลเพื่อสนับสนุนการเขียนอ้างอิงในงานวิจัย. <em>วารสารวิชาการครุศาสตร์, 9</em>(3), 101-119.',
+                        narrativeCitation: 'ปาริชาติ ศรีอรุณ (2567) กล่าวว่า ...',
+                        parentheticalCitation: '... (ปาริชาติ ศรีอรุณ, 2567)',
+                        detailFields: [
+                            { label: 'ประเภททรัพยากร', value: 'บทความวารสาร' },
+                            { label: 'ผู้แต่ง', value: 'ปาริชาติ ศรีอรุณ' },
+                            { label: 'ปีที่พิมพ์', value: '2567' },
+                            { label: 'ชื่อบทความ', value: 'การใช้เครื่องมือดิจิทัลเพื่อสนับสนุนการเขียนอ้างอิงในงานวิจัย' },
+                            { label: 'ชื่อวารสาร', value: 'วารสารวิชาการครุศาสตร์' },
+                            { label: 'Volume / Issue', value: '9(3)' },
+                            { label: 'หน้า', value: '101-119' },
+                        ],
                     },
                     {
                         id: 6,
                         projectId: 1,
+                        resourceType: 'บทความวารสาร',
                         text: 'Adams, R. T. (2023a). Academic citation practices in digital classrooms. Journal of Educational Technology, 14(1), 22-39.',
                         paperHtml: 'Adams, R. T. (2023a). Academic citation practices in digital classrooms. <em>Journal of Educational Technology, 14</em>(1), 22-39.',
+                        narrativeCitation: 'Adams (2023a) stated that ...',
+                        parentheticalCitation: '... (Adams, 2023a)',
+                        detailFields: [
+                            { label: 'ประเภททรัพยากร', value: 'บทความวารสาร' },
+                            { label: 'ผู้แต่ง', value: 'Adams, R. T.' },
+                            { label: 'ปีที่พิมพ์', value: '2023a' },
+                            { label: 'ชื่อบทความ', value: 'Academic citation practices in digital classrooms' },
+                            { label: 'ชื่อวารสาร', value: 'Journal of Educational Technology' },
+                            { label: 'Volume / Issue', value: '14(1)' },
+                            { label: 'หน้า', value: '22-39' },
+                        ],
                     },
                     {
                         id: 7,
                         projectId: 1,
+                        resourceType: 'หนังสือ',
                         text: 'Adams, R. T. (2023b). Designing reference workflows for student research projects. Learning Design Press.',
                         paperHtml: 'Adams, R. T. (2023b). <em>Designing reference workflows for student research projects</em>. Learning Design Press.',
+                        narrativeCitation: 'Adams (2023b) stated that ...',
+                        parentheticalCitation: '... (Adams, 2023b)',
+                        detailFields: [
+                            { label: 'ประเภททรัพยากร', value: 'หนังสือ' },
+                            { label: 'ผู้แต่ง', value: 'Adams, R. T.' },
+                            { label: 'ปีที่พิมพ์', value: '2023b' },
+                            { label: 'ชื่อเรื่อง', value: 'Designing reference workflows for student research projects' },
+                            { label: 'สำนักพิมพ์', value: 'Learning Design Press' },
+                        ],
                     },
                     {
                         id: 8,
                         projectId: 1,
+                        resourceType: 'หนังสือ',
                         text: 'Brown, L. M. (2022). Information literacy and source attribution in higher education. Routledge.',
                         paperHtml: 'Brown, L. M. (2022). <em>Information literacy and source attribution in higher education</em>. Routledge.',
+                        narrativeCitation: 'Brown (2022) stated that ...',
+                        parentheticalCitation: '... (Brown, 2022)',
+                        detailFields: [
+                            { label: 'ประเภททรัพยากร', value: 'หนังสือ' },
+                            { label: 'ผู้แต่ง', value: 'Brown, L. M.' },
+                            { label: 'ปีที่พิมพ์', value: '2022' },
+                            { label: 'ชื่อเรื่อง', value: 'Information literacy and source attribution in higher education' },
+                            { label: 'สำนักพิมพ์', value: 'Routledge' },
+                        ],
                     },
                     {
                         id: 9,
                         projectId: 1,
+                        resourceType: 'บทความวารสาร',
                         text: 'Carter, P. J. (2024). Metadata quality and automated bibliography generation. International Journal of Digital Libraries, 20(4), 233-251.',
                         paperHtml: 'Carter, P. J. (2024). Metadata quality and automated bibliography generation. <em>International Journal of Digital Libraries, 20</em>(4), 233-251.',
+                        narrativeCitation: 'Carter (2024) stated that ...',
+                        parentheticalCitation: '... (Carter, 2024)',
+                        detailFields: [
+                            { label: 'ประเภททรัพยากร', value: 'บทความวารสาร' },
+                            { label: 'ผู้แต่ง', value: 'Carter, P. J.' },
+                            { label: 'ปีที่พิมพ์', value: '2024' },
+                            { label: 'ชื่อบทความ', value: 'Metadata quality and automated bibliography generation' },
+                            { label: 'ชื่อวารสาร', value: 'International Journal of Digital Libraries' },
+                            { label: 'Volume / Issue', value: '20(4)' },
+                            { label: 'หน้า', value: '233-251' },
+                        ],
                     },
                     {
                         id: 10,
                         projectId: 1,
+                        resourceType: 'บทความวารสาร',
                         text: 'Smith, J. A. (2025). Citation management for interdisciplinary research teams. Research Methods Review, 12(2), 77-94.',
                         paperHtml: 'Smith, J. A. (2025). Citation management for interdisciplinary research teams. <em>Research Methods Review, 12</em>(2), 77-94.',
+                        narrativeCitation: 'Smith (2025) stated that ...',
+                        parentheticalCitation: '... (Smith, 2025)',
+                        detailFields: [
+                            { label: 'ประเภททรัพยากร', value: 'บทความวารสาร' },
+                            { label: 'ผู้แต่ง', value: 'Smith, J. A.' },
+                            { label: 'ปีที่พิมพ์', value: '2025' },
+                            { label: 'ชื่อบทความ', value: 'Citation management for interdisciplinary research teams' },
+                            { label: 'ชื่อวารสาร', value: 'Research Methods Review' },
+                            { label: 'Volume / Issue', value: '12(2)' },
+                            { label: 'หน้า', value: '77-94' },
+                        ],
                     },
                 ],
                 init() {
@@ -1398,8 +1604,115 @@
                 entryProjectId(entry) {
                     return entry?.projectId ?? 1;
                 },
+                entryTypeLabel(entry) {
+                    return entry?.resourceType || 'รายการบรรณานุกรม';
+                },
+                entryNarrativeCitation(entry) {
+                    return entry?.narrativeCitation || '-';
+                },
+                entryParentheticalCitation(entry) {
+                    return entry?.parentheticalCitation || '-';
+                },
+                entryDetailFields(entry) {
+                    return entry?.detailFields || [];
+                },
+                emptyEditDraft() {
+                    return {
+                        resourceType: '',
+                        text: '',
+                        narrativeCitation: '',
+                        parentheticalCitation: '',
+                        detailFields: [],
+                    };
+                },
+                cloneDetailFields(fields) {
+                    return (fields || []).map(field => ({
+                        label: field.label || '',
+                        value: field.value || '',
+                    }));
+                },
                 filteredCitations() {
                     return this.citations.filter(entry => this.entryProjectId(entry) === this.activeProjectId);
+                },
+                buildDetailFields() {
+                    const fields = [];
+                    const append = (label, value) => {
+                        const normalized = String(value ?? '').trim();
+                        if (normalized) fields.push({ label, value: normalized });
+                    };
+                    const authors = this.form.authors
+                        .filter(author => author.lastName.trim() || author.firstName.trim())
+                        .map(author => [author.lastName.trim(), author.firstName.trim()].filter(Boolean).join(', '))
+                        .join('; ');
+
+                    append('ประเภททรัพยากร', this.formResourceType);
+                    append('ผู้แต่ง', authors);
+                    append('ปีที่พิมพ์', this.form.year);
+                    if (this.usesDetailedDate()) {
+                        append('เดือน', this.form.month);
+                        append('วัน', this.form.day);
+                    }
+                    append(this.isJournalType() ? 'ชื่อบทความ' : 'ชื่อเรื่อง', this.form.title || this.form.prompt);
+
+                    if (this.isBookType()) {
+                        append('สำนักพิมพ์', this.form.publisher);
+                        append('เล่ม', this.form.volume);
+                        append('ครั้งที่พิมพ์', this.form.edition);
+                        append('บรรณาธิการ', this.form.editor);
+                        append('ชื่อหนังสือ', this.form.bookTitle);
+                        append('หน้า', this.form.pages);
+                        append('DOI', this.form.doi);
+                        append('URL', this.form.url);
+                    } else if (this.isJournalType()) {
+                        append('ชื่อวารสาร', this.form.journalName);
+                        append('Volume', this.form.volume);
+                        append('Issue', this.form.issue);
+                        append('หน้า', this.form.pages);
+                        append('DOI', this.form.doi);
+                        append('URL', this.form.url);
+                    } else if (this.isDictionaryType()) {
+                        append('ชื่อพจนานุกรม / สารานุกรม', this.form.referenceWork);
+                        append('ฉบับ', this.form.edition);
+                        append('เล่ม', this.form.volume);
+                        append('สำนักพิมพ์', this.form.publisher);
+                        append('URL', this.form.url);
+                    } else if (this.isNewspaperType()) {
+                        append('ชื่อหนังสือพิมพ์', this.form.newspaperName);
+                        append('หน้า', this.form.pages);
+                        append('URL', this.form.url);
+                    } else if (this.isReportType()) {
+                        append('หน่วยงาน / องค์กร', this.form.organization);
+                        append('Report No.', this.form.reportNumber);
+                        append('ผู้เผยแพร่', this.form.publisher);
+                        append('URL', this.form.url);
+                    } else if (this.isConferenceType()) {
+                        append('ชื่องานประชุม', this.form.conferenceName);
+                        append('สถานที่จัด', this.form.conferenceLocation);
+                        append('หน้า / เลขโปสเตอร์', this.form.pages);
+                        append('Proceeding / ผู้เผยแพร่', this.form.publisher);
+                        append('URL', this.form.url);
+                    } else if (this.isWebType()) {
+                        append('ชื่อเว็บไซต์', this.form.websiteName);
+                        append('Patent No.', this.form.patentNumber);
+                        append('ผู้ถือสิทธิ์ / หน่วยงาน', this.form.assignee || this.form.websiteName);
+                        append('URL', this.form.url);
+                    } else if (this.isThesisType()) {
+                        append('ประเภทวิทยานิพนธ์', this.form.thesisType === 'doctoral' ? 'Doctoral dissertation' : "Master's thesis");
+                        append('มหาวิทยาลัย', this.form.university);
+                        append('ฐานข้อมูล', this.form.databaseName);
+                        append('URL', this.form.url);
+                    } else if (this.isMediaType()) {
+                        append('รูปแบบสื่อ', this.form.medium);
+                        append('แพลตฟอร์ม', this.form.platform);
+                        append('URL', this.form.url);
+                    } else if (this.isAiType()) {
+                        append('แพลตฟอร์ม', this.form.platform);
+                        append('รุ่นโมเดล', this.form.model);
+                        append('Prompt', this.form.prompt);
+                        append('URL', this.form.url);
+                    }
+
+                    return fields;
                 },
                 resetForm() {
                     this.form = {
@@ -1623,7 +1936,16 @@
                         this.toast('กรุณากรอกข้อมูลอย่างน้อยชื่อผู้แต่งและชื่อเรื่อง', 'warning');
                         return;
                     }
-                    this.citations.push({ id: Date.now(), projectId: this.activeProjectId, text: bibliography, paperHtml: this.escapeHtml(bibliography) });
+                    this.citations.push({
+                        id: Date.now(),
+                        projectId: this.activeProjectId,
+                        resourceType: this.formResourceType,
+                        text: bibliography,
+                        paperHtml: this.escapeHtml(bibliography),
+                        narrativeCitation: this.generateNarrativeCitation(),
+                        parentheticalCitation: this.generateParentheticalCitation(),
+                        detailFields: this.buildDetailFields(),
+                    });
                     this.formModalOpen = false;
                     this.resetForm();
                     this.toast('เพิ่มรายการบรรณานุกรมเรียบร้อยแล้ว', 'success');
@@ -1647,17 +1969,38 @@
                 },
                 editEntry(entry) {
                     this.activeEntry = entry;
-                    this.editEntryDraft = entry.text;
+                    this.editEntryDraft = {
+                        resourceType: entry.resourceType || '',
+                        text: entry.text || '',
+                        narrativeCitation: entry.narrativeCitation || '',
+                        parentheticalCitation: entry.parentheticalCitation || '',
+                        detailFields: this.cloneDetailFields(entry.detailFields),
+                    };
                     this.editModalOpen = true;
+                },
+                addEditField() {
+                    this.editEntryDraft.detailFields.push({ label: '', value: '' });
+                },
+                removeEditField(index) {
+                    this.editEntryDraft.detailFields.splice(index, 1);
                 },
                 saveEntryEdit() {
                     if (!this.activeEntry) return;
-                    if (!this.editEntryDraft.trim()) {
+                    if (!this.editEntryDraft?.text?.trim()) {
                         this.toast('ไม่สามารถบันทึกรายการว่างได้', 'warning');
                         return;
                     }
-                    this.activeEntry.text = this.editEntryDraft.trim();
-                    this.activeEntry.paperHtml = this.escapeHtml(this.editEntryDraft.trim());
+                    this.activeEntry.resourceType = this.editEntryDraft.resourceType.trim() || this.activeEntry.resourceType;
+                    this.activeEntry.text = this.editEntryDraft.text.trim();
+                    this.activeEntry.paperHtml = this.escapeHtml(this.editEntryDraft.text.trim());
+                    this.activeEntry.narrativeCitation = this.editEntryDraft.narrativeCitation.trim();
+                    this.activeEntry.parentheticalCitation = this.editEntryDraft.parentheticalCitation.trim();
+                    this.activeEntry.detailFields = this.editEntryDraft.detailFields
+                        .map(field => ({
+                            label: String(field.label || '').trim(),
+                            value: String(field.value || '').trim(),
+                        }))
+                        .filter(field => field.label || field.value);
                     this.closeEntryModals();
                     this.toast('อัปเดตรายการเรียบร้อยแล้ว', 'success');
                 },
@@ -1676,7 +2019,7 @@
                     this.editModalOpen = false;
                     this.moveModalOpen = false;
                     this.activeEntry = null;
-                    this.editEntryDraft = '';
+                    this.editEntryDraft = this.emptyEditDraft();
                     this.moveTargetProjectId = null;
                 },
             };
