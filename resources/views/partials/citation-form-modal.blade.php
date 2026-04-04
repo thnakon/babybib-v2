@@ -43,26 +43,60 @@
                             <h4 class="text-sm font-semibold text-zinc-800 dark:text-zinc-200">ผู้แต่ง</h4>
                         </div>
                         <template x-for="(author, index) in form.authors" :key="index">
-                            <div class="flex items-start gap-2">
-                                <div class="grid flex-1 gap-2 sm:grid-cols-2">
-                                    <div>
-                                        <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">นามสกุล <span class="text-rose-400">*</span></label>
-                                        <input x-model="author.lastName" type="text" placeholder="เช่น สมิธ"
-                                            class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
+                            <div class="rounded-2xl border border-zinc-200 bg-zinc-50/70 p-3 dark:border-zinc-700 dark:bg-zinc-900/50">
+                                <div class="flex items-start gap-2">
+                                    <div class="grid flex-1 gap-3">
+                                        <div class="grid gap-3 sm:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)]">
+                                            <div>
+                                                <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">เงื่อนไขผู้แต่ง</label>
+                                                <select x-model="author.condition"
+                                                    class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
+                                                    <template x-for="option in authorConditionOptions" :key="option.value">
+                                                        <option :value="option.value" x-text="option.label"></option>
+                                                    </template>
+                                                </select>
+                                            </div>
+                                            <div x-show="usesSpecialAuthorDisplayName(author.condition) || author.condition === 'anonymous'">
+                                                <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">ชื่อที่แสดง</label>
+                                                <input x-model="author.displayName" type="text"
+                                                    x-bind:placeholder="author.condition === 'organization' ? 'เช่น World Health Organization' : (author.condition === 'anonymous' ? 'เช่น Anonymous' : 'เช่น ม.ร.ว. คึกฤทธิ์ ปราโมช')"
+                                                    class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
+                                            </div>
+                                        </div>
+
+                                        <div class="grid gap-2 sm:grid-cols-3">
+                                            <div>
+                                                <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">ชื่อ</label>
+                                                <input x-model="author.firstName" type="text" placeholder="เช่น สมชาย / John"
+                                                    class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
+                                            </div>
+                                            <div>
+                                                <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">ชื่อกลาง (ถ้ามี)</label>
+                                                <input x-model="author.middleName" type="text" placeholder="เช่น Arthur / กิตติ"
+                                                    class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
+                                            </div>
+                                            <div>
+                                                <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">นามสกุล</label>
+                                                <input x-model="author.lastName" type="text" placeholder="เช่น ใจดี / Smith"
+                                                    class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
+                                            </div>
+                                        </div>
+
+                                        <p class="text-[11px] leading-5 text-zinc-500 dark:text-zinc-400">
+                                            ตัวอย่าง: <span class="font-medium text-zinc-700 dark:text-zinc-200" x-text="authorConditionExample(author.condition)"></span>
+                                        </p>
+                                        <p class="text-[11px] leading-5 text-zinc-400 dark:text-zinc-500">
+                                            หากไม่ปรากฏชื่อผู้แต่ง สามารถเลือกเงื่อนไขที่เหมาะสมและเว้นชื่อหรือนามสกุลไว้ได้
+                                        </p>
                                     </div>
-                                    <div>
-                                        <label class="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">ชื่อ (อักษรย่อ) <span class="text-rose-400">*</span></label>
-                                        <input x-model="author.firstName" type="text" placeholder="เช่น J. K."
-                                            class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
-                                    </div>
+                                    <button type="button" x-show="form.authors.length > 1" x-on:click="form.authors.splice(index, 1)"
+                                        class="mt-6 inline-flex size-8 shrink-0 items-center justify-center rounded-lg text-zinc-400 transition hover:bg-rose-50 hover:text-rose-600 dark:hover:bg-rose-500/10 dark:hover:text-rose-400">
+                                        <flux:icon name="trash" class="size-4" />
+                                    </button>
                                 </div>
-                                <button type="button" x-show="form.authors.length > 1" x-on:click="form.authors.splice(index, 1)"
-                                    class="mt-6 inline-flex size-8 shrink-0 items-center justify-center rounded-lg text-zinc-400 transition hover:bg-rose-50 hover:text-rose-600 dark:hover:bg-rose-500/10 dark:hover:text-rose-400">
-                                    <flux:icon name="trash" class="size-4" />
-                                </button>
                             </div>
                         </template>
-                        <button type="button" x-on:click="form.authors.push({ lastName: '', firstName: '' })"
+                        <button type="button" x-on:click="form.authors.push(emptyAuthor())"
                             class="inline-flex items-center gap-1.5 rounded-lg border border-dashed border-zinc-300 px-3 py-1.5 text-xs font-medium text-zinc-500 transition hover:border-pink-400 hover:text-pink-600 dark:border-zinc-600 dark:text-zinc-400 dark:hover:border-pink-500 dark:hover:text-pink-300">
                             <flux:icon name="plus" class="size-3" />
                             เพิ่มผู้แต่ง

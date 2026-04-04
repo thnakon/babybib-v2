@@ -1662,8 +1662,18 @@
                 ],
                 activeProjectId: 1,
                 moveTargetProjectId: null,
+                authorConditionOptions: [
+                    { value: 'normal', label: 'ทั่วไป (Normal)', example: 'สมชาย ใจดี / Smith, J.' },
+                    { value: 'anonymous', label: 'ไม่ปรากฏชื่อผู้แต่ง (Anonymous)', example: 'ไม่ปรากฏชื่อผู้แต่ง / Anonymous' },
+                    { value: 'pseudonym', label: 'ผู้แต่งใช้นามแฝง (Pseudonym)', example: 'ส. ศิวรักษ์ / Orwell, G.' },
+                    { value: 'royal_title', label: 'ผู้แต่งเป็นราชสกุล (Royal Title)', example: 'ม.ร.ว. คึกฤทธิ์ ปราโมช / Queen Elizabeth II' },
+                    { value: 'noble_title', label: 'ผู้แต่งมีบรรดาศักดิ์ (Noble Title)', example: 'คุณหญิง มาลัย หุวนันทน์ / Churchill, W.' },
+                    { value: 'buddhist_monk', label: 'ผู้แต่งเป็นพระสงฆ์ (Buddhist Monk)', example: 'พระธรรมปิฎก (ป.อ. ปยุตโต) / Dalai Lama' },
+                    { value: 'editor', label: 'บรรณาธิการ (Editor)', example: 'สมชาย ใจดี (บ.ก.) / Smith, J. (Ed.)' },
+                    { value: 'organization', label: 'ชื่อหน่วยงานหรือสถาบัน (Organization)', example: 'สำนักงานราชบัณฑิตยสภา / World Health Organization' },
+                ],
                 form: {
-                    authors: [{ lastName: '', firstName: '' }],
+                    authors: [{ condition: 'normal', firstName: '', middleName: '', lastName: '', displayName: '' }],
                     year: '',
                     month: '',
                     day: '',
@@ -1985,12 +1995,9 @@
                     return 'หนังสือ';
                 },
                 fillBookFormFromSmartSearch(book) {
-                    this.form.authors = (book.authors || []).map(author => ({
-                        lastName: author.lastName || '',
-                        firstName: author.firstName || '',
-                    }));
+                    this.form.authors = (book.authors || []).map(author => this.normalizeAuthor(author));
                     if (!this.form.authors.length) {
-                        this.form.authors = [{ lastName: '', firstName: '' }];
+                        this.form.authors = [this.emptyAuthor()];
                     }
 
                     this.form.year = book.year || '';
@@ -2337,6 +2344,120 @@
                         }
                     }, 4200);
                 },
+                emptyAuthor() {
+                    return {
+                        condition: 'normal',
+                        firstName: '',
+                        middleName: '',
+                        lastName: '',
+                        displayName: '',
+                    };
+                },
+                normalizeAuthor(author = {}) {
+                    return {
+                        condition: author.condition || 'normal',
+                        firstName: author.firstName || '',
+                        middleName: author.middleName || '',
+                        lastName: author.lastName || '',
+                        displayName: author.displayName || '',
+                    };
+                },
+                hasAuthorData(author = {}) {
+                    const condition = author.condition || 'normal';
+                    return condition === 'anonymous'
+                        || String(author.firstName || '').trim()
+                        || String(author.middleName || '').trim()
+                        || String(author.lastName || '').trim()
+                        || String(author.displayName || '').trim();
+                },
+                authorConditionMeta(condition) {
+                    return this.authorConditionOptions.find(option => option.value === condition) || this.authorConditionOptions[0];
+                },
+                authorConditionExample(condition) {
+                    return this.authorConditionMeta(condition)?.example || '';
+                },
+                usesSpecialAuthorDisplayName(condition) {
+                    return ['anonymous', 'pseudonym', 'royal_title', 'noble_title', 'buddhist_monk', 'organization'].includes(condition);
+                },
+                authorFullName(author = {}) {
+                    return [author.firstName, author.middleName, author.lastName]
+                        .map(value => String(value || '').trim())
+                        .filter(Boolean)
+                        .join(' ')
+                        .trim();
+                },
+                authorDisplayName(author = {}) {
+                    const condition = author.condition || 'normal';
+                    const customName = String(author.displayName || '').trim();
+                    const fullName = this.authorFullName(author);
+
+                    if (condition === 'anonymous') return customName || 'Anonymous';
+                    if (this.usesSpecialAuthorDisplayName(condition)) return customName || fullName;
+
+                    return fullName;
+                },
+                authorUsesLatin(author = {}) {
+                    return /[A-Za-z]/.test(this.authorDisplayName(author) || this.authorFullName(author));
+                },
+                authorInitials(author = {}) {
+                    return [author.firstName, author.middleName]
+                        .map(value => String(value || '').trim())
+                        .filter(Boolean)
+                        .map(name => name
+                            .split(/[\s-]+/)
+                            .filter(Boolean)
+                            .map(part => `${part.charAt(0).toUpperCase()}.`)
+                            .join(' '))
+                        .join(' ')
+                        .trim();
+                },
+                formatSingleAuthorBibliography(author = {}) {
+                    const condition = author.condition || 'normal';
+                    const displayName = this.authorDisplayName(author);
+                    const lastName = String(author.lastName || '').trim();
+                    const initials = this.authorInitials(author);
+                    const fullName = this.authorFullName(author);
+
+                    if (!this.hasAuthorData(author)) return '';
+
+                    if (condition === 'anonymous') return displayName;
+                    if (condition === 'organization') return displayName;
+                    if (condition === 'pseudonym' || condition === 'royal_title' || condition === 'noble_title' || condition === 'buddhist_monk') {
+                        return displayName;
+                    }
+
+                    if (this.authorUsesLatin(author) && lastName) {
+                        const latinName = initials ? `${lastName}, ${initials}` : lastName;
+                        return condition === 'editor' ? `${latinName} (Ed.)` : latinName;
+                    }
+
+                    const fallbackName = displayName || fullName;
+                    return condition === 'editor' && fallbackName ? `${fallbackName} (บ.ก.)` : fallbackName;
+                },
+                formatSingleAuthorCitation(author = {}) {
+                    const condition = author.condition || 'normal';
+                    const displayName = this.authorDisplayName(author);
+                    const lastName = String(author.lastName || '').trim();
+
+                    if (!this.hasAuthorData(author)) return '';
+
+                    if (condition === 'anonymous' || condition === 'organization') return displayName;
+                    if (condition === 'pseudonym' || condition === 'royal_title' || condition === 'noble_title' || condition === 'buddhist_monk') {
+                        return displayName;
+                    }
+
+                    if (this.authorUsesLatin(author) && lastName) return lastName;
+
+                    return displayName;
+                },
+                joinAuthors(names, conjunction = '&') {
+                    const valid = names.filter(Boolean);
+                    if (!valid.length) return '';
+                    if (valid.length === 1) return valid[0];
+                    if (valid.length === 2) return `${valid[0]} ${conjunction} ${valid[1]}`;
+
+                    return `${valid.slice(0, -1).join(', ')}, ${conjunction} ${valid[valid.length - 1]}`;
+                },
                 buildDetailFields() {
                     const fields = [];
                     const append = (label, value) => {
@@ -2344,8 +2465,9 @@
                         if (normalized) fields.push({ label, value: normalized });
                     };
                     const authors = this.form.authors
-                        .filter(author => author.lastName.trim() || author.firstName.trim())
-                        .map(author => [author.lastName.trim(), author.firstName.trim()].filter(Boolean).join(', '))
+                        .filter(author => this.hasAuthorData(author))
+                        .map(author => this.formatSingleAuthorBibliography(author))
+                        .filter(Boolean)
                         .join('; ');
 
                     append('ประเภททรัพยากร', this.formResourceType);
@@ -2419,7 +2541,7 @@
                 },
                 resetForm() {
                     this.form = {
-                        authors: [{ lastName: '', firstName: '' }],
+                        authors: [this.emptyAuthor()],
                         year: '', month: '', day: '', title: '', publisher: '', volume: '', issue: '',
                         pages: '', edition: '', editor: '', bookTitle: '', doi: '', url: '',
                         journalName: '', websiteName: '', thesisType: 'master', university: '', databaseName: '',
@@ -2494,24 +2616,24 @@
                     return ' (n.d.). ';
                 },
                 formatAuthors() {
-                    const valid = this.form.authors.filter(author => author.lastName.trim());
-                    if (!valid.length) return '';
-                    return valid.map((author, index) => {
-                        const last = author.lastName.trim();
-                        const first = author.firstName.trim();
-                        const name = first ? `${last}, ${first}` : last;
-                        if (valid.length === 1) return name;
-                        if (index === valid.length - 1) return `& ${name}`;
-                        if (valid.length === 2) return `${name} `;
-                        return `${name}, `;
-                    }).join('');
+                    return this.joinAuthors(
+                        this.form.authors
+                            .filter(author => this.hasAuthorData(author))
+                            .map(author => this.formatSingleAuthorBibliography(author)),
+                        '&'
+                    );
                 },
                 formatAuthorsCitation() {
-                    const valid = this.form.authors.filter(author => author.lastName.trim());
+                    const valid = this.form.authors
+                        .filter(author => this.hasAuthorData(author))
+                        .map(author => this.formatSingleAuthorCitation(author))
+                        .filter(Boolean);
+
                     if (!valid.length) return '';
-                    if (valid.length === 1) return valid[0].lastName.trim();
-                    if (valid.length === 2) return `${valid[0].lastName.trim()} and ${valid[1].lastName.trim()}`;
-                    return `${valid[0].lastName.trim()} et al.`;
+                    if (valid.length === 1) return valid[0];
+                    if (valid.length === 2) return `${valid[0]} and ${valid[1]}`;
+
+                    return `${valid[0]} et al.`;
                 },
                 generateBibliography() {
                     const authors = this.formatAuthors();
@@ -2642,7 +2764,7 @@
                 addCitationFromForm() {
                     const bibliography = this.generateBibliography();
                     if (!bibliography) {
-                        this.toast('กรุณากรอกข้อมูลอย่างน้อยชื่อผู้แต่งและชื่อเรื่อง', 'warning');
+                        this.toast('กรุณากรอกข้อมูลอย่างน้อยชื่อเรื่อง หรือข้อมูลผู้แต่ง/หน่วยงาน', 'warning');
                         return;
                     }
                     const newEntry = {
