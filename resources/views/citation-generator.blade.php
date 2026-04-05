@@ -6,10 +6,10 @@
     <style>
         body.bibliography-wallpaper {
             background-image:
-                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220' viewBox='0 0 220 220'%3E%3Cg fill='none' stroke='%23efb5cc' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' opacity='0.1'%3E%3Cpath d='M72 58h32c6 0 11 5 11 11v53c-5-4-9-5-15-5H72c-5 0-9 4-9 9V67c0-5 4-9 9-9Z'/%3E%3Cpath d='M115 69h21c6 0 11 5 11 11v43c-4-3-8-4-13-4h-19'/%3E%3Cpath d='M79 76h18M79 88h23M79 100h15'/%3E%3C/g%3E%3C/svg%3E"),
-                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'%3E%3Cg fill='none' stroke='%23f3c4d7' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round' opacity='0.09'%3E%3Crect x='90' y='64' width='56' height='72' rx='10'/%3E%3Cpath d='M101 85h34M101 97h34M101 109h22'/%3E%3Cpath d='M106 147c11-9 24-9 35 0'/%3E%3C/g%3E%3C/svg%3E"),
-                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260' viewBox='0 0 260 260'%3E%3Cg fill='none' stroke='%23eeb2cb' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' opacity='0.09'%3E%3Cpath d='M103 84h54l13 16v63c0 6-5 11-11 11h-56c-6 0-11-5-11-11V95c0-6 5-11 11-11Z'/%3E%3Cpath d='M157 84v16h16'/%3E%3Cpath d='M112 114h38M112 126h30M112 138h21'/%3E%3C/g%3E%3C/svg%3E"),
-                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='230' height='230' viewBox='0 0 230 230'%3E%3Cg fill='none' stroke='%23f5cada' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round' opacity='0.08'%3E%3Cpath d='M86 123c0-18 13-31 31-31s31 13 31 31'/%3E%3Cpath d='M92 123h50'/%3E%3Cpath d='M102 79h26'/%3E%3Cpath d='M115 68v22'/%3E%3Cpath d='M92 144h46'/%3E%3C/g%3E%3C/svg%3E");
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220' viewBox='0 0 220 220'%3E%3Cg fill='none' stroke='%23c7d2fe' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' opacity='0.14'%3E%3Cpath d='M72 58h32c6 0 11 5 11 11v53c-5-4-9-5-15-5H72c-5 0-9 4-9 9V67c0-5 4-9 9-9Z'/%3E%3Cpath d='M115 69h21c6 0 11 5 11 11v43c-4-3-8-4-13-4h-19'/%3E%3Cpath d='M79 76h18M79 88h23M79 100h15'/%3E%3C/g%3E%3C/svg%3E"),
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'%3E%3Cg fill='none' stroke='%23bae6fd' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round' opacity='0.12'%3E%3Crect x='90' y='64' width='56' height='72' rx='10'/%3E%3Cpath d='M101 85h34M101 97h34M101 109h22'/%3E%3Cpath d='M106 147c11-9 24-9 35 0'/%3E%3C/g%3E%3C/svg%3E"),
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260' viewBox='0 0 260 260'%3E%3Cg fill='none' stroke='%23c4b5fd' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' opacity='0.12'%3E%3Cpath d='M103 84h54l13 16v63c0 6-5 11-11 11h-56c-6 0-11-5-11-11V95c0-6 5-11 11-11Z'/%3E%3Cpath d='M157 84v16h16'/%3E%3Cpath d='M112 114h38M112 126h30M112 138h21'/%3E%3C/g%3E%3C/svg%3E"),
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='230' height='230' viewBox='0 0 230 230'%3E%3Cg fill='none' stroke='%23bfdbfe' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round' opacity='0.11'%3E%3Cpath d='M86 123c0-18 13-31 31-31s31 13 31 31'/%3E%3Cpath d='M92 123h50'/%3E%3Cpath d='M102 79h26'/%3E%3Cpath d='M115 68v22'/%3E%3Cpath d='M92 144h46'/%3E%3C/g%3E%3C/svg%3E");
             background-size: 520px 520px, 620px 620px, 700px 700px, 580px 580px;
             background-position: 40px 60px, 320px 260px, 120px 760px, 420px 1120px;
             background-repeat: repeat;
@@ -17,10 +17,10 @@
 
         .dark body.bibliography-wallpaper {
             background-image:
-                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220' viewBox='0 0 220 220'%3E%3Cg fill='none' stroke='%23514049' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' opacity='0.13'%3E%3Cpath d='M72 58h32c6 0 11 5 11 11v53c-5-4-9-5-15-5H72c-5 0-9 4-9 9V67c0-5 4-9 9-9Z'/%3E%3Cpath d='M115 69h21c6 0 11 5 11 11v43c-4-3-8-4-13-4h-19'/%3E%3Cpath d='M79 76h18M79 88h23M79 100h15'/%3E%3C/g%3E%3C/svg%3E"),
-                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'%3E%3Cg fill='none' stroke='%2347353f' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round' opacity='0.12'%3E%3Crect x='90' y='64' width='56' height='72' rx='10'/%3E%3Cpath d='M101 85h34M101 97h34M101 109h22'/%3E%3Cpath d='M106 147c11-9 24-9 35 0'/%3E%3C/g%3E%3C/svg%3E"),
-                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260' viewBox='0 0 260 260'%3E%3Cg fill='none' stroke='%23583d48' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' opacity='0.11'%3E%3Cpath d='M103 84h54l13 16v63c0 6-5 11-11 11h-56c-6 0-11-5-11-11V95c0-6 5-11 11-11Z'/%3E%3Cpath d='M157 84v16h16'/%3E%3Cpath d='M112 114h38M112 126h30M112 138h21'/%3E%3C/g%3E%3C/svg%3E"),
-                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='230' height='230' viewBox='0 0 230 230'%3E%3Cg fill='none' stroke='%234a3740' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round' opacity='0.1'%3E%3Cpath d='M86 123c0-18 13-31 31-31s31 13 31 31'/%3E%3Cpath d='M92 123h50'/%3E%3Cpath d='M102 79h26'/%3E%3Cpath d='M115 68v22'/%3E%3Cpath d='M92 144h46'/%3E%3C/g%3E%3C/svg%3E");
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220' viewBox='0 0 220 220'%3E%3Cg fill='none' stroke='%2337367d' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' opacity='0.15'%3E%3Cpath d='M72 58h32c6 0 11 5 11 11v53c-5-4-9-5-15-5H72c-5 0-9 4-9 9V67c0-5 4-9 9-9Z'/%3E%3Cpath d='M115 69h21c6 0 11 5 11 11v43c-4-3-8-4-13-4h-19'/%3E%3Cpath d='M79 76h18M79 88h23M79 100h15'/%3E%3C/g%3E%3C/svg%3E"),
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'%3E%3Cg fill='none' stroke='%23244869' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round' opacity='0.14'%3E%3Crect x='90' y='64' width='56' height='72' rx='10'/%3E%3Cpath d='M101 85h34M101 97h34M101 109h22'/%3E%3Cpath d='M106 147c11-9 24-9 35 0'/%3E%3C/g%3E%3C/svg%3E"),
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260' viewBox='0 0 260 260'%3E%3Cg fill='none' stroke='%233f3c88' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' opacity='0.13'%3E%3Cpath d='M103 84h54l13 16v63c0 6-5 11-11 11h-56c-6 0-11-5-11-11V95c0-6 5-11 11-11Z'/%3E%3Cpath d='M157 84v16h16'/%3E%3Cpath d='M112 114h38M112 126h30M112 138h21'/%3E%3C/g%3E%3C/svg%3E"),
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='230' height='230' viewBox='0 0 230 230'%3E%3Cg fill='none' stroke='%23254b63' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round' opacity='0.12'%3E%3Cpath d='M86 123c0-18 13-31 31-31s31 13 31 31'/%3E%3Cpath d='M92 123h50'/%3E%3Cpath d='M102 79h26'/%3E%3Cpath d='M115 68v22'/%3E%3Cpath d='M92 144h46'/%3E%3C/g%3E%3C/svg%3E");
         }
 
         .custom-scrollbar::-webkit-scrollbar {
@@ -67,17 +67,17 @@
 
         @keyframes recent-citation-pulse {
             0% {
-                box-shadow: 0 0 0 0 rgba(236, 72, 153, 0.28);
+                box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.26);
                 transform: translateY(0);
             }
 
             50% {
-                box-shadow: 0 0 0 12px rgba(236, 72, 153, 0);
+                box-shadow: 0 0 0 12px rgba(79, 70, 229, 0);
                 transform: translateY(-2px);
             }
 
             100% {
-                box-shadow: 0 0 0 0 rgba(236, 72, 153, 0);
+                box-shadow: 0 0 0 0 rgba(79, 70, 229, 0);
                 transform: translateY(0);
             }
         }
@@ -97,7 +97,7 @@
             justify-content: center;
             width: 1.75rem;
             height: 1.75rem;
-            color: rgb(219 39 119);
+            color: rgb(79 70 229);
             transform-origin: center center;
             transition: transform 340ms cubic-bezier(0.22, 1, 0.36, 1), filter 260ms ease;
         }
@@ -110,7 +110,7 @@
             width: 1.05rem;
             height: 2px;
             border-radius: 9999px;
-            background: linear-gradient(90deg, rgba(244, 114, 182, 0.2), rgba(219, 39, 119, 0.8), rgba(244, 114, 182, 0.2));
+            background: linear-gradient(90deg, rgba(56, 189, 248, 0.2), rgba(99, 102, 241, 0.86), rgba(96, 165, 250, 0.24));
             transform: translateX(-50%) scaleX(0.4);
             opacity: 0;
             transition: transform 320ms cubic-bezier(0.16, 1, 0.3, 1), opacity 220ms ease;
@@ -137,7 +137,7 @@
             width: 100%;
             height: 2px;
             border-radius: 9999px;
-            background: linear-gradient(90deg, rgba(236, 72, 153, 0.3), rgba(219, 39, 119, 0.95), rgba(244, 114, 182, 0.3));
+            background: linear-gradient(90deg, rgba(129, 140, 248, 0.3), rgba(79, 70, 229, 0.95), rgba(56, 189, 248, 0.3));
             transform: scaleX(0.18);
             transform-origin: left center;
             opacity: 0.16;
@@ -146,7 +146,7 @@
 
         .brand-link:hover .brand-mark {
             transform: translateY(-1px) scale(1.04);
-            filter: drop-shadow(0 8px 16px rgba(236, 72, 153, 0.15));
+            filter: drop-shadow(0 10px 18px rgba(59, 130, 246, 0.18));
         }
 
         .brand-link:hover .brand-mark svg {
@@ -168,25 +168,25 @@
 </head>
 
 <body
-    class="bibliography-wallpaper min-h-screen font-sans antialiased bg-zinc-50 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 overflow-x-hidden">
+    class="bibliography-wallpaper min-h-screen overflow-x-hidden bg-slate-50 font-sans antialiased text-zinc-900 dark:bg-slate-950 dark:text-zinc-100">
     <!-- Navbar (Shared) -->
     <flux:header sticky
-        class="sticky top-0 w-full z-[80] border-b bg-zinc-100/95 dark:bg-zinc-900/95 border-zinc-200 dark:border-zinc-800 shadow-sm shadow-zinc-200/60 backdrop-blur-md py-3">
+        class="sticky top-0 z-[80] w-full border-b border-sky-100 bg-slate-50/95 py-3 shadow-sm shadow-indigo-100/40 backdrop-blur-md dark:border-slate-800 dark:bg-slate-950/95">
         <div class="container max-w-7xl mx-auto px-6 flex items-center justify-between">
             <div class="flex items-center gap-8">
                 <a href="/" class="brand-link flex items-center gap-2 group">
                     <div class="brand-mark">
                         <x-app-logo-icon />
                     </div>
-                    <span class="brand-label text-xl font-bold tracking-tight text-pink-700 dark:text-pink-200">
+                    <span class="brand-label text-xl font-bold tracking-tight text-indigo-700 dark:text-sky-200">
                         Babybib
-                        <span class="absolute -right-5 -top-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-pink-300 dark:text-pink-400">v2</span>
+                        <span class="absolute -right-5 -top-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-sky-400 dark:text-sky-300">v2</span>
                     </span>
                 </a>
             </div>
 
             <div class="flex items-center gap-1">
-                <flux:navbar class="hidden md:flex gap-1 text-sm font-medium text-zinc-500 mr-2 [&_[data-current]]:text-pink-600 dark:[&_[data-current]]:text-pink-300 [&_[data-current]]:border-pink-500">
+                <flux:navbar class="mr-2 hidden gap-1 text-sm font-medium text-zinc-500 [&_[data-current]]:border-indigo-500 [&_[data-current]]:text-indigo-600 dark:[&_[data-current]]:text-sky-300 md:flex">
                     <flux:tooltip content="{{ __('User Manual') }}" position="bottom">
                         <flux:navbar.item href="{{ route('manual') }}">{{ __('Manual') }}</flux:navbar.item>
                     </flux:tooltip>
@@ -218,16 +218,16 @@
                             x-transition:leave-end="opacity-0 translate-y-2"
                             class="absolute left-0 top-full pt-2 z-50 w-48" style="display: none;">
                             <div
-                                class="bg-white dark:bg-zinc-900 rounded-xl border border-pink-100 dark:border-zinc-800 shadow-xl shadow-pink-100/40 overflow-hidden p-1.5">
+                                class="overflow-hidden rounded-xl border border-sky-100 bg-white p-1.5 shadow-xl shadow-indigo-100/50 dark:border-slate-800 dark:bg-slate-900">
                                 <flux:menu.item href="#"
-                                    class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-pink-50 hover:!text-pink-700 dark:hover:!bg-pink-500/10 dark:hover:!text-pink-200 transition-colors">
+                                    class="!text-zinc-600 transition-colors hover:!bg-sky-50 hover:!text-indigo-700 dark:!text-zinc-400 dark:hover:!bg-indigo-500/10 dark:hover:!text-sky-200">
                                     {{ __('Help Center') }}</flux:menu.item>
                                 <flux:menu.item href="#"
-                                    class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-pink-50 hover:!text-pink-700 dark:hover:!bg-pink-500/10 dark:hover:!text-pink-200 transition-colors">
+                                    class="!text-zinc-600 transition-colors hover:!bg-sky-50 hover:!text-indigo-700 dark:!text-zinc-400 dark:hover:!bg-indigo-500/10 dark:hover:!text-sky-200">
                                     {{ __('Contact Support') }}</flux:menu.item>
                                 <flux:menu.separator />
                                 <flux:menu.item href="#"
-                                    class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-pink-50 hover:!text-pink-700 dark:hover:!bg-pink-500/10 dark:hover:!text-pink-200 transition-colors">
+                                    class="!text-zinc-600 transition-colors hover:!bg-sky-50 hover:!text-indigo-700 dark:!text-zinc-400 dark:hover:!bg-indigo-500/10 dark:hover:!text-sky-200">
                                     {{ __('Community Discord') }}</flux:menu.item>
                             </div>
                         </div>
@@ -251,18 +251,18 @@
                             x-transition:leave-end="opacity-0 translate-y-2"
                             class="absolute left-0 top-full pt-2 z-50 w-44" style="display: none;">
                             <div
-                                class="bg-white dark:bg-zinc-900 rounded-xl border border-pink-100 dark:border-zinc-800 shadow-xl shadow-pink-100/40 overflow-hidden p-1.5">
+                                class="overflow-hidden rounded-xl border border-sky-100 bg-white p-1.5 shadow-xl shadow-indigo-100/50 dark:border-slate-800 dark:bg-slate-900">
                                 <flux:menu.item href="#" icon="facebook"
-                                    class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-pink-50 hover:!text-pink-700 dark:hover:!bg-pink-500/10 dark:hover:!text-pink-200 transition-colors">
+                                    class="!text-zinc-600 transition-colors hover:!bg-sky-50 hover:!text-indigo-700 dark:!text-zinc-400 dark:hover:!bg-indigo-500/10 dark:hover:!text-sky-200">
                                     Facebook</flux:menu.item>
                                 <flux:menu.item href="#" icon="instagram"
-                                    class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-pink-50 hover:!text-pink-700 dark:hover:!bg-pink-500/10 dark:hover:!text-pink-200 transition-colors">
+                                    class="!text-zinc-600 transition-colors hover:!bg-sky-50 hover:!text-indigo-700 dark:!text-zinc-400 dark:hover:!bg-indigo-500/10 dark:hover:!text-sky-200">
                                     Instagram</flux:menu.item>
                                 <flux:menu.item href="#" icon="twitter"
-                                    class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-pink-50 hover:!text-pink-700 dark:hover:!bg-pink-500/10 dark:hover:!text-pink-200 transition-colors">
+                                    class="!text-zinc-600 transition-colors hover:!bg-sky-50 hover:!text-indigo-700 dark:!text-zinc-400 dark:hover:!bg-indigo-500/10 dark:hover:!text-sky-200">
                                     X (Twitter)</flux:menu.item>
                                 <flux:menu.item href="#" icon="line"
-                                    class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-pink-50 hover:!text-pink-700 dark:hover:!bg-pink-500/10 dark:hover:!text-pink-200 transition-colors">
+                                    class="!text-zinc-600 transition-colors hover:!bg-sky-50 hover:!text-indigo-700 dark:!text-zinc-400 dark:hover:!bg-indigo-500/10 dark:hover:!text-sky-200">
                                     Line</flux:menu.item>
                             </div>
                         </div>
@@ -289,12 +289,12 @@
                         x-transition:leave-end="opacity-0 translate-y-2"
                         class="absolute right-0 top-full pt-2 z-50 w-32" style="display: none;">
                         <div
-                            class="bg-white dark:bg-zinc-900 rounded-xl border border-pink-100 dark:border-zinc-800 shadow-xl shadow-pink-100/40 overflow-hidden p-1.5">
+                            class="overflow-hidden rounded-xl border border-sky-100 bg-white p-1.5 shadow-xl shadow-indigo-100/50 dark:border-slate-800 dark:bg-slate-900">
                             <flux:menu.item href="{{ route('change-language', 'en') }}"
-                                class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-pink-50 hover:!text-pink-700 dark:hover:!bg-pink-500/10 dark:hover:!text-pink-200 transition-colors">
+                                class="!text-zinc-600 transition-colors hover:!bg-sky-50 hover:!text-indigo-700 dark:!text-zinc-400 dark:hover:!bg-indigo-500/10 dark:hover:!text-sky-200">
                                 {{ __('English (EN)') }}</flux:menu.item>
                             <flux:menu.item href="{{ route('change-language', 'th') }}"
-                                class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-pink-50 hover:!text-pink-700 dark:hover:!bg-pink-500/10 dark:hover:!text-pink-200 transition-colors">
+                                class="!text-zinc-600 transition-colors hover:!bg-sky-50 hover:!text-indigo-700 dark:!text-zinc-400 dark:hover:!bg-indigo-500/10 dark:hover:!text-sky-200">
                                 {{ __('ไทย (TH)') }}</flux:menu.item>
                         </div>
                     </div>
@@ -302,7 +302,7 @@
 
                 <flux:tooltip content="{{ __('Toggle appearance') }}" position="bottom">
                     <button type="button" onclick="window.toggleDarkMode()"
-                        class="p-2 rounded-lg hover:bg-pink-50 hover:text-pink-700 dark:hover:bg-pink-500/10 dark:hover:text-pink-200 transition-colors focus:outline-none">
+                        class="rounded-lg p-2 transition-colors hover:bg-sky-50 hover:text-indigo-700 focus:outline-none dark:hover:bg-indigo-500/10 dark:hover:text-sky-200">
                         <flux:icon name="moon" class="w-5 h-5 dark:hidden" />
                         <flux:icon name="sun" class="w-5 h-5 hidden dark:block" />
                     </button>
@@ -318,7 +318,7 @@
                     @else
                         <flux:tooltip content="{{ __('Sign in to your account') }}" position="bottom">
                             <flux:button href="{{ route('login') }}" variant="primary" size="sm"
-                                class="group/signin px-5 font-bold shadow-sm transition-all hover:scale-[1.02] active:scale-95 bg-pink-600 hover:bg-pink-700 dark:bg-pink-500 dark:hover:bg-pink-400 border-pink-600 dark:border-pink-500">
+                                class="group/signin border-indigo-600 bg-indigo-600 px-5 font-bold shadow-sm shadow-indigo-500/20 transition-all hover:scale-[1.02] hover:bg-indigo-700 active:scale-95 dark:border-indigo-500 dark:bg-indigo-500 dark:hover:bg-sky-500">
                                 <span>{{ __('Sign in') }}</span>
                                 <flux:icon name="arrow-right"
                                     class="w-4 h-4 ml-1.5 transition-transform group-hover/signin:translate-x-1" />
@@ -452,7 +452,7 @@
                 </div>
 
                 <button type="button" x-on:click="openCreateProjectModal()"
-                    class="inline-flex w-full items-center justify-center gap-1.5 rounded-xl border border-dashed border-pink-300 bg-white/90 px-3.5 py-2.5 text-[13px] font-semibold text-pink-700 transition hover:border-pink-500 hover:bg-pink-50 hover:text-pink-800 dark:border-pink-500/30 dark:bg-zinc-950 dark:text-pink-300 dark:hover:border-pink-500 dark:hover:bg-pink-500/10 dark:hover:text-pink-200">
+                    class="inline-flex w-full items-center justify-center gap-1.5 rounded-xl border border-dashed border-sky-300 bg-white/90 px-3.5 py-2.5 text-[13px] font-semibold text-indigo-700 transition hover:border-indigo-500 hover:bg-sky-50 hover:text-indigo-800 dark:border-indigo-500/30 dark:bg-zinc-950 dark:text-sky-300 dark:hover:border-indigo-500 dark:hover:bg-indigo-500/10 dark:hover:text-sky-200">
                     <flux:icon name="plus" class="size-3.5" />
                     <span>{{ __('สร้างโครงการใหม่') }}</span>
                 </button>
@@ -487,21 +487,21 @@
                             <div class="absolute right-2 top-1/2 -translate-y-1/2">
                                 <button type="button"
                                     x-on:click.stop="projectMenuOpen = projectMenuOpen === project.id ? null : project.id"
-                                    class="inline-flex size-7 items-center justify-center rounded-full text-zinc-400 opacity-0 transition hover:bg-pink-100 hover:text-pink-700 group-hover:opacity-100 dark:hover:bg-pink-500/10 dark:hover:text-pink-200"
+                                    class="inline-flex size-7 items-center justify-center rounded-full text-zinc-400 opacity-0 transition hover:bg-sky-100 hover:text-indigo-700 group-hover:opacity-100 dark:hover:bg-indigo-500/10 dark:hover:text-sky-200"
                                     x-bind:class="projectMenuOpen === project.id || activeProject === project.id ? 'opacity-100' : ''"
                                     aria-label="{{ __('จัดการโครงการ') }}">
                                     <flux:icon name="ellipsis-horizontal" class="size-3.5" />
                                 </button>
 
                                 <div x-cloak x-show="projectMenuOpen === project.id" x-transition.opacity x-on:click.outside="projectMenuOpen = null"
-                                    class="absolute right-0 z-20 mt-2 w-44 rounded-2xl border border-pink-200/80 bg-white p-1.5 shadow-lg shadow-pink-100/50 dark:border-zinc-700 dark:bg-zinc-950 dark:shadow-none">
+                                    class="absolute right-0 z-20 mt-2 w-44 rounded-2xl border border-sky-200/80 bg-white p-1.5 shadow-lg shadow-indigo-100/50 dark:border-zinc-700 dark:bg-zinc-950 dark:shadow-none">
                                     <button type="button" x-on:click="openEditProjectModal(project)"
-                                        class="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left text-sm text-zinc-600 transition hover:bg-pink-50 hover:text-pink-800 dark:text-zinc-300 dark:hover:bg-pink-500/10 dark:hover:text-pink-100">
+                                        class="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left text-sm text-zinc-600 transition hover:bg-sky-50 hover:text-indigo-800 dark:text-zinc-300 dark:hover:bg-indigo-500/10 dark:hover:text-sky-100">
                                         <flux:icon name="pencil-square" class="size-4" />
                                         {{ __('แก้ไข') }}
                                     </button>
                                     <button type="button" x-on:click="duplicateProject(project)"
-                                        class="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left text-sm text-zinc-600 transition hover:bg-pink-50 hover:text-pink-800 dark:text-zinc-300 dark:hover:bg-pink-500/10 dark:hover:text-pink-100">
+                                        class="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left text-sm text-zinc-600 transition hover:bg-sky-50 hover:text-indigo-800 dark:text-zinc-300 dark:hover:bg-indigo-500/10 dark:hover:text-sky-100">
                                         <flux:icon name="square-2-stack" class="size-4" />
                                         {{ __('คัดลอกโครงการ') }}
                                     </button>
@@ -520,18 +520,18 @@
             <div class="mt-8 border-t border-zinc-200/80 pt-5 text-center dark:border-zinc-800 lg:mt-6">
                 <p class="text-xs font-medium text-zinc-500 dark:text-zinc-400">{{ __('จัดโดย') }} <span class="font-semibold text-zinc-800 dark:text-zinc-100">Babybib</span></p>
                 <div class="mt-2 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-[12px] text-zinc-500 dark:text-zinc-400">
-                    <a href="{{ route('privacy') }}" class="transition hover:text-pink-600 dark:hover:text-pink-300">{{ __('Privacy') }}</a>
+                    <a href="{{ route('privacy') }}" class="transition hover:text-indigo-600 dark:hover:text-sky-300">{{ __('Privacy') }}</a>
                     <span class="text-zinc-300 dark:text-zinc-700">•</span>
-                    <a href="{{ route('terms') }}" class="transition hover:text-pink-600 dark:hover:text-pink-300">{{ __('Terms') }}</a>
+                    <a href="{{ route('terms') }}" class="transition hover:text-indigo-600 dark:hover:text-sky-300">{{ __('Terms') }}</a>
                     <span class="text-zinc-300 dark:text-zinc-700">•</span>
-                    <a href="{{ route('about') }}" class="transition hover:text-pink-600 dark:hover:text-pink-300">{{ __('About') }}</a>
+                    <a href="{{ route('about') }}" class="transition hover:text-indigo-600 dark:hover:text-sky-300">{{ __('About') }}</a>
                 </div>
             </div>
 
             <div x-cloak x-show="projectModal" x-transition.opacity
                 class="fixed inset-0 z-[110] flex items-center justify-center bg-zinc-950/40 px-4 backdrop-blur-sm">
                 <div x-show="projectModal" x-transition
-                    class="w-full max-w-lg rounded-[1.75rem] border border-pink-200 bg-white p-6 shadow-2xl shadow-pink-100/60 dark:border-zinc-700 dark:bg-zinc-900 dark:shadow-none">
+                    class="w-full max-w-lg rounded-[1.75rem] border border-sky-200 bg-white p-6 shadow-2xl shadow-indigo-100/60 dark:border-zinc-700 dark:bg-zinc-900 dark:shadow-none">
                     <div class="flex items-start justify-between gap-4">
                         <div class="space-y-1">
                             <h3 class="text-xl font-semibold text-zinc-900 dark:text-zinc-100" x-text="projectFormMode === 'create' ? @js(__('สร้างโครงการใหม่')) : @js(__('แก้ไขโครงการ'))"></h3>
@@ -546,10 +546,10 @@
                     <div class="mt-6 space-y-2">
                         <label class="text-sm font-medium text-zinc-700 dark:text-zinc-200">{{ __('ชื่อโครงการ') }}</label>
                         <input x-model="projectForm.name" type="text" placeholder="{{ __('เช่น โครงการวิทยานิพนธ์ปี 2026') }}"
-                            class="w-full rounded-2xl border border-pink-200 bg-white px-4 py-3 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500 dark:focus:ring-pink-500/10">
+                            class="w-full rounded-2xl border border-sky-200 bg-white px-4 py-3 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-sky-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-sky-500 dark:focus:ring-sky-400/10">
                     </div>
 
-                    <div class="mt-5 rounded-3xl border border-pink-100 bg-pink-50/60 p-4 dark:border-zinc-800 dark:bg-zinc-950/70">
+                    <div class="mt-5 rounded-3xl border border-sky-100 bg-gradient-to-br from-indigo-50/80 via-white to-sky-50/80 p-4 dark:border-zinc-800 dark:bg-zinc-950/70">
                         <div class="flex items-center justify-between gap-3">
                             <div>
                                 <p class="text-sm font-medium text-zinc-800 dark:text-zinc-100">{{ __('ปรับสไตล์โครงการ') }}</p>
@@ -576,8 +576,8 @@
                                 <button type="button" x-on:click="projectForm.color = color.value"
                                     class="flex items-center justify-center rounded-2xl border px-3 py-3 text-sm transition"
                                     x-bind:class="projectForm.color === color.value
-                                        ? 'border-pink-400 bg-pink-50 text-pink-800 dark:border-pink-500 dark:bg-pink-500/10 dark:text-pink-100'
-                                        : 'border-zinc-200 text-zinc-600 hover:border-pink-300 hover:text-pink-800 dark:border-zinc-700 dark:text-zinc-300 dark:hover:border-pink-500 dark:hover:text-pink-100'">
+                                        ? 'border-indigo-400 bg-sky-50 text-indigo-800 dark:border-sky-500 dark:bg-indigo-500/10 dark:text-sky-100'
+                                        : 'border-zinc-200 text-zinc-600 hover:border-sky-300 hover:text-indigo-800 dark:border-zinc-700 dark:text-zinc-300 dark:hover:border-sky-500 dark:hover:text-sky-100'">
                                     <span class="size-5 rounded-full ring-2 ring-white/70 dark:ring-zinc-900/70" :class="color.swatch"></span>
                                 </button>
                             </template>
@@ -588,8 +588,8 @@
                                 <button type="button" x-on:click="projectForm.icon = icon.value"
                                     class="flex items-center justify-center rounded-2xl border px-3 py-3 text-sm transition"
                                     x-bind:class="projectForm.icon === icon.value
-                                        ? 'border-pink-400 bg-pink-50 text-pink-800 dark:border-pink-500 dark:bg-pink-500/10 dark:text-pink-100'
-                                        : 'border-zinc-200 text-zinc-600 hover:border-pink-300 hover:text-pink-800 dark:border-zinc-700 dark:text-zinc-300 dark:hover:border-pink-500 dark:hover:text-pink-100'">
+                                        ? 'border-indigo-400 bg-sky-50 text-indigo-800 dark:border-sky-500 dark:bg-indigo-500/10 dark:text-sky-100'
+                                        : 'border-zinc-200 text-zinc-600 hover:border-sky-300 hover:text-indigo-800 dark:border-zinc-700 dark:text-zinc-300 dark:hover:border-sky-500 dark:hover:text-sky-100'">
                                     <span class="inline-flex size-5 items-center justify-center">
                                         <flux:icon x-show="icon.value === 'folder'" name="folder" class="size-4" />
                                         <flux:icon x-show="icon.value === 'book-open'" name="book-open" class="size-4" />
@@ -616,7 +616,7 @@
                         </button>
                         <button type="button"
                             x-on:click="saveProject()"
-                            class="inline-flex items-center gap-2 rounded-full bg-pink-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-pink-700 dark:bg-pink-500 dark:text-white dark:hover:bg-pink-400">
+                            class="inline-flex items-center gap-2 rounded-full bg-indigo-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-indigo-700 dark:bg-indigo-500 dark:text-white dark:hover:bg-sky-500">
                             <flux:icon x-show="projectFormMode === 'create'" name="plus" class="size-4" />
                             <flux:icon x-show="projectFormMode === 'edit'" name="check" class="size-4" />
                             <span x-text="projectFormMode === 'create' ? @js(__('สร้างโครงการ')) : @js(__('บันทึกการแก้ไข'))"></span>
@@ -679,9 +679,9 @@
                                 <div x-cloak x-show="smartSearchOpen && (smartSearchLoading || smartSearchResults.length)" x-transition.opacity
                                     x-on:click="closeSmartSearch()"
                                     class="fixed inset-0 z-30 bg-zinc-950/12 backdrop-blur-[3px] dark:bg-zinc-950/30"></div>
-                                        <div class="absolute left-4 top-0 z-40 -translate-y-1/2 flex items-center gap-3 rounded-full bg-white px-3 py-1 dark:bg-zinc-900">
+                                        <div class="absolute left-4 top-0 z-40 -translate-y-1/2 flex items-center gap-3 rounded-full border border-sky-100 bg-white/95 px-3 py-1 shadow-sm shadow-indigo-100/40 dark:border-slate-800 dark:bg-slate-900/95">
                                     <button type="button" x-on:click="modalOpen = true"
-                                        class="inline-flex items-center gap-2 rounded-full bg-pink-600 px-3.5 py-1.5 text-xs font-semibold text-white shadow-sm shadow-pink-500/20 transition hover:bg-pink-700 hover:shadow-md hover:shadow-pink-500/25 focus:outline-none focus:ring-2 focus:ring-pink-500/20 dark:bg-pink-500 dark:hover:bg-pink-400"
+                                        class="inline-flex items-center gap-2 rounded-full bg-indigo-600 px-3.5 py-1.5 text-xs font-semibold text-white shadow-sm shadow-indigo-500/20 transition hover:bg-indigo-700 hover:shadow-md hover:shadow-indigo-500/25 focus:outline-none focus:ring-2 focus:ring-sky-500/20 dark:bg-indigo-500 dark:hover:bg-sky-500"
                                         aria-label="{{ __('เปิดฟอร์มกรอกข้อมูลเอง') }}">
                                         <flux:icon name="plus" class="size-3.5" />
                                         <span>{{ __('สร้างรายการอ้างอิง') }}</span>
@@ -690,30 +690,30 @@
                                     <button type="button" x-on:click="setQuickFilter('website')"
                                         class="relative border-b-2 pb-1 text-xs font-medium transition"
                                         x-bind:class="activeQuickFilter === 'website'
-                                            ? 'border-pink-500 text-zinc-900 dark:border-pink-500 dark:text-zinc-100'
-                                            : 'border-transparent text-zinc-500 hover:border-pink-400 hover:text-zinc-900 dark:border-transparent dark:text-zinc-400 dark:hover:border-pink-500 dark:hover:text-zinc-100'">
+                                            ? 'border-indigo-500 text-zinc-900 dark:border-sky-500 dark:text-zinc-100'
+                                            : 'border-transparent text-zinc-500 hover:border-sky-400 hover:text-zinc-900 dark:border-transparent dark:text-zinc-400 dark:hover:border-sky-500 dark:hover:text-zinc-100'">
                                         {{ __('เว็บไซต์') }}
                                     </button>
 
                                     <button type="button" x-on:click="setQuickFilter('book')"
                                         class="relative border-b-2 pb-1 text-xs font-medium transition"
                                         x-bind:class="activeQuickFilter === 'book'
-                                            ? 'border-pink-500 text-zinc-900 dark:border-pink-500 dark:text-zinc-100'
-                                            : 'border-transparent text-zinc-500 hover:border-pink-400 hover:text-zinc-900 dark:border-transparent dark:text-zinc-400 dark:hover:border-pink-500 dark:hover:text-zinc-100'">
+                                            ? 'border-indigo-500 text-zinc-900 dark:border-sky-500 dark:text-zinc-100'
+                                            : 'border-transparent text-zinc-500 hover:border-sky-400 hover:text-zinc-900 dark:border-transparent dark:text-zinc-400 dark:hover:border-sky-500 dark:hover:text-zinc-100'">
                                         {{ __('หนังสือ') }}
                                     </button>
 
                                     <button type="button" x-on:click="setQuickFilter('article')"
                                         class="relative border-b-2 pb-1 text-xs font-medium transition"
                                         x-bind:class="activeQuickFilter === 'article'
-                                            ? 'border-pink-500 text-zinc-900 dark:border-pink-500 dark:text-zinc-100'
-                                            : 'border-transparent text-zinc-500 hover:border-pink-400 hover:text-zinc-900 dark:border-transparent dark:text-zinc-400 dark:hover:border-pink-500 dark:hover:text-zinc-100'">
+                                            ? 'border-indigo-500 text-zinc-900 dark:border-sky-500 dark:text-zinc-100'
+                                            : 'border-transparent text-zinc-500 hover:border-sky-400 hover:text-zinc-900 dark:border-transparent dark:text-zinc-400 dark:hover:border-sky-500 dark:hover:text-zinc-100'">
                                         {{ __('บทความ') }}
                                     </button>
                                 </div>
                                 <div
                                     class="pointer-events-none absolute inset-y-0 left-0 z-40 flex items-center pl-4 transition-colors group-focus-within:text-zinc-600 dark:group-focus-within:text-zinc-200">
-                                    <span class="relative inline-flex size-8 items-center justify-center text-pink-500 dark:text-pink-300">
+                                    <span class="relative inline-flex size-8 items-center justify-center text-indigo-500 dark:text-sky-300">
                                         <flux:icon name="magnifying-glass" class="size-4.5" />
                                     </span>
                                 </div>
@@ -723,14 +723,14 @@
                                     x-on:keydown.escape.prevent="closeSmartSearch()"
                                     x-on:keydown.enter.prevent="openFirstSmartSearchResult()"
                                     x-bind:placeholder="smartSearchPlaceholder()"
-                                    class="relative z-30 w-full rounded-2xl border border-pink-200 bg-white py-3.5 pl-16 pr-12 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500 dark:focus:ring-pink-500/10">
+                                    class="relative z-30 w-full rounded-2xl border border-sky-200 bg-white py-3.5 pl-16 pr-12 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-sky-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-sky-500 dark:focus:ring-sky-400/10">
                                 <div x-cloak x-show="smartSearchLoading"
-                                    class="pointer-events-none absolute inset-y-0 right-4 z-30 flex items-center text-pink-500 dark:text-pink-300">
+                                    class="pointer-events-none absolute inset-y-0 right-4 z-30 flex items-center text-indigo-500 dark:text-sky-300">
                                     <flux:icon name="arrow-path" class="size-4 animate-spin" />
                                 </div>
                                 <div class="absolute right-3 -top-1 z-30 -translate-y-1/2">
                                     <a href="{{ url('/manual') }}"
-                                        class="inline-flex items-center gap-1.5 bg-white px-1 text-[11px] font-medium text-pink-400 transition hover:text-pink-600 focus:outline-none focus:ring-2 focus:ring-pink-500/20 dark:bg-zinc-900 dark:text-pink-300 dark:hover:text-pink-200"
+                                        class="inline-flex items-center gap-1.5 bg-white px-1 text-[11px] font-medium text-sky-500 transition hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-sky-500/20 dark:bg-zinc-900 dark:text-sky-300 dark:hover:text-sky-200"
                                         aria-label="{{ __('เปิดหน้าช่วยเหลือ') }}">
                                         <flux:icon name="question-mark-circle" class="size-3.5" />
                                         {{ __('Help') }}
@@ -738,13 +738,13 @@
                                 </div>
 
                                 <div x-cloak x-show="smartSearchOpen && smartQuery.trim()" x-transition.opacity.origin.top
-                                    class="absolute inset-x-0 top-full z-40 mt-3 overflow-hidden rounded-[1.5rem] border border-pink-200 bg-white/95 shadow-2xl shadow-pink-100/60 backdrop-blur dark:border-zinc-700 dark:bg-zinc-950/95 dark:shadow-none">
+                                    class="absolute inset-x-0 top-full z-40 mt-3 overflow-hidden rounded-[1.5rem] border border-sky-200 bg-white/95 shadow-2xl shadow-indigo-100/60 backdrop-blur dark:border-zinc-700 dark:bg-zinc-950/95 dark:shadow-none">
                                     
 
                                     <div class="custom-scrollbar max-h-[24rem] overflow-y-auto p-2">
                                         <template x-if="smartSearchLoading">
                                             <div class="flex items-center gap-3 rounded-2xl px-4 py-4 text-sm text-zinc-500 dark:text-zinc-400">
-                                                <span class="inline-flex size-10 items-center justify-center rounded-2xl bg-pink-50 text-pink-500 dark:bg-pink-500/10 dark:text-pink-300">
+                                                <span class="inline-flex size-10 items-center justify-center rounded-2xl bg-sky-50 text-indigo-500 dark:bg-indigo-500/10 dark:text-sky-300">
                                                     <flux:icon name="arrow-path" class="size-4 animate-spin" />
                                                 </span>
                                                 <div>
@@ -758,7 +758,7 @@
                                             <div class="space-y-1.5">
                                                 <template x-for="result in smartSearchResults" :key="result.key">
                                                     <button type="button" x-on:click="openSmartSearchResult(result)"
-                                                        class="flex w-full items-start gap-3 rounded-2xl border border-transparent px-3 py-3 text-left transition hover:border-pink-200 hover:bg-pink-50 dark:hover:border-pink-500/30 dark:hover:bg-pink-500/10">
+                                                        class="flex w-full items-start gap-3 rounded-2xl border border-transparent px-3 py-3 text-left transition hover:border-sky-200 hover:bg-sky-50 dark:hover:border-sky-500/30 dark:hover:bg-indigo-500/10">
                                                         <span class="inline-flex size-10 shrink-0 items-center justify-center rounded-2xl border text-xs font-semibold"
                                                             x-bind:class="result.accentClass">
                                                             <flux:icon x-show="result.icon === 'book-open'" name="book-open" class="size-4" />
@@ -771,7 +771,7 @@
                                                                 <span class="text-sm font-semibold text-zinc-800 dark:text-zinc-100" x-text="result.title"></span>
                                                                 <span class="rounded-full bg-zinc-100 px-2.5 py-1 text-[11px] font-medium text-zinc-500 dark:bg-zinc-800 dark:text-zinc-300" x-text="result.formatLabel"></span>
                                                             </span>
-                                                            <span class="mt-1 block text-xs font-medium text-pink-600 dark:text-pink-300" x-text="result.matchLabel"></span>
+                                                            <span class="mt-1 block text-xs font-medium text-indigo-600 dark:text-sky-300" x-text="result.matchLabel"></span>
                                                             <span class="mt-1 block text-xs leading-5 text-zinc-700 dark:text-zinc-200" x-text="result.authorLine"></span>
                                                             <span class="mt-1 block text-xs leading-5 text-zinc-500 dark:text-zinc-400" x-text="result.metadataLine"></span>
                                                             <span class="mt-1 block text-[11px] leading-5 text-zinc-400 dark:text-zinc-500" x-text="result.preview"></span>
@@ -783,11 +783,11 @@
                                         </template>
 
                                         <template x-if="!smartSearchLoading && !smartSearchResults.length">
-                                            <div class="rounded-[1.25rem] border border-dashed border-pink-200 bg-pink-50/60 px-4 py-5 text-center dark:border-zinc-700 dark:bg-zinc-900/70">
+                                            <div class="rounded-[1.25rem] border border-dashed border-sky-200 bg-sky-50/70 px-4 py-5 text-center dark:border-zinc-700 dark:bg-zinc-900/70">
                                                 <p class="text-sm font-semibold text-zinc-800 dark:text-zinc-100" x-text="smartSearchEmptyTitle()"></p>
                                                 <p class="mt-1 text-xs leading-5 text-zinc-500 dark:text-zinc-400" x-text="smartSearchEmptyDescription()"></p>
                                                 <button type="button" x-on:click="openManualResourceFormFromSearch()"
-                                                    class="mt-4 inline-flex items-center gap-2 rounded-full border border-pink-200 bg-white px-4 py-2 text-xs font-medium text-pink-600 transition hover:border-pink-300 hover:text-pink-700 dark:border-zinc-700 dark:bg-zinc-950 dark:text-pink-300 dark:hover:border-pink-500">
+                                                    class="mt-4 inline-flex items-center gap-2 rounded-full border border-sky-200 bg-white px-4 py-2 text-xs font-medium text-indigo-600 transition hover:border-indigo-300 hover:text-indigo-700 dark:border-zinc-700 dark:bg-zinc-950 dark:text-sky-300 dark:hover:border-sky-500">
                                                     <flux:icon x-show="activeQuickFilter !== 'website'" name="book-open" class="size-3.5" />
                                                     <flux:icon x-show="activeQuickFilter === 'website'" name="globe-alt" class="size-3.5" />
                                                     <span x-text="smartSearchManualActionLabel()"></span>
@@ -803,7 +803,7 @@
                                     <span class="flex items-center justify-between gap-3">
                                         <span>{{ __('รูปแบบบรรณานุกรม') }}</span>
                                         <a href="{{ url('/manual') }}"
-                                            class="text-[11px] font-medium text-pink-600 underline underline-offset-2 transition hover:text-pink-700 dark:text-pink-300 dark:hover:text-pink-200">
+                                            class="text-[11px] font-medium text-indigo-600 underline underline-offset-2 transition hover:text-indigo-700 dark:text-sky-300 dark:hover:text-sky-200">
                                             {{ __('Learn more') }}
                                         </a>
                                     </span>
@@ -820,22 +820,22 @@
                                     <div class="flex items-center justify-center gap-2">
                                         <flux:tooltip content="{{ __('มุมมองแบบกระดาษ') }}" position="top">
                                             <button type="button" x-on:click="displayMode = 'paper'"
-                                                class="inline-flex size-10 items-center justify-center rounded-xl border border-pink-200 bg-white transition dark:border-zinc-700 dark:bg-zinc-950"
-                                                x-bind:class="displayMode === 'paper' ? 'border-pink-300 text-pink-700 ring-2 ring-pink-500/15 dark:border-pink-500/50 dark:text-pink-200 dark:ring-pink-500/20' : 'text-zinc-400 hover:border-pink-200 hover:text-pink-700 dark:text-zinc-500 dark:hover:text-pink-200'">
+                                                class="inline-flex size-10 items-center justify-center rounded-xl border border-sky-200 bg-white transition dark:border-zinc-700 dark:bg-zinc-950"
+                                                x-bind:class="displayMode === 'paper' ? 'border-indigo-300 text-indigo-700 ring-2 ring-sky-500/15 dark:border-sky-500/50 dark:text-sky-200 dark:ring-sky-500/20' : 'text-zinc-400 hover:border-sky-200 hover:text-indigo-700 dark:text-zinc-500 dark:hover:text-sky-200'">
                                                 <flux:icon name="document-text" class="size-4" />
                                             </button>
                                         </flux:tooltip>
                                         <flux:tooltip content="{{ __('มุมมองแบบรายการ') }}" position="top">
                                             <button type="button" x-on:click="displayMode = 'list'"
-                                                class="inline-flex size-10 items-center justify-center rounded-xl border border-pink-200 bg-white transition dark:border-zinc-700 dark:bg-zinc-950"
-                                                x-bind:class="displayMode === 'list' ? 'border-pink-300 text-pink-700 ring-2 ring-pink-500/15 dark:border-pink-500/50 dark:text-pink-200 dark:ring-pink-500/20' : 'text-zinc-400 hover:border-pink-200 hover:text-pink-700 dark:text-zinc-500 dark:hover:text-pink-200'">
+                                                class="inline-flex size-10 items-center justify-center rounded-xl border border-sky-200 bg-white transition dark:border-zinc-700 dark:bg-zinc-950"
+                                                x-bind:class="displayMode === 'list' ? 'border-indigo-300 text-indigo-700 ring-2 ring-sky-500/15 dark:border-sky-500/50 dark:text-sky-200 dark:ring-sky-500/20' : 'text-zinc-400 hover:border-sky-200 hover:text-indigo-700 dark:text-zinc-500 dark:hover:text-sky-200'">
                                                 <flux:icon name="list-bullet" class="size-4" />
                                             </button>
                                         </flux:tooltip>
                                         <flux:tooltip content="{{ __('แสดงเฉพาะ citation') }}" position="top">
                                             <button type="button" x-on:click="displayMode = 'citation'"
-                                                class="inline-flex size-10 items-center justify-center rounded-xl border border-pink-200 bg-white transition dark:border-zinc-700 dark:bg-zinc-950"
-                                                x-bind:class="displayMode === 'citation' ? 'border-pink-300 text-pink-700 ring-2 ring-pink-500/15 dark:border-pink-500/50 dark:text-pink-200 dark:ring-pink-500/20' : 'text-zinc-400 hover:border-pink-200 hover:text-pink-700 dark:text-zinc-500 dark:hover:text-pink-200'">
+                                                class="inline-flex size-10 items-center justify-center rounded-xl border border-sky-200 bg-white transition dark:border-zinc-700 dark:bg-zinc-950"
+                                                x-bind:class="displayMode === 'citation' ? 'border-indigo-300 text-indigo-700 ring-2 ring-sky-500/15 dark:border-sky-500/50 dark:text-sky-200 dark:ring-sky-500/20' : 'text-zinc-400 hover:border-sky-200 hover:text-indigo-700 dark:text-zinc-500 dark:hover:text-sky-200'">
                                                 <flux:icon name="chat-bubble-bottom-center-text" class="size-4" />
                                             </button>
                                         </flux:tooltip>
@@ -847,7 +847,7 @@
                                     <div class="flex gap-2">
                                         <button type="button"
                                             x-on:click="copyCurrentView()"
-                                            class="inline-flex h-10 items-center gap-2 rounded-xl border border-pink-200 bg-white px-3.5 text-sm font-medium text-zinc-700 transition hover:border-pink-300 hover:text-pink-700 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-200 dark:hover:border-pink-500 dark:hover:text-pink-200">
+                                            class="inline-flex h-10 items-center gap-2 rounded-xl border border-sky-200 bg-white px-3.5 text-sm font-medium text-zinc-700 transition hover:border-indigo-300 hover:text-indigo-700 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-200 dark:hover:border-sky-500 dark:hover:text-sky-200">
                                             <template x-if="!copied">
                                                 <flux:icon name="clipboard-document" class="size-4" />
                                             </template>
@@ -859,20 +859,20 @@
 
                                         <div class="relative">
                                             <button type="button" x-on:click="exportOpen = !exportOpen"
-                                                class="inline-flex h-10 items-center gap-2 rounded-xl border border-pink-200 bg-white px-3.5 text-sm font-medium text-zinc-700 transition hover:border-pink-300 hover:text-pink-700 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-200 dark:hover:border-pink-500 dark:hover:text-pink-200">
+                                                class="inline-flex h-10 items-center gap-2 rounded-xl border border-sky-200 bg-white px-3.5 text-sm font-medium text-zinc-700 transition hover:border-indigo-300 hover:text-indigo-700 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-200 dark:hover:border-sky-500 dark:hover:text-sky-200">
                                                 <flux:icon name="arrow-down-tray" class="size-4" />
                                                 <span>{{ __('ส่งออก') }}</span>
                                             </button>
 
                                             <div x-cloak x-show="exportOpen" x-transition.opacity x-on:click.outside="exportOpen = false"
-                                                class="absolute right-0 z-20 mt-2 min-w-36 rounded-xl border border-pink-200 bg-white p-1.5 shadow-lg shadow-pink-100/50 dark:border-zinc-700 dark:bg-zinc-950 dark:shadow-none">
+                                                class="absolute right-0 z-20 mt-2 min-w-36 rounded-xl border border-sky-200 bg-white p-1.5 shadow-lg shadow-indigo-100/50 dark:border-zinc-700 dark:bg-zinc-950 dark:shadow-none">
                                                 <button type="button" x-on:click="exportOpen = false"
-                                                    class="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm text-zinc-600 transition hover:bg-pink-50 hover:text-pink-800 dark:text-zinc-300 dark:hover:bg-pink-500/10 dark:hover:text-pink-100">
+                                                    class="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm text-zinc-600 transition hover:bg-sky-50 hover:text-indigo-800 dark:text-zinc-300 dark:hover:bg-indigo-500/10 dark:hover:text-sky-100">
                                                     <flux:icon name="document-text" class="size-4 text-sky-600 dark:text-sky-400" />
                                                     Word
                                                 </button>
                                                 <button type="button" x-on:click="window.print(); exportOpen = false"
-                                                    class="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm text-zinc-600 transition hover:bg-pink-50 hover:text-pink-800 dark:text-zinc-300 dark:hover:bg-pink-500/10 dark:hover:text-pink-100">
+                                                    class="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm text-zinc-600 transition hover:bg-sky-50 hover:text-indigo-800 dark:text-zinc-300 dark:hover:bg-indigo-500/10 dark:hover:text-sky-100">
                                                     <flux:icon name="document" class="size-4 text-rose-600 dark:text-rose-400" />
                                                     PDF
                                                 </button>
@@ -887,7 +887,7 @@
                         <div x-cloak x-show="modalOpen" x-transition.opacity
                             class="fixed inset-0 z-[110] flex items-center justify-center bg-zinc-950/50 px-4 py-6 backdrop-blur-sm">
                             <div x-show="modalOpen" x-transition
-                                class="flex max-h-[90vh] w-full max-w-6xl flex-col overflow-hidden rounded-[2rem] border border-pink-200 bg-white shadow-2xl shadow-pink-100/60 dark:border-zinc-700 dark:bg-zinc-900 dark:shadow-none">
+                                class="flex max-h-[90vh] w-full max-w-6xl flex-col overflow-hidden rounded-[2rem] border border-sky-200 bg-white shadow-2xl shadow-indigo-100/60 dark:border-zinc-700 dark:bg-zinc-900 dark:shadow-none">
                                 <div class="flex items-start justify-between gap-4 border-b border-zinc-200 px-6 py-5 dark:border-zinc-800 lg:px-8">
                                     <div class="space-y-1">
                                         
@@ -912,7 +912,7 @@
                                         </div>
                                         <input x-model.debounce.150ms="modalSearch" type="text"
                                             placeholder="{{ __('ค้นหาประเภททรัพยากร เช่น หนังสืออิเล็กทรอนิกส์, วิทยานิพนธ์, เว็บเพจ') }}"
-                                            class="w-full rounded-2xl border border-pink-200 bg-pink-50/50 py-3 pl-12 pr-4 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500 dark:focus:ring-pink-500/10">
+                                            class="w-full rounded-2xl border border-sky-200 bg-sky-50/60 py-3 pl-12 pr-4 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-sky-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-sky-500 dark:focus:ring-sky-400/10">
                                     </div>
                                 </div>
 
@@ -946,7 +946,7 @@
                                                     default => 'bg-teal-50 text-teal-700 ring-teal-200 dark:bg-teal-500/10 dark:text-teal-300 dark:ring-teal-400/20',
                                                 };
                                             @endphp
-                                            <div class="rounded-3xl border border-pink-100 bg-gradient-to-br from-pink-50/90 via-white to-rose-50/70 p-5 dark:border-zinc-800 dark:bg-zinc-950/50"
+                                            <div class="rounded-3xl border border-sky-100 bg-gradient-to-br from-indigo-50/80 via-white to-sky-50/80 p-5 dark:border-zinc-800 dark:bg-zinc-950/50"
                                                 x-show="@js(($group['label'].' '.implode(' ', $group['items']))).toLowerCase().includes(modalSearch.toLowerCase())"
                                                 x-transition.opacity.duration.150ms>
                                                 <div class="mb-4 flex items-center gap-3">
@@ -964,7 +964,7 @@
                                                         <button type="button"
                                                             x-show="@js($item).toLowerCase().includes(modalSearch.toLowerCase()) || @js($group['label']).toLowerCase().includes(modalSearch.toLowerCase())"
                                                             x-on:click="openFormModal(@js($item))"
-                                                            class="flex w-full items-start justify-between gap-3 rounded-2xl border border-transparent bg-white px-4 py-3 text-left text-sm text-zinc-700 transition hover:border-pink-200 hover:bg-pink-50 hover:text-pink-800 dark:bg-zinc-900 dark:text-zinc-200 dark:hover:border-pink-500/30 dark:hover:bg-pink-500/10 dark:hover:text-pink-100">
+                                                            class="flex w-full items-start justify-between gap-3 rounded-2xl border border-transparent bg-white px-4 py-3 text-left text-sm text-zinc-700 transition hover:border-sky-200 hover:bg-sky-50 hover:text-indigo-800 dark:bg-zinc-900 dark:text-zinc-200 dark:hover:border-sky-500/30 dark:hover:bg-indigo-500/10 dark:hover:text-sky-100">
                                                             <span class="leading-6">{{ $item }}</span>
                                                             <flux:icon name="arrow-up-right" class="mt-1 size-4 shrink-0 text-zinc-300 dark:text-zinc-600" />
                                                         </button>
@@ -981,7 +981,7 @@
                                     </p>
                                     <div class="flex items-center gap-3">
                                         <a href="{{ url('/manual') }}"
-                                            class="text-sm font-medium text-zinc-900 underline underline-offset-2 transition hover:text-pink-500 dark:text-zinc-100 dark:hover:text-pink-400">
+                                            class="text-sm font-medium text-zinc-900 underline underline-offset-2 transition hover:text-indigo-500 dark:text-zinc-100 dark:hover:text-sky-400">
                                             {{ __('Open manual') }}
                                         </a>
                                         <button type="button" x-on:click="modalOpen = false"
@@ -999,13 +999,13 @@
                         <div x-cloak x-show="detailModalOpen" x-transition.opacity
                             class="fixed inset-0 z-[110] flex items-center justify-center bg-zinc-950/50 px-4 py-6 backdrop-blur-sm">
                             <div x-show="detailModalOpen" x-transition
-                                class="w-full max-w-5xl rounded-[2rem] border border-pink-200 bg-white p-6 shadow-2xl shadow-pink-100/60 dark:border-zinc-700 dark:bg-zinc-900 dark:shadow-none">
+                                class="w-full max-w-5xl rounded-[2rem] border border-sky-200 bg-white p-6 shadow-2xl shadow-indigo-100/60 dark:border-zinc-700 dark:bg-zinc-900 dark:shadow-none">
                                 <div class="flex items-start justify-between gap-4">
                                     <div class="space-y-1">
                                         <h3 class="text-xl font-semibold text-zinc-900 dark:text-zinc-100">{{ __('รายละเอียดรายการบรรณานุกรม') }}</h3>
                                         <p class="text-sm text-zinc-500 dark:text-zinc-400">
                                             {{ __('โครงการ:') }}
-                                            <span class="font-medium text-pink-600 dark:text-pink-300" x-text="activeEntry ? projectNameById(entryProjectId(activeEntry)) : '-' "></span>
+                                            <span class="font-medium text-indigo-600 dark:text-sky-300" x-text="activeEntry ? projectNameById(entryProjectId(activeEntry)) : '-' "></span>
                                             <span class="mx-2 text-zinc-300 dark:text-zinc-600">•</span>
                                             {{ __('ประเภท:') }}
                                             <span class="font-medium text-zinc-700 dark:text-zinc-200" x-text="entryTypeLabel(activeEntry)"></span>
@@ -1019,8 +1019,8 @@
 
                                 <div class="mt-6 grid gap-4 xl:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)]">
                                     <div class="space-y-4">
-                                        <div class="rounded-3xl border border-pink-200 bg-pink-50/50 p-5 dark:border-zinc-700 dark:bg-zinc-950">
-                                            <p class="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-pink-500 dark:text-pink-300">{{ __('Bibliography') }}</p>
+                                        <div class="rounded-3xl border border-sky-200 bg-sky-50/60 p-5 dark:border-zinc-700 dark:bg-zinc-950">
+                                            <p class="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-indigo-500 dark:text-sky-300">{{ __('Bibliography') }}</p>
                                             <div class="paper-bibliography-font text-[16px] leading-[2] text-zinc-700 dark:text-zinc-300">
                                                 <p class="thai-distributed" style="padding-left: 0.5in; text-indent: -0.5in; line-height: 2;" x-html="entryPaperPreview(activeEntry)"></p>
                                             </div>
@@ -1060,7 +1060,7 @@
                                         {{ __('Close') }}
                                     </button>
                                     <button type="button" x-on:click="copyEntry(activeEntry)"
-                                        class="inline-flex items-center gap-2 rounded-full bg-pink-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-pink-700 dark:bg-pink-500 dark:hover:bg-pink-400">
+                                        class="inline-flex items-center gap-2 rounded-full bg-indigo-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-sky-500">
                                         <flux:icon x-show="copiedEntryId !== activeEntry?.id" name="clipboard-document" class="size-4" />
                                         <flux:icon x-show="copiedEntryId === activeEntry?.id" name="check" class="size-4" />
                                         <span x-text="copiedEntryId === activeEntry?.id ? @js(__('คัดลอกแล้ว')) : @js(__('คัดลอกรายการ'))"></span>
@@ -1072,7 +1072,7 @@
                         <div x-cloak x-show="editModalOpen" x-transition.opacity
                             class="fixed inset-0 z-[110] flex items-center justify-center bg-zinc-950/50 px-4 py-6 backdrop-blur-sm">
                             <div x-show="editModalOpen" x-transition
-                                class="w-full max-w-5xl rounded-[2rem] border border-pink-200 bg-white p-6 shadow-2xl shadow-pink-100/60 dark:border-zinc-700 dark:bg-zinc-900 dark:shadow-none">
+                                class="w-full max-w-5xl rounded-[2rem] border border-sky-200 bg-white p-6 shadow-2xl shadow-indigo-100/60 dark:border-zinc-700 dark:bg-zinc-900 dark:shadow-none">
                                 <div class="flex items-start justify-between gap-4">
                                     <div class="space-y-1">
                                         <h3 class="text-xl font-semibold text-zinc-900 dark:text-zinc-100">{{ __('แก้ไขรายการบรรณานุกรม') }}</h3>
@@ -1089,13 +1089,13 @@
                                         <div class="space-y-2">
                                             <label class="text-sm font-medium text-zinc-700 dark:text-zinc-200">{{ __('ประเภททรัพยากร') }}</label>
                                             <input x-model="editEntryDraft.resourceType" type="text"
-                                                class="w-full rounded-2xl border border-pink-200 bg-white px-4 py-3 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
+                                                class="w-full rounded-2xl border border-sky-200 bg-white px-4 py-3 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-sky-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-sky-500">
                                         </div>
 
                                         <div class="space-y-2">
                                             <label class="text-sm font-medium text-zinc-700 dark:text-zinc-200">{{ __('บรรณานุกรม') }}</label>
                                             <textarea x-model="editEntryDraft.text" rows="7"
-                                                class="w-full rounded-3xl border border-pink-200 bg-white px-4 py-4 text-sm leading-7 text-zinc-700 placeholder:text-zinc-400 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500"></textarea>
+                                                class="w-full rounded-3xl border border-sky-200 bg-white px-4 py-4 text-sm leading-7 text-zinc-700 placeholder:text-zinc-400 focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-sky-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-sky-500"></textarea>
                                         </div>
 
                                         <div class="grid gap-4 lg:grid-cols-2">
@@ -1119,7 +1119,7 @@
                                                 <p class="text-xs text-zinc-500 dark:text-zinc-400">{{ __('แก้ไขหรือเพิ่มข้อมูลย่อยของรายการให้แสดงใน modal รายละเอียด') }}</p>
                                             </div>
                                             <button type="button" x-on:click="addEditField()"
-                                                class="inline-flex items-center gap-1.5 rounded-full border border-pink-200 bg-white px-3 py-1.5 text-xs font-medium text-pink-600 transition hover:border-pink-300 hover:text-pink-700 dark:border-zinc-700 dark:bg-zinc-900 dark:text-pink-300 dark:hover:border-pink-500">
+                                                class="inline-flex items-center gap-1.5 rounded-full border border-sky-200 bg-white px-3 py-1.5 text-xs font-medium text-indigo-600 transition hover:border-indigo-300 hover:text-indigo-700 dark:border-zinc-700 dark:bg-zinc-900 dark:text-sky-300 dark:hover:border-sky-500">
                                                 <flux:icon name="plus" class="size-3.5" />
                                                 {{ __('เพิ่มฟิลด์') }}
                                             </button>
@@ -1132,12 +1132,12 @@
                                                         <div>
                                                             <label class="mb-1 block text-xs font-medium text-zinc-500 dark:text-zinc-400">{{ __('ชื่อฟิลด์') }}</label>
                                                             <input x-model="field.label" type="text"
-                                                                class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500">
+                                                                class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-sky-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-sky-500">
                                                         </div>
                                                         <div>
                                                             <label class="mb-1 block text-xs font-medium text-zinc-500 dark:text-zinc-400">{{ __('ค่า') }}</label>
                                                             <textarea x-model="field.value" rows="2"
-                                                                class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-pink-500"></textarea>
+                                                                class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-sky-500/10 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-sky-500"></textarea>
                                                         </div>
                                                         <button type="button" x-on:click="removeEditField(index)"
                                                             class="mt-6 inline-flex size-9 items-center justify-center rounded-xl text-zinc-400 transition hover:bg-rose-50 hover:text-rose-600 dark:hover:bg-rose-500/10 dark:hover:text-rose-400"
@@ -1160,7 +1160,7 @@
                                         {{ __('ยกเลิก') }}
                                     </button>
                                     <button type="button" x-on:click="saveEntryEdit()"
-                                        class="inline-flex items-center gap-2 rounded-full bg-pink-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-pink-700 dark:bg-pink-500 dark:hover:bg-pink-400">
+                                        class="inline-flex items-center gap-2 rounded-full bg-indigo-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-sky-500">
                                         <flux:icon name="check" class="size-4" />
                                         {{ __('บันทึกการแก้ไข') }}
                                     </button>
@@ -1171,7 +1171,7 @@
                         <div x-cloak x-show="moveModalOpen" x-transition.opacity
                             class="fixed inset-0 z-[110] flex items-center justify-center bg-zinc-950/50 px-4 py-6 backdrop-blur-sm">
                             <div x-show="moveModalOpen" x-transition
-                                class="w-full max-w-2xl rounded-[2rem] border border-pink-200 bg-white p-6 shadow-2xl shadow-pink-100/60 dark:border-zinc-700 dark:bg-zinc-900 dark:shadow-none">
+                                class="w-full max-w-2xl rounded-[2rem] border border-sky-200 bg-white p-6 shadow-2xl shadow-indigo-100/60 dark:border-zinc-700 dark:bg-zinc-900 dark:shadow-none">
                                 <div class="flex items-start justify-between gap-4">
                                     <div class="space-y-1">
                                         <h3 class="text-xl font-semibold text-zinc-900 dark:text-zinc-100">{{ __('ย้ายรายการไปโครงการอื่น') }}</h3>
@@ -1187,17 +1187,17 @@
                                     <template x-for="project in projectOptions" :key="'move-' + project.id">
                                         <label class="flex cursor-pointer items-center justify-between gap-4 rounded-2xl border px-4 py-3 transition"
                                             x-bind:class="moveTargetProjectId === project.id
-                                                ? 'border-pink-400 bg-pink-50 dark:border-pink-500 dark:bg-pink-500/10'
-                                                : 'border-zinc-200 hover:border-pink-300 dark:border-zinc-700 dark:hover:border-pink-500'">
+                                                ? 'border-indigo-400 bg-sky-50 dark:border-sky-500 dark:bg-indigo-500/10'
+                                                : 'border-zinc-200 hover:border-sky-300 dark:border-zinc-700 dark:hover:border-sky-500'">
                                             <div class="flex items-center gap-3">
                                                 <input type="radio" name="move-project" x-model="moveTargetProjectId" x-bind:value="project.id"
-                                                    class="border-zinc-300 text-pink-600 focus:ring-pink-500">
+                                                    class="border-zinc-300 text-indigo-600 focus:ring-sky-500">
                                                 <div>
                                                     <p class="text-sm font-medium text-zinc-800 dark:text-zinc-100" x-text="project.name"></p>
                                                     <p class="text-xs text-zinc-500 dark:text-zinc-400" x-text="entryProjectId(activeEntry) === project.id ? @js(__('โครงการปัจจุบัน')) : @js(__('โครงการปลายทาง'))"></p>
                                                 </div>
                                             </div>
-                                            <flux:icon x-show="moveTargetProjectId === project.id" name="check-circle" class="size-5 text-pink-500" />
+                                            <flux:icon x-show="moveTargetProjectId === project.id" name="check-circle" class="size-5 text-indigo-500" />
                                         </label>
                                     </template>
                                 </div>
@@ -1208,7 +1208,7 @@
                                         {{ __('ยกเลิก') }}
                                     </button>
                                     <button type="button" x-on:click="confirmMoveEntry()"
-                                        class="inline-flex items-center gap-2 rounded-full bg-pink-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-pink-700 dark:bg-pink-500 dark:hover:bg-pink-400">
+                                        class="inline-flex items-center gap-2 rounded-full bg-indigo-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-sky-500">
                                         <flux:icon name="folder-open" class="size-4" />
                                         {{ __('ย้ายรายการ') }}
                                     </button>
@@ -1260,27 +1260,27 @@
                                         </div>
                                         <div class="paper-bibliography-font space-y-0 text-[16px] leading-[2] text-zinc-700 dark:text-zinc-300">
                                             <template x-for="entry in filteredCitations()" :key="'paper-' + entry.id">
-                                                <div x-bind:data-entry-id="entry.id" class="group relative rounded-2xl px-3 py-1.5 transition hover:bg-pink-50 hover:ring-1 hover:ring-pink-200 dark:hover:bg-pink-500/10 dark:hover:ring-pink-500/20"
+                                                <div x-bind:data-entry-id="entry.id" class="group relative rounded-2xl px-3 py-1.5 transition hover:bg-sky-50 hover:ring-1 hover:ring-sky-200 dark:hover:bg-indigo-500/10 dark:hover:ring-sky-500/20"
                                                     x-bind:class="entryCardClasses(entry, 'paper')">
                                                     <p class="thai-distributed" style="padding-left: 0.5in; text-indent: -0.5in; line-height: 2;" x-html="entry.paperHtml || entry.text"></p>
-                                                    <div class="absolute right-3 top-3 hidden items-center gap-2 rounded-full bg-white/95 px-2 py-1.5 shadow-sm ring-1 ring-pink-200 group-hover:flex dark:bg-zinc-950/95 dark:ring-pink-500/20">
+                                                    <div class="absolute right-3 top-3 hidden items-center gap-2 rounded-full bg-white/95 px-2 py-1.5 shadow-sm ring-1 ring-sky-200 group-hover:flex dark:bg-zinc-950/95 dark:ring-sky-500/20">
                                                         <flux:tooltip content="{{ __('ดู') }}">
                                                             <button type="button" x-on:click="viewEntry(entry)"
-                                                                class="inline-flex size-8 items-center justify-center rounded-full text-zinc-500 transition hover:bg-pink-100 hover:text-pink-700 dark:text-zinc-400 dark:hover:bg-pink-500/10 dark:hover:text-pink-200"
+                                                                class="inline-flex size-8 items-center justify-center rounded-full text-zinc-500 transition hover:bg-sky-100 hover:text-indigo-700 dark:text-zinc-400 dark:hover:bg-indigo-500/10 dark:hover:text-sky-200"
                                                                 aria-label="{{ __('ดู') }}">
                                                                 <flux:icon name="eye" class="size-4" />
                                                             </button>
                                                         </flux:tooltip>
                                                         <flux:tooltip content="{{ __('แก้ไข') }}">
                                                             <button type="button" x-on:click="editEntry(entry)"
-                                                                class="inline-flex size-8 items-center justify-center rounded-full text-zinc-500 transition hover:bg-pink-100 hover:text-pink-700 dark:text-zinc-400 dark:hover:bg-pink-500/10 dark:hover:text-pink-200"
+                                                                class="inline-flex size-8 items-center justify-center rounded-full text-zinc-500 transition hover:bg-sky-100 hover:text-indigo-700 dark:text-zinc-400 dark:hover:bg-indigo-500/10 dark:hover:text-sky-200"
                                                                 aria-label="{{ __('แก้ไข') }}">
                                                                 <flux:icon name="pencil-square" class="size-4" />
                                                             </button>
                                                         </flux:tooltip>
                                                         <flux:tooltip content="{{ __('คัดลอก') }}">
                                                             <button type="button" x-on:click="copyEntry(entry)"
-                                                                class="inline-flex size-8 items-center justify-center rounded-full text-zinc-500 transition hover:bg-pink-100 hover:text-pink-700 dark:text-zinc-400 dark:hover:bg-pink-500/10 dark:hover:text-pink-200"
+                                                                class="inline-flex size-8 items-center justify-center rounded-full text-zinc-500 transition hover:bg-sky-100 hover:text-indigo-700 dark:text-zinc-400 dark:hover:bg-indigo-500/10 dark:hover:text-sky-200"
                                                                 aria-label="{{ __('คัดลอก') }}">
                                                                 <flux:icon x-show="copiedEntryId !== entry.id" name="clipboard-document" class="size-4" />
                                                                 <flux:icon x-show="copiedEntryId === entry.id" name="check" class="size-4 text-emerald-500" />
@@ -1288,7 +1288,7 @@
                                                         </flux:tooltip>
                                                         <flux:tooltip content="{{ __('ย้ายโครงการ') }}">
                                                             <button type="button" x-on:click="moveEntry(entry)"
-                                                                class="inline-flex size-8 items-center justify-center rounded-full text-zinc-500 transition hover:bg-pink-100 hover:text-pink-700 dark:text-zinc-400 dark:hover:bg-pink-500/10 dark:hover:text-pink-200"
+                                                                class="inline-flex size-8 items-center justify-center rounded-full text-zinc-500 transition hover:bg-sky-100 hover:text-indigo-700 dark:text-zinc-400 dark:hover:bg-indigo-500/10 dark:hover:text-sky-200"
                                                                 aria-label="{{ __('ย้ายโครงการ') }}">
                                                                 <flux:icon name="folder-open" class="size-4" />
                                                             </button>
@@ -1313,27 +1313,27 @@
                                     class="w-full max-w-3xl px-2 py-4">
                                     <ul class="space-y-4 text-[15px] leading-8 text-zinc-700 dark:text-zinc-300">
                                         <template x-for="entry in filteredCitations()" :key="'list-' + entry.id">
-                                            <li x-bind:data-entry-id="entry.id" class="group flex items-start justify-between gap-4 rounded-2xl border border-zinc-200 bg-white/95 px-4 py-3.5 shadow-sm shadow-zinc-200/50 transition hover:border-pink-300 hover:bg-pink-50 hover:shadow-pink-100/70 dark:border-zinc-700 dark:bg-zinc-950/90 dark:shadow-none dark:hover:border-pink-500/40 dark:hover:bg-pink-500/10"
+                                            <li x-bind:data-entry-id="entry.id" class="group flex items-start justify-between gap-4 rounded-2xl border border-zinc-200 bg-white/95 px-4 py-3.5 shadow-sm shadow-zinc-200/50 transition hover:border-sky-300 hover:bg-sky-50 hover:shadow-indigo-100/70 dark:border-zinc-700 dark:bg-zinc-950/90 dark:shadow-none dark:hover:border-sky-500/40 dark:hover:bg-indigo-500/10"
                                                 x-bind:class="entryCardClasses(entry, 'list')">
                                                 <span class="min-w-0 flex-1 leading-8" x-text="entry.text"></span>
                                                 <div class="hidden shrink-0 items-center gap-1.5 group-hover:flex">
                                                     <flux:tooltip content="{{ __('ดู') }}">
                                                         <button type="button" x-on:click="viewEntry(entry)"
-                                                            class="inline-flex size-8 items-center justify-center rounded-full text-zinc-500 transition hover:bg-pink-100 hover:text-pink-700 dark:text-zinc-400 dark:hover:bg-pink-500/10 dark:hover:text-pink-200"
+                                                            class="inline-flex size-8 items-center justify-center rounded-full text-zinc-500 transition hover:bg-sky-100 hover:text-indigo-700 dark:text-zinc-400 dark:hover:bg-indigo-500/10 dark:hover:text-sky-200"
                                                             aria-label="{{ __('ดู') }}">
                                                             <flux:icon name="eye" class="size-4" />
                                                         </button>
                                                     </flux:tooltip>
                                                     <flux:tooltip content="{{ __('แก้ไข') }}">
                                                         <button type="button" x-on:click="editEntry(entry)"
-                                                            class="inline-flex size-8 items-center justify-center rounded-full text-zinc-500 transition hover:bg-pink-100 hover:text-pink-700 dark:text-zinc-400 dark:hover:bg-pink-500/10 dark:hover:text-pink-200"
+                                                            class="inline-flex size-8 items-center justify-center rounded-full text-zinc-500 transition hover:bg-sky-100 hover:text-indigo-700 dark:text-zinc-400 dark:hover:bg-indigo-500/10 dark:hover:text-sky-200"
                                                             aria-label="{{ __('แก้ไข') }}">
                                                             <flux:icon name="pencil-square" class="size-4" />
                                                         </button>
                                                     </flux:tooltip>
                                                     <flux:tooltip content="{{ __('คัดลอก') }}">
                                                         <button type="button" x-on:click="copyEntry(entry)"
-                                                            class="inline-flex size-8 items-center justify-center rounded-full text-zinc-500 transition hover:bg-pink-100 hover:text-pink-700 dark:text-zinc-400 dark:hover:bg-pink-500/10 dark:hover:text-pink-200"
+                                                            class="inline-flex size-8 items-center justify-center rounded-full text-zinc-500 transition hover:bg-sky-100 hover:text-indigo-700 dark:text-zinc-400 dark:hover:bg-indigo-500/10 dark:hover:text-sky-200"
                                                             aria-label="{{ __('คัดลอก') }}">
                                                             <flux:icon x-show="copiedEntryId !== entry.id" name="clipboard-document" class="size-4" />
                                                             <flux:icon x-show="copiedEntryId === entry.id" name="check" class="size-4 text-emerald-500" />
@@ -1341,7 +1341,7 @@
                                                     </flux:tooltip>
                                                     <flux:tooltip content="{{ __('ย้ายโครงการ') }}">
                                                         <button type="button" x-on:click="moveEntry(entry)"
-                                                            class="inline-flex size-8 items-center justify-center rounded-full text-zinc-500 transition hover:bg-pink-100 hover:text-pink-700 dark:text-zinc-400 dark:hover:bg-pink-500/10 dark:hover:text-pink-200"
+                                                            class="inline-flex size-8 items-center justify-center rounded-full text-zinc-500 transition hover:bg-sky-100 hover:text-indigo-700 dark:text-zinc-400 dark:hover:bg-indigo-500/10 dark:hover:text-sky-200"
                                                             aria-label="{{ __('ย้ายโครงการ') }}">
                                                             <flux:icon name="folder-open" class="size-4" />
                                                         </button>
@@ -1365,27 +1365,27 @@
                                     class="w-full max-w-3xl px-2 py-4">
                                     <ul class="space-y-4 text-[15px] leading-8 text-zinc-700 dark:text-zinc-300">
                                         <template x-for="entry in filteredCitations()" :key="'citation-' + entry.id">
-                                            <li x-bind:data-entry-id="entry.id" class="group flex items-start justify-between gap-4 rounded-2xl border border-zinc-200 bg-white/95 px-4 py-3.5 shadow-sm shadow-zinc-200/50 transition hover:border-pink-300 hover:bg-pink-50 hover:shadow-pink-100/70 dark:border-zinc-700 dark:bg-zinc-950/90 dark:shadow-none dark:hover:border-pink-500/40 dark:hover:bg-pink-500/10"
+                                            <li x-bind:data-entry-id="entry.id" class="group flex items-start justify-between gap-4 rounded-2xl border border-zinc-200 bg-white/95 px-4 py-3.5 shadow-sm shadow-zinc-200/50 transition hover:border-sky-300 hover:bg-sky-50 hover:shadow-indigo-100/70 dark:border-zinc-700 dark:bg-zinc-950/90 dark:shadow-none dark:hover:border-sky-500/40 dark:hover:bg-indigo-500/10"
                                                 x-bind:class="entryCardClasses(entry, 'citation')">
                                                 <span class="min-w-0 flex-1 leading-8" x-text="entryNarrativePreview(entry)"></span>
                                                 <div class="hidden shrink-0 items-center gap-1.5 group-hover:flex">
                                                     <flux:tooltip content="{{ __('ดู') }}">
                                                         <button type="button" x-on:click="viewEntry(entry)"
-                                                            class="inline-flex size-8 items-center justify-center rounded-full text-zinc-500 transition hover:bg-pink-100 hover:text-pink-700 dark:text-zinc-400 dark:hover:bg-pink-500/10 dark:hover:text-pink-200"
+                                                            class="inline-flex size-8 items-center justify-center rounded-full text-zinc-500 transition hover:bg-sky-100 hover:text-indigo-700 dark:text-zinc-400 dark:hover:bg-indigo-500/10 dark:hover:text-sky-200"
                                                             aria-label="{{ __('ดู') }}">
                                                             <flux:icon name="eye" class="size-4" />
                                                         </button>
                                                     </flux:tooltip>
                                                     <flux:tooltip content="{{ __('แก้ไข') }}">
                                                         <button type="button" x-on:click="editEntry(entry)"
-                                                            class="inline-flex size-8 items-center justify-center rounded-full text-zinc-500 transition hover:bg-pink-100 hover:text-pink-700 dark:text-zinc-400 dark:hover:bg-pink-500/10 dark:hover:text-pink-200"
+                                                            class="inline-flex size-8 items-center justify-center rounded-full text-zinc-500 transition hover:bg-sky-100 hover:text-indigo-700 dark:text-zinc-400 dark:hover:bg-indigo-500/10 dark:hover:text-sky-200"
                                                             aria-label="{{ __('แก้ไข') }}">
                                                             <flux:icon name="pencil-square" class="size-4" />
                                                         </button>
                                                     </flux:tooltip>
                                                     <flux:tooltip content="{{ __('คัดลอก') }}">
                                                         <button type="button" x-on:click="copyEntry(entry)"
-                                                            class="inline-flex size-8 items-center justify-center rounded-full text-zinc-500 transition hover:bg-pink-100 hover:text-pink-700 dark:text-zinc-400 dark:hover:bg-pink-500/10 dark:hover:text-pink-200"
+                                                            class="inline-flex size-8 items-center justify-center rounded-full text-zinc-500 transition hover:bg-sky-100 hover:text-indigo-700 dark:text-zinc-400 dark:hover:bg-indigo-500/10 dark:hover:text-sky-200"
                                                             aria-label="{{ __('คัดลอก') }}">
                                                             <flux:icon x-show="copiedEntryId !== entry.id" name="clipboard-document" class="size-4" />
                                                             <flux:icon x-show="copiedEntryId === entry.id" name="check" class="size-4 text-emerald-500" />
@@ -1393,7 +1393,7 @@
                                                     </flux:tooltip>
                                                     <flux:tooltip content="{{ __('ย้ายโครงการ') }}">
                                                         <button type="button" x-on:click="moveEntry(entry)"
-                                                            class="inline-flex size-8 items-center justify-center rounded-full text-zinc-500 transition hover:bg-pink-100 hover:text-pink-700 dark:text-zinc-400 dark:hover:bg-pink-500/10 dark:hover:text-pink-200"
+                                                            class="inline-flex size-8 items-center justify-center rounded-full text-zinc-500 transition hover:bg-sky-100 hover:text-indigo-700 dark:text-zinc-400 dark:hover:bg-indigo-500/10 dark:hover:text-sky-200"
                                                             aria-label="{{ __('ย้ายโครงการ') }}">
                                                             <flux:icon name="folder-open" class="size-4" />
                                                         </button>
@@ -1418,14 +1418,14 @@
                 <section class="custom-scrollbar h-[calc(100vh-10rem)] overflow-y-auto lg:min-w-0 lg:justify-self-end">
                     <div class="pr-2">
                         <flux:heading size="lg" level="2">{{ __('ยังไม่ได้บันทึก') }}</flux:heading>
-                        <div class="mt-3 rounded-2xl border border-pink-200 bg-white/80 p-4 shadow-sm shadow-pink-100/40 dark:border-zinc-700 dark:bg-zinc-950/80 dark:shadow-none">
+                        <div class="mt-3 rounded-2xl border border-sky-200 bg-white/80 p-4 shadow-sm shadow-indigo-100/40 dark:border-zinc-700 dark:bg-zinc-950/80 dark:shadow-none">
                             <flux:text class="text-sm leading-6 text-zinc-600 dark:text-zinc-300">
                                 {{ __('โครงการและรายการบรรณานุกรมของคุณยังไม่มีการบันทึก เพื่อให้สามารถใช้งานได้เต็มรูปแบบ กรุณาเข้าสู่ระบบก่อนเริ่มใช้งานต่อ') }}
                             </flux:text>
 
                             @if (Route::has('login'))
                                 <a href="{{ route('login') }}"
-                                    class="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-pink-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-pink-700 dark:bg-pink-500 dark:hover:bg-pink-400">
+                                    class="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-sky-500">
                                     <flux:icon name="arrow-right-end-on-rectangle" class="size-4" />
                                     <span>{{ __('Sign in') }}</span>
                                 </a>
@@ -2477,10 +2477,10 @@
                     if (this.recentlyAddedEntryId !== entry?.id) return '';
 
                     if (mode === 'paper') {
-                        return 'recent-citation-entry bg-pink-50/90 ring-2 ring-pink-300 shadow-lg shadow-pink-100/70 dark:bg-pink-500/10 dark:ring-pink-500/40 dark:shadow-none';
+                        return 'recent-citation-entry bg-sky-50/90 ring-2 ring-sky-300 shadow-lg shadow-indigo-100/70 dark:bg-indigo-500/10 dark:ring-sky-500/40 dark:shadow-none';
                     }
 
-                    return 'recent-citation-entry border-pink-400 bg-pink-50 shadow-lg shadow-pink-100/80 dark:border-pink-500 dark:bg-pink-500/10 dark:shadow-none';
+                    return 'recent-citation-entry border-indigo-400 bg-sky-50 shadow-lg shadow-indigo-100/80 dark:border-sky-500 dark:bg-indigo-500/10 dark:shadow-none';
                 },
                 scrollToEntry(entryId) {
                     this.$nextTick(() => {

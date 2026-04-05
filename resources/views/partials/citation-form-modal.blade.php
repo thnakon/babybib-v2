@@ -1,13 +1,34 @@
 {{-- Citation Form Modal - APA 7th Edition --}}
+<style>
+    .citation-form-modal-shell input,
+    .citation-form-modal-shell select,
+    .citation-form-modal-shell textarea {
+        border-color: rgb(186 230 253);
+    }
+
+    .citation-form-modal-shell input:focus,
+    .citation-form-modal-shell select:focus,
+    .citation-form-modal-shell textarea:focus {
+        border-color: rgb(99 102 241);
+        box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.12);
+    }
+
+    .dark .citation-form-modal-shell input:focus,
+    .dark .citation-form-modal-shell select:focus,
+    .dark .citation-form-modal-shell textarea:focus {
+        border-color: rgb(56 189 248);
+        box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.14);
+    }
+</style>
 <div x-cloak x-show="formModalOpen" x-transition.opacity
     class="fixed inset-0 z-[110] flex items-center justify-center bg-zinc-950/50 px-4 py-6 backdrop-blur-sm">
     <div x-show="formModalOpen" x-transition
-        class="flex max-h-[92vh] w-full max-w-7xl flex-col overflow-hidden rounded-[2rem] border border-pink-200 bg-white shadow-2xl shadow-pink-100/60 dark:border-zinc-700 dark:bg-zinc-900 dark:shadow-none">
+        class="citation-form-modal-shell flex max-h-[92vh] w-full max-w-7xl flex-col overflow-hidden rounded-[2rem] border border-sky-200 bg-white shadow-2xl shadow-indigo-100/60 dark:border-zinc-700 dark:bg-zinc-900 dark:shadow-none">
 
         {{-- Header --}}
         <div class="flex items-center justify-between gap-4 border-b border-zinc-200 px-6 py-4 dark:border-zinc-800 lg:px-8">
             <div class="flex items-center gap-3">
-                <span class="inline-flex size-10 items-center justify-center rounded-2xl bg-pink-100 text-pink-600 ring-1 ring-pink-200 dark:bg-pink-500/10 dark:text-pink-300 dark:ring-pink-400/20">
+                <span class="inline-flex size-10 items-center justify-center rounded-2xl bg-indigo-100 text-indigo-600 ring-1 ring-sky-200 dark:bg-indigo-500/10 dark:text-sky-300 dark:ring-sky-400/20">
                     <flux:icon name="pencil-square" class="size-5" />
                 </span>
                 <div>
@@ -15,7 +36,7 @@
                         {{ __('กรอกข้อมูลบรรณานุกรม') }}
                     </h3>
                     <p class="text-xs text-zinc-500 dark:text-zinc-400">
-                        {{ __('ประเภท:') }} <span class="font-medium text-pink-600 dark:text-pink-300" x-text="resourceTypeLabel(formResourceType)"></span>
+                        {{ __('ประเภท:') }} <span class="font-medium text-indigo-600 dark:text-sky-300" x-text="resourceTypeLabel(formResourceType)"></span>
                         <span class="ml-2 rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-semibold text-amber-700 dark:bg-amber-500/10 dark:text-amber-300">APA 7th</span>
                     </p>
                 </div>
@@ -97,7 +118,7 @@
                             </div>
                         </template>
                         <button type="button" x-on:click="form.authors.push(emptyAuthor())"
-                            class="inline-flex items-center gap-1.5 rounded-lg border border-dashed border-zinc-300 px-3 py-1.5 text-xs font-medium text-zinc-500 transition hover:border-pink-400 hover:text-pink-600 dark:border-zinc-600 dark:text-zinc-400 dark:hover:border-pink-500 dark:hover:text-pink-300">
+                            class="inline-flex items-center gap-1.5 rounded-lg border border-dashed border-zinc-300 px-3 py-1.5 text-xs font-medium text-zinc-500 transition hover:border-indigo-400 hover:text-indigo-600 dark:border-zinc-600 dark:text-zinc-400 dark:hover:border-sky-500 dark:hover:text-sky-300">
                             <flux:icon name="plus" class="size-3" />
                             {{ __('เพิ่มผู้แต่ง') }}
                         </button>
@@ -161,7 +182,7 @@
                                     <h4 class="text-sm font-semibold text-zinc-800 dark:text-zinc-200">{{ __('ข้อมูลสำนักพิมพ์') }}</h4>
                                     <flux:tooltip content="{{ __('APA 7th: ใส่เฉพาะชื่อสำนักพิมพ์ ไม่ต้องใส่เมืองหรือประเทศ คงคำอย่าง Press, Books, Publisher ไว้ได้ และถ้าผู้แต่งกับสำนักพิมพ์เป็นหน่วยงานเดียวกันให้ละสำนักพิมพ์ออก') }}">
                                         <button type="button"
-                                            class="inline-flex size-5 items-center justify-center rounded-full text-zinc-400 transition hover:text-pink-500 dark:text-zinc-500 dark:hover:text-pink-300"
+                                            class="inline-flex size-5 items-center justify-center rounded-full text-zinc-400 transition hover:text-indigo-500 dark:text-zinc-500 dark:hover:text-sky-300"
                                             aria-label="{{ __('คำแนะนำการกรอกสำนักพิมพ์ตาม APA 7th') }}">
                                             <flux:icon name="information-circle" class="size-4" />
                                         </button>
@@ -600,18 +621,18 @@
             </div>
 
             {{-- Right: Real-time Preview --}}
-            <div class="hidden w-1/2 flex-col bg-gradient-to-br from-zinc-50 via-pink-50/30 to-zinc-50 p-6 dark:from-zinc-950 dark:via-pink-950/10 dark:to-zinc-950 lg:flex lg:px-8">
+            <div class="hidden w-1/2 flex-col bg-gradient-to-br from-slate-50 via-indigo-50/30 to-sky-50/60 p-6 dark:from-zinc-950 dark:via-indigo-950/10 dark:to-zinc-950 lg:flex lg:px-8">
                 <div class="sticky top-0 space-y-6">
                     {{-- Bibliography Preview --}}
                     <div class="space-y-3">
                         <div class="flex items-center gap-2">
-                            <span class="inline-flex size-6 items-center justify-center rounded-lg bg-pink-100 text-pink-600 dark:bg-pink-500/10 dark:text-pink-300">
+                            <span class="inline-flex size-6 items-center justify-center rounded-lg bg-indigo-100 text-indigo-600 dark:bg-indigo-500/10 dark:text-sky-300">
                                 <flux:icon name="document-text" class="size-3.5" />
                             </span>
                             <h4 class="text-sm font-semibold text-zinc-800 dark:text-zinc-200">{{ __('ตัวอย่างบรรณานุกรม') }}</h4>
-                            <span class="rounded-full bg-pink-100 px-2 py-0.5 text-[10px] font-semibold text-pink-600 dark:bg-pink-500/10 dark:text-pink-300">LIVE</span>
+                            <span class="rounded-full bg-indigo-100 px-2 py-0.5 text-[10px] font-semibold text-indigo-600 dark:bg-indigo-500/10 dark:text-sky-300">LIVE</span>
                         </div>
-                        <div class="min-h-[80px] rounded-2xl border border-pink-200 bg-white p-5 text-sm leading-8 text-zinc-700 shadow-sm dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300"
+                        <div class="min-h-[80px] rounded-2xl border border-sky-200 bg-white p-5 text-sm leading-8 text-zinc-700 shadow-sm shadow-indigo-100/30 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300"
                             style="padding-left: calc(0.5in + 1.25rem); text-indent: -0.5in;">
                             <p x-text="generateBibliography() || @js(__('กรุณากรอกข้อมูลด้านซ้ายเพื่อดูตัวอย่างบรรณานุกรมแบบเรียลไทม์...'))"
                                 x-bind:class="generateBibliography() ? 'text-zinc-800 dark:text-zinc-200' : 'text-zinc-400 dark:text-zinc-500 italic'">
@@ -666,7 +687,7 @@
                     {{ __('เปลี่ยนประเภท') }}
                 </button>
                 <button type="button" x-on:click="addCitationFromForm()"
-                    class="inline-flex items-center gap-2 rounded-full bg-pink-600 px-5 py-2 text-sm font-semibold text-white transition hover:bg-pink-700 active:scale-95 dark:bg-pink-500 dark:hover:bg-pink-400">
+                    class="inline-flex items-center gap-2 rounded-full bg-indigo-600 px-5 py-2 text-sm font-semibold text-white transition hover:bg-indigo-700 active:scale-95 dark:bg-indigo-500 dark:hover:bg-sky-500">
                     <flux:icon name="plus" class="size-4" />
                     {{ __('เพิ่มรายการ') }}
                 </button>

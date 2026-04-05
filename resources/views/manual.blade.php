@@ -15,7 +15,7 @@
             justify-content: center;
             width: 1.75rem;
             height: 1.75rem;
-            color: rgb(219 39 119);
+            color: rgb(79 70 229);
             transform-origin: center center;
             transition: transform 340ms cubic-bezier(0.22, 1, 0.36, 1), filter 260ms ease;
         }
@@ -28,7 +28,7 @@
             width: 1.05rem;
             height: 2px;
             border-radius: 9999px;
-            background: linear-gradient(90deg, rgba(244, 114, 182, 0.2), rgba(219, 39, 119, 0.8), rgba(244, 114, 182, 0.2));
+            background: linear-gradient(90deg, rgba(56, 189, 248, 0.2), rgba(99, 102, 241, 0.86), rgba(96, 165, 250, 0.24));
             transform: translateX(-50%) scaleX(0.4);
             opacity: 0;
             transition: transform 320ms cubic-bezier(0.16, 1, 0.3, 1), opacity 220ms ease;
@@ -55,7 +55,7 @@
             width: 100%;
             height: 2px;
             border-radius: 9999px;
-            background: linear-gradient(90deg, rgba(236, 72, 153, 0.3), rgba(219, 39, 119, 0.95), rgba(244, 114, 182, 0.3));
+            background: linear-gradient(90deg, rgba(129, 140, 248, 0.3), rgba(79, 70, 229, 0.95), rgba(56, 189, 248, 0.3));
             transform: scaleX(0.18);
             transform-origin: left center;
             opacity: 0.16;
@@ -64,7 +64,7 @@
 
         .brand-link:hover .brand-mark {
             transform: translateY(-1px) scale(1.04);
-            filter: drop-shadow(0 8px 16px rgba(236, 72, 153, 0.15));
+            filter: drop-shadow(0 10px 18px rgba(59, 130, 246, 0.18));
         }
 
         .brand-link:hover .brand-mark svg {
@@ -78,7 +78,7 @@
 
         .brand-link:hover .brand-label {
             transform: translateY(-1px);
-            text-shadow: 0 8px 22px rgba(219, 39, 119, 0.18);
+            text-shadow: 0 8px 22px rgba(79, 70, 229, 0.18);
         }
 
         .brand-link:hover .brand-label::after {
@@ -123,25 +123,25 @@
 </head>
 
 <body
-    class="min-h-screen font-sans antialiased bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 overflow-x-hidden">
+    class="min-h-screen overflow-x-hidden bg-slate-50 font-sans antialiased text-zinc-900 dark:bg-slate-950 dark:text-zinc-100">
     <!-- Navbar (Shared) -->
     <flux:header sticky
-        class="sticky top-0 w-full z-50 border-b bg-white/95 dark:bg-zinc-900/95 border-pink-100 dark:border-zinc-800 shadow-sm shadow-pink-100/40 backdrop-blur-md py-3">
+        class="sticky top-0 z-50 w-full border-b border-sky-100 bg-slate-50/95 py-3 shadow-sm shadow-indigo-100/40 backdrop-blur-md dark:border-slate-800 dark:bg-slate-950/95">
         <div class="container max-w-7xl mx-auto px-6 flex items-center justify-between">
             <div class="flex items-center gap-8">
                 <a href="/" class="brand-link flex items-center gap-2 group">
                     <div class="brand-mark">
                         <x-app-logo-icon />
                     </div>
-                    <span class="brand-label text-xl font-bold tracking-tight text-pink-700 dark:text-pink-200">
+                    <span class="brand-label text-xl font-bold tracking-tight text-indigo-700 dark:text-sky-200">
                         Babybib
-                        <span class="absolute -right-5 -top-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-pink-300 dark:text-pink-400">v2</span>
+                        <span class="absolute -right-5 -top-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-sky-400 dark:text-sky-300">v2</span>
                     </span>
                 </a>
             </div>
 
             <div class="flex items-center gap-1">
-                <flux:navbar class="hidden md:flex gap-1 text-sm font-medium text-zinc-500 mr-2 [&_[data-current]]:text-pink-600 dark:[&_[data-current]]:text-pink-300 [&_[data-current]]:border-pink-500">
+                <flux:navbar class="mr-2 hidden gap-1 text-sm font-medium text-zinc-500 [&_[data-current]]:border-indigo-500 [&_[data-current]]:text-indigo-600 dark:[&_[data-current]]:text-sky-300 md:flex">
                     <flux:tooltip content="{{ __('User Manual') }}" position="bottom">
                         <flux:navbar.item href="{{ route('manual') }}" current>{{ __('Manual') }}</flux:navbar.item>
                     </flux:tooltip>
@@ -173,16 +173,16 @@
                             x-transition:leave-end="opacity-0 translate-y-2"
                             class="absolute left-0 top-full pt-2 z-50 w-48" style="display: none;">
                             <div
-                                class="bg-white dark:bg-zinc-900 rounded-xl border border-pink-100 dark:border-zinc-800 shadow-xl shadow-pink-100/40 overflow-hidden p-1.5">
+                                class="overflow-hidden rounded-xl border border-sky-100 bg-white p-1.5 shadow-xl shadow-indigo-100/50 dark:border-slate-800 dark:bg-slate-900">
                                 <flux:menu.item href="#"
-                                    class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-pink-50 hover:!text-pink-700 dark:hover:!bg-pink-500/10 dark:hover:!text-pink-200 transition-colors">
+                                    class="!text-zinc-600 transition-colors hover:!bg-sky-50 hover:!text-indigo-700 dark:!text-zinc-400 dark:hover:!bg-indigo-500/10 dark:hover:!text-sky-200">
                                     {{ __('Help Center') }}</flux:menu.item>
                                 <flux:menu.item href="#"
-                                    class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-pink-50 hover:!text-pink-700 dark:hover:!bg-pink-500/10 dark:hover:!text-pink-200 transition-colors">
+                                    class="!text-zinc-600 transition-colors hover:!bg-sky-50 hover:!text-indigo-700 dark:!text-zinc-400 dark:hover:!bg-indigo-500/10 dark:hover:!text-sky-200">
                                     {{ __('Contact Support') }}</flux:menu.item>
                                 <flux:menu.separator />
                                 <flux:menu.item href="#"
-                                    class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-pink-50 hover:!text-pink-700 dark:hover:!bg-pink-500/10 dark:hover:!text-pink-200 transition-colors">
+                                    class="!text-zinc-600 transition-colors hover:!bg-sky-50 hover:!text-indigo-700 dark:!text-zinc-400 dark:hover:!bg-indigo-500/10 dark:hover:!text-sky-200">
                                     {{ __('Community Discord') }}</flux:menu.item>
                             </div>
                         </div>
@@ -206,18 +206,18 @@
                             x-transition:leave-end="opacity-0 translate-y-2"
                             class="absolute left-0 top-full pt-2 z-50 w-44" style="display: none;">
                             <div
-                                class="bg-white dark:bg-zinc-900 rounded-xl border border-pink-100 dark:border-zinc-800 shadow-xl shadow-pink-100/40 overflow-hidden p-1.5">
+                                class="overflow-hidden rounded-xl border border-sky-100 bg-white p-1.5 shadow-xl shadow-indigo-100/50 dark:border-slate-800 dark:bg-slate-900">
                                 <flux:menu.item href="#" icon="facebook"
-                                    class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-pink-50 hover:!text-pink-700 dark:hover:!bg-pink-500/10 dark:hover:!text-pink-200 transition-colors">
+                                    class="!text-zinc-600 transition-colors hover:!bg-sky-50 hover:!text-indigo-700 dark:!text-zinc-400 dark:hover:!bg-indigo-500/10 dark:hover:!text-sky-200">
                                     Facebook</flux:menu.item>
                                 <flux:menu.item href="#" icon="instagram"
-                                    class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-pink-50 hover:!text-pink-700 dark:hover:!bg-pink-500/10 dark:hover:!text-pink-200 transition-colors">
+                                    class="!text-zinc-600 transition-colors hover:!bg-sky-50 hover:!text-indigo-700 dark:!text-zinc-400 dark:hover:!bg-indigo-500/10 dark:hover:!text-sky-200">
                                     Instagram</flux:menu.item>
                                 <flux:menu.item href="#" icon="twitter"
-                                    class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-pink-50 hover:!text-pink-700 dark:hover:!bg-pink-500/10 dark:hover:!text-pink-200 transition-colors">
+                                    class="!text-zinc-600 transition-colors hover:!bg-sky-50 hover:!text-indigo-700 dark:!text-zinc-400 dark:hover:!bg-indigo-500/10 dark:hover:!text-sky-200">
                                     X (Twitter)</flux:menu.item>
                                 <flux:menu.item href="#" icon="line"
-                                    class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-pink-50 hover:!text-pink-700 dark:hover:!bg-pink-500/10 dark:hover:!text-pink-200 transition-colors">
+                                    class="!text-zinc-600 transition-colors hover:!bg-sky-50 hover:!text-indigo-700 dark:!text-zinc-400 dark:hover:!bg-indigo-500/10 dark:hover:!text-sky-200">
                                     Line</flux:menu.item>
                             </div>
                         </div>
@@ -244,12 +244,12 @@
                         x-transition:leave-end="opacity-0 translate-y-2"
                         class="absolute right-0 top-full pt-2 z-50 w-32" style="display: none;">
                         <div
-                            class="bg-white dark:bg-zinc-900 rounded-xl border border-pink-100 dark:border-zinc-800 shadow-xl shadow-pink-100/40 overflow-hidden p-1.5">
+                            class="overflow-hidden rounded-xl border border-sky-100 bg-white p-1.5 shadow-xl shadow-indigo-100/50 dark:border-slate-800 dark:bg-slate-900">
                             <flux:menu.item href="{{ route('change-language', 'en') }}"
-                                class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-pink-50 hover:!text-pink-700 dark:hover:!bg-pink-500/10 dark:hover:!text-pink-200 transition-colors">
+                                class="!text-zinc-600 transition-colors hover:!bg-sky-50 hover:!text-indigo-700 dark:!text-zinc-400 dark:hover:!bg-indigo-500/10 dark:hover:!text-sky-200">
                                 English (EN)</flux:menu.item>
                             <flux:menu.item href="{{ route('change-language', 'th') }}"
-                                class="!text-zinc-600 dark:!text-zinc-400 hover:!bg-pink-50 hover:!text-pink-700 dark:hover:!bg-pink-500/10 dark:hover:!text-pink-200 transition-colors">
+                                class="!text-zinc-600 transition-colors hover:!bg-sky-50 hover:!text-indigo-700 dark:!text-zinc-400 dark:hover:!bg-indigo-500/10 dark:hover:!text-sky-200">
                                 ไทย (TH)</flux:menu.item>
                         </div>
                     </div>
@@ -257,7 +257,7 @@
 
                 <flux:tooltip content="{{ __('Toggle appearance') }}" position="bottom">
                     <button type="button" onclick="window.toggleDarkMode()"
-                        class="p-2 rounded-lg hover:bg-pink-50 hover:text-pink-700 dark:hover:bg-pink-500/10 dark:hover:text-pink-200 transition-colors focus:outline-none">
+                        class="rounded-lg p-2 transition-colors hover:bg-sky-50 hover:text-indigo-700 focus:outline-none dark:hover:bg-indigo-500/10 dark:hover:text-sky-200">
                         <flux:icon name="moon" class="w-5 h-5 dark:hidden" />
                         <flux:icon name="sun" class="w-5 h-5 hidden dark:block" />
                     </button>
@@ -273,7 +273,7 @@
                     @else
                         <flux:tooltip content="{{ __('Sign in to your account') }}" position="bottom">
                             <flux:button href="{{ route('login') }}" variant="primary" size="sm"
-                                class="group/signin px-5 font-bold shadow-sm transition-all hover:scale-[1.02] active:scale-95 bg-pink-600 hover:bg-pink-700 dark:bg-pink-500 dark:hover:bg-pink-400 border-pink-600 dark:border-pink-500">
+                                class="group/signin border-indigo-600 bg-indigo-600 px-5 font-bold shadow-sm shadow-indigo-500/20 transition-all hover:scale-[1.02] hover:bg-indigo-700 active:scale-95 dark:border-indigo-500 dark:bg-indigo-500 dark:hover:bg-sky-500">
                                 <span>{{ __('Sign in') }}</span>
                                 <flux:icon name="arrow-right"
                                     class="w-4 h-4 ml-1.5 transition-transform group-hover/signin:translate-x-1" />
@@ -301,7 +301,7 @@
                             <flux:icon name="magnifying-glass" class="size-4" />
                         </div>
                         <input x-ref="searchInput" type="text" placeholder="{{ __('Search...') }}"
-                            class="w-full pl-9 pr-12 py-2 text-sm bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl focus:outline-none focus:ring-2 focus:ring-zinc-900/5 dark:focus:ring-white/5 focus:border-zinc-400 dark:focus:border-zinc-600 transition-all placeholder:text-zinc-400">
+                            class="w-full rounded-xl border border-sky-100 bg-white/80 py-2 pl-9 pr-12 text-sm transition-all placeholder:text-zinc-400 focus:border-indigo-300 focus:outline-none focus:ring-2 focus:ring-sky-500/10 dark:border-slate-800 dark:bg-slate-900 dark:focus:border-sky-500 dark:focus:ring-sky-400/10">
                         <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                             <kbd class="hidden sm:inline-flex items-center px-1.5 py-0.5 rounded border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 font-sans text-[10px] font-medium text-zinc-400"
                                 x-text="shortcut"></kbd>
@@ -314,10 +314,10 @@
                     </h3>
                     <ul class="space-y-4">
                         <li><a href="#"
-                                class="block text-sm font-semibold text-zinc-900 dark:text-white border-l-2 border-zinc-900 dark:border-white pl-4 -ml-px">{{ __('Installation') }}</a>
+                                class="-ml-px block border-l-2 border-indigo-500 pl-4 text-sm font-semibold text-indigo-700 dark:border-sky-400 dark:text-sky-200">{{ __('Installation') }}</a>
                         </li>
                         <li><a href="#"
-                                class="block text-sm font-medium text-zinc-500 hover:text-zinc-900 dark:hover:text-white pl-4 border-l-2 border-transparent transition-colors">{{ __('Upgrade guide') }}</a>
+                                class="block border-l-2 border-transparent pl-4 text-sm font-medium text-zinc-500 transition-colors hover:text-indigo-700 dark:hover:text-sky-200">{{ __('Upgrade guide') }}</a>
                         </li>
                         <li><a href="#"
                                 class="block text-sm font-medium text-zinc-500 hover:text-zinc-900 dark:hover:text-white pl-4 border-l-2 border-transparent transition-colors">{{ __('Principles') }}</a>
@@ -376,11 +376,11 @@
                 </p>
 
                 <!-- Box Tip -->
-                <div class="bg-zinc-50 dark:bg-zinc-900/50 rounded-xl  dark:border-zinc-800 p-6 flex gap-4 mb-12">
-                    <flux:icon name="light-bulb" class="size-6 text-zinc-400 shrink-0" />
+                <div class="mb-12 flex gap-4 rounded-xl border border-sky-100 bg-gradient-to-r from-indigo-50/80 to-sky-50/80 p-6 dark:border-slate-800 dark:bg-slate-900/60">
+                    <flux:icon name="light-bulb" class="size-6 shrink-0 text-indigo-500 dark:text-sky-300" />
                     <p class="text-sm text-zinc-600 dark:text-zinc-400">
                         {{ __('Starting a new project?') }} Flux comes baked into the new <a href="#"
-                            class="text-zinc-900 dark:text-white font-semibold underline underline-offset-4 decoration-zinc-300">Livewire
+                            class="font-semibold text-indigo-700 underline decoration-sky-300 underline-offset-4 dark:text-sky-200">Livewire
                             starter kit &rarr;</a>
                     </p>
                 </div>
@@ -403,7 +403,7 @@
 
                     <div
                         class="p-6 bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-sm relative group hover:border-zinc-400 dark:hover:border-zinc-600 transition-all">
-                        <flux:icon name="bolt" class="size-8 text-pink-500 mb-4" />
+                        <flux:icon name="bolt" class="mb-4 size-8 text-indigo-500" />
                         <h4 class="font-bold mb-1">Livewire</h4>
                         <p class="text-xs text-zinc-500">{{ __('Version 3.7.0 or later') }}</p>
                         <flux:icon name="arrow-up-right"
@@ -445,10 +445,10 @@
                 {{ __('On this page') }}</h3>
             <ul class="space-y-4 text-sm font-medium text-zinc-500">
                 <li><a href="#"
-                        class="hover:text-zinc-900 dark:hover:text-white transition-colors">{{ __('Introduction') }}</a>
+                        class="transition-colors hover:text-indigo-700 dark:hover:text-sky-200">{{ __('Introduction') }}</a>
                 </li>
                 <li><a href="#"
-                        class="text-zinc-900 dark:text-white border-l-2 border-zinc-900 dark:border-white pl-4 -ml-px">{{ __('Prerequisites') }}</a>
+                        class="-ml-px border-l-2 border-indigo-500 pl-4 text-indigo-700 dark:border-sky-400 dark:text-sky-200">{{ __('Prerequisites') }}</a>
                 </li>
                 <li><a href="#"
                         class="hover:text-zinc-900 dark:hover:text-white transition-colors pl-4 border-l-2 border-transparent">{{ __('Getting started') }}</a>
