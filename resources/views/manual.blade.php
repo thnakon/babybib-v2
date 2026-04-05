@@ -4,6 +4,88 @@
 <head>
     @include('partials.head', ['title' => __('Manual')])
     <style>
+        .brand-link {
+            position: relative;
+        }
+
+        .brand-mark {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 1.75rem;
+            height: 1.75rem;
+            color: rgb(219 39 119);
+            transform-origin: center center;
+            transition: transform 340ms cubic-bezier(0.22, 1, 0.36, 1), filter 260ms ease;
+        }
+
+        .brand-mark::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: -0.1rem;
+            width: 1.05rem;
+            height: 2px;
+            border-radius: 9999px;
+            background: linear-gradient(90deg, rgba(244, 114, 182, 0.2), rgba(219, 39, 119, 0.8), rgba(244, 114, 182, 0.2));
+            transform: translateX(-50%) scaleX(0.4);
+            opacity: 0;
+            transition: transform 320ms cubic-bezier(0.16, 1, 0.3, 1), opacity 220ms ease;
+        }
+
+        .brand-mark svg {
+            width: 100%;
+            height: 100%;
+            transition: transform 340ms cubic-bezier(0.22, 1, 0.36, 1), color 220ms ease;
+        }
+
+        .brand-label {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1), color 220ms ease, text-shadow 320ms ease;
+        }
+
+        .brand-label::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -0.18rem;
+            width: 100%;
+            height: 2px;
+            border-radius: 9999px;
+            background: linear-gradient(90deg, rgba(236, 72, 153, 0.3), rgba(219, 39, 119, 0.95), rgba(244, 114, 182, 0.3));
+            transform: scaleX(0.18);
+            transform-origin: left center;
+            opacity: 0.16;
+            transition: transform 360ms cubic-bezier(0.16, 1, 0.3, 1), opacity 220ms ease;
+        }
+
+        .brand-link:hover .brand-mark {
+            transform: translateY(-1px) scale(1.04);
+            filter: drop-shadow(0 8px 16px rgba(236, 72, 153, 0.15));
+        }
+
+        .brand-link:hover .brand-mark svg {
+            transform: perspective(48px) rotateY(-10deg) rotateZ(-2deg);
+        }
+
+        .brand-link:hover .brand-mark::after {
+            transform: translateX(-50%) scaleX(1);
+            opacity: 0.95;
+        }
+
+        .brand-link:hover .brand-label {
+            transform: translateY(-1px);
+            text-shadow: 0 8px 22px rgba(219, 39, 119, 0.18);
+        }
+
+        .brand-link:hover .brand-label::after {
+            transform: scaleX(1);
+            opacity: 0.95;
+        }
+
         .custom-scrollbar::-webkit-scrollbar {
             width: 8px;
         }
@@ -27,6 +109,16 @@
         .dark .custom-scrollbar:hover::-webkit-scrollbar-thumb {
             background: #27272a;
         }
+
+        @media (prefers-reduced-motion: reduce) {
+            .brand-mark,
+            .brand-mark::after,
+            .brand-mark svg,
+            .brand-label,
+            .brand-label::after {
+                transition-duration: 0.01ms !important;
+            }
+        }
     </style>
 </head>
 
@@ -37,14 +129,11 @@
         class="sticky top-0 w-full z-50 border-b bg-white/95 dark:bg-zinc-900/95 border-pink-100 dark:border-zinc-800 shadow-sm shadow-pink-100/40 backdrop-blur-md py-3">
         <div class="container max-w-7xl mx-auto px-6 flex items-center justify-between">
             <div class="flex items-center gap-8">
-                <a href="/" class="flex items-center gap-2 group">
-                    <div class="flex gap-0.5 items-end h-5">
-                        <div class="w-1 bg-pink-400 dark:bg-pink-300 h-2 rounded-full transition-all group-hover:h-4"></div>
-                        <div class="w-1 bg-pink-500 dark:bg-pink-200 h-4 rounded-full transition-all group-hover:h-3"></div>
-                        <div class="w-1 bg-pink-600 dark:bg-pink-100 h-5 rounded-full transition-all group-hover:h-2">
-                        </div>
+                <a href="/" class="brand-link flex items-center gap-2 group">
+                    <div class="brand-mark">
+                        <x-app-logo-icon />
                     </div>
-                    <span class="relative text-xl font-bold tracking-tight text-pink-700 dark:text-pink-200">
+                    <span class="brand-label text-xl font-bold tracking-tight text-pink-700 dark:text-pink-200">
                         Babybib
                         <span class="absolute -right-5 -top-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-pink-300 dark:text-pink-400">v2</span>
                     </span>
